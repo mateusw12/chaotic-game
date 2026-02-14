@@ -30,6 +30,8 @@ SUPABASE_WALLETS_TABLE=user_wallets
 SUPABASE_CREATURES_TABLE=creatures
 SUPABASE_ABILITIES_TABLE=abilities
 SUPABASE_CREATURE_IMAGES_BUCKET=creature-images
+SUPABASE_LOCATIONS_TABLE=locations
+SUPABASE_LOCATION_IMAGES_BUCKET=location-images
 ```
 
 For creature images, create a Supabase Storage bucket (public) with the same name as `SUPABASE_CREATURE_IMAGES_BUCKET`.
@@ -90,6 +92,13 @@ Creature registration (admin):
 - Creature payload stores only `imageFileId` (Storage path), and URL is resolved for display.
 - Ability API: `GET /api/admin/abilities`
 - Ability API: `POST /api/admin/abilities`
+
+Location registration (admin):
+
+- Page: `/admin/locations`
+- API: `GET /api/admin/locations`
+- API: `POST /api/admin/locations`
+- Upload API: `POST /api/admin/uploads/locations` (multipart form-data with `file`)
 
 Ability parameters:
 

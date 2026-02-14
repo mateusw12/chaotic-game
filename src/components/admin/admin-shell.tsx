@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOutlined, SafetyOutlined, SettingOutlined } from "@ant-design/icons";
+import { BookOutlined, EnvironmentOutlined, SafetyOutlined, SettingOutlined } from "@ant-design/icons";
 import { Layout, Menu, Typography } from "antd";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -30,6 +30,11 @@ export function AdminShell({ selectedKey, children }: AdminShellProps) {
                 key: "abilities",
                 icon: <SettingOutlined />,
                 label: <Link href="/admin/abilities">Cadastro de Habilidades</Link>,
+            },
+            {
+                key: "locations",
+                icon: <EnvironmentOutlined />,
+                label: <Link href="/admin/locations">Cadastro de Locais</Link>,
             },
         ],
         [],

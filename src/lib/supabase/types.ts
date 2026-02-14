@@ -6,6 +6,7 @@ import type {
     AbilityTargetScope,
 } from "@/dto/ability";
 import type { CreatureElement, CreatureTribe } from "@/dto/creature";
+import type { LocationAbilityDto } from "@/dto/location";
 
 export type SupabaseApiError = {
     code?: string;
@@ -74,6 +75,18 @@ export type SupabaseAbilityRow = {
     stat: AbilityStat;
     value: number;
     description: string | null;
+    created_at: string;
+    updated_at: string;
+};
+
+export type SupabaseLocationRow = {
+    id: string;
+    name: string;
+    image_file_id: string | null;
+    image_url: string | null;
+    initiative_elements: CreatureElement[];
+    tribes: CreatureTribe[];
+    abilities: LocationAbilityDto[];
     created_at: string;
     updated_at: string;
 };

@@ -77,6 +77,18 @@ create table if not exists public.abilities (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.locations (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  image_file_id text,
+  image_url text,
+  initiative_elements text[] not null default '{}'::text[],
+  tribes text[] not null default '{}'::text[],
+  abilities jsonb not null default '[]'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 alter table if exists public.abilities
   add column if not exists target_scope text not null default 'all_creatures';
 
@@ -109,6 +121,21 @@ alter table if exists public.creatures
 alter table if exists public.creatures
   add column if not exists image_file_id text;
 
+alter table if exists public.locations
+  add column if not exists image_file_id text;
+
+alter table if exists public.locations
+  add column if not exists image_url text;
+
+alter table if exists public.locations
+  add column if not exists initiative_elements text[] not null default '{}'::text[];
+
+alter table if exists public.locations
+  add column if not exists tribes text[] not null default '{}'::text[];
+
+alter table if exists public.locations
+  add column if not exists abilities jsonb not null default '[]'::jsonb;
+
 do $$
 begin
   if not exists (
@@ -133,6 +160,32 @@ begin
       foreign key (brainwashed_ability_id)
       references public.abilities(id)
       on delete set null;
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'locations_tribes_check'
+  ) then
+    alter table public.locations
+      add constraint locations_tribes_check
+      check (tribes <@ array['overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient']::text[]);
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'locations_initiative_elements_check'
+  ) then
+    alter table public.locations
+      add constraint locations_initiative_elements_check
+      check (initiative_elements <@ array['fire', 'water', 'earth', 'air']::text[]);
   end if;
 end $$;
 

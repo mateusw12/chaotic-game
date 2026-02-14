@@ -1,5 +1,13 @@
 import { ABILITY_CATEGORIES, ABILITY_EFFECT_TYPES, ABILITY_STATS, ABILITY_TARGET_SCOPES, type AbilityCategory, type AbilityEffectType, type AbilityStat, type AbilityTargetScope } from "@/dto/ability";
 import { CREATURE_ELEMENTS, CREATURE_TRIBES, type CreatureElement, type CreatureTribe } from "@/dto/creature";
+import {
+    LOCATION_CARD_TYPES,
+    LOCATION_EFFECT_TYPES,
+    LOCATION_STATS,
+    type LocationCardType,
+    type LocationEffectType,
+    type LocationStat,
+} from "@/dto/location";
 import type { SupabaseApiError } from "./types";
 
 export function isMissingTableError(error: SupabaseApiError): boolean {
@@ -20,6 +28,10 @@ export function getCreaturesTableName() {
 
 export function getAbilitiesTableName() {
     return process.env.SUPABASE_ABILITIES_TABLE ?? "abilities";
+}
+
+export function getLocationsTableName() {
+    return process.env.SUPABASE_LOCATIONS_TABLE ?? "locations";
 }
 
 export function isValidTribe(value: string): value is CreatureTribe {
@@ -44,4 +56,16 @@ export function isValidAbilityStat(value: string): value is AbilityStat {
 
 export function isValidAbilityTargetScope(value: string): value is AbilityTargetScope {
     return ABILITY_TARGET_SCOPES.includes(value as AbilityTargetScope);
+}
+
+export function isValidLocationEffectType(value: string): value is LocationEffectType {
+    return LOCATION_EFFECT_TYPES.includes(value as LocationEffectType);
+}
+
+export function isValidLocationStat(value: string): value is LocationStat {
+    return LOCATION_STATS.includes(value as LocationStat);
+}
+
+export function isValidLocationCardType(value: string): value is LocationCardType {
+    return LOCATION_CARD_TYPES.includes(value as LocationCardType);
 }
