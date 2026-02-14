@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { ProfileView } from "@/components/player/profile-view";
 import { auth } from "@/lib/auth";
-import { getUserDashboardByEmail, getUserProfileByEmail } from "@/lib/supabase";
+import { getUserByEmail, getUserDashboardByEmail, getUserProfileByEmail, getUserProgressionOverview } from "@/lib/supabase";
 
 export default async function ProfilePage() {
     const session = await auth();
@@ -13,12 +13,19 @@ export default async function ProfilePage() {
 
     let dashboard = null;
     let profile = null;
+    let progressionOverview = null;
 
     try {
         [dashboard, profile] = await Promise.all([
             getUserDashboardByEmail(email),
             getUserProfileByEmail(email),
         ]);
+
+        const user = await getUserByEmail(email);
+
+        if (user) {
+            progressionOverview = await getUserProgressionOverview(user.id);
+        }
     } catch (error) {
         console.error("Erro ao carregar perfil:", error);
     }
@@ -31,6 +38,7 @@ export default async function ProfilePage() {
             userRole={dashboard?.userRole ?? "user"}
             coins={dashboard?.coins ?? 0}
             diamonds={dashboard?.diamonds ?? 0}
+            progressionOverview={progressionOverview}
         />
     );
 }

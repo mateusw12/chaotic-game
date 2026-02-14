@@ -67,6 +67,18 @@ export type UserProgressionOverviewDto = {
     recentEvents: ProgressionEventDto[];
     coins: number;
     diamonds: number;
+    stats: UserProgressionStatsDto;
+};
+
+export type UserProgressionStatsDto = {
+    score: number;
+    victories: number;
+    defeats: number;
+    totalCards: number;
+    locationCards: number;
+    battlegearCards: number;
+    attackCards: number;
+    cardsByTribe: Record<CreatureTribe, number>;
 };
 
 export type GetUserProgressionOverviewResponseDto = {

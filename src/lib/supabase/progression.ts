@@ -1,4 +1,4 @@
-import type { CardRarity } from "@/dto/creature";
+import { CREATURE_TRIBES, type CardRarity, type CreatureTribe } from "@/dto/creature";
 import {
     type ProgressionEventDto,
     type ProgressionEventSource,
@@ -6,6 +6,7 @@ import {
     type UserCardType,
     type UserProgressionDto,
     type UserProgressionOverviewDto,
+    type UserProgressionStatsDto,
     isValidUserCardType,
 } from "@/dto/progression";
 import {
@@ -392,6 +393,7 @@ export async function getUserProgressionOverview(userId: string): Promise<UserPr
         listUserCardInventory(userId),
         listRecentProgressionEvents(userId, 15),
     ]);
+    const stats = await buildOverviewStats(userId, progression, inventory);
 
     return {
         progression,
@@ -399,6 +401,7 @@ export async function getUserProgressionOverview(userId: string): Promise<UserPr
         recentEvents,
         coins: wallet.coins,
         diamonds: wallet.diamonds,
+        stats,
     };
 }
 
@@ -624,4 +627,162 @@ export async function discardUserCardById(userId: string, userCardId: string, qu
             totalCoins: coinsDelta,
         },
     });
+}
+
+function createEmptyTribeCounter(): Record<CreatureTribe, number> {
+    return CREATURE_TRIBES.reduce((accumulator, tribe) => {
+        accumulator[tribe] = 0;
+        return accumulator;
+    }, {} as Record<CreatureTribe, number>);
+}
+
+async function buildTribeCardCounter(
+    inventory: UserCardInventoryItemDto[],
+): Promise<Record<CreatureTribe, number>> {
+    const supabase = getSupabaseAdminClient();
+    const byTribe = createEmptyTribeCounter();
+    const quantityByTypeAndId = new Map<string, number>();
+
+    for (const item of inventory) {
+        quantityByTypeAndId.set(`${item.cardType}:${item.cardId}`, item.quantity);
+    }
+
+    const creatureIds = inventory
+        .filter((item) => item.cardType === "creature")
+        .map((item) => item.cardId);
+
+    if (creatureIds.length > 0) {
+        const { data } = await supabase
+            .from(getCreaturesTableName())
+            .select("id,tribe")
+            .in("id", creatureIds)
+            .returns<Array<{ id: string; tribe: CreatureTribe }>>();
+
+        for (const row of data ?? []) {
+            const quantity = quantityByTypeAndId.get(`creature:${row.id}`) ?? 0;
+            byTribe[row.tribe] += quantity;
+        }
+    }
+
+    const locationIds = inventory
+        .filter((item) => item.cardType === "location")
+        .map((item) => item.cardId);
+
+    if (locationIds.length > 0) {
+        const { data } = await supabase
+            .from(getLocationsTableName())
+            .select("id,tribes")
+            .in("id", locationIds)
+            .returns<Array<{ id: string; tribes: CreatureTribe[] }>>();
+
+        for (const row of data ?? []) {
+            const quantity = quantityByTypeAndId.get(`location:${row.id}`) ?? 0;
+
+            for (const tribe of row.tribes ?? []) {
+                byTribe[tribe] += quantity;
+            }
+        }
+    }
+
+    const battlegearIds = inventory
+        .filter((item) => item.cardType === "battlegear")
+        .map((item) => item.cardId);
+
+    if (battlegearIds.length > 0) {
+        const { data } = await supabase
+            .from(getBattlegearTableName())
+            .select("id,allowed_tribes")
+            .in("id", battlegearIds)
+            .returns<Array<{ id: string; allowed_tribes: CreatureTribe[] }>>();
+
+        for (const row of data ?? []) {
+            const quantity = quantityByTypeAndId.get(`battlegear:${row.id}`) ?? 0;
+
+            for (const tribe of row.allowed_tribes ?? []) {
+                byTribe[tribe] += quantity;
+            }
+        }
+    }
+
+    const mugicIds = inventory
+        .filter((item) => item.cardType === "mugic")
+        .map((item) => item.cardId);
+
+    if (mugicIds.length > 0) {
+        const { data } = await supabase
+            .from(getMugicTableName())
+            .select("id,tribes")
+            .in("id", mugicIds)
+            .returns<Array<{ id: string; tribes: CreatureTribe[] }>>();
+
+        for (const row of data ?? []) {
+            const quantity = quantityByTypeAndId.get(`mugic:${row.id}`) ?? 0;
+
+            for (const tribe of row.tribes ?? []) {
+                byTribe[tribe] += quantity;
+            }
+        }
+    }
+
+    return byTribe;
+}
+
+async function countBattleVictories(userId: string): Promise<number> {
+    const supabase = getSupabaseAdminClient();
+    const tableName = getProgressionEventsTableName();
+
+    const { count, error } = await supabase
+        .from(tableName)
+        .select("id", { count: "exact", head: true })
+        .eq("user_id", userId)
+        .eq("source", "battle_victory");
+
+    if (error) {
+        throw new Error(`Erro ao contar vitórias: ${error.message}`);
+    }
+
+    return count ?? 0;
+}
+
+async function buildOverviewStats(
+    userId: string,
+    progression: UserProgressionDto,
+    inventory: UserCardInventoryItemDto[],
+): Promise<UserProgressionStatsDto> {
+    const victories = await countBattleVictories(userId);
+    const defeats = 0;
+
+    let totalCards = 0;
+    let locationCards = 0;
+    let battlegearCards = 0;
+    let attackCards = 0;
+
+    for (const item of inventory) {
+        totalCards += item.quantity;
+
+        if (item.cardType === "location") {
+            locationCards += item.quantity;
+        }
+
+        if (item.cardType === "battlegear") {
+            battlegearCards += item.quantity;
+        }
+
+        if (item.cardType === "attack") {
+            attackCards += item.quantity;
+        }
+    }
+
+    const cardsByTribe = await buildTribeCardCounter(inventory);
+
+    return {
+        score: progression.xpTotal,
+        victories,
+        defeats,
+        totalCards,
+        locationCards,
+        battlegearCards,
+        attackCards,
+        cardsByTribe,
+    };
 }
