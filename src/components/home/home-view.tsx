@@ -43,7 +43,7 @@ export function HomeView({
         return (
             <main className={styles.guestPage}>
                 <Card className={styles.guestCard}>
-                    <Space direction="vertical" size={20}>
+                    <Space orientation="vertical" size={20}>
                         <Tag color="purple">Chaotic World</Tag>
                         <Title level={2} className={styles.guestTitle}>
                             Bem-vindo ao Chaotic Game
