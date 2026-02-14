@@ -128,7 +128,6 @@ export function StoreView({ userName, userImageUrl }: StoreViewProps) {
             userName={userName}
             userImageUrl={userImageUrl}
             coins={coins}
-            diamonds={diamonds}
             userRole="user"
         >
             {contextHolder}

@@ -190,7 +190,6 @@ export function HomeView({
             userName={userName}
             userImageUrl={userImageUrl}
             coins={coins}
-            diamonds={diamonds}
             userRole={userRole}
         >
             {loadingStarterStatus ? (

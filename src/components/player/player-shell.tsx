@@ -1,7 +1,7 @@
 "use client";
 
-import { DollarCircleOutlined, LogoutOutlined, SettingOutlined, ShopOutlined, StarOutlined, HomeOutlined } from "@ant-design/icons";
-import { Avatar, Button, Layout, Menu, Space, Tag, Typography } from "antd";
+import { DollarCircleOutlined, LogoutOutlined, SettingOutlined, ShopOutlined, HomeOutlined } from "@ant-design/icons";
+import { Avatar, Button, Layout, Menu, Space, Typography } from "antd";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useMemo } from "react";
@@ -12,7 +12,6 @@ type PlayerShellProps = {
     userName: string | null;
     userImageUrl: string | null;
     coins: number;
-    diamonds: number;
     userRole: "user" | "admin";
     children: React.ReactNode;
 };
@@ -25,28 +24,40 @@ export function PlayerShell({
     userName,
     userImageUrl,
     coins,
-    diamonds,
     userRole,
     children,
 }: PlayerShellProps) {
-    const items = useMemo(() => ([
-        {
-            key: "home",
-            icon: <HomeOutlined />,
-            label: <Link href="/">Início</Link>,
-        },
-        {
-            key: "store",
-            icon: <ShopOutlined />,
-            label: <Link href="/store">Loja</Link>,
-        },
-    ]), []);
+    const items = useMemo(() => {
+        const baseItems = [
+            {
+                key: "home",
+                icon: <HomeOutlined />,
+                label: <Link href="/">Início</Link>,
+            },
+            {
+                key: "store",
+                icon: <ShopOutlined />,
+                label: <Link href="/store">Loja</Link>,
+            },
+        ];
+
+        if (userRole === "admin") {
+            baseItems.push({
+                key: "settings",
+                icon: <SettingOutlined />,
+                label: <Link href="/admin/permissions">Configurações</Link>,
+            });
+        }
+
+        return baseItems;
+    }, [userRole]);
 
     return (
         <Layout className={styles.layout}>
             <Sider width={180} breakpoint="lg" collapsedWidth={0} className={styles.sider}>
                 <div className={styles.brand}>Chaotic Game</div>
                 <Menu
+                    className={styles.navMenu}
                     mode="inline"
                     selectedKeys={[selectedKey]}
                     items={items}
@@ -56,23 +67,17 @@ export function PlayerShell({
 
             <Layout>
                 <Header className={styles.header}>
-                    <Space size={12} align="center">
-                        <Tag className={styles.resourceTag} icon={<DollarCircleOutlined />}>
-                            {coins} moedas
-                        </Tag>
-                        <Tag className={styles.resourceTag} icon={<StarOutlined />}>
-                            {diamonds} diamantes
-                        </Tag>
+                    <Space size={12} align="center" wrap>
+                        <div className={`${styles.resourceTag} ${styles.resourceCoins}`}>
+                            <DollarCircleOutlined />
+                            <span className={styles.resourceValue}>{coins}</span>
+                            <span className={styles.resourceLabel}>moedas</span>
+                        </div>
                         <Avatar src={userImageUrl ?? undefined}>
                             {userName?.charAt(0)?.toUpperCase() ?? "U"}
                         </Avatar>
                         <Text className={styles.userName}>{userName ?? "Jogador"}</Text>
-                        {userRole === "admin" ? (
-                            <Link href="/admin/permissions">
-                                <Button icon={<SettingOutlined />}>Configurações</Button>
-                            </Link>
-                        ) : null}
-                        <Button icon={<LogoutOutlined />} onClick={() => signOut({ callbackUrl: "/" })}>
+                        <Button className={styles.headerButton} icon={<LogoutOutlined />} onClick={() => signOut({ callbackUrl: "/" })}>
                             Sair
                         </Button>
                     </Space>
