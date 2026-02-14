@@ -1,6 +1,6 @@
 "use client";
 
-import { DollarCircleOutlined, LogoutOutlined, ProfileOutlined, SettingOutlined, ShopOutlined, HomeOutlined, StarOutlined } from "@ant-design/icons";
+import { DollarCircleOutlined, LogoutOutlined, ProfileOutlined, SettingOutlined, ShopOutlined, HomeOutlined, StarOutlined, TrophyOutlined } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu, Space, Typography } from "antd";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -9,7 +9,7 @@ import { useDisplayUserName } from "@/hooks/use-display-user-name";
 import styles from "./player-shell.module.css";
 
 type PlayerShellProps = {
-    selectedKey: "home" | "store";
+    selectedKey: "home" | "store" | "codex-trials";
     userName: string | null;
     userNickName: string | null;
     userImageUrl: string | null;
@@ -45,6 +45,11 @@ export function PlayerShell({
                 key: "store",
                 icon: <ShopOutlined />,
                 label: <Link href="/store">Loja</Link>,
+            },
+            {
+                key: "codex-trials",
+                icon: <TrophyOutlined />,
+                label: <Link href="/codex-trials">Codex Trials</Link>,
             },
         ];
 

@@ -1,0 +1,413 @@
+.sectionCard {
+    border-radius: 16px;
+    border: 1px solid rgba(139, 156, 230, 0.16);
+    background: linear-gradient(165deg, rgba(14, 20, 43, 0.9), rgba(8, 12, 28, 0.94));
+    box-shadow:
+        0 0 0 1px rgba(118, 138, 216, 0.08) inset,
+        0 8px 24px rgba(0, 0, 0, 0.24);
+}
+
+.heroCard {
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 0 0 1px rgba(132, 151, 230, 0.16) inset,
+        0 10px 26px rgba(0, 0, 0, 0.24);
+}
+
+.heroCard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 5% 10%, rgba(99, 102, 241, 0.2), transparent 36%),
+        radial-gradient(circle at 95% 0%, rgba(59, 130, 246, 0.16), transparent 40%);
+    pointer-events: none;
+}
+
+.heroText {
+    margin-bottom: 0 !important;
+    color: rgba(224, 233, 255, 0.92);
+}
+
+.flowStep {
+    border: 1px solid rgba(145, 165, 245, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(10, 16, 36, 0.74);
+    color: rgba(221, 231, 255, 0.94);
+}
+
+.rulesList {
+    display: grid;
+    gap: 8px;
+}
+
+.flowCard {
+    overflow: hidden;
+}
+
+.flowTrack {
+    position: relative;
+    display: grid;
+    gap: 14px;
+    padding: 10px 2px;
+}
+
+.flowTrack::before {
+    content: "";
+    position: absolute;
+    left: 26px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(99, 102, 241, 0.45), rgba(56, 189, 248, 0.3));
+    opacity: 0.75;
+}
+
+.flowStepItem {
+    --league-accent: rgba(129, 140, 248, 0.62);
+    --league-accent-soft: rgba(129, 140, 248, 0.18);
+    --league-card-start: rgba(18, 26, 56, 0.8);
+    --league-card-end: rgba(10, 15, 34, 0.9);
+    position: relative;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    animation: stepEnter 320ms ease forwards;
+}
+
+.flowLeft {
+    justify-items: stretch;
+}
+
+.flowRight {
+    justify-items: stretch;
+}
+
+.flowNode {
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    border: 1px solid var(--league-accent);
+    background: radial-gradient(circle at 35% 30%, var(--league-accent), rgba(26, 34, 74, 0.82));
+    display: grid;
+    place-items: center;
+    color: #f4f7ff;
+    font-weight: 800;
+    box-shadow:
+        0 0 0 2px var(--league-accent-soft) inset,
+        0 0 12px var(--league-accent-soft);
+    z-index: 1;
+}
+
+.leagueCard {
+    height: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--league-accent-soft);
+    background: linear-gradient(160deg, var(--league-card-start), var(--league-card-end));
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.leagueCard:hover {
+    transform: translateY(-2px);
+    border-color: var(--league-accent);
+    box-shadow:
+        0 0 0 1px var(--league-accent-soft) inset,
+        0 0 14px var(--league-accent-soft),
+        0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.leagueTop {
+    display: grid;
+    gap: 10px;
+}
+
+.leagueHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.placeholderRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.placeholderImage {
+    min-height: 76px;
+    border-radius: 10px;
+    border: 1px dashed rgba(136, 154, 224, 0.34);
+    background: rgba(10, 16, 35, 0.78);
+    display: grid;
+    place-items: center;
+    color: rgba(206, 220, 255, 0.86);
+    font-size: 12px;
+    text-align: center;
+    padding: 8px;
+}
+
+.placeholderImage:hover {
+    border-color: rgba(155, 176, 246, 0.56);
+    background: rgba(13, 21, 47, 0.84);
+}
+
+.leagueMeta {
+    display: grid;
+    gap: 6px;
+}
+
+.leagueMeta :global(.ant-typography) {
+    color: rgba(218, 227, 255, 0.92);
+}
+
+.progressPanel {
+    border: 1px solid var(--league-accent-soft);
+    border-radius: 10px;
+    padding: 10px;
+    background: linear-gradient(145deg, rgba(11, 18, 40, 0.82), rgba(8, 13, 30, 0.9));
+    display: grid;
+    gap: 6px;
+}
+
+.progressHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.progressTitle {
+    color: rgba(224, 233, 255, 0.96) !important;
+    font-weight: 700;
+}
+
+.progressTag {
+    margin-inline-end: 0 !important;
+    border-radius: 999px;
+    border: 1px solid var(--league-accent-soft);
+    background: rgba(13, 21, 46, 0.82);
+    color: rgba(228, 236, 255, 0.94);
+    font-size: 11px;
+}
+
+.progressCaption {
+    color: rgba(205, 217, 255, 0.9) !important;
+    font-size: 12px;
+}
+
+.deckPreview {
+    display: grid;
+    gap: 6px;
+}
+
+.deckPreviewLabel {
+    color: rgba(203, 217, 255, 0.86) !important;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.deckPreviewImage {
+    min-height: 74px;
+    border-radius: 8px;
+    border: 1px dashed var(--league-accent-soft);
+    background: linear-gradient(135deg, rgba(13, 20, 43, 0.86), rgba(9, 14, 31, 0.9));
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: rgba(221, 230, 255, 0.88);
+    font-size: 12px;
+    padding: 8px;
+}
+
+.rewardPanel {
+    border: 1px solid var(--league-accent-soft);
+    border-radius: 10px;
+    padding: 10px;
+    background: linear-gradient(145deg, rgba(11, 17, 38, 0.86), rgba(8, 13, 30, 0.9));
+    display: grid;
+    gap: 8px;
+}
+
+.rewardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.rewardTitle {
+    font-weight: 700;
+    color: rgba(226, 234, 255, 0.96);
+}
+
+.rewardHeaderTag {
+    margin-inline-end: 0 !important;
+    border-radius: 999px;
+    border: 1px solid var(--league-accent-soft);
+    background: rgba(13, 20, 45, 0.8);
+    color: rgba(224, 233, 255, 0.92);
+    font-size: 11px;
+}
+
+.rewardFocusBadge {
+    border: 1px solid var(--league-accent-soft);
+    border-radius: 8px;
+    padding: 8px 10px;
+    background: linear-gradient(135deg, rgba(17, 27, 60, 0.86), rgba(11, 18, 40, 0.9));
+}
+
+.rewardFocusLine {
+    color: rgba(219, 228, 255, 0.92) !important;
+    font-weight: 600;
+}
+
+.rewardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 6px;
+}
+
+.rewardItem {
+    border: 1px solid var(--league-accent-soft);
+    border-radius: 8px;
+    padding: 7px 8px;
+    background: rgba(11, 17, 39, 0.82);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.rewardItemDot {
+    color: var(--league-accent);
+    font-size: 11px;
+    line-height: 1;
+}
+
+.rewardItemText {
+    color: rgba(230, 238, 255, 0.95) !important;
+}
+
+.formatButton {
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid rgba(129, 140, 248, 0.28);
+    background: linear-gradient(150deg, rgba(22, 33, 70, 0.9), rgba(12, 18, 38, 0.92));
+    color: rgba(231, 238, 255, 0.96);
+    font-weight: 600;
+}
+
+.formatButton:hover,
+.formatButton:focus {
+    border-color: rgba(154, 168, 248, 0.56) !important;
+    color: rgba(241, 246, 255, 1) !important;
+}
+
+.deckSelectionPlaceholder {
+    border: 1px dashed rgba(136, 154, 224, 0.4);
+    border-radius: 10px;
+    padding: 10px;
+    background: rgba(11, 17, 37, 0.8);
+    color: rgba(212, 223, 255, 0.9) !important;
+}
+
+.themeBronze {
+    --league-accent: rgba(186, 128, 67, 0.62);
+    --league-accent-soft: rgba(186, 128, 67, 0.18);
+    --league-card-start: rgba(48, 34, 22, 0.8);
+    --league-card-end: rgba(24, 17, 11, 0.9);
+}
+
+.themeSilver {
+    --league-accent: rgba(144, 160, 186, 0.62);
+    --league-accent-soft: rgba(144, 160, 186, 0.18);
+    --league-card-start: rgba(34, 43, 58, 0.8);
+    --league-card-end: rgba(18, 24, 35, 0.9);
+}
+
+.themeGold {
+    --league-accent: rgba(201, 162, 73, 0.62);
+    --league-accent-soft: rgba(201, 162, 73, 0.18);
+    --league-card-start: rgba(54, 43, 20, 0.8);
+    --league-card-end: rgba(26, 21, 10, 0.9);
+}
+
+.themePlatinum {
+    --league-accent: rgba(121, 170, 219, 0.62);
+    --league-accent-soft: rgba(121, 170, 219, 0.18);
+    --league-card-start: rgba(22, 39, 57, 0.8);
+    --league-card-end: rgba(10, 20, 31, 0.9);
+}
+
+.themeDiamond {
+    --league-accent: rgba(108, 133, 226, 0.64);
+    --league-accent-soft: rgba(108, 133, 226, 0.2);
+    --league-card-start: rgba(21, 30, 62, 0.82);
+    --league-card-end: rgba(10, 15, 34, 0.92);
+}
+
+.themeEmerald {
+    --league-accent: rgba(66, 168, 146, 0.62);
+    --league-accent-soft: rgba(66, 168, 146, 0.18);
+    --league-card-start: rgba(14, 45, 40, 0.82);
+    --league-card-end: rgba(7, 23, 21, 0.92);
+}
+
+.themeMythic {
+    --league-accent: rgba(154, 122, 214, 0.66);
+    --league-accent-soft: rgba(154, 122, 214, 0.2);
+    --league-card-start: rgba(36, 23, 58, 0.82);
+    --league-card-end: rgba(17, 11, 29, 0.92);
+}
+
+@keyframes stepEnter {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .flowTrack::before {
+        left: 22px;
+    }
+
+    .flowStepItem {
+        grid-template-columns: 44px 1fr;
+        gap: 8px;
+    }
+
+    .flowNode {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .flowStepItem {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .leagueCard {
+        transition: none;
+    }
+}
