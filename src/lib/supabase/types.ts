@@ -90,3 +90,15 @@ export type SupabaseLocationRow = {
     created_at: string;
     updated_at: string;
 };
+
+export type SupabaseBattleGearRow = {
+    id: string;
+    name: string;
+    image_file_id: string | null;
+    image_url: string | null;
+    allowed_tribes: CreatureTribe[];
+    allowed_creature_ids: string[];
+    abilities: LocationAbilityDto[];
+    created_at: string;
+    updated_at: string;
+};

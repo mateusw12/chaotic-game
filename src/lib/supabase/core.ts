@@ -34,6 +34,10 @@ export function getLocationsTableName() {
     return process.env.SUPABASE_LOCATIONS_TABLE ?? "locations";
 }
 
+export function getBattlegearTableName() {
+    return process.env.SUPABASE_BATTLEGEAR_TABLE ?? "battlegear";
+}
+
 export function isValidTribe(value: string): value is CreatureTribe {
     return CREATURE_TRIBES.includes(value as CreatureTribe);
 }

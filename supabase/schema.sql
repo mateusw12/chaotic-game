@@ -89,6 +89,18 @@ create table if not exists public.locations (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.battlegear (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  image_file_id text,
+  image_url text,
+  allowed_tribes text[] not null default '{}'::text[],
+  allowed_creature_ids uuid[] not null default '{}'::uuid[],
+  abilities jsonb not null default '[]'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 alter table if exists public.abilities
   add column if not exists target_scope text not null default 'all_creatures';
 
@@ -134,6 +146,21 @@ alter table if exists public.locations
   add column if not exists tribes text[] not null default '{}'::text[];
 
 alter table if exists public.locations
+  add column if not exists abilities jsonb not null default '[]'::jsonb;
+
+alter table if exists public.battlegear
+  add column if not exists image_file_id text;
+
+alter table if exists public.battlegear
+  add column if not exists image_url text;
+
+alter table if exists public.battlegear
+  add column if not exists allowed_tribes text[] not null default '{}'::text[];
+
+alter table if exists public.battlegear
+  add column if not exists allowed_creature_ids uuid[] not null default '{}'::uuid[];
+
+alter table if exists public.battlegear
   add column if not exists abilities jsonb not null default '[]'::jsonb;
 
 do $$
@@ -186,6 +213,19 @@ begin
     alter table public.locations
       add constraint locations_initiative_elements_check
       check (initiative_elements <@ array['fire', 'water', 'earth', 'air']::text[]);
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'battlegear_allowed_tribes_check'
+  ) then
+    alter table public.battlegear
+      add constraint battlegear_allowed_tribes_check
+      check (allowed_tribes <@ array['overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient']::text[]);
   end if;
 end $$;
 
