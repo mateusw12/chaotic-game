@@ -101,6 +101,18 @@ create table if not exists public.battlegear (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.mugic (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  image_file_id text,
+  image_url text,
+  tribes text[] not null default '{}'::text[],
+  cost integer not null default 0 check (cost >= 0),
+  abilities jsonb not null default '[]'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 alter table if exists public.abilities
   add column if not exists target_scope text not null default 'all_creatures';
 
@@ -162,6 +174,25 @@ alter table if exists public.battlegear
 
 alter table if exists public.battlegear
   add column if not exists abilities jsonb not null default '[]'::jsonb;
+
+alter table if exists public.mugic
+  add column if not exists image_file_id text;
+
+alter table if exists public.mugic
+  add column if not exists image_url text;
+
+alter table if exists public.mugic
+  add column if not exists tribes text[] not null default '{}'::text[];
+
+alter table if exists public.mugic
+  add column if not exists cost integer not null default 0;
+
+alter table if exists public.mugic
+  add column if not exists abilities jsonb not null default '[]'::jsonb;
+
+update public.mugic
+set cost = 0
+where cost is null;
 
 do $$
 begin
@@ -226,6 +257,149 @@ begin
     alter table public.battlegear
       add constraint battlegear_allowed_tribes_check
       check (allowed_tribes <@ array['overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient']::text[]);
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'mugic_tribes_check'
+  ) then
+    alter table public.mugic
+      add constraint mugic_tribes_check
+      check (tribes <@ array['overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient']::text[]);
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'mugic_cost_non_negative'
+  ) then
+    alter table public.mugic
+      add constraint mugic_cost_non_negative
+      check (cost >= 0);
+  end if;
+end $$;
+
+create or replace function public.is_valid_mugic_abilities(payload jsonb)
+returns boolean
+language plpgsql
+immutable
+as $$
+declare
+  item jsonb;
+  ability_type text;
+  target_scope text;
+  action_type text;
+  effect_type text;
+  value_num numeric;
+begin
+  if jsonb_typeof(payload) <> 'array' then
+    return false;
+  end if;
+
+  for item in select value from jsonb_array_elements(payload)
+  loop
+    if jsonb_typeof(item) <> 'object' then
+      return false;
+    end if;
+
+    if coalesce(nullif(item->>'description', ''), '') = '' then
+      return false;
+    end if;
+
+    ability_type := coalesce(item->>'abilityType', 'stat_modifier');
+
+    if ability_type not in ('stat_modifier', 'action') then
+      return false;
+    end if;
+
+    target_scope := item->>'targetScope';
+
+    if target_scope not in ('self', 'enemy') then
+      return false;
+    end if;
+
+    if item ? 'cardTypes' then
+      if jsonb_typeof(item->'cardTypes') <> 'array' then
+        return false;
+      end if;
+
+      if exists (
+        select 1
+        from jsonb_array_elements_text(item->'cardTypes') as card(value)
+        where card.value not in ('creature', 'equipment', 'attack', 'mugic', 'location')
+      ) then
+        return false;
+      end if;
+    end if;
+
+    if ability_type = 'action' then
+      action_type := item->>'actionType';
+
+      if action_type not in (
+        'flip_target_battlegear',
+        'flip_target_attack',
+        'destroy_target_battlegear',
+        'destroy_target_attack',
+        'return_target_card_to_hand',
+        'cancel_target_mugic'
+      ) then
+        return false;
+      end if;
+    else
+      effect_type := item->>'effectType';
+
+      if effect_type not in ('increase', 'decrease') then
+        return false;
+      end if;
+
+      if jsonb_typeof(item->'stats') <> 'array' or jsonb_array_length(item->'stats') = 0 then
+        return false;
+      end if;
+
+      if exists (
+        select 1
+        from jsonb_array_elements_text(item->'stats') as stat(value)
+        where stat.value not in ('power', 'courage', 'speed', 'wisdom', 'mugic', 'energy')
+      ) then
+        return false;
+      end if;
+
+      if jsonb_typeof(item->'value') <> 'number' then
+        return false;
+      end if;
+
+      value_num := (item->>'value')::numeric;
+
+      if value_num < 0 then
+        return false;
+      end if;
+    end if;
+  end loop;
+
+  return true;
+exception
+  when others then
+    return false;
+end;
+$$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'mugic_abilities_shape_check'
+  ) then
+    alter table public.mugic
+      add constraint mugic_abilities_shape_check
+      check (public.is_valid_mugic_abilities(abilities));
   end if;
 end $$;
 

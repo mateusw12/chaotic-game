@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOutlined, EnvironmentOutlined, SafetyOutlined, SettingOutlined, ToolOutlined } from "@ant-design/icons";
+import { BookOutlined, EnvironmentOutlined, SafetyOutlined, SettingOutlined, ToolOutlined, ThunderboltOutlined } from "@ant-design/icons";
 import { Layout, Menu, Typography } from "antd";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -40,6 +40,11 @@ export function AdminShell({ selectedKey, children }: AdminShellProps) {
                 key: "battlegear",
                 icon: <ToolOutlined />,
                 label: <Link href="/admin/battlegear">Cadastro de Equipamentos</Link>,
+            },
+            {
+                key: "mugic",
+                icon: <ThunderboltOutlined />,
+                label: <Link href="/admin/mugic">Cadastro de Mugic</Link>,
             },
         ],
         [],

@@ -102,3 +102,15 @@ export type SupabaseBattleGearRow = {
     created_at: string;
     updated_at: string;
 };
+
+export type SupabaseMugicRow = {
+    id: string;
+    name: string;
+    image_file_id: string | null;
+    image_url: string | null;
+    tribes: CreatureTribe[];
+    cost: number;
+    abilities: unknown[];
+    created_at: string;
+    updated_at: string;
+};
