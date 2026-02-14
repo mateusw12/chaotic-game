@@ -88,7 +88,7 @@ export function HomeView({
                     <Text className={styles.userName}>{userName ?? "Jogador"}</Text>
                     {userRole === "admin" ? (
                         <Link href="/admin/permissions">
-                            <Button icon={<SettingOutlined />}>Permissões</Button>
+                            <Button icon={<SettingOutlined />}>Configurações</Button>
                         </Link>
                     ) : null}
                     <Button

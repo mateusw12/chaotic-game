@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { App as AntdApp, Avatar, Button, Card, Select, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ArrowLeftOutlined, SafetyOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { type UserPermissionDto, type UserRole } from "@/dto/user";
+import { AdminShell } from "@/components/admin/admin-shell";
 
 type PermissionsViewProps = {
     users: UserPermissionDto[];
@@ -18,7 +19,7 @@ export function PermissionsView({ users }: PermissionsViewProps) {
     const [rows, setRows] = useState<UserPermissionDto[]>(users);
     const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
 
-    async function handleRoleChange(userId: string, role: UserRole) {
+    const handleRoleChange = useCallback(async (userId: string, role: UserRole) => {
         setLoadingUserId(userId);
 
         try {
@@ -56,7 +57,7 @@ export function PermissionsView({ users }: PermissionsViewProps) {
         } finally {
             setLoadingUserId(null);
         }
-    }
+    }, [message]);
 
     const columns = useMemo<ColumnsType<UserPermissionDto>>(
         () => [
@@ -103,11 +104,11 @@ export function PermissionsView({ users }: PermissionsViewProps) {
                 ),
             },
         ],
-        [loadingUserId],
+        [handleRoleChange, loadingUserId],
     );
 
     return (
-        <main style={{ minHeight: "100vh", padding: 24, background: "#060914" }}>
+        <AdminShell selectedKey="permissions">
             <Card style={{ maxWidth: 1080, margin: "0 auto", borderRadius: 16 }}>
                 <Space orientation="vertical" size={16} style={{ width: "100%" }}>
                     <Space style={{ width: "100%", justifyContent: "space-between" }}>
@@ -131,6 +132,6 @@ export function PermissionsView({ users }: PermissionsViewProps) {
                     />
                 </Space>
             </Card>
-        </main>
+        </AdminShell>
     );
 }

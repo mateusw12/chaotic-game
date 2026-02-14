@@ -27,7 +27,12 @@ SUPABASE_URL=your_supabase_project_url
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 SUPABASE_USERS_TABLE=users
 SUPABASE_WALLETS_TABLE=user_wallets
+SUPABASE_CREATURES_TABLE=creatures
+SUPABASE_ABILITIES_TABLE=abilities
+SUPABASE_CREATURE_IMAGES_BUCKET=creature-images
 ```
+
+For creature images, create a Supabase Storage bucket (public) with the same name as `SUPABASE_CREATURE_IMAGES_BUCKET`.
 
 The API route for manual sync is:
 
@@ -76,6 +81,34 @@ Admin permission management:
 - List API: `GET /api/admin/users`
 - Update role API: `PATCH /api/admin/users/:userId/role`
 
+Creature registration (admin):
+
+- Page: `/admin/creatures`
+- API: `GET /api/admin/creatures`
+- API: `POST /api/admin/creatures`
+- Upload API: `POST /api/admin/uploads/creatures` (multipart form-data with `file`)
+- Creature payload stores only `imageFileId` (Storage path), and URL is resolved for display.
+- Ability API: `GET /api/admin/abilities`
+- Ability API: `POST /api/admin/abilities`
+
+Ability parameters:
+
+- `category`: `support` | `brainwashed`
+- `effectType`: `increase` | `decrease`
+- `stat`: `power` | `courage` | `speed` | `wisdom` | `energy`
+- `value`: integer >= 0
+- `targetScope`: `all_creatures` | `same_tribe` | `enemy_only`
+
+Creatures fixed fields:
+
+- name
+- tribe enum: `overworld`, `underworld`, `mipedian`, `marrillian`, `danian`, `ancient`
+- stats: `power`, `courage`, `speed`, `wisdom`, `mugic`, `energy`
+- dominant elements enum: `fire`, `water`, `earth`, `air`
+- support ability: vínculo para habilidade cadastrada (category = `support`)
+- brainwashed ability: vínculo para habilidade cadastrada (category = `brainwashed`)
+- temporary notes: equipment
+
 Suggested SQL table:
 
 ```sql
@@ -104,6 +137,38 @@ create table if not exists public.user_wallets (
 	created_at timestamptz not null default now(),
 	updated_at timestamptz not null default now(),
 	unique(user_id)
+);
+
+create table if not exists public.creatures (
+	id uuid primary key default gen_random_uuid(),
+	name text not null,
+	image_file_id text,
+	tribe text not null check (tribe in ('overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient')),
+	power integer not null default 0 check (power >= 0),
+	courage integer not null default 0 check (courage >= 0),
+	speed integer not null default 0 check (speed >= 0),
+	wisdom integer not null default 0 check (wisdom >= 0),
+	mugic integer not null default 0 check (mugic >= 0),
+	energy integer not null default 0 check (energy >= 0),
+	dominant_elements text[] not null default '{}'::text[],
+	support_ability_id uuid,
+	brainwashed_ability_id uuid,
+	equipment_note text,
+	created_at timestamptz not null default now(),
+	updated_at timestamptz not null default now()
+);
+
+create table if not exists public.abilities (
+	id uuid primary key default gen_random_uuid(),
+	name text not null,
+	category text not null check (category in ('support', 'brainwashed')),
+	effect_type text not null check (effect_type in ('increase', 'decrease')),
+	target_scope text not null check (target_scope in ('all_creatures', 'same_tribe', 'enemy_only')),
+	stat text not null check (stat in ('power', 'courage', 'speed', 'wisdom', 'energy')),
+	value integer not null check (value >= 0),
+	description text,
+	created_at timestamptz not null default now(),
+	updated_at timestamptz not null default now()
 );
 ```
 

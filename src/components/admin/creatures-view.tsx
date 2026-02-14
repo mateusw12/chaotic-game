@@ -1,0 +1,482 @@
+"use client";
+
+import { useCallback, useMemo, useState } from "react";
+import { App as AntdApp, Button, Card, Form, Image, Input, InputNumber, Popconfirm, Select, Space, Table, Tag, Typography, Upload } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import type { UploadFile } from "antd/es/upload/interface";
+import { ArrowLeftOutlined, BookOutlined } from "@ant-design/icons";
+import Link from "next/link";
+import {
+    CREATURE_ELEMENT_OPTIONS,
+    CREATURE_TRIBE_OPTIONS,
+    type CreateCreatureRequestDto,
+    type CreatureDto,
+    type CreatureElement,
+    type CreatureTribe,
+} from "@/dto/creature";
+import { AdminShell } from "@/components/admin/admin-shell";
+
+type CreaturesViewProps = {
+    creatures: CreatureDto[];
+};
+
+const { Title, Text } = Typography;
+
+type CreatureFormValues = {
+    name: string;
+    imageFileId?: string;
+    tribe: CreatureTribe;
+    power: number;
+    courage: number;
+    speed: number;
+    wisdom: number;
+    mugic: number;
+    energy: number;
+    dominantElements: CreatureElement[];
+    equipmentNote?: string;
+};
+
+export function CreaturesView({ creatures }: CreaturesViewProps) {
+    const { message } = AntdApp.useApp();
+    const [creatureForm] = Form.useForm<CreatureFormValues>();
+    const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+    const [rows, setRows] = useState<CreatureDto[]>(creatures);
+    const [isCreatureSaving, setIsCreatureSaving] = useState(false);
+    const [editingCreatureId, setEditingCreatureId] = useState<string | null>(null);
+    const [deletingCreatureId, setDeletingCreatureId] = useState<string | null>(null);
+    const [isImageUploading, setIsImageUploading] = useState(false);
+    const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
+
+    async function attachImageFile(file: File & { uid?: string }) {
+        setIsImageUploading(true);
+
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const response = await fetch("/api/admin/uploads/creatures", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = (await response.json()) as {
+                success: boolean;
+                file: { imageFileId: string; path: string; publicUrl: string | null } | null;
+                message?: string;
+            };
+
+            if (!response.ok || !data.success || !data.file?.imageFileId) {
+                throw new Error(data.message ?? "Falha ao enviar imagem.");
+            }
+
+            creatureForm.setFieldValue("imageFileId", data.file.imageFileId);
+            setImagePreviewUrl(data.file.publicUrl ?? URL.createObjectURL(file));
+            setImageFileList([
+                {
+                    uid: file.uid ?? `${Date.now()}`,
+                    name: file.name,
+                    status: "done",
+                    url: data.file.publicUrl ?? undefined,
+                },
+            ]);
+            message.success("Imagem enviada para o Storage com sucesso.");
+        } catch (error) {
+            message.error(error instanceof Error ? error.message : "Erro ao anexar imagem.");
+        } finally {
+            setIsImageUploading(false);
+        }
+    }
+
+    async function onCreateCreature(values: CreatureFormValues) {
+        setIsCreatureSaving(true);
+
+        try {
+            const creatureBeingEdited = editingCreatureId
+                ? rows.find((row) => row.id === editingCreatureId)
+                : null;
+
+            const payload: CreateCreatureRequestDto = {
+                name: values.name,
+                imageFileId: values.imageFileId ?? null,
+                tribe: values.tribe,
+                power: values.power,
+                courage: values.courage,
+                speed: values.speed,
+                wisdom: values.wisdom,
+                mugic: values.mugic,
+                energy: values.energy,
+                dominantElements: values.dominantElements,
+                supportAbilityId: creatureBeingEdited?.supportAbilityId ?? null,
+                brainwashedAbilityId: creatureBeingEdited?.brainwashedAbilityId ?? null,
+                equipmentNote: values.equipmentNote ?? null,
+            };
+
+            const isEditing = Boolean(editingCreatureId);
+            const endpoint = isEditing
+                ? `/api/admin/creatures/${editingCreatureId}`
+                : "/api/admin/creatures";
+
+            const response = await fetch(endpoint, {
+                method: isEditing ? "PATCH" : "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = (await response.json()) as {
+                success: boolean;
+                creature: CreatureDto | null;
+                message?: string;
+            };
+
+            if (!response.ok || !data.success || !data.creature) {
+                throw new Error(data.message ?? "Falha ao salvar criatura.");
+            }
+
+            if (isEditing) {
+                setRows((previousRows) =>
+                    previousRows.map((row) => (row.id === data.creature!.id ? data.creature! : row)),
+                );
+            } else {
+                setRows((previous) => [data.creature as CreatureDto, ...previous]);
+            }
+
+            setEditingCreatureId(null);
+            creatureForm.resetFields();
+            setImageFileList([]);
+            setImagePreviewUrl(null);
+            message.success(
+                isEditing
+                    ? "Criatura atualizada com sucesso."
+                    : "Criatura cadastrada com sucesso.",
+            );
+        } catch (error) {
+            message.error(error instanceof Error ? error.message : "Erro ao salvar criatura.");
+        } finally {
+            setIsCreatureSaving(false);
+        }
+    }
+
+    const startEditCreature = useCallback((creature: CreatureDto) => {
+        setEditingCreatureId(creature.id);
+        creatureForm.setFieldsValue({
+            name: creature.name,
+            imageFileId: creature.imageFileId ?? undefined,
+            tribe: creature.tribe,
+            power: creature.power,
+            courage: creature.courage,
+            speed: creature.speed,
+            wisdom: creature.wisdom,
+            mugic: creature.mugic,
+            energy: creature.energy,
+            dominantElements: creature.dominantElements,
+            equipmentNote: creature.equipmentNote ?? undefined,
+        });
+
+        if (creature.imageUrl) {
+            setImagePreviewUrl(creature.imageUrl);
+            setImageFileList([
+                {
+                    uid: creature.id,
+                    name: "imagem-atual",
+                    status: "done",
+                    url: creature.imageUrl,
+                },
+            ]);
+        } else {
+            setImagePreviewUrl(null);
+            setImageFileList([]);
+        }
+    }, [creatureForm]);
+
+    function cancelEditCreature() {
+        setEditingCreatureId(null);
+        creatureForm.resetFields();
+        setImageFileList([]);
+        setImagePreviewUrl(null);
+    }
+
+    const onDeleteCreature = useCallback(async (creatureId: string) => {
+        setDeletingCreatureId(creatureId);
+
+        try {
+            const response = await fetch(`/api/admin/creatures/${creatureId}`, {
+                method: "DELETE",
+            });
+
+            const data = (await response.json()) as {
+                success: boolean;
+                message?: string;
+            };
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.message ?? "Falha ao remover criatura.");
+            }
+
+            setRows((previousRows) => previousRows.filter((row) => row.id !== creatureId));
+            message.success("Criatura removida com sucesso.");
+        } catch (error) {
+            message.error(error instanceof Error ? error.message : "Erro ao remover criatura.");
+        } finally {
+            setDeletingCreatureId(null);
+        }
+    }, [message]);
+
+    const columns = useMemo<ColumnsType<CreatureDto>>(
+        () => [
+            {
+                title: "Imagem",
+                dataIndex: "imageUrl",
+                key: "imageUrl",
+                width: 110,
+                render: (imageUrl: string | null, row) =>
+                    imageUrl ? (
+                        <Image
+                            src={imageUrl}
+                            alt={row.name}
+                            preview={false}
+                            style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 8 }}
+                        />
+                    ) : (
+                        <Tag>Sem imagem</Tag>
+                    ),
+            },
+            {
+                title: "Nome",
+                dataIndex: "name",
+                key: "name",
+                width: 220,
+                render: (name: string) => <Text strong>{name}</Text>,
+            },
+            {
+                title: "Tribo",
+                dataIndex: "tribe",
+                key: "tribe",
+                width: 170,
+                render: (tribe: CreatureTribe) => {
+                    const option = CREATURE_TRIBE_OPTIONS.find((item) => item.value === tribe);
+                    return <Tag color="purple">{option?.label ?? tribe}</Tag>;
+                },
+            },
+            {
+                title: "Atributos",
+                key: "stats",
+                render: (_, row) => (
+                    <Space wrap>
+                        <Tag>POD {row.power}</Tag>
+                        <Tag>COR {row.courage}</Tag>
+                        <Tag>VEL {row.speed}</Tag>
+                        <Tag>SAB {row.wisdom}</Tag>
+                        <Tag>MUJ {row.mugic}</Tag>
+                        <Tag>ENE {row.energy}</Tag>
+                    </Space>
+                ),
+            },
+            {
+                title: "Elementos",
+                key: "dominantElements",
+                render: (_, row) => (
+                    <Space wrap>
+                        {row.dominantElements.map((element) => {
+                            const option = CREATURE_ELEMENT_OPTIONS.find((item) => item.value === element);
+                            return (
+                                <Tag key={`${row.id}-${element}`} color="blue">
+                                    {option?.label ?? element}
+                                </Tag>
+                            );
+                        })}
+                    </Space>
+                ),
+            },
+            {
+                title: "Habilidades",
+                key: "abilities",
+                width: 260,
+                render: (_, row) => (
+                    <Space orientation="vertical" size={6}>
+                        <Tag color="geekblue">
+                            Support: {row.supportAbilityName ?? "Sem habilidade"}
+                        </Tag>
+                        <Tag color="magenta">
+                            Brainwashed: {row.brainwashedAbilityName ?? "Sem habilidade"}
+                        </Tag>
+                    </Space>
+                ),
+            },
+            {
+                title: "Ações",
+                key: "actions",
+                width: 190,
+                render: (_, row) => (
+                    <Space>
+                        <Button size="small" onClick={() => startEditCreature(row)}>
+                            Editar
+                        </Button>
+                        <Popconfirm
+                            title="Remover criatura"
+                            description="Essa ação não pode ser desfeita."
+                            okText="Remover"
+                            cancelText="Cancelar"
+                            onConfirm={() => onDeleteCreature(row.id)}
+                        >
+                            <Button
+                                size="small"
+                                danger
+                                loading={deletingCreatureId === row.id}
+                            >
+                                Remover
+                            </Button>
+                        </Popconfirm>
+                    </Space>
+                ),
+            },
+        ],
+        [deletingCreatureId, onDeleteCreature, startEditCreature],
+    );
+
+    return (
+        <AdminShell selectedKey="creatures">
+            <Space orientation="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
+                <Card style={{ borderRadius: 16 }}>
+                    <Space style={{ width: "100%", justifyContent: "space-between" }}>
+                        <Space>
+                            <BookOutlined />
+                            <Title level={3} style={{ margin: 0 }}>
+                                Cadastro de Criaturas
+                            </Title>
+                        </Space>
+
+                        <Link href="/">
+                            <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
+                        </Link>
+                    </Space>
+                </Card>
+
+                <Card title="Nova criatura" style={{ borderRadius: 16 }}>
+                    <Form<CreatureFormValues>
+                        form={creatureForm}
+                        layout="vertical"
+                        onFinish={onCreateCreature}
+                        initialValues={{
+                            power: 0,
+                            courage: 0,
+                            speed: 0,
+                            wisdom: 0,
+                            mugic: 0,
+                            energy: 0,
+                            dominantElements: [],
+                        }}
+                    >
+                        <Space orientation="vertical" size={12} style={{ width: "100%" }}>
+                            <Form.Item label="Nome" name="name" rules={[{ required: true, message: "Informe o nome." }]}>
+                                <Input placeholder="Ex.: Accato" />
+                            </Form.Item>
+
+                            <Form.Item name="imageFileId" hidden>
+                                <Input type="hidden" />
+                            </Form.Item>
+
+                            <Form.Item label="Anexar imagem">
+                                <Upload
+                                    accept="image/*"
+                                    maxCount={1}
+                                    fileList={imageFileList}
+                                    disabled={isImageUploading}
+                                    beforeUpload={(file) => {
+                                        void attachImageFile(file);
+                                        return false;
+                                    }}
+                                    onRemove={() => {
+                                        creatureForm.setFieldValue("imageFileId", undefined);
+                                        setImagePreviewUrl(null);
+                                        setImageFileList([]);
+                                    }}
+                                >
+                                    <Button loading={isImageUploading}>Anexar imagem</Button>
+                                </Upload>
+                            </Form.Item>
+
+                            {imagePreviewUrl ? (
+                                <Image
+                                    src={imagePreviewUrl}
+                                    alt="Pré-visualização da criatura"
+                                    preview={false}
+                                    style={{ width: 120, height: 120, objectFit: "cover", borderRadius: 10 }}
+                                />
+                            ) : null}
+
+                            <Form.Item label="Tribo" name="tribe" rules={[{ required: true, message: "Selecione a tribo." }]}>
+                                <Select
+                                    options={CREATURE_TRIBE_OPTIONS.map((item) => ({
+                                        value: item.value,
+                                        label: item.label,
+                                    }))}
+                                    placeholder="Selecione"
+                                />
+                            </Form.Item>
+
+                            <Space wrap size={12}>
+                                <Form.Item label="Poder" name="power" rules={[{ required: true }]}>
+                                    <InputNumber min={0} style={{ width: 120 }} />
+                                </Form.Item>
+                                <Form.Item label="Coragem" name="courage" rules={[{ required: true }]}>
+                                    <InputNumber min={0} style={{ width: 120 }} />
+                                </Form.Item>
+                                <Form.Item label="Velocidade" name="speed" rules={[{ required: true }]}>
+                                    <InputNumber min={0} style={{ width: 120 }} />
+                                </Form.Item>
+                                <Form.Item label="Sabedoria" name="wisdom" rules={[{ required: true }]}>
+                                    <InputNumber min={0} style={{ width: 120 }} />
+                                </Form.Item>
+                                <Form.Item label="Mujic" name="mugic" rules={[{ required: true }]}>
+                                    <InputNumber min={0} style={{ width: 120 }} />
+                                </Form.Item>
+                                <Form.Item label="Energia" name="energy" rules={[{ required: true }]}>
+                                    <InputNumber min={0} style={{ width: 120 }} />
+                                </Form.Item>
+                            </Space>
+
+                            <Form.Item
+                                label="Elementos dominantes"
+                                name="dominantElements"
+                                rules={[{ required: true, message: "Selecione ao menos 1 elemento." }]}
+                            >
+                                <Select
+                                    mode="multiple"
+                                    options={CREATURE_ELEMENT_OPTIONS.map((item) => ({
+                                        value: item.value,
+                                        label: item.label,
+                                    }))}
+                                    placeholder="Selecione um ou mais"
+                                />
+                            </Form.Item>
+
+                            <Form.Item label="Equipamentos (anotação temporária)" name="equipmentNote">
+                                <Input.TextArea rows={2} placeholder="Ex.: Em breve terá cadastro próprio" />
+                            </Form.Item>
+
+                            <Button type="primary" htmlType="submit" loading={isCreatureSaving}>
+                                {editingCreatureId ? "Salvar edição" : "Cadastrar criatura"}
+                            </Button>
+
+                            {editingCreatureId ? (
+                                <Button onClick={cancelEditCreature}>Cancelar edição</Button>
+                            ) : null}
+                        </Space>
+                    </Form>
+                </Card>
+
+                <Card title="Criaturas cadastradas" style={{ borderRadius: 16 }}>
+                    <Table<CreatureDto>
+                        rowKey="id"
+                        columns={columns}
+                        dataSource={rows}
+                        pagination={{ pageSize: 8 }}
+                        scroll={{ x: 1000 }}
+                    />
+                </Card>
+            </Space>
+        </AdminShell>
+    );
+}
