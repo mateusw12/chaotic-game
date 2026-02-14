@@ -7,6 +7,7 @@ import type {
 } from "@/dto/ability";
 import type { CreatureElement, CreatureTribe } from "@/dto/creature";
 import type { LocationAbilityDto } from "@/dto/location";
+import type { AttackAbilityDto, AttackElementValueDto } from "@/dto/attack";
 
 export type SupabaseApiError = {
     code?: string;
@@ -111,6 +112,18 @@ export type SupabaseMugicRow = {
     tribes: CreatureTribe[];
     cost: number;
     abilities: unknown[];
+    created_at: string;
+    updated_at: string;
+};
+
+export type SupabaseAttackRow = {
+    id: string;
+    name: string;
+    image_file_id: string | null;
+    image_url: string | null;
+    energy_cost: number;
+    element_values: AttackElementValueDto[];
+    abilities: AttackAbilityDto[];
     created_at: string;
     updated_at: string;
 };

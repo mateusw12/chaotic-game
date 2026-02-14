@@ -19,6 +19,10 @@ function getMugicImagesBucketName() {
     return process.env.SUPABASE_MUGIC_IMAGES_BUCKET ?? "mugic-images";
 }
 
+function getAttacksImagesBucketName() {
+    return process.env.SUPABASE_ATTACKS_IMAGES_BUCKET ?? "attacks-images";
+}
+
 type StorageApiError = {
     name?: string;
     message: string;
@@ -94,6 +98,20 @@ export function getMugicImagePublicUrl(imageFileId: string | null): string | nul
 
     const supabase = getSupabaseAdminClient();
     const bucketName = getMugicImagesBucketName();
+    const {
+        data: { publicUrl },
+    } = supabase.storage.from(bucketName).getPublicUrl(imageFileId);
+
+    return publicUrl || null;
+}
+
+export function getAttackImagePublicUrl(imageFileId: string | null): string | null {
+    if (!imageFileId) {
+        return null;
+    }
+
+    const supabase = getSupabaseAdminClient();
+    const bucketName = getAttacksImagesBucketName();
     const {
         data: { publicUrl },
     } = supabase.storage.from(bucketName).getPublicUrl(imageFileId);
@@ -344,6 +362,68 @@ export async function uploadMugicImageToStorage(payload: {
 
     if (!publicUrl) {
         throw new Error("Não foi possível obter a URL pública da imagem de mugic.");
+    }
+
+    return { path, publicUrl };
+}
+
+export async function uploadAttackImageToStorage(payload: {
+    fileName: string;
+    fileBuffer: ArrayBuffer;
+    contentType?: string;
+}): Promise<{ path: string; publicUrl: string }> {
+    const supabase = getSupabaseAdminClient();
+    const bucketName = getAttacksImagesBucketName();
+
+    const { data: existingBucket, error: getBucketError } = await supabase.storage.getBucket(bucketName);
+
+    const bucketNotFound = Boolean(
+        getBucketError
+        && (
+            (getBucketError as StorageApiError).statusCode === 404
+            || /bucket not found/i.test(getBucketError.message)
+        ),
+    );
+
+    if (getBucketError && !bucketNotFound) {
+        throw new Error(
+            `Erro ao validar bucket de ataques [${getBucketError.name ?? "STORAGE"}]: ${getBucketError.message}`,
+        );
+    }
+
+    if (!existingBucket || bucketNotFound) {
+        const { error: createBucketError } = await supabase.storage.createBucket(bucketName, {
+            public: true,
+            fileSizeLimit: "10MB",
+        });
+
+        if (createBucketError && !/already exists/i.test(createBucketError.message)) {
+            throw new Error(
+                `Erro ao criar bucket de ataques [${createBucketError.name ?? "STORAGE"}]: ${createBucketError.message}`,
+            );
+        }
+    }
+
+    const safeFileName = sanitizeFileName(payload.fileName || "image");
+    const path = `attacks/${new Date().getFullYear()}/${crypto.randomUUID()}-${safeFileName}`;
+
+    const { error } = await supabase.storage.from(bucketName).upload(path, payload.fileBuffer, {
+        contentType: payload.contentType,
+        upsert: false,
+    });
+
+    if (error) {
+        throw new Error(
+            `Erro ao enviar imagem de ataque para o Storage [${error.name ?? "STORAGE"}]: ${error.message}`,
+        );
+    }
+
+    const {
+        data: { publicUrl },
+    } = supabase.storage.from(bucketName).getPublicUrl(path);
+
+    if (!publicUrl) {
+        throw new Error("Não foi possível obter a URL pública da imagem de ataque.");
     }
 
     return { path, publicUrl };

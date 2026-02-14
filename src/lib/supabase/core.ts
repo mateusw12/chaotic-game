@@ -42,6 +42,10 @@ export function getMugicTableName() {
     return process.env.SUPABASE_MUGIC_TABLE ?? "mugic";
 }
 
+export function getAttacksTableName() {
+    return process.env.SUPABASE_ATTACKS_TABLE ?? "attacks";
+}
+
 export function isValidTribe(value: string): value is CreatureTribe {
     return CREATURE_TRIBES.includes(value as CreatureTribe);
 }

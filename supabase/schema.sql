@@ -113,6 +113,18 @@ create table if not exists public.mugic (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.attacks (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  image_file_id text,
+  image_url text,
+  energy_cost integer not null default 0 check (energy_cost >= 0),
+  element_values jsonb not null default '[]'::jsonb,
+  abilities jsonb not null default '[]'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 alter table if exists public.abilities
   add column if not exists target_scope text not null default 'all_creatures';
 
@@ -189,6 +201,25 @@ alter table if exists public.mugic
 
 alter table if exists public.mugic
   add column if not exists abilities jsonb not null default '[]'::jsonb;
+
+alter table if exists public.attacks
+  add column if not exists image_file_id text;
+
+alter table if exists public.attacks
+  add column if not exists image_url text;
+
+alter table if exists public.attacks
+  add column if not exists energy_cost integer not null default 0;
+
+alter table if exists public.attacks
+  add column if not exists element_values jsonb not null default '[]'::jsonb;
+
+alter table if exists public.attacks
+  add column if not exists abilities jsonb not null default '[]'::jsonb;
+
+update public.attacks
+set energy_cost = 0
+where energy_cost is null;
 
 update public.mugic
 set cost = 0
@@ -283,6 +314,105 @@ begin
     alter table public.mugic
       add constraint mugic_cost_non_negative
       check (cost >= 0);
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'attacks_energy_cost_non_negative'
+  ) then
+    alter table public.attacks
+      add constraint attacks_energy_cost_non_negative
+      check (energy_cost >= 0);
+  end if;
+end $$;
+
+create or replace function public.is_valid_attack_element_values(payload jsonb)
+returns boolean
+language plpgsql
+immutable
+as $$
+begin
+  if jsonb_typeof(payload) <> 'array' then
+    return false;
+  end if;
+
+  if exists (
+    select 1
+    from jsonb_array_elements(payload) as item(value)
+    where jsonb_typeof(item.value) <> 'object'
+       or coalesce(item.value->>'element', '') not in ('fire', 'water', 'earth', 'air')
+       or jsonb_typeof(item.value->'value') <> 'number'
+       or (item.value->>'value')::numeric < 0
+  ) then
+    return false;
+  end if;
+
+  return true;
+exception
+  when others then
+    return false;
+end;
+$$;
+
+create or replace function public.is_valid_attack_abilities(payload jsonb)
+returns boolean
+language plpgsql
+immutable
+as $$
+begin
+  if jsonb_typeof(payload) <> 'array' then
+    return false;
+  end if;
+
+  if exists (
+    select 1
+    from jsonb_array_elements(payload) as item(value)
+    where jsonb_typeof(item.value) <> 'object'
+       or coalesce(nullif(item.value->>'description', ''), '') = ''
+       or (item.value ? 'conditionElement' and coalesce(item.value->>'conditionElement', '') not in ('fire', 'water', 'earth', 'air'))
+       or coalesce(item.value->>'targetScope', '') not in ('attacker', 'defender')
+       or coalesce(item.value->>'effectType', '') not in ('increase', 'decrease')
+       or coalesce(item.value->>'stat', '') not in ('power', 'courage', 'speed', 'wisdom', 'mugic', 'energy')
+       or jsonb_typeof(item.value->'value') <> 'number'
+       or (item.value->>'value')::numeric < 0
+  ) then
+    return false;
+  end if;
+
+  return true;
+exception
+  when others then
+    return false;
+end;
+$$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'attacks_element_values_shape_check'
+  ) then
+    alter table public.attacks
+      add constraint attacks_element_values_shape_check
+      check (public.is_valid_attack_element_values(element_values));
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'attacks_abilities_shape_check'
+  ) then
+    alter table public.attacks
+      add constraint attacks_abilities_shape_check
+      check (public.is_valid_attack_abilities(abilities));
   end if;
 end $$;
 
