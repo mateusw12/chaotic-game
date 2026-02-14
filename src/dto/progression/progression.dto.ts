@@ -1,4 +1,4 @@
-import type { CardRarity } from "@/dto/creature";
+import type { CardRarity, CreatureTribe } from "@/dto/creature";
 
 export const USER_CARD_TYPES = ["creature", "location", "mugic", "battlegear", "attack"] as const;
 
@@ -11,7 +11,12 @@ export const PROGRESSION_EVENT_SOURCES = [
     "daily_login",
     "shop_pack_purchase",
     "shop_purchase_refund",
+    "starter_pack_opened",
 ] as const;
+
+export const STARTER_TRIBE_OPTIONS = ["overworld", "underworld", "mipedian", "danian"] as const;
+
+export type StarterSelectableTribe = (typeof STARTER_TRIBE_OPTIONS)[number];
 
 export type ProgressionEventSource = (typeof PROGRESSION_EVENT_SOURCES)[number];
 
@@ -97,10 +102,49 @@ export type ProgressionMutationResponseDto = {
     message?: string;
 };
 
+export type StarterRewardCardDto = {
+    cardType: UserCardType;
+    cardId: string;
+    rarity: CardRarity;
+};
+
+export type StarterRewardPackDto = {
+    id: "starter_tribe_creatures" | "starter_mugic_battlegear" | "starter_locations_attacks";
+    cards: StarterRewardCardDto[];
+};
+
+export type GetStarterProgressionStatusResponseDto = {
+    success: boolean;
+    requiresChoice: boolean;
+    selectedTribe: CreatureTribe | null;
+    allowedTribes: StarterSelectableTribe[];
+    message?: string;
+};
+
+export type ChooseStarterTribeRequestDto = {
+    tribe: CreatureTribe;
+};
+
+export type ChooseStarterTribeResponseDto = {
+    success: boolean;
+    selectedTribe: CreatureTribe | null;
+    packs: StarterRewardPackDto[];
+    progression: UserProgressionDto | null;
+    wallet: {
+        coins: number;
+        diamonds: number;
+    } | null;
+    message?: string;
+};
+
 export function isValidUserCardType(value: string): value is UserCardType {
     return USER_CARD_TYPES.includes(value as UserCardType);
 }
 
 export function isValidProgressionEventSource(value: string): value is ProgressionEventSource {
     return PROGRESSION_EVENT_SOURCES.includes(value as ProgressionEventSource);
+}
+
+export function isValidStarterSelectableTribe(value: string): value is StarterSelectableTribe {
+    return STARTER_TRIBE_OPTIONS.includes(value as StarterSelectableTribe);
 }
