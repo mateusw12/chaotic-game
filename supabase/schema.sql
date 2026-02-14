@@ -8,6 +8,8 @@ create table if not exists public.users (
   email text not null,
   name text,
   image_url text,
+  starter_tribe text check (starter_tribe in ('overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient')),
+  starter_reward_granted_at timestamptz,
   last_login_at timestamptz not null default now(),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
@@ -16,6 +18,12 @@ create table if not exists public.users (
 
 alter table if exists public.users
   add column if not exists role text not null default 'user';
+
+alter table if exists public.users
+  add column if not exists starter_tribe text;
+
+alter table if exists public.users
+  add column if not exists starter_reward_granted_at timestamptz;
 
 update public.users
 set role = 'user'
@@ -31,6 +39,16 @@ begin
     alter table public.users
       add constraint users_role_check
       check (role in ('user', 'admin'));
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'users_starter_tribe_check'
+  ) then
+    alter table public.users
+      add constraint users_starter_tribe_check
+      check (starter_tribe in ('overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient'));
   end if;
 end $$;
 
@@ -72,7 +90,7 @@ create table if not exists public.user_cards (
 create table if not exists public.progression_events (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.users(id) on delete cascade,
-  source text not null check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'shop_pack_purchase', 'shop_purchase_refund')),
+  source text not null check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'shop_pack_purchase', 'shop_purchase_refund', 'starter_pack_opened')),
   xp_delta integer not null default 0 check (xp_delta >= 0),
   coins_delta integer not null default 0,
   diamonds_delta integer not null default 0,
@@ -101,7 +119,7 @@ begin
 
   alter table public.progression_events
     add constraint progression_events_source_check
-    check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'shop_pack_purchase', 'shop_purchase_refund'));
+    check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'shop_pack_purchase', 'shop_purchase_refund', 'starter_pack_opened'));
 end $$;
 
 create table if not exists public.creatures (
