@@ -9,6 +9,8 @@ export const PROGRESSION_EVENT_SOURCES = [
     "card_awarded",
     "card_discarded",
     "daily_login",
+    "shop_pack_purchase",
+    "shop_purchase_refund",
 ] as const;
 
 export type ProgressionEventSource = (typeof PROGRESSION_EVENT_SOURCES)[number];

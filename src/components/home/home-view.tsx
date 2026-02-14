@@ -1,18 +1,13 @@
 "use client";
 
 import {
-    SettingOutlined,
-    DollarCircleOutlined,
-    StarOutlined,
-    LogoutOutlined,
     GoogleOutlined,
+    SettingOutlined,
 } from "@ant-design/icons";
 import {
-    Avatar,
     Button,
     Card,
     Col,
-    Layout,
     Progress,
     Row,
     Space,
@@ -21,8 +16,9 @@ import {
     Typography,
 } from "antd";
 import Link from "next/link";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import styles from "@/app/page.module.css";
+import { PlayerShell } from "@/components/player/player-shell";
 
 type HomeViewProps = {
     isAuthenticated: boolean;
@@ -37,7 +33,6 @@ type HomeViewProps = {
     xpNextLevel: number;
 };
 
-const { Header, Content } = Layout;
 const { Title, Paragraph, Text } = Typography;
 
 export function HomeView({
@@ -85,67 +80,52 @@ export function HomeView({
     }
 
     return (
-        <Layout className={styles.appLayout}>
-            <Header className={styles.navbar}>
-                <div className={styles.brand}>Chaotic Game</div>
-                <Space size={12} align="center">
-                    <Tag className={styles.resourceTag} icon={<DollarCircleOutlined />}>
-                        {coins} moedas
-                    </Tag>
-                    <Tag className={styles.resourceTag} icon={<StarOutlined />}>
-                        {diamonds} diamantes
-                    </Tag>
-                    <Avatar src={userImageUrl ?? undefined}>
-                        {userName?.charAt(0)?.toUpperCase() ?? "U"}
-                    </Avatar>
-                    <Text className={styles.userName}>{userName ?? "Jogador"}</Text>
+        <PlayerShell
+            selectedKey="home"
+            userName={userName}
+            userImageUrl={userImageUrl}
+            coins={coins}
+            diamonds={diamonds}
+            userRole={userRole}
+        >
+            <Card className={styles.heroCard}>
+                <Space style={{ width: "100%", justifyContent: "space-between" }} align="center">
+                    <Title level={2} style={{ margin: 0 }}>Mundo Chaotic</Title>
                     {userRole === "admin" ? (
                         <Link href="/admin/permissions">
-                            <Button icon={<SettingOutlined />}>Configurações</Button>
+                            <Button icon={<SettingOutlined />}>Administração</Button>
                         </Link>
                     ) : null}
-                    <Button
-                        icon={<LogoutOutlined />}
-                        onClick={() => signOut({ callbackUrl: "/" })}
-                    >
-                        Sair
-                    </Button>
                 </Space>
-            </Header>
+                <Paragraph>
+                    Sua conta está ativa e pronta para explorar o jogo. Em breve, você
+                    poderá usar moedas e diamantes para evoluir sua experiência.
+                </Paragraph>
 
-            <Content className={styles.content}>
-                <Card className={styles.heroCard}>
-                    <Title level={2}>Mundo Chaotic</Title>
-                    <Paragraph>
-                        Sua conta está ativa e pronta para explorar o jogo. Em breve, você
-                        poderá usar moedas e diamantes para evoluir sua experiência.
-                    </Paragraph>
-
-                    <Row gutter={[16, 16]}>
-                        <Col xs={24} md={12}>
-                            <Card className={styles.statCard}>
-                                <Statistic title="Moedas" value={coins} suffix="🪙" />
-                            </Card>
-                        </Col>
-                        <Col xs={24} md={12}>
-                            <Card className={styles.statCard}>
-                                <Statistic title="Diamantes" value={diamonds} suffix="💎" />
-                            </Card>
-                        </Col>
-                        <Col xs={24}>
-                            <Card className={styles.statCard}>
-                                <Space orientation="vertical" style={{ width: "100%" }} size={6}>
-                                    <Statistic title="Nível" value={level} suffix={`(XP total: ${xpTotal})`} />
-                                    <Text>
-                                        XP no nível atual: {xpCurrentLevel}/{xpNextLevel}
-                                    </Text>
-                                    <Progress percent={xpPercent} />
-                                </Space>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Card>
-            </Content>
-        </Layout>
+                <Row gutter={[16, 16]}>
+                    <Col xs={24} md={12}>
+                        <Card className={styles.statCard}>
+                            <Statistic title="Moedas" value={coins} suffix="🪙" />
+                        </Card>
+                    </Col>
+                    <Col xs={24} md={12}>
+                        <Card className={styles.statCard}>
+                            <Statistic title="Diamantes" value={diamonds} suffix="💎" />
+                        </Card>
+                    </Col>
+                    <Col xs={24}>
+                        <Card className={styles.statCard}>
+                            <Space orientation="vertical" style={{ width: "100%" }} size={6}>
+                                <Statistic title="Nível" value={level} suffix={`(XP total: ${xpTotal})`} />
+                                <Text>
+                                    XP no nível atual: {xpCurrentLevel}/{xpNextLevel}
+                                </Text>
+                                <Progress percent={xpPercent} />
+                            </Space>
+                        </Card>
+                    </Col>
+                </Row>
+            </Card>
+        </PlayerShell>
     );
 }

@@ -1,4 +1,4 @@
-import { type UserDashboardDto, type UserWalletDto } from "@/dto/wallet";
+import { type AdminUserWalletDto, type UserDashboardDto, type UserWalletDto } from "@/dto/wallet";
 import type { UserRole } from "@/dto/user";
 import { getSupabaseAdminClient } from "./storage";
 import {
@@ -9,6 +9,7 @@ import {
 } from "./core";
 import type { SupabaseApiError, SupabaseWalletRow } from "./types";
 import { ensureUserProgressionInSupabase } from "./progression";
+import { listUsersWithRoles } from "./users";
 
 function mapSupabaseWalletRow(row: SupabaseWalletRow): UserWalletDto {
     return {
@@ -175,4 +176,66 @@ export async function getUserDashboardByEmail(
         xpCurrentLevel: ensuredProgression.xpCurrentLevel,
         xpNextLevel: ensuredProgression.xpNextLevel,
     };
+}
+
+export async function listAdminUserWallets(): Promise<AdminUserWalletDto[]> {
+    const users = await listUsersWithRoles();
+
+    const wallets = await Promise.all(users.map(async (user) => {
+        const wallet = await ensureUserWalletInSupabase(user.id);
+
+        return {
+            userId: user.id,
+            name: user.name,
+            email: user.email,
+            imageUrl: user.imageUrl,
+            coins: wallet.coins,
+            diamonds: wallet.diamonds,
+        } satisfies AdminUserWalletDto;
+    }));
+
+    return wallets;
+}
+
+export async function creditUserWalletByUserId(
+    userId: string,
+    coinsToAdd: number,
+    diamondsToAdd: number,
+): Promise<UserWalletDto> {
+    const normalizedCoins = Math.max(0, Math.trunc(coinsToAdd));
+    const normalizedDiamonds = Math.max(0, Math.trunc(diamondsToAdd));
+
+    if (normalizedCoins === 0 && normalizedDiamonds === 0) {
+        throw new Error("Informe ao menos uma quantidade positiva de moedas ou diamantes.");
+    }
+
+    const currentWallet = await ensureUserWalletInSupabase(userId);
+    const tableName = getWalletsTableName();
+    const supabase = getSupabaseAdminClient();
+
+    const { data, error } = await supabase
+        .from(tableName)
+        .update({
+            coins: currentWallet.coins + normalizedCoins,
+            diamonds: currentWallet.diamonds + normalizedDiamonds,
+        })
+        .eq("id", currentWallet.id)
+        .select("id,user_id,coins,diamonds,created_at,updated_at")
+        .single<SupabaseWalletRow>();
+
+    if (error) {
+        const supabaseError = error as SupabaseApiError;
+
+        if (isMissingTableError(supabaseError)) {
+            throw new Error(
+                `Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de creditar saldos (veja supabase/schema.sql).`,
+            );
+        }
+
+        throw new Error(
+            `Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`,
+        );
+    }
+
+    return mapSupabaseWalletRow(data);
 }

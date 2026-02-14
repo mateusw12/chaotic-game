@@ -126,6 +126,18 @@ Progressão (XP, nível, coleção e descarte):
 - Admin:
   - `POST /api/admin/progression/cards/award`
 
+Loja de cards (usuário autenticado):
+
+- Página: `/store`
+- API catálogo: `GET /api/store/packs`
+- API compra: `POST /api/store/purchase`
+
+Regras iniciais da loja:
+
+- Pacotes com compra por `coins` ou `diamonds`
+- Limites por usuário com janela `daily` (UTC) e/ou `weekly` (UTC)
+- Limite exibido na UI como saldo de compras restantes no período
+
 Regras iniciais de progressão:
 
 - XP por vitória em batalha: `50`

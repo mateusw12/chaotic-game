@@ -58,7 +58,7 @@ Ledger de eventos que alteram progressão/economia.
 Campos principais:
 
 - `user_id`
-- `source` (`battle_victory`, `card_awarded`, `card_discarded`, `daily_login`)
+- `source` (`battle_victory`, `card_awarded`, `card_discarded`, `daily_login`, `shop_pack_purchase`, `shop_purchase_refund`)
 - `xp_delta`
 - `coins_delta`
 - `diamonds_delta`
@@ -145,6 +145,24 @@ Body:
 {
   "userCardId": "uuid-da-carta-no-inventario",
   "quantity": 1
+}
+```
+
+## Loja (usuário autenticado)
+
+### `GET /api/store/packs`
+
+Lista os pacotes disponíveis com preço, limites (diário/semanal) e saldo restante de compras para o usuário.
+
+### `POST /api/store/purchase`
+
+Compra um pacote e retorna as cartas reveladas.
+
+Body:
+
+```json
+{
+  "packId": "starter_coins"
 }
 ```
 

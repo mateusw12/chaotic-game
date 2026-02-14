@@ -1,0 +1,132 @@
+.packCard {
+    height: 100%;
+}
+
+.packCard :global(.ant-card-head) {
+    min-height: 42px;
+    padding-inline: 12px;
+}
+
+.packCard :global(.ant-card-body) {
+    padding: 12px;
+    height: calc(100% - 42px);
+}
+
+.packContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 8px;
+}
+
+.packDescription {
+    min-height: 44px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.infoIcon {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.infoIcon:hover {
+    color: #91caff;
+}
+
+.offerBox {
+    border: 1px solid rgba(145, 202, 255, 0.35);
+    border-radius: 12px;
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(24, 39, 78, 0.7), rgba(16, 24, 50, 0.7));
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.offerTopRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.countTag {
+    margin-inline-end: 0 !important;
+    font-weight: 600;
+}
+
+.priceLine {
+    margin-top: 8px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 6px;
+}
+
+.priceSymbol {
+    font-size: 17px;
+    line-height: 1;
+}
+
+.priceValue {
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 800;
+    color: #f6fbff;
+}
+
+.priceUnit {
+    font-size: 12px;
+    color: rgba(235, 244, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.priceHint {
+    margin-top: 4px;
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(205, 223, 255, 0.88);
+}
+
+.limitsRow {
+    min-height: 32px;
+}
+
+.buyButton {
+    margin-top: auto;
+}
+
+.revealGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.revealCard {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    animation: revealIn 240ms ease forwards;
+}
+
+.cardImage {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+@keyframes revealIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

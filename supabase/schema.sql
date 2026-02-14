@@ -72,7 +72,7 @@ create table if not exists public.user_cards (
 create table if not exists public.progression_events (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.users(id) on delete cascade,
-  source text not null check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login')),
+  source text not null check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'shop_pack_purchase', 'shop_purchase_refund')),
   xp_delta integer not null default 0 check (xp_delta >= 0),
   coins_delta integer not null default 0,
   diamonds_delta integer not null default 0,
@@ -101,7 +101,7 @@ begin
 
   alter table public.progression_events
     add constraint progression_events_source_check
-    check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login'));
+    check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'shop_pack_purchase', 'shop_purchase_refund'));
 end $$;
 
 create table if not exists public.creatures (
