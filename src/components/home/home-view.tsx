@@ -1,6 +1,7 @@
 "use client";
 
 import {
+    SettingOutlined,
     DollarCircleOutlined,
     StarOutlined,
     LogoutOutlined,
@@ -18,6 +19,7 @@ import {
     Tag,
     Typography,
 } from "antd";
+import Link from "next/link";
 import { signIn, signOut } from "next-auth/react";
 import styles from "@/app/page.module.css";
 
@@ -25,6 +27,7 @@ type HomeViewProps = {
     isAuthenticated: boolean;
     userName: string | null;
     userImageUrl: string | null;
+    userRole: "user" | "admin";
     coins: number;
     diamonds: number;
 };
@@ -36,6 +39,7 @@ export function HomeView({
     isAuthenticated,
     userName,
     userImageUrl,
+    userRole,
     coins,
     diamonds,
 }: HomeViewProps) {
@@ -82,6 +86,11 @@ export function HomeView({
                         {userName?.charAt(0)?.toUpperCase() ?? "U"}
                     </Avatar>
                     <Text className={styles.userName}>{userName ?? "Jogador"}</Text>
+                    {userRole === "admin" ? (
+                        <Link href="/admin/permissions">
+                            <Button icon={<SettingOutlined />}>Permissões</Button>
+                        </Link>
+                    ) : null}
                     <Button
                         icon={<LogoutOutlined />}
                         onClick={() => signOut({ callbackUrl: "/" })}

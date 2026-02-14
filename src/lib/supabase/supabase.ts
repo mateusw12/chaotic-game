@@ -1,10 +1,16 @@
-import { SavedUserDto, SaveLoggedUserRequestDto } from "@/dto/user";
+import {
+  SavedUserDto,
+  SaveLoggedUserRequestDto,
+  UserPermissionDto,
+  UserRole,
+} from "@/dto/user";
 import { type UserDashboardDto, type UserWalletDto } from "@/dto/wallet";
 import { createClient } from "@supabase/supabase-js";
 
 
 type SupabaseUserRow = {
   id: string;
+  role: UserRole;
   provider: string;
   provider_account_id: string;
   email: string;
@@ -12,6 +18,15 @@ type SupabaseUserRow = {
   image_url: string | null;
   last_login_at: string;
   created_at: string;
+  updated_at: string;
+};
+
+type SupabasePermissionUserRow = {
+  id: string;
+  name: string | null;
+  email: string;
+  image_url: string | null;
+  role: UserRole;
   updated_at: string;
 };
 
@@ -50,6 +65,7 @@ function getSupabaseAdminClient() {
 function mapSupabaseUserRow(row: SupabaseUserRow): SavedUserDto {
   return {
     id: row.id,
+    role: row.role,
     provider: row.provider,
     providerAccountId: row.provider_account_id,
     email: row.email,
@@ -57,6 +73,19 @@ function mapSupabaseUserRow(row: SupabaseUserRow): SavedUserDto {
     imageUrl: row.image_url,
     lastLoginAt: row.last_login_at,
     createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+function mapSupabasePermissionUserRow(
+  row: SupabasePermissionUserRow,
+): UserPermissionDto {
+  return {
+    id: row.id,
+    name: row.name,
+    email: row.email,
+    imageUrl: row.image_url,
+    role: row.role,
     updatedAt: row.updated_at,
   };
 }
@@ -106,7 +135,7 @@ export async function saveLoggedUserInSupabase(
       },
     )
     .select(
-      "id,provider,provider_account_id,email,name,image_url,last_login_at,created_at,updated_at",
+      "id,role,provider,provider_account_id,email,name,image_url,last_login_at,created_at,updated_at",
     )
     .single<SupabaseUserRow>();
 
@@ -123,6 +152,128 @@ export async function saveLoggedUserInSupabase(
   }
 
   return mapSupabaseUserRow(data);
+}
+
+export async function ensureDefaultAdminRoleByEmail(email: string): Promise<void> {
+  const defaultAdminEmail = process.env.AUTH_DEFAULT_ADMIN_EMAIL;
+
+  if (!defaultAdminEmail) {
+    return;
+  }
+
+  if (email.toLowerCase() !== defaultAdminEmail.toLowerCase()) {
+    return;
+  }
+
+  const supabase = getSupabaseAdminClient();
+  const tableName = getUsersTableName();
+
+  const { error } = await supabase
+    .from(tableName)
+    .update({ role: "admin" })
+    .eq("email", email)
+    .neq("role", "admin");
+
+  if (error) {
+    const supabaseError = error as SupabaseApiError;
+
+    if (isMissingTableError(supabaseError)) {
+      throw new Error(
+        `Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de gerenciar roles (veja supabase/schema.sql).`,
+      );
+    }
+
+    throw new Error(
+      `Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`,
+    );
+  }
+}
+
+export async function getUserRoleByEmail(email: string): Promise<UserRole | null> {
+  const supabase = getSupabaseAdminClient();
+  const tableName = getUsersTableName();
+
+  const { data, error } = await supabase
+    .from(tableName)
+    .select("role")
+    .eq("email", email)
+    .order("updated_at", { ascending: false })
+    .limit(1)
+    .maybeSingle<{ role: UserRole }>();
+
+  if (error) {
+    const supabaseError = error as SupabaseApiError;
+
+    if (isMissingTableError(supabaseError)) {
+      throw new Error(
+        `Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de consultar roles (veja supabase/schema.sql).`,
+      );
+    }
+
+    throw new Error(
+      `Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`,
+    );
+  }
+
+  return data?.role ?? null;
+}
+
+export async function listUsersWithRoles(): Promise<UserPermissionDto[]> {
+  const supabase = getSupabaseAdminClient();
+  const tableName = getUsersTableName();
+
+  const { data, error } = await supabase
+    .from(tableName)
+    .select("id,name,email,image_url,role,updated_at")
+    .order("updated_at", { ascending: false })
+    .returns<SupabasePermissionUserRow[]>();
+
+  if (error) {
+    const supabaseError = error as SupabaseApiError;
+
+    if (isMissingTableError(supabaseError)) {
+      throw new Error(
+        `Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de listar permissões (veja supabase/schema.sql).`,
+      );
+    }
+
+    throw new Error(
+      `Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`,
+    );
+  }
+
+  return (data ?? []).map(mapSupabasePermissionUserRow);
+}
+
+export async function updateUserRoleById(
+  userId: string,
+  role: UserRole,
+): Promise<UserPermissionDto> {
+  const supabase = getSupabaseAdminClient();
+  const tableName = getUsersTableName();
+
+  const { data, error } = await supabase
+    .from(tableName)
+    .update({ role })
+    .eq("id", userId)
+    .select("id,name,email,image_url,role,updated_at")
+    .single<SupabasePermissionUserRow>();
+
+  if (error) {
+    const supabaseError = error as SupabaseApiError;
+
+    if (isMissingTableError(supabaseError)) {
+      throw new Error(
+        `Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de atualizar permissões (veja supabase/schema.sql).`,
+      );
+    }
+
+    throw new Error(
+      `Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`,
+    );
+  }
+
+  return mapSupabasePermissionUserRow(data);
 }
 
 export async function ensureUserWalletInSupabase(
@@ -170,11 +321,16 @@ export async function getUserDashboardByEmail(
 
   const { data: userRow, error: userError } = await supabase
     .from(usersTable)
-    .select("id,name,image_url")
+    .select("id,name,image_url,role")
     .eq("email", email)
     .order("updated_at", { ascending: false })
     .limit(1)
-    .maybeSingle<{ id: string; name: string | null; image_url: string | null }>();
+    .maybeSingle<{
+      id: string;
+      name: string | null;
+      image_url: string | null;
+      role: UserRole;
+    }>();
 
   if (userError) {
     const supabaseError = userError as SupabaseApiError;
@@ -221,6 +377,7 @@ export async function getUserDashboardByEmail(
   return {
     userName: userRow.name,
     userImageUrl: userRow.image_url,
+    userRole: userRow.role,
     coins: wallet.coins,
     diamonds: wallet.diamonds,
   };

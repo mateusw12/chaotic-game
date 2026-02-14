@@ -1,3 +1,5 @@
+export type UserRole = "user" | "admin";
+
 export type SaveLoggedUserRequestDto = {
   provider: string;
   providerAccountId: string;
@@ -8,6 +10,7 @@ export type SaveLoggedUserRequestDto = {
 
 export type SavedUserDto = {
   id: string;
+  role: UserRole;
   provider: string;
   providerAccountId: string;
   email: string;
@@ -21,5 +24,30 @@ export type SavedUserDto = {
 export type SaveLoggedUserResponseDto = {
   success: boolean;
   user: SavedUserDto | null;
+  message?: string;
+};
+
+export type UserPermissionDto = {
+  id: string;
+  name: string | null;
+  email: string;
+  imageUrl: string | null;
+  role: UserRole;
+  updatedAt: string;
+};
+
+export type ListUsersPermissionsResponseDto = {
+  success: boolean;
+  users: UserPermissionDto[];
+  message?: string;
+};
+
+export type UpdateUserRoleRequestDto = {
+  role: UserRole;
+};
+
+export type UpdateUserRoleResponseDto = {
+  success: boolean;
+  user: UserPermissionDto | null;
   message?: string;
 };

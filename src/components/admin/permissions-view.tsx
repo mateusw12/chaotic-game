@@ -1,0 +1,135 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { Avatar, Button, Card, Select, Space, Table, Tag, Typography, message } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { ArrowLeftOutlined, SafetyOutlined } from "@ant-design/icons";
+import Link from "next/link";
+import { type UserPermissionDto, type UserRole } from "@/dto/user";
+
+type PermissionsViewProps = {
+    users: UserPermissionDto[];
+};
+
+const { Title, Text } = Typography;
+
+export function PermissionsView({ users }: PermissionsViewProps) {
+    const [rows, setRows] = useState<UserPermissionDto[]>(users);
+    const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
+
+    async function handleRoleChange(userId: string, role: UserRole) {
+        setLoadingUserId(userId);
+
+        try {
+            const response = await fetch(`/api/admin/users/${userId}/role`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ role }),
+            });
+
+            const data = (await response.json()) as {
+                success: boolean;
+                message?: string;
+            };
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.message ?? "Falha ao atualizar role.");
+            }
+
+            setRows((previousRows) =>
+                previousRows.map((row) =>
+                    row.id === userId
+                        ? {
+                            ...row,
+                            role,
+                        }
+                        : row,
+                ),
+            );
+
+            message.success("Permissão atualizada com sucesso.");
+        } catch (error) {
+            message.error(error instanceof Error ? error.message : "Erro ao atualizar role.");
+        } finally {
+            setLoadingUserId(null);
+        }
+    }
+
+    const columns = useMemo<ColumnsType<UserPermissionDto>>(
+        () => [
+            {
+                title: "Usuário",
+                dataIndex: "name",
+                key: "name",
+                render: (_, row) => (
+                    <Space>
+                        <Avatar src={row.imageUrl ?? undefined}>
+                            {row.name?.charAt(0)?.toUpperCase() ?? "U"}
+                        </Avatar>
+                        <Space orientation="vertical" size={0}>
+                            <Text strong>{row.name ?? "Sem nome"}</Text>
+                            <Text type="secondary">{row.email}</Text>
+                        </Space>
+                    </Space>
+                ),
+            },
+            {
+                title: "Role atual",
+                dataIndex: "role",
+                key: "role",
+                width: 140,
+                render: (role: UserRole) => (
+                    <Tag color={role === "admin" ? "purple" : "blue"}>{role}</Tag>
+                ),
+            },
+            {
+                title: "Alterar role",
+                key: "changeRole",
+                width: 180,
+                render: (_, row) => (
+                    <Select
+                        value={row.role}
+                        loading={loadingUserId === row.id}
+                        onChange={(newRole: UserRole) => handleRoleChange(row.id, newRole)}
+                        options={[
+                            { value: "user", label: "user" },
+                            { value: "admin", label: "admin" },
+                        ]}
+                        style={{ width: "100%" }}
+                    />
+                ),
+            },
+        ],
+        [loadingUserId],
+    );
+
+    return (
+        <main style={{ minHeight: "100vh", padding: 24, background: "#060914" }}>
+            <Card style={{ maxWidth: 1080, margin: "0 auto", borderRadius: 16 }}>
+                <Space orientation="vertical" size={16} style={{ width: "100%" }}>
+                    <Space style={{ width: "100%", justifyContent: "space-between" }}>
+                        <Space>
+                            <SafetyOutlined />
+                            <Title level={3} style={{ margin: 0 }}>
+                                Gestão de Permissões
+                            </Title>
+                        </Space>
+
+                        <Link href="/">
+                            <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
+                        </Link>
+                    </Space>
+
+                    <Table<UserPermissionDto>
+                        rowKey="id"
+                        columns={columns}
+                        dataSource={rows}
+                        pagination={{ pageSize: 8 }}
+                    />
+                </Space>
+            </Card>
+        </main>
+    );
+}

@@ -10,6 +10,7 @@ export type UserWalletDto = {
 export type UserDashboardDto = {
     userName: string | null;
     userImageUrl: string | null;
+    userRole: "user" | "admin";
     coins: number;
     diamonds: number;
 };

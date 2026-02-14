@@ -20,6 +20,7 @@ export default async function Home() {
       isAuthenticated={Boolean(session)}
       userName={dashboard?.userName ?? session?.user?.name ?? null}
       userImageUrl={dashboard?.userImageUrl ?? session?.user?.image ?? null}
+      userRole={dashboard?.userRole ?? "user"}
       coins={dashboard?.coins ?? 0}
       diamonds={dashboard?.diamonds ?? 0}
     />

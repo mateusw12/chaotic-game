@@ -9,6 +9,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 AUTH_SECRET=your_random_secret
 AUTH_GOOGLE_ID=your_google_client_id
 AUTH_GOOGLE_SECRET=your_google_client_secret
+AUTH_DEFAULT_ADMIN_EMAIL=admin@email.com
 ```
 
 3. In Google Cloud Console, configure OAuth redirect URI:
@@ -38,11 +39,11 @@ Request body DTO (`SaveLoggedUserRequestDto`):
 
 ```json
 {
-	"provider": "google",
-	"providerAccountId": "google_provider_account_id",
-	"email": "user@email.com",
-	"name": "Nome do usuário",
-	"imageUrl": "https://..."
+  "provider": "google",
+  "providerAccountId": "google_provider_account_id",
+  "email": "user@email.com",
+  "name": "Nome do usuário",
+  "imageUrl": "https://..."
 }
 ```
 
@@ -50,28 +51,37 @@ Response DTO (`SaveLoggedUserResponseDto`):
 
 ```json
 {
-	"success": true,
-	"user": {
-		"id": "uuid",
-		"provider": "google",
-		"providerAccountId": "...",
-		"email": "user@email.com",
-		"name": "Nome",
-		"imageUrl": "https://...",
-		"lastLoginAt": "2026-02-14T00:00:00.000Z",
-		"createdAt": "2026-02-14T00:00:00.000Z",
-		"updatedAt": "2026-02-14T00:00:00.000Z"
-	}
+  "success": true,
+  "user": {
+    "id": "uuid",
+    "provider": "google",
+    "providerAccountId": "...",
+    "email": "user@email.com",
+    "name": "Nome",
+    "imageUrl": "https://...",
+    "lastLoginAt": "2026-02-14T00:00:00.000Z",
+    "createdAt": "2026-02-14T00:00:00.000Z",
+    "updatedAt": "2026-02-14T00:00:00.000Z"
+  }
 }
 ```
 
 The project also syncs automatically on successful login via NextAuth `events.signIn`.
+
+By default, every new user starts with role `user`. If `AUTH_DEFAULT_ADMIN_EMAIL` is set, that email is promoted to `admin` automatically on login.
+
+Admin permission management:
+
+- Page: `/admin/permissions`
+- List API: `GET /api/admin/users`
+- Update role API: `PATCH /api/admin/users/:userId/role`
 
 Suggested SQL table:
 
 ```sql
 create table if not exists public.users (
 	id uuid primary key default gen_random_uuid(),
+	role text not null default 'user' check (role in ('user', 'admin')),
 	provider text not null,
 	provider_account_id text not null,
 	email text not null,
@@ -82,6 +92,9 @@ create table if not exists public.users (
 	updated_at timestamptz not null default now(),
 	unique(provider, provider_account_id)
 );
+
+alter table if exists public.users
+	add column if not exists role text not null default 'user';
 
 create table if not exists public.user_wallets (
 	id uuid primary key default gen_random_uuid(),

@@ -1,6 +1,10 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { ensureUserWalletInSupabase, saveLoggedUserInSupabase } from "../supabase";
+import {
+  ensureDefaultAdminRoleByEmail,
+  ensureUserWalletInSupabase,
+  saveLoggedUserInSupabase,
+} from "../supabase";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -25,6 +29,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           imageUrl: user.image ?? null,
         });
 
+        await ensureDefaultAdminRoleByEmail(savedUser.email);
         await ensureUserWalletInSupabase(savedUser.id);
       } catch (error) {
         console.error("Erro ao salvar usuário no Supabase:", error);
