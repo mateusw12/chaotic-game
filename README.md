@@ -1,5 +1,22 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Authentication setup (NextAuth + Google)
+
+1. Copy `.env.example` to `.env`.
+2. Fill these variables:
+
+```bash
+AUTH_SECRET=your_random_secret
+AUTH_GOOGLE_ID=your_google_client_id
+AUTH_GOOGLE_SECRET=your_google_client_secret
+```
+
+3. In Google Cloud Console, configure OAuth redirect URI:
+
+```text
+http://localhost:3000/api/auth/callback/google
+```
+
 ## Getting Started
 
 First, run the development server:
