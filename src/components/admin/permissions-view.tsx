@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Avatar, Button, Card, Select, Space, Table, Tag, Typography, message } from "antd";
+import { App as AntdApp, Avatar, Button, Card, Select, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ArrowLeftOutlined, SafetyOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -14,6 +14,7 @@ type PermissionsViewProps = {
 const { Title, Text } = Typography;
 
 export function PermissionsView({ users }: PermissionsViewProps) {
+    const { message } = AntdApp.useApp();
     const [rows, setRows] = useState<UserPermissionDto[]>(users);
     const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
 
