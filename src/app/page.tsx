@@ -23,6 +23,10 @@ export default async function Home() {
       userRole={dashboard?.userRole ?? "user"}
       coins={dashboard?.coins ?? 0}
       diamonds={dashboard?.diamonds ?? 0}
+      level={dashboard?.level ?? 1}
+      xpTotal={dashboard?.xpTotal ?? 0}
+      xpCurrentLevel={dashboard?.xpCurrentLevel ?? 0}
+      xpNextLevel={dashboard?.xpNextLevel ?? 100}
     />
   );
 }

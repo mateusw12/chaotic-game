@@ -13,4 +13,8 @@ export type UserDashboardDto = {
     userRole: "user" | "admin";
     coins: number;
     diamonds: number;
+    level: number;
+    xpTotal: number;
+    xpCurrentLevel: number;
+    xpNextLevel: number;
 };

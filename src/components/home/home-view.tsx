@@ -13,6 +13,7 @@ import {
     Card,
     Col,
     Layout,
+    Progress,
     Row,
     Space,
     Statistic,
@@ -30,6 +31,10 @@ type HomeViewProps = {
     userRole: "user" | "admin";
     coins: number;
     diamonds: number;
+    level: number;
+    xpTotal: number;
+    xpCurrentLevel: number;
+    xpNextLevel: number;
 };
 
 const { Header, Content } = Layout;
@@ -42,7 +47,15 @@ export function HomeView({
     userRole,
     coins,
     diamonds,
+    level,
+    xpTotal,
+    xpCurrentLevel,
+    xpNextLevel,
 }: HomeViewProps) {
+    const xpPercent = xpNextLevel > 0
+        ? Math.min(100, Math.round((xpCurrentLevel / xpNextLevel) * 100))
+        : 0;
+
     if (!isAuthenticated) {
         return (
             <main className={styles.guestPage}>
@@ -117,6 +130,17 @@ export function HomeView({
                         <Col xs={24} md={12}>
                             <Card className={styles.statCard}>
                                 <Statistic title="Diamantes" value={diamonds} suffix="💎" />
+                            </Card>
+                        </Col>
+                        <Col xs={24}>
+                            <Card className={styles.statCard}>
+                                <Space direction="vertical" style={{ width: "100%" }} size={6}>
+                                    <Statistic title="Nível" value={level} suffix={`(XP total: ${xpTotal})`} />
+                                    <Text>
+                                        XP no nível atual: {xpCurrentLevel}/{xpNextLevel}
+                                    </Text>
+                                    <Progress percent={xpPercent} />
+                                </Space>
                             </Card>
                         </Col>
                     </Row>

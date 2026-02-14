@@ -32,6 +32,15 @@ SUPABASE_ABILITIES_TABLE=abilities
 SUPABASE_CREATURE_IMAGES_BUCKET=creature-images
 SUPABASE_LOCATIONS_TABLE=locations
 SUPABASE_LOCATION_IMAGES_BUCKET=location-images
+SUPABASE_BATTLEGEAR_TABLE=battlegear
+SUPABASE_BATTLEGEAR_IMAGES_BUCKET=battlegear-images
+SUPABASE_MUGIC_TABLE=mugic
+SUPABASE_MUGIC_IMAGES_BUCKET=mugic-images
+SUPABASE_ATTACKS_TABLE=attacks
+SUPABASE_ATTACKS_IMAGES_BUCKET=attacks-images
+SUPABASE_USER_PROGRESSION_TABLE=user_progression
+SUPABASE_PROGRESSION_EVENTS_TABLE=progression_events
+SUPABASE_USER_CARDS_TABLE=user_cards
 ```
 
 For creature images, create a Supabase Storage bucket (public) with the same name as `SUPABASE_CREATURE_IMAGES_BUCKET`.
@@ -107,6 +116,25 @@ Ability parameters:
 - `stat`: `power` | `courage` | `speed` | `wisdom` | `energy`
 - `value`: integer >= 0
 - `targetScope`: `all_creatures` | `same_tribe` | `enemy_only`
+
+Progressão (XP, nível, coleção e descarte):
+
+- Usuário autenticado:
+  - `GET /api/progression/overview`
+  - `POST /api/progression/battle-victory`
+  - `POST /api/progression/cards/discard`
+- Admin:
+  - `POST /api/admin/progression/cards/award`
+
+Regras iniciais de progressão:
+
+- XP por vitória em batalha: `50`
+- XP por carta adquirida (por unidade):
+  - `comum: 8`, `incomum: 16`, `rara: 28`, `super_rara: 45`, `ultra_rara: 70`
+- Moedas por descarte (por unidade):
+  - `comum: 20`, `incomum: 45`, `rara: 90`, `super_rara: 170`, `ultra_rara: 300`
+- Curva de nível:
+  - XP para próximo nível = `100 + 25 * (nível - 1)`
 
 Creatures fixed fields:
 

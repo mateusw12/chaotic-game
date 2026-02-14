@@ -46,6 +46,18 @@ export function getAttacksTableName() {
     return process.env.SUPABASE_ATTACKS_TABLE ?? "attacks";
 }
 
+export function getUserProgressionTableName() {
+    return process.env.SUPABASE_USER_PROGRESSION_TABLE ?? "user_progression";
+}
+
+export function getProgressionEventsTableName() {
+    return process.env.SUPABASE_PROGRESSION_EVENTS_TABLE ?? "progression_events";
+}
+
+export function getUserCardsTableName() {
+    return process.env.SUPABASE_USER_CARDS_TABLE ?? "user_cards";
+}
+
 export function isValidTribe(value: string): value is CreatureTribe {
     return CREATURE_TRIBES.includes(value as CreatureTribe);
 }

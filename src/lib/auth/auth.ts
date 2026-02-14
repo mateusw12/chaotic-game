@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import {
+  ensureUserProgressionInSupabase,
   ensureDefaultAdminRoleByEmail,
   ensureUserWalletInSupabase,
   saveLoggedUserInSupabase,
@@ -31,6 +32,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         await ensureDefaultAdminRoleByEmail(savedUser.email);
         await ensureUserWalletInSupabase(savedUser.id);
+        await ensureUserProgressionInSupabase(savedUser.id);
       } catch (error) {
         console.error("Erro ao salvar usuário no Supabase:", error);
       }

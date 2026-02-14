@@ -44,6 +44,50 @@ create table if not exists public.user_wallets (
   unique (user_id)
 );
 
+create table if not exists public.user_progression (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  xp_total integer not null default 0 check (xp_total >= 0),
+  level integer not null default 1 check (level >= 1),
+  xp_current_level integer not null default 0 check (xp_current_level >= 0),
+  xp_next_level integer not null default 100 check (xp_next_level > 0),
+  season_rank text not null default 'bronze',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (user_id)
+);
+
+create table if not exists public.user_cards (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  card_type text not null check (card_type in ('creature', 'location', 'mugic', 'battlegear', 'attack')),
+  card_id uuid not null,
+  rarity text not null check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
+  quantity integer not null default 1 check (quantity >= 1),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (user_id, card_type, card_id)
+);
+
+create table if not exists public.progression_events (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  source text not null check (source in ('battle_victory', 'card_awarded', 'card_discarded')),
+  xp_delta integer not null default 0 check (xp_delta >= 0),
+  coins_delta integer not null default 0,
+  diamonds_delta integer not null default 0,
+  card_type text check (card_type in ('creature', 'location', 'mugic', 'battlegear', 'attack')),
+  card_id uuid,
+  card_rarity text check (card_rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
+  quantity integer not null default 1 check (quantity >= 1),
+  reference_id text,
+  metadata jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists idx_user_cards_user_id on public.user_cards(user_id);
+create index if not exists idx_progression_events_user_id_created_at on public.progression_events(user_id, created_at desc);
+
 create table if not exists public.creatures (
   id uuid primary key default gen_random_uuid(),
   name text not null,

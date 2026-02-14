@@ -6,4 +6,5 @@ export * from "./locations";
 export * from "./battlegear";
 export * from "./mugic";
 export * from "./attacks";
+export * from "./progression";
 export * from "./storage";

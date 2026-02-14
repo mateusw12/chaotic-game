@@ -2,11 +2,13 @@ import { type UserDashboardDto, type UserWalletDto } from "@/dto/wallet";
 import type { UserRole } from "@/dto/user";
 import { getSupabaseAdminClient } from "./storage";
 import {
+    getUserProgressionTableName,
     getUsersTableName,
     getWalletsTableName,
     isMissingTableError,
 } from "./core";
 import type { SupabaseApiError, SupabaseWalletRow } from "./types";
+import { ensureUserProgressionInSupabase } from "./progression";
 
 function mapSupabaseWalletRow(row: SupabaseWalletRow): UserWalletDto {
     return {
@@ -61,6 +63,7 @@ export async function getUserDashboardByEmail(
     const supabase = getSupabaseAdminClient();
     const usersTable = getUsersTableName();
     const walletsTable = getWalletsTableName();
+    const progressionTable = getUserProgressionTableName();
 
     const { data: userRow, error: userError } = await supabase
         .from(usersTable)
@@ -117,11 +120,59 @@ export async function getUserDashboardByEmail(
         ? mapSupabaseWalletRow(walletRow)
         : await ensureUserWalletInSupabase(userRow.id);
 
+    const { data: progressionRow, error: progressionError } = await supabase
+        .from(progressionTable)
+        .select("id,user_id,xp_total,level,xp_current_level,xp_next_level,season_rank,created_at,updated_at")
+        .eq("user_id", userRow.id)
+        .maybeSingle<{
+            id: string;
+            user_id: string;
+            xp_total: number;
+            level: number;
+            xp_current_level: number;
+            xp_next_level: number;
+            season_rank: string;
+            created_at: string;
+            updated_at: string;
+        }>();
+
+    if (progressionError) {
+        const supabaseError = progressionError as SupabaseApiError;
+
+        if (isMissingTableError(supabaseError)) {
+            throw new Error(
+                `Tabela não encontrada no Supabase: public.${progressionTable}. Crie a tabela antes de carregar progressão (veja supabase/schema.sql).`,
+            );
+        }
+
+        throw new Error(
+            `Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`,
+        );
+    }
+
+    const ensuredProgression = progressionRow
+        ? {
+            level: progressionRow.level,
+            xpTotal: progressionRow.xp_total,
+            xpCurrentLevel: progressionRow.xp_current_level,
+            xpNextLevel: progressionRow.xp_next_level,
+        }
+        : await ensureUserProgressionInSupabase(userRow.id).then((item) => ({
+            level: item.level,
+            xpTotal: item.xpTotal,
+            xpCurrentLevel: item.xpCurrentLevel,
+            xpNextLevel: item.xpNextLevel,
+        }));
+
     return {
         userName: userRow.name,
         userImageUrl: userRow.image_url,
         userRole: userRow.role,
         coins: wallet.coins,
         diamonds: wallet.diamonds,
+        level: ensuredProgression.level,
+        xpTotal: ensuredProgression.xpTotal,
+        xpCurrentLevel: ensuredProgression.xpCurrentLevel,
+        xpNextLevel: ensuredProgression.xpNextLevel,
     };
 }
