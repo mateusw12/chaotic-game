@@ -17,6 +17,74 @@ AUTH_GOOGLE_SECRET=your_google_client_secret
 http://localhost:3000/api/auth/callback/google
 ```
 
+## Supabase user sync
+
+Add these variables in `.env`:
+
+```bash
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+SUPABASE_USERS_TABLE=users
+```
+
+The API route for manual sync is:
+
+```text
+POST /api/users/sync
+```
+
+Request body DTO (`SaveLoggedUserRequestDto`):
+
+```json
+{
+	"provider": "google",
+	"providerAccountId": "google_provider_account_id",
+	"email": "user@email.com",
+	"name": "Nome do usuário",
+	"imageUrl": "https://..."
+}
+```
+
+Response DTO (`SaveLoggedUserResponseDto`):
+
+```json
+{
+	"success": true,
+	"user": {
+		"id": "uuid",
+		"provider": "google",
+		"providerAccountId": "...",
+		"email": "user@email.com",
+		"name": "Nome",
+		"imageUrl": "https://...",
+		"lastLoginAt": "2026-02-14T00:00:00.000Z",
+		"createdAt": "2026-02-14T00:00:00.000Z",
+		"updatedAt": "2026-02-14T00:00:00.000Z"
+	}
+}
+```
+
+The project also syncs automatically on successful login via NextAuth `events.signIn`.
+
+Suggested SQL table:
+
+```sql
+create table if not exists public.users (
+	id uuid primary key default gen_random_uuid(),
+	provider text not null,
+	provider_account_id text not null,
+	email text not null,
+	name text,
+	image_url text,
+	last_login_at timestamptz not null default now(),
+	created_at timestamptz not null default now(),
+	updated_at timestamptz not null default now(),
+	unique(provider, provider_account_id)
+);
+```
+
+You can also run the ready file: `supabase/schema.sql` in Supabase SQL Editor.
+
 ## Getting Started
 
 First, run the development server:
