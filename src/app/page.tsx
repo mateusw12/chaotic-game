@@ -1,48 +1,27 @@
-import { auth, signIn, signOut } from "@/lib/auth";
-import styles from "./page.module.css";
+import { HomeView } from "@/components/home/home-view";
+import { auth } from "@/lib/auth";
+import { getUserDashboardByEmail } from "@/lib/supabase";
 
 export default async function Home() {
   const session = await auth();
+  const email = session?.user?.email;
+  let dashboard = null;
+
+  if (email) {
+    try {
+      dashboard = await getUserDashboardByEmail(email);
+    } catch (error) {
+      console.error("Erro ao carregar dashboard do usuário:", error);
+    }
+  }
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <div className={styles.intro}>
-          <h1>Chaotic Game</h1>
-          <p>
-            Faça login para acessar a página inicial do jogo com autenticação via
-            Google.
-          </p>
-          {session?.user?.name ? (
-            <p className={styles.user}>Conectado como {session.user.name}.</p>
-          ) : null}
-        </div>
-        <div className={styles.ctas}>
-          {session ? (
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/" });
-              }}
-            >
-              <button className={styles.secondary} type="submit">
-                Sair
-              </button>
-            </form>
-          ) : (
-            <form
-              action={async () => {
-                "use server";
-                await signIn("google", { redirectTo: "/" });
-              }}
-            >
-              <button className={styles.primary} type="submit">
-                Entrar com Google
-              </button>
-            </form>
-          )}
-        </div>
-      </main>
-    </div>
+    <HomeView
+      isAuthenticated={Boolean(session)}
+      userName={dashboard?.userName ?? session?.user?.name ?? null}
+      userImageUrl={dashboard?.userImageUrl ?? session?.user?.image ?? null}
+      coins={dashboard?.coins ?? 0}
+      diamonds={dashboard?.diamonds ?? 0}
+    />
   );
 }
