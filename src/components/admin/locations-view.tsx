@@ -22,8 +22,10 @@ import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import {
+    CARD_RARITY_OPTIONS,
     CREATURE_ELEMENT_OPTIONS,
     CREATURE_TRIBE_OPTIONS,
+    type CardRarity,
     type CreatureElement,
     type CreatureTribe,
 } from "@/dto/creature";
@@ -53,6 +55,7 @@ type LocationAbilityFormValues = {
 
 type LocationFormValues = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string;
     initiativeElements: CreatureElement[];
     tribes: CreatureTribe[];
@@ -119,6 +122,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
         try {
             const payload: CreateLocationRequestDto = {
                 name: values.name,
+                rarity: values.rarity,
                 imageFileId: values.imageFileId ?? null,
                 initiativeElements: values.initiativeElements,
                 tribes: values.tribes,
@@ -178,6 +182,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
         setEditingLocationId(location.id);
         form.setFieldsValue({
             name: location.name,
+            rarity: location.rarity,
             imageFileId: location.imageFileId ?? undefined,
             initiativeElements: location.initiativeElements,
             tribes: location.tribes,
@@ -257,6 +262,16 @@ export function LocationsView({ locations }: LocationsViewProps) {
                 dataIndex: "name",
                 key: "name",
                 render: (name: string) => <Text strong>{name}</Text>,
+            },
+            {
+                title: "Raridade",
+                dataIndex: "rarity",
+                key: "rarity",
+                width: 140,
+                render: (rarity: CardRarity) => {
+                    const option = CARD_RARITY_OPTIONS.find((item) => item.value === rarity);
+                    return <Tag color="gold">{option?.label ?? rarity}</Tag>;
+                },
             },
             {
                 title: "Initiative",
@@ -372,6 +387,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                         layout="vertical"
                         onFinish={onSubmit}
                         initialValues={{
+                            rarity: "comum",
                             initiativeElements: [],
                             tribes: [],
                             abilities: [{ description: "", effectType: "increase", stats: ["speed"], cardTypes: [], value: 0 }],
@@ -380,6 +396,16 @@ export function LocationsView({ locations }: LocationsViewProps) {
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                             <Form.Item label="Nome" name="name" rules={[{ required: true, message: "Informe o nome do local." }]}>
                                 <Input placeholder="Ex.: Lago de Mipedim" />
+                            </Form.Item>
+
+                            <Form.Item label="Raridade" name="rarity" rules={[{ required: true, message: "Selecione a raridade." }]}>
+                                <Select
+                                    options={CARD_RARITY_OPTIONS.map((item) => ({
+                                        value: item.value,
+                                        label: item.label,
+                                    }))}
+                                    placeholder="Selecione"
+                                />
                             </Form.Item>
 
                             <Form.Item name="imageFileId" hidden>

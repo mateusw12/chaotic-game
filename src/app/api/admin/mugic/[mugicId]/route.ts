@@ -5,6 +5,7 @@ import {
     type UpdateMugicRequestDto,
     type UpdateMugicResponseDto,
 } from "@/dto/mugic";
+import type { CardRarity } from "@/dto/creature";
 import type { LocationStat } from "@/dto/location";
 import { auth } from "@/lib/auth";
 import { deleteMugicById, getUserByEmail, updateMugicById } from "@/lib/supabase";
@@ -64,6 +65,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 
         const mugic = await updateMugicById(mugicId, {
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             tribes: Array.isArray(body.tribes) ? body.tribes : [],
             cost: Number(body.cost ?? 0),

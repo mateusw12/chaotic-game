@@ -5,7 +5,7 @@ import type {
     AbilityStat,
     AbilityTargetScope,
 } from "@/dto/ability";
-import type { CreatureElement, CreatureTribe } from "@/dto/creature";
+import type { CardRarity, CreatureElement, CreatureTribe } from "@/dto/creature";
 import type { LocationAbilityDto } from "@/dto/location";
 import type { AttackAbilityDto, AttackElementValueDto } from "@/dto/attack";
 
@@ -48,6 +48,7 @@ export type SupabaseWalletRow = {
 export type SupabaseCreatureRow = {
     id: string;
     name: string;
+    rarity: CardRarity;
     image_file_id: string | null;
     image_url: string | null;
     tribe: CreatureTribe;
@@ -83,6 +84,7 @@ export type SupabaseAbilityRow = {
 export type SupabaseLocationRow = {
     id: string;
     name: string;
+    rarity: CardRarity;
     image_file_id: string | null;
     image_url: string | null;
     initiative_elements: CreatureElement[];
@@ -95,6 +97,7 @@ export type SupabaseLocationRow = {
 export type SupabaseBattleGearRow = {
     id: string;
     name: string;
+    rarity: CardRarity;
     image_file_id: string | null;
     image_url: string | null;
     allowed_tribes: CreatureTribe[];
@@ -107,6 +110,7 @@ export type SupabaseBattleGearRow = {
 export type SupabaseMugicRow = {
     id: string;
     name: string;
+    rarity: CardRarity;
     image_file_id: string | null;
     image_url: string | null;
     tribes: CreatureTribe[];
@@ -119,6 +123,7 @@ export type SupabaseMugicRow = {
 export type SupabaseAttackRow = {
     id: string;
     name: string;
+    rarity: CardRarity;
     image_file_id: string | null;
     image_url: string | null;
     energy_cost: number;

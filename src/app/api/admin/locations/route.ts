@@ -6,6 +6,7 @@ import {
     type LocationAbilityDto,
     type LocationStat,
 } from "@/dto/location";
+import type { CardRarity } from "@/dto/creature";
 import { auth } from "@/lib/auth";
 import { createLocation, getUserByEmail, listLocations } from "@/lib/supabase";
 
@@ -93,6 +94,7 @@ export async function POST(request: Request) {
 
         const location = await createLocation({
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             initiativeElements: Array.isArray(body.initiativeElements)
                 ? body.initiativeElements

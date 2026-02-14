@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import {
+    type CardRarity,
     type CreateCreatureRequestDto,
     type CreateCreatureResponseDto,
     type ListCreaturesResponseDto,
@@ -87,6 +88,7 @@ export async function POST(request: Request) {
 
         const creature = await createCreature({
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             tribe: (body.tribe ?? "") as CreateCreatureRequestDto["tribe"],
             power: Number(body.power ?? 0),

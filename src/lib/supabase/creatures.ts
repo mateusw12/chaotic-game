@@ -1,4 +1,5 @@
 import {
+    isValidCardRarity,
     type CreateCreatureRequestDto,
     type CreatureDto,
     type UpdateCreatureRequestDto,
@@ -24,6 +25,7 @@ function mapSupabaseCreatureRow(row: SupabaseCreatureRow): CreatureDto {
     return {
         id: row.id,
         name: row.name,
+        rarity: row.rarity,
         imageFileId: row.image_file_id,
         imageUrl: resolvedImageUrl,
         tribe: row.tribe,
@@ -51,7 +53,7 @@ export async function listCreatures(): Promise<CreatureDto[]> {
     const { data, error } = await supabase
         .from(tableName)
         .select(
-            "id,name,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_id,brainwashed_ability_id,equipment_note,created_at,updated_at,support_ability:abilities!creatures_support_ability_id_fkey(name),brainwashed_ability:abilities!creatures_brainwashed_ability_id_fkey(name)",
+            "id,name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_id,brainwashed_ability_id,equipment_note,created_at,updated_at,support_ability:abilities!creatures_support_ability_id_fkey(name),brainwashed_ability:abilities!creatures_brainwashed_ability_id_fkey(name)",
         )
         .order("created_at", { ascending: false })
         .returns<
@@ -91,6 +93,10 @@ export async function createCreature(
 ): Promise<CreatureDto> {
     if (!payload.name.trim()) {
         throw new Error("Nome da criatura é obrigatório.");
+    }
+
+    if (!isValidCardRarity(payload.rarity)) {
+        throw new Error("Raridade inválida.");
     }
 
     if (!isValidTribe(payload.tribe)) {
@@ -153,6 +159,7 @@ export async function createCreature(
         .from(tableName)
         .insert({
             name: payload.name.trim(),
+            rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             tribe: payload.tribe,
             power: payload.power,
@@ -167,7 +174,7 @@ export async function createCreature(
             equipment_note: payload.equipmentNote?.trim() || null,
         })
         .select(
-            "id,name,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_id,brainwashed_ability_id,equipment_note,created_at,updated_at,support_ability:abilities!creatures_support_ability_id_fkey(name),brainwashed_ability:abilities!creatures_brainwashed_ability_id_fkey(name)",
+            "id,name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_id,brainwashed_ability_id,equipment_note,created_at,updated_at,support_ability:abilities!creatures_support_ability_id_fkey(name),brainwashed_ability:abilities!creatures_brainwashed_ability_id_fkey(name)",
         )
         .single<
             Omit<SupabaseCreatureRow, "support_ability_name" | "brainwashed_ability_name"> & {
@@ -203,6 +210,10 @@ export async function updateCreatureById(
 ): Promise<CreatureDto> {
     if (!payload.name.trim()) {
         throw new Error("Nome da criatura é obrigatório.");
+    }
+
+    if (!isValidCardRarity(payload.rarity)) {
+        throw new Error("Raridade inválida.");
     }
 
     if (!isValidTribe(payload.tribe)) {
@@ -265,6 +276,7 @@ export async function updateCreatureById(
         .from(tableName)
         .update({
             name: payload.name.trim(),
+            rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             tribe: payload.tribe,
             power: payload.power,
@@ -280,7 +292,7 @@ export async function updateCreatureById(
         })
         .eq("id", creatureId)
         .select(
-            "id,name,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_id,brainwashed_ability_id,equipment_note,created_at,updated_at,support_ability:abilities!creatures_support_ability_id_fkey(name),brainwashed_ability:abilities!creatures_brainwashed_ability_id_fkey(name)",
+            "id,name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_id,brainwashed_ability_id,equipment_note,created_at,updated_at,support_ability:abilities!creatures_support_ability_id_fkey(name),brainwashed_ability:abilities!creatures_brainwashed_ability_id_fkey(name)",
         )
         .single<
             Omit<SupabaseCreatureRow, "support_ability_name" | "brainwashed_ability_name"> & {

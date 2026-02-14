@@ -21,7 +21,7 @@ import type { ColumnsType } from "antd/es/table";
 import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, ThunderboltOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { CREATURE_TRIBE_OPTIONS, type CreatureTribe } from "@/dto/creature";
+import { CARD_RARITY_OPTIONS, CREATURE_TRIBE_OPTIONS, type CardRarity, type CreatureTribe } from "@/dto/creature";
 import {
     MUGIC_ABILITY_TYPE_OPTIONS,
     MUGIC_ACTION_TYPE_OPTIONS,
@@ -55,6 +55,7 @@ type MugicAbilityFormValues = {
 
 type MugicFormValues = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string;
     tribes: CreatureTribe[];
     cost: number;
@@ -121,6 +122,7 @@ export function MugicView({ mugics }: MugicViewProps) {
         try {
             const payload: CreateMugicRequestDto = {
                 name: values.name,
+                rarity: values.rarity,
                 imageFileId: values.imageFileId ?? null,
                 tribes: values.tribes,
                 cost: Number(values.cost ?? 0),
@@ -181,6 +183,7 @@ export function MugicView({ mugics }: MugicViewProps) {
         setEditingId(mugic.id);
         form.setFieldsValue({
             name: mugic.name,
+            rarity: mugic.rarity,
             imageFileId: mugic.imageFileId ?? undefined,
             tribes: mugic.tribes,
             cost: mugic.cost,
@@ -260,6 +263,16 @@ export function MugicView({ mugics }: MugicViewProps) {
                 dataIndex: "name",
                 key: "name",
                 render: (name: string) => <Text strong>{name}</Text>,
+            },
+            {
+                title: "Raridade",
+                dataIndex: "rarity",
+                key: "rarity",
+                width: 140,
+                render: (rarity: CardRarity) => {
+                    const option = CARD_RARITY_OPTIONS.find((item) => item.value === rarity);
+                    return <Tag color="gold">{option?.label ?? rarity}</Tag>;
+                },
             },
             {
                 title: "Tribos",
@@ -382,6 +395,7 @@ export function MugicView({ mugics }: MugicViewProps) {
                         layout="vertical"
                         onFinish={onSubmit}
                         initialValues={{
+                            rarity: "comum",
                             tribes: [],
                             cost: 0,
                             abilities: [{ abilityType: "stat_modifier", description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], targetScope: "self", value: 0 }],
@@ -390,6 +404,16 @@ export function MugicView({ mugics }: MugicViewProps) {
                         <Space direction="vertical" size={12} style={{ width: "100%" }}>
                             <Form.Item label="Nome" name="name" rules={[{ required: true, message: "Informe o nome do mugic." }]}>
                                 <Input placeholder="Ex.: Canção de Mipedim" />
+                            </Form.Item>
+
+                            <Form.Item label="Raridade" name="rarity" rules={[{ required: true, message: "Selecione a raridade." }]}>
+                                <Select
+                                    options={CARD_RARITY_OPTIONS.map((item) => ({
+                                        value: item.value,
+                                        label: item.label,
+                                    }))}
+                                    placeholder="Selecione"
+                                />
                             </Form.Item>
 
                             <Form.Item name="imageFileId" hidden>

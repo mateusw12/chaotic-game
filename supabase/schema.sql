@@ -47,6 +47,7 @@ create table if not exists public.user_wallets (
 create table if not exists public.creatures (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  rarity text not null default 'comum' check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
   image_file_id text,
   image_url text,
   tribe text not null check (tribe in ('overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient')),
@@ -80,6 +81,7 @@ create table if not exists public.abilities (
 create table if not exists public.locations (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  rarity text not null default 'comum' check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
   image_file_id text,
   image_url text,
   initiative_elements text[] not null default '{}'::text[],
@@ -92,6 +94,7 @@ create table if not exists public.locations (
 create table if not exists public.battlegear (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  rarity text not null default 'comum' check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
   image_file_id text,
   image_url text,
   allowed_tribes text[] not null default '{}'::text[],
@@ -104,6 +107,7 @@ create table if not exists public.battlegear (
 create table if not exists public.mugic (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  rarity text not null default 'comum' check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
   image_file_id text,
   image_url text,
   tribes text[] not null default '{}'::text[],
@@ -116,6 +120,7 @@ create table if not exists public.mugic (
 create table if not exists public.attacks (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  rarity text not null default 'comum' check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
   image_file_id text,
   image_url text,
   energy_cost integer not null default 0 check (energy_cost >= 0),
@@ -157,11 +162,17 @@ alter table if exists public.creatures
 alter table if exists public.creatures
   add column if not exists image_file_id text;
 
+alter table if exists public.creatures
+  add column if not exists rarity text not null default 'comum';
+
 alter table if exists public.locations
   add column if not exists image_file_id text;
 
 alter table if exists public.locations
   add column if not exists image_url text;
+
+alter table if exists public.locations
+  add column if not exists rarity text not null default 'comum';
 
 alter table if exists public.locations
   add column if not exists initiative_elements text[] not null default '{}'::text[];
@@ -179,6 +190,9 @@ alter table if exists public.battlegear
   add column if not exists image_url text;
 
 alter table if exists public.battlegear
+  add column if not exists rarity text not null default 'comum';
+
+alter table if exists public.battlegear
   add column if not exists allowed_tribes text[] not null default '{}'::text[];
 
 alter table if exists public.battlegear
@@ -192,6 +206,9 @@ alter table if exists public.mugic
 
 alter table if exists public.mugic
   add column if not exists image_url text;
+
+alter table if exists public.mugic
+  add column if not exists rarity text not null default 'comum';
 
 alter table if exists public.mugic
   add column if not exists tribes text[] not null default '{}'::text[];
@@ -209,6 +226,9 @@ alter table if exists public.attacks
   add column if not exists image_url text;
 
 alter table if exists public.attacks
+  add column if not exists rarity text not null default 'comum';
+
+alter table if exists public.attacks
   add column if not exists energy_cost integer not null default 0;
 
 alter table if exists public.attacks
@@ -221,12 +241,42 @@ update public.attacks
 set energy_cost = 0
 where energy_cost is null;
 
+update public.creatures
+set rarity = 'comum'
+where rarity is null;
+
+update public.locations
+set rarity = 'comum'
+where rarity is null;
+
+update public.battlegear
+set rarity = 'comum'
+where rarity is null;
+
+update public.mugic
+set rarity = 'comum'
+where rarity is null;
+
+update public.attacks
+set rarity = 'comum'
+where rarity is null;
+
 update public.mugic
 set cost = 0
 where cost is null;
 
 do $$
 begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'creatures_rarity_check'
+  ) then
+    alter table public.creatures
+      add constraint creatures_rarity_check
+      check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara'));
+  end if;
+
   if not exists (
     select 1
     from pg_constraint
@@ -257,6 +307,29 @@ begin
   if not exists (
     select 1
     from pg_constraint
+    where conname = 'locations_rarity_check'
+  ) then
+    alter table public.locations
+      add constraint locations_rarity_check
+      check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara'));
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'battlegear_rarity_check'
+  ) then
+    alter table public.battlegear
+      add constraint battlegear_rarity_check
+      check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara'));
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
     where conname = 'locations_tribes_check'
   ) then
     alter table public.locations
@@ -270,6 +343,16 @@ begin
   if not exists (
     select 1
     from pg_constraint
+    where conname = 'mugic_rarity_check'
+  ) then
+    alter table public.mugic
+      add constraint mugic_rarity_check
+      check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara'));
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
     where conname = 'locations_initiative_elements_check'
   ) then
     alter table public.locations
@@ -280,6 +363,16 @@ end $$;
 
 do $$
 begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'attacks_rarity_check'
+  ) then
+    alter table public.attacks
+      add constraint attacks_rarity_check
+      check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara'));
+  end if;
+
   if not exists (
     select 1
     from pg_constraint

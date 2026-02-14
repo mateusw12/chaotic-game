@@ -1,4 +1,4 @@
-import { CREATURE_ELEMENTS, type CreatureElement } from "@/dto/creature";
+import { CREATURE_ELEMENTS, type CardRarity, type CreatureElement } from "@/dto/creature";
 import { LOCATION_EFFECT_TYPES, LOCATION_STATS, type LocationEffectType, type LocationStat } from "@/dto/location";
 
 export const ATTACK_TARGET_SCOPES = ["attacker", "defender"] as const;
@@ -41,6 +41,7 @@ export type AttackAbilityDto = {
 export type AttackDto = {
     id: string;
     name: string;
+    rarity: CardRarity;
     imageFileId: string | null;
     imageUrl: string | null;
     energyCost: number;
@@ -52,6 +53,7 @@ export type AttackDto = {
 
 export type CreateAttackRequestDto = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string | null;
     energyCost: number;
     elementValues: AttackElementValueDto[];

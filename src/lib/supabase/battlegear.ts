@@ -3,6 +3,7 @@ import {
     type CreateBattleGearRequestDto,
     type UpdateBattleGearRequestDto,
 } from "@/dto/battlegear";
+import { isValidCardRarity } from "@/dto/creature";
 import {
     type LocationCardType,
     type LocationEffectType,
@@ -54,6 +55,7 @@ function mapRow(row: SupabaseBattleGearRow): BattleGearDto {
     return {
         id: row.id,
         name: row.name,
+        rarity: row.rarity,
         imageFileId: row.image_file_id,
         imageUrl: resolvedImageUrl,
         allowedTribes: row.allowed_tribes,
@@ -67,6 +69,10 @@ function mapRow(row: SupabaseBattleGearRow): BattleGearDto {
 function validatePayload(payload: CreateBattleGearRequestDto | UpdateBattleGearRequestDto) {
     if (!payload.name.trim()) {
         throw new Error("Nome do equipamento é obrigatório.");
+    }
+
+    if (!isValidCardRarity(payload.rarity)) {
+        throw new Error("Raridade inválida.");
     }
 
     if (!Array.isArray(payload.allowedTribes)) {
@@ -130,7 +136,7 @@ export async function listBattleGear(): Promise<BattleGearDto[]> {
 
     const { data, error } = await supabase
         .from(tableName)
-        .select("id,name,image_file_id,image_url,allowed_tribes,allowed_creature_ids,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,allowed_tribes,allowed_creature_ids,abilities,created_at,updated_at")
         .order("created_at", { ascending: false })
         .returns<SupabaseBattleGearRow[]>();
 
@@ -165,12 +171,13 @@ export async function createBattleGear(payload: CreateBattleGearRequestDto): Pro
         .from(tableName)
         .insert({
             name: normalizedPayload.name.trim(),
+            rarity: normalizedPayload.rarity,
             image_file_id: normalizedPayload.imageFileId?.trim() || null,
             allowed_tribes: normalizedPayload.allowedTribes,
             allowed_creature_ids: normalizedPayload.allowedCreatureIds,
             abilities: normalizeAbilities(normalizedPayload.abilities as LegacyAbility[]),
         })
-        .select("id,name,image_file_id,image_url,allowed_tribes,allowed_creature_ids,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,allowed_tribes,allowed_creature_ids,abilities,created_at,updated_at")
         .single<SupabaseBattleGearRow>();
 
     if (error) {
@@ -207,13 +214,14 @@ export async function updateBattleGearById(
         .from(tableName)
         .update({
             name: normalizedPayload.name.trim(),
+            rarity: normalizedPayload.rarity,
             image_file_id: normalizedPayload.imageFileId?.trim() || null,
             allowed_tribes: normalizedPayload.allowedTribes,
             allowed_creature_ids: normalizedPayload.allowedCreatureIds,
             abilities: normalizeAbilities(normalizedPayload.abilities as LegacyAbility[]),
         })
         .eq("id", battleGearId)
-        .select("id,name,image_file_id,image_url,allowed_tribes,allowed_creature_ids,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,allowed_tribes,allowed_creature_ids,abilities,created_at,updated_at")
         .single<SupabaseBattleGearRow>();
 
     if (error) {

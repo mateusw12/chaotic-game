@@ -1,4 +1,4 @@
-import type { CreatureTribe } from "@/dto/creature";
+import type { CardRarity, CreatureTribe } from "@/dto/creature";
 import {
     LOCATION_CARD_TYPES,
     LOCATION_EFFECT_TYPES,
@@ -100,6 +100,7 @@ export type MugicAbilityDto = {
 export type MugicDto = {
     id: string;
     name: string;
+    rarity: CardRarity;
     imageFileId: string | null;
     imageUrl: string | null;
     tribes: CreatureTribe[];
@@ -111,6 +112,7 @@ export type MugicDto = {
 
 export type CreateMugicRequestDto = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string | null;
     tribes?: CreatureTribe[];
     cost: number;

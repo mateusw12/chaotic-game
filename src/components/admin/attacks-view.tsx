@@ -21,7 +21,7 @@ import type { ColumnsType } from "antd/es/table";
 import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, FireOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { CREATURE_ELEMENT_OPTIONS, type CreatureElement } from "@/dto/creature";
+import { CARD_RARITY_OPTIONS, CREATURE_ELEMENT_OPTIONS, type CardRarity, type CreatureElement } from "@/dto/creature";
 import {
     ATTACK_EFFECT_TYPE_OPTIONS,
     ATTACK_STAT_OPTIONS,
@@ -55,6 +55,7 @@ type AttackAbilityFormValues = {
 
 type AttackFormValues = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string;
     energyCost: number;
     elementValues: AttackElementValueFormValues[];
@@ -114,6 +115,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
         try {
             const payload: CreateAttackRequestDto = {
                 name: values.name,
+                rarity: values.rarity,
                 imageFileId: values.imageFileId ?? null,
                 energyCost: Number(values.energyCost ?? 0),
                 elementValues: values.elementValues.map((item): AttackElementValueDto => ({
@@ -167,6 +169,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
         setEditingId(attack.id);
         form.setFieldsValue({
             name: attack.name,
+            rarity: attack.rarity,
             imageFileId: attack.imageFileId ?? undefined,
             energyCost: attack.energyCost,
             elementValues: attack.elementValues,
@@ -225,6 +228,16 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                 dataIndex: "name",
                 key: "name",
                 render: (name: string) => <Text strong>{name}</Text>,
+            },
+            {
+                title: "Raridade",
+                dataIndex: "rarity",
+                key: "rarity",
+                width: 140,
+                render: (rarity: CardRarity) => {
+                    const option = CARD_RARITY_OPTIONS.find((item) => item.value === rarity);
+                    return <Tag color="gold">{option?.label ?? rarity}</Tag>;
+                },
             },
             {
                 title: "Custo",
@@ -316,6 +329,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                         layout="vertical"
                         onFinish={onSubmit}
                         initialValues={{
+                            rarity: "comum",
                             energyCost: 0,
                             elementValues: [{ element: "fire", value: 0 }],
                             abilities: [{ description: "", conditionElement: undefined, targetScope: "attacker", effectType: "increase", stat: "courage", value: 0 }],
@@ -324,6 +338,16 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                         <Space direction="vertical" size={12} style={{ width: "100%" }}>
                             <Form.Item label="Nome" name="name" rules={[{ required: true, message: "Informe o nome do ataque." }]}>
                                 <Input placeholder="Ex.: Chuva de Lava" />
+                            </Form.Item>
+
+                            <Form.Item label="Raridade" name="rarity" rules={[{ required: true, message: "Selecione a raridade." }]}>
+                                <Select
+                                    options={CARD_RARITY_OPTIONS.map((item) => ({
+                                        value: item.value,
+                                        label: item.label,
+                                    }))}
+                                    placeholder="Selecione"
+                                />
                             </Form.Item>
 
                             <Form.Item name="imageFileId" hidden>

@@ -1,4 +1,4 @@
-import type { CreatureTribe } from "@/dto/creature";
+import type { CardRarity, CreatureTribe } from "@/dto/creature";
 import type { LocationAbilityDto } from "@/dto/location";
 
 export type BattleGearAbilityDto = LocationAbilityDto;
@@ -6,6 +6,7 @@ export type BattleGearAbilityDto = LocationAbilityDto;
 export type BattleGearDto = {
     id: string;
     name: string;
+    rarity: CardRarity;
     imageFileId: string | null;
     imageUrl: string | null;
     allowedTribes: CreatureTribe[];
@@ -17,6 +18,7 @@ export type BattleGearDto = {
 
 export type CreateBattleGearRequestDto = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string | null;
     allowedTribes?: CreatureTribe[];
     allowedCreatureIds?: string[];

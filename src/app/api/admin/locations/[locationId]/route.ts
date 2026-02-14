@@ -6,6 +6,7 @@ import {
     type UpdateLocationRequestDto,
     type UpdateLocationResponseDto,
 } from "@/dto/location";
+import type { CardRarity } from "@/dto/creature";
 import { auth } from "@/lib/auth";
 import { deleteLocationById, getUserByEmail, updateLocationById } from "@/lib/supabase";
 
@@ -64,6 +65,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 
         const location = await updateLocationById(locationId, {
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             initiativeElements: Array.isArray(body.initiativeElements)
                 ? body.initiativeElements

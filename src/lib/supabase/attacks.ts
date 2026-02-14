@@ -10,6 +10,7 @@ import {
     isValidAttackStat,
     isValidAttackTargetScope,
 } from "@/dto/attack";
+import { isValidCardRarity } from "@/dto/creature";
 import type { LocationEffectType, LocationStat } from "@/dto/location";
 import { getAttackImagePublicUrl, getSupabaseAdminClient } from "./storage";
 import { getAttacksTableName, isMissingTableError } from "./core";
@@ -23,6 +24,7 @@ function mapRow(row: SupabaseAttackRow): AttackDto {
     return {
         id: row.id,
         name: row.name,
+        rarity: row.rarity,
         imageFileId: row.image_file_id,
         imageUrl: resolvedImageUrl,
         energyCost: row.energy_cost,
@@ -36,6 +38,10 @@ function mapRow(row: SupabaseAttackRow): AttackDto {
 function validatePayload(payload: CreateAttackRequestDto | UpdateAttackRequestDto) {
     if (!payload.name.trim()) {
         throw new Error("Nome do ataque é obrigatório.");
+    }
+
+    if (!isValidCardRarity(payload.rarity)) {
+        throw new Error("Raridade inválida.");
     }
 
     if (payload.energyCost < 0) {
@@ -110,7 +116,7 @@ export async function listAttacks(): Promise<AttackDto[]> {
 
     const { data, error } = await supabase
         .from(tableName)
-        .select("id,name,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at")
         .order("created_at", { ascending: false })
         .returns<SupabaseAttackRow[]>();
 
@@ -137,12 +143,13 @@ export async function createAttack(payload: CreateAttackRequestDto): Promise<Att
         .from(tableName)
         .insert({
             name: payload.name.trim(),
+            rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             energy_cost: Number(payload.energyCost),
             element_values: normalizeElementValues(payload.elementValues),
             abilities: normalizeAbilities(payload.abilities),
         })
-        .select("id,name,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at")
         .single<SupabaseAttackRow>();
 
     if (error) {
@@ -168,13 +175,14 @@ export async function updateAttackById(attackId: string, payload: UpdateAttackRe
         .from(tableName)
         .update({
             name: payload.name.trim(),
+            rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             energy_cost: Number(payload.energyCost),
             element_values: normalizeElementValues(payload.elementValues),
             abilities: normalizeAbilities(payload.abilities),
         })
         .eq("id", attackId)
-        .select("id,name,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at")
         .single<SupabaseAttackRow>();
 
     if (error) {

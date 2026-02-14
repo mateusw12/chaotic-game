@@ -6,7 +6,7 @@ import {
     type UpdateAttackRequestDto,
     type UpdateAttackResponseDto,
 } from "@/dto/attack";
-import type { CreatureElement } from "@/dto/creature";
+import type { CardRarity, CreatureElement } from "@/dto/creature";
 import { auth } from "@/lib/auth";
 import { deleteAttackById, getUserByEmail, updateAttackById } from "@/lib/supabase";
 
@@ -65,6 +65,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 
         const attack = await updateAttackById(attackId, {
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             energyCost: Number(body.energyCost ?? 0),
             elementValues: rawElementValues.map((item) => ({

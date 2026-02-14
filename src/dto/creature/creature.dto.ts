@@ -13,6 +13,10 @@ export const CREATURE_ELEMENTS = ["fire", "water", "earth", "air"] as const;
 
 export type CreatureElement = (typeof CREATURE_ELEMENTS)[number];
 
+export const CARD_RARITIES = ["comum", "incomum", "rara", "super_rara", "ultra_rara"] as const;
+
+export type CardRarity = (typeof CARD_RARITIES)[number];
+
 export const CREATURE_TRIBE_OPTIONS: Array<{
     value: CreatureTribe;
     label: string;
@@ -77,9 +81,21 @@ export const CREATURE_ELEMENT_OPTIONS: Array<{
         },
     ];
 
+export const CARD_RARITY_OPTIONS: Array<{
+    value: CardRarity;
+    label: string;
+}> = [
+        { value: "comum", label: "Comum" },
+        { value: "incomum", label: "Incomum" },
+        { value: "rara", label: "Rara" },
+        { value: "super_rara", label: "Super Rara" },
+        { value: "ultra_rara", label: "Ultra Rara" },
+    ];
+
 export type CreatureDto = {
     id: string;
     name: string;
+    rarity: CardRarity;
     imageFileId: string | null;
     imageUrl: string | null;
     tribe: CreatureTribe;
@@ -101,6 +117,7 @@ export type CreatureDto = {
 
 export type CreateCreatureRequestDto = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string | null;
     tribe: CreatureTribe;
     power: number;
@@ -139,3 +156,7 @@ export type DeleteCreatureResponseDto = {
     success: boolean;
     message?: string;
 };
+
+export function isValidCardRarity(value: string): value is CardRarity {
+    return CARD_RARITIES.includes(value as CardRarity);
+}

@@ -21,7 +21,7 @@ import type { ColumnsType } from "antd/es/table";
 import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, ToolOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { CREATURE_TRIBE_OPTIONS, type CreatureDto, type CreatureTribe } from "@/dto/creature";
+import { CARD_RARITY_OPTIONS, CREATURE_TRIBE_OPTIONS, type CardRarity, type CreatureDto, type CreatureTribe } from "@/dto/creature";
 import {
     LOCATION_CARD_TYPE_OPTIONS,
     LOCATION_EFFECT_TYPE_OPTIONS,
@@ -51,6 +51,7 @@ type BattleGearAbilityFormValues = {
 
 type BattleGearFormValues = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string;
     allowedTribes: CreatureTribe[];
     allowedCreatureIds: string[];
@@ -122,6 +123,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
         try {
             const payload: CreateBattleGearRequestDto = {
                 name: values.name,
+                rarity: values.rarity,
                 imageFileId: values.imageFileId ?? null,
                 allowedTribes: values.allowedTribes,
                 allowedCreatureIds: values.allowedCreatureIds,
@@ -181,6 +183,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
         setEditingId(item.id);
         form.setFieldsValue({
             name: item.name,
+            rarity: item.rarity,
             imageFileId: item.imageFileId ?? undefined,
             allowedTribes: item.allowedTribes,
             allowedCreatureIds: item.allowedCreatureIds,
@@ -260,6 +263,16 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                 dataIndex: "name",
                 key: "name",
                 render: (name: string) => <Text strong>{name}</Text>,
+            },
+            {
+                title: "Raridade",
+                dataIndex: "rarity",
+                key: "rarity",
+                width: 140,
+                render: (rarity: CardRarity) => {
+                    const option = CARD_RARITY_OPTIONS.find((item) => item.value === rarity);
+                    return <Tag color="gold">{option?.label ?? rarity}</Tag>;
+                },
             },
             {
                 title: "Restrições",
@@ -375,6 +388,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                         layout="vertical"
                         onFinish={onSubmit}
                         initialValues={{
+                            rarity: "comum",
                             allowedTribes: [],
                             allowedCreatureIds: [],
                             abilities: [{ description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], value: 0 }],
@@ -383,6 +397,16 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                         <Space direction="vertical" size={12} style={{ width: "100%" }}>
                             <Form.Item label="Nome" name="name" rules={[{ required: true, message: "Informe o nome do equipamento." }]}>
                                 <Input placeholder="Ex.: Battle Gear de Mipedim" />
+                            </Form.Item>
+
+                            <Form.Item label="Raridade" name="rarity" rules={[{ required: true, message: "Selecione a raridade." }]}>
+                                <Select
+                                    options={CARD_RARITY_OPTIONS.map((item) => ({
+                                        value: item.value,
+                                        label: item.label,
+                                    }))}
+                                    placeholder="Selecione"
+                                />
                             </Form.Item>
 
                             <Form.Item name="imageFileId" hidden>

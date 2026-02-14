@@ -7,8 +7,10 @@ import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, BookOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import {
+    CARD_RARITY_OPTIONS,
     CREATURE_ELEMENT_OPTIONS,
     CREATURE_TRIBE_OPTIONS,
+    type CardRarity,
     type CreateCreatureRequestDto,
     type CreatureDto,
     type CreatureElement,
@@ -24,6 +26,7 @@ const { Title, Text } = Typography;
 
 type CreatureFormValues = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string;
     tribe: CreatureTribe;
     power: number;
@@ -97,6 +100,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
 
             const payload: CreateCreatureRequestDto = {
                 name: values.name,
+                rarity: values.rarity,
                 imageFileId: values.imageFileId ?? null,
                 tribe: values.tribe,
                 power: values.power,
@@ -162,6 +166,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
         setEditingCreatureId(creature.id);
         creatureForm.setFieldsValue({
             name: creature.name,
+            rarity: creature.rarity,
             imageFileId: creature.imageFileId ?? undefined,
             tribe: creature.tribe,
             power: creature.power,
@@ -248,6 +253,16 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                 key: "name",
                 width: 220,
                 render: (name: string) => <Text strong>{name}</Text>,
+            },
+            {
+                title: "Raridade",
+                dataIndex: "rarity",
+                key: "rarity",
+                width: 140,
+                render: (rarity: CardRarity) => {
+                    const option = CARD_RARITY_OPTIONS.find((item) => item.value === rarity);
+                    return <Tag color="gold">{option?.label ?? rarity}</Tag>;
+                },
             },
             {
                 title: "Tribo",
@@ -359,6 +374,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                         layout="vertical"
                         onFinish={onCreateCreature}
                         initialValues={{
+                            rarity: "comum",
                             power: 0,
                             courage: 0,
                             speed: 0,
@@ -371,6 +387,16 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                             <Form.Item label="Nome" name="name" rules={[{ required: true, message: "Informe o nome." }]}>
                                 <Input placeholder="Ex.: Accato" />
+                            </Form.Item>
+
+                            <Form.Item label="Raridade" name="rarity" rules={[{ required: true, message: "Selecione a raridade." }]}>
+                                <Select
+                                    options={CARD_RARITY_OPTIONS.map((item) => ({
+                                        value: item.value,
+                                        label: item.label,
+                                    }))}
+                                    placeholder="Selecione"
+                                />
                             </Form.Item>
 
                             <Form.Item name="imageFileId" hidden>

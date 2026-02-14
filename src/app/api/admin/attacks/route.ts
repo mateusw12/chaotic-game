@@ -6,7 +6,7 @@ import {
     type CreateAttackResponseDto,
     type ListAttacksResponseDto,
 } from "@/dto/attack";
-import type { CreatureElement } from "@/dto/creature";
+import type { CardRarity, CreatureElement } from "@/dto/creature";
 import { auth } from "@/lib/auth";
 import { createAttack, getUserByEmail, listAttacks } from "@/lib/supabase";
 
@@ -95,6 +95,7 @@ export async function POST(request: Request) {
 
         const attack = await createAttack({
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             energyCost: Number(body.energyCost ?? 0),
             elementValues: rawElementValues.map((item) => ({

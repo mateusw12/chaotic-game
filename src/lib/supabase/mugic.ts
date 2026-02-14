@@ -12,6 +12,7 @@ import {
     isValidMugicStat,
     isValidMugicTargetScope,
 } from "@/dto/mugic";
+import { isValidCardRarity } from "@/dto/creature";
 import type { LocationCardType, LocationEffectType, LocationStat } from "@/dto/location";
 import { getMugicImagePublicUrl, getSupabaseAdminClient } from "./storage";
 import { getMugicTableName, isMissingTableError, isValidTribe } from "./core";
@@ -54,6 +55,7 @@ function mapRow(row: SupabaseMugicRow): MugicDto {
     return {
         id: row.id,
         name: row.name,
+        rarity: row.rarity,
         imageFileId: row.image_file_id,
         imageUrl: row.image_file_id ? getMugicImagePublicUrl(row.image_file_id) : row.image_url,
         tribes: row.tribes,
@@ -67,6 +69,10 @@ function mapRow(row: SupabaseMugicRow): MugicDto {
 function validatePayload(payload: CreateMugicRequestDto | UpdateMugicRequestDto) {
     if (!payload.name.trim()) {
         throw new Error("Nome do mugic é obrigatório.");
+    }
+
+    if (!isValidCardRarity(payload.rarity)) {
+        throw new Error("Raridade inválida.");
     }
 
     if (!Array.isArray(payload.tribes)) {
@@ -142,7 +148,7 @@ export async function listMugics(): Promise<MugicDto[]> {
 
     const { data, error } = await supabase
         .from(tableName)
-        .select("id,name,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at")
         .order("created_at", { ascending: false })
         .returns<SupabaseMugicRow[]>();
 
@@ -172,12 +178,13 @@ export async function createMugic(payload: CreateMugicRequestDto): Promise<Mugic
         .from(tableName)
         .insert({
             name: normalizedPayload.name.trim(),
+            rarity: normalizedPayload.rarity,
             image_file_id: normalizedPayload.imageFileId?.trim() || null,
             tribes: normalizedPayload.tribes,
             cost: Number(normalizedPayload.cost),
             abilities: normalizeAbilities(normalizedPayload.abilities as LegacyMugicAbility[]),
         })
-        .select("id,name,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at")
         .single<SupabaseMugicRow>();
 
     if (error) {
@@ -206,13 +213,14 @@ export async function updateMugicById(mugicId: string, payload: UpdateMugicReque
         .from(tableName)
         .update({
             name: normalizedPayload.name.trim(),
+            rarity: normalizedPayload.rarity,
             image_file_id: normalizedPayload.imageFileId?.trim() || null,
             tribes: normalizedPayload.tribes,
             cost: Number(normalizedPayload.cost),
             abilities: normalizeAbilities(normalizedPayload.abilities as LegacyMugicAbility[]),
         })
         .eq("id", mugicId)
-        .select("id,name,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at")
         .single<SupabaseMugicRow>();
 
     if (error) {

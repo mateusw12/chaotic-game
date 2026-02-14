@@ -1,4 +1,4 @@
-import type { CreatureElement, CreatureTribe } from "@/dto/creature";
+import type { CardRarity, CreatureElement, CreatureTribe } from "@/dto/creature";
 
 export const LOCATION_EFFECT_TYPES = ["increase", "decrease"] as const;
 
@@ -67,6 +67,7 @@ export type LocationAbilityDto = {
 export type LocationDto = {
     id: string;
     name: string;
+    rarity: CardRarity;
     imageFileId: string | null;
     imageUrl: string | null;
     initiativeElements: CreatureElement[];
@@ -78,6 +79,7 @@ export type LocationDto = {
 
 export type CreateLocationRequestDto = {
     name: string;
+    rarity: CardRarity;
     imageFileId?: string | null;
     initiativeElements: CreatureElement[];
     tribes?: CreatureTribe[];

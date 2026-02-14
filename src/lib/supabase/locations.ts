@@ -6,6 +6,7 @@ import {
     type LocationStat,
     type UpdateLocationRequestDto,
 } from "@/dto/location";
+import { isValidCardRarity } from "@/dto/creature";
 import { getLocationImagePublicUrl, getSupabaseAdminClient } from "./storage";
 import {
     getLocationsTableName,
@@ -57,6 +58,7 @@ function mapSupabaseLocationRow(row: SupabaseLocationRow): LocationDto {
     return {
         id: row.id,
         name: row.name,
+        rarity: row.rarity,
         imageFileId: row.image_file_id,
         imageUrl: resolvedImageUrl,
         initiativeElements: row.initiative_elements,
@@ -70,6 +72,10 @@ function mapSupabaseLocationRow(row: SupabaseLocationRow): LocationDto {
 function validateLocationPayload(payload: CreateLocationRequestDto | UpdateLocationRequestDto) {
     if (!payload.name.trim()) {
         throw new Error("Nome do local é obrigatório.");
+    }
+
+    if (!isValidCardRarity(payload.rarity)) {
+        throw new Error("Raridade inválida.");
     }
 
     if (!Array.isArray(payload.initiativeElements) || payload.initiativeElements.length === 0) {
@@ -139,7 +145,7 @@ export async function listLocations(): Promise<LocationDto[]> {
 
     const { data, error } = await supabase
         .from(tableName)
-        .select("id,name,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
         .order("created_at", { ascending: false })
         .returns<SupabaseLocationRow[]>();
 
@@ -171,12 +177,13 @@ export async function createLocation(payload: CreateLocationRequestDto): Promise
         .from(tableName)
         .insert({
             name: payload.name.trim(),
+            rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             initiative_elements: payload.initiativeElements,
             tribes: payload.tribes ?? [],
             abilities: normalizedAbilities,
         })
-        .select("id,name,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
         .single<SupabaseLocationRow>();
 
     if (error) {
@@ -210,13 +217,14 @@ export async function updateLocationById(
         .from(tableName)
         .update({
             name: payload.name.trim(),
+            rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             initiative_elements: payload.initiativeElements,
             tribes: payload.tribes ?? [],
             abilities: normalizedAbilities,
         })
         .eq("id", locationId)
-        .select("id,name,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
+        .select("id,name,rarity,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
         .single<SupabaseLocationRow>();
 
     if (error) {

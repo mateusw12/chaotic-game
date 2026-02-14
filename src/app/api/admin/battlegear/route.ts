@@ -5,6 +5,7 @@ import {
     type CreateBattleGearResponseDto,
     type ListBattleGearResponseDto,
 } from "@/dto/battlegear";
+import type { CardRarity } from "@/dto/creature";
 import type { LocationStat } from "@/dto/location";
 import { auth } from "@/lib/auth";
 import { createBattleGear, getUserByEmail, listBattleGear } from "@/lib/supabase";
@@ -93,6 +94,7 @@ export async function POST(request: Request) {
 
         const battlegearItem = await createBattleGear({
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             allowedTribes: Array.isArray(body.allowedTribes) ? body.allowedTribes : [],
             allowedCreatureIds: Array.isArray(body.allowedCreatureIds) ? body.allowedCreatureIds : [],

@@ -5,6 +5,7 @@ import {
     type UpdateBattleGearRequestDto,
     type UpdateBattleGearResponseDto,
 } from "@/dto/battlegear";
+import type { CardRarity } from "@/dto/creature";
 import type { LocationStat } from "@/dto/location";
 import { auth } from "@/lib/auth";
 import { deleteBattleGearById, getUserByEmail, updateBattleGearById } from "@/lib/supabase";
@@ -64,6 +65,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 
         const battlegearItem = await updateBattleGearById(battleGearId, {
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             allowedTribes: Array.isArray(body.allowedTribes) ? body.allowedTribes : [],
             allowedCreatureIds: Array.isArray(body.allowedCreatureIds) ? body.allowedCreatureIds : [],

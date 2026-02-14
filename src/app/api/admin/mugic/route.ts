@@ -5,6 +5,7 @@ import {
     type ListMugicResponseDto,
     type MugicAbilityDto,
 } from "@/dto/mugic";
+import type { CardRarity } from "@/dto/creature";
 import type { LocationStat } from "@/dto/location";
 import { auth } from "@/lib/auth";
 import { createMugic, getUserByEmail, listMugics } from "@/lib/supabase";
@@ -93,6 +94,7 @@ export async function POST(request: Request) {
 
         const mugic = await createMugic({
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             tribes: Array.isArray(body.tribes) ? body.tribes : [],
             cost: Number(body.cost ?? 0),

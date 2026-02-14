@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import {
+    type CardRarity,
     type DeleteCreatureResponseDto,
     type UpdateCreatureRequestDto,
     type UpdateCreatureResponseDto,
@@ -58,6 +59,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 
         const creature = await updateCreatureById(creatureId, {
             name: body.name ?? "",
+            rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             tribe: (body.tribe ?? "") as UpdateCreatureRequestDto["tribe"],
             power: Number(body.power ?? 0),
