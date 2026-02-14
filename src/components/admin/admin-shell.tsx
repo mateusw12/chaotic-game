@@ -27,11 +27,6 @@ export function AdminShell({ selectedKey, children }: AdminShellProps) {
                 label: <Link href="/admin/wallets">Carteiras</Link>,
             },
             {
-                key: "bulk-import",
-                icon: <FileSearchOutlined />,
-                label: <Link href="/admin/bulk-import">Importação em Massa</Link>,
-            },
-            {
                 key: "creatures",
                 icon: <BookOutlined />,
                 label: <Link href="/admin/creatures">Cadastro de Criaturas</Link>,
