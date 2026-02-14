@@ -34,6 +34,7 @@ import { isValidStarterSelectableTribe } from "@/dto/progression";
 type HomeViewProps = {
     isAuthenticated: boolean;
     userName: string | null;
+    userNickName: string | null;
     userImageUrl: string | null;
     userRole: "user" | "admin";
     coins: number;
@@ -56,6 +57,7 @@ const STARTER_TRIBE_SYMBOLS: Record<StarterSelectableTribe, string> = {
 export function HomeView({
     isAuthenticated,
     userName,
+    userNickName,
     userImageUrl,
     userRole,
     coins,
@@ -188,8 +190,10 @@ export function HomeView({
         <PlayerShell
             selectedKey="home"
             userName={userName}
+            userNickName={userNickName}
             userImageUrl={userImageUrl}
             coins={coins}
+            diamonds={diamonds}
             userRole={userRole}
         >
             {loadingStarterStatus ? (

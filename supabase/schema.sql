@@ -7,6 +7,7 @@ create table if not exists public.users (
   provider_account_id text not null,
   email text not null,
   name text,
+  nick_name text,
   image_url text,
   starter_tribe text check (starter_tribe in ('overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient')),
   starter_reward_granted_at timestamptz,
@@ -25,9 +26,33 @@ alter table if exists public.users
 alter table if exists public.users
   add column if not exists starter_reward_granted_at timestamptz;
 
+alter table if exists public.users
+  add column if not exists nick_name text;
+
+alter table if exists public.users
+  add column if not exists last_login_at timestamptz not null default now();
+
+alter table if exists public.users
+  add column if not exists created_at timestamptz not null default now();
+
+alter table if exists public.users
+  add column if not exists updated_at timestamptz not null default now();
+
 update public.users
 set role = 'user'
 where role is null;
+
+update public.users
+set last_login_at = now()
+where last_login_at is null;
+
+update public.users
+set created_at = now()
+where created_at is null;
+
+update public.users
+set updated_at = now()
+where updated_at is null;
 
 do $$
 begin

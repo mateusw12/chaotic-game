@@ -14,6 +14,7 @@ const { Title, Paragraph, Text } = Typography;
 
 type StoreViewProps = {
     userName: string | null;
+    userNickName: string | null;
     userImageUrl: string | null;
 };
 
@@ -48,7 +49,7 @@ function getCurrencySymbol(currency: StorePackDto["currency"]) {
     return currency === "coins" ? "🪙" : "💎";
 }
 
-export function StoreView({ userName, userImageUrl }: StoreViewProps) {
+export function StoreView({ userName, userNickName, userImageUrl }: StoreViewProps) {
     const [loading, setLoading] = useState(true);
     const [purchasingPackId, setPurchasingPackId] = useState<string | null>(null);
     const [packs, setPacks] = useState<StorePackDto[]>([]);
@@ -126,8 +127,10 @@ export function StoreView({ userName, userImageUrl }: StoreViewProps) {
         <PlayerShell
             selectedKey="store"
             userName={userName}
+            userNickName={userNickName}
             userImageUrl={userImageUrl}
             coins={coins}
+            diamonds={diamonds}
             userRole="user"
         >
             {contextHolder}

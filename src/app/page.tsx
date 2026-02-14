@@ -19,6 +19,7 @@ export default async function Home() {
     <HomeView
       isAuthenticated={Boolean(session)}
       userName={dashboard?.userName ?? session?.user?.name ?? null}
+      userNickName={dashboard?.userNickName ?? null}
       userImageUrl={dashboard?.userImageUrl ?? session?.user?.image ?? null}
       userRole={dashboard?.userRole ?? "user"}
       coins={dashboard?.coins ?? 0}

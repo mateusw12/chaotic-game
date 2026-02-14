@@ -5,6 +5,7 @@ export type SaveLoggedUserRequestDto = {
   providerAccountId: string;
   email: string;
   name: string | null;
+  nickName?: string | null;
   imageUrl: string | null;
 };
 
@@ -15,6 +16,7 @@ export type SavedUserDto = {
   providerAccountId: string;
   email: string;
   name: string | null;
+  nickName: string | null;
   imageUrl: string | null;
   lastLoginAt: string;
   createdAt: string;
@@ -34,6 +36,25 @@ export type UserPermissionDto = {
   imageUrl: string | null;
   role: UserRole;
   updatedAt: string;
+};
+
+export type UserProfileDto = {
+  id: string;
+  email: string;
+  name: string | null;
+  nickName: string | null;
+  imageUrl: string | null;
+};
+
+export type UpdateUserProfileRequestDto = {
+  nickName?: string | null;
+  imageUrl?: string | null;
+};
+
+export type UserProfileResponseDto = {
+  success: boolean;
+  profile: UserProfileDto | null;
+  message?: string;
 };
 
 export type ListUsersPermissionsResponseDto = {

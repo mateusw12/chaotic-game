@@ -65,6 +65,15 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 }
 
+.headerRow {
+    align-items: center;
+}
+
+.headerRow :global(.ant-space-item) {
+    display: flex;
+    align-items: center;
+}
+
 .resourceTag {
     margin-inline-end: 0 !important;
     border-radius: 999px;
@@ -84,6 +93,10 @@
     background: linear-gradient(140deg, rgba(144, 93, 0, 0.48), rgba(52, 34, 2, 0.58));
 }
 
+.resourceDiamonds {
+    background: linear-gradient(140deg, rgba(26, 80, 142, 0.5), rgba(11, 31, 58, 0.62));
+}
+
 .resourceValue {
     color: #f7f9ff;
     line-height: 1;
@@ -101,7 +114,28 @@
     font-weight: 600;
 }
 
+.profileTrigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 36px;
+    border: 0;
+    border-radius: 10px;
+    padding: 0 10px 0 2px;
+    background: rgba(18, 25, 53, 0.65);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.profileTrigger:hover {
+    background: rgba(36, 49, 100, 0.72);
+}
+
 .headerButton {
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
     border-radius: 10px;
     border-color: rgba(165, 180, 255, 0.3);
     background: rgba(18, 25, 53, 0.68);
@@ -126,5 +160,9 @@
 
     .userName {
         display: none;
+    }
+
+    .profileTrigger {
+        padding-right: 2px;
     }
 }

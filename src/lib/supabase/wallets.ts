@@ -68,15 +68,17 @@ export async function getUserDashboardByEmail(
 
     const { data: userRow, error: userError } = await supabase
         .from(usersTable)
-        .select("id,name,image_url,role")
+        .select("id,name,nick_name,image_url,role,last_login_at")
         .eq("email", email)
-        .order("updated_at", { ascending: false })
+        .order("last_login_at", { ascending: false })
         .limit(1)
         .maybeSingle<{
             id: string;
             name: string | null;
+            nick_name: string | null;
             image_url: string | null;
             role: UserRole;
+            last_login_at: string | null;
         }>();
 
     if (userError) {
@@ -167,6 +169,7 @@ export async function getUserDashboardByEmail(
 
     return {
         userName: userRow.name,
+        userNickName: userRow.nick_name,
         userImageUrl: userRow.image_url,
         userRole: userRow.role,
         coins: wallet.coins,

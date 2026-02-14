@@ -22,6 +22,7 @@ export type SupabaseUserRow = {
     provider_account_id: string;
     email: string;
     name: string | null;
+    nick_name: string | null;
     image_url: string | null;
     last_login_at: string;
     created_at: string;
