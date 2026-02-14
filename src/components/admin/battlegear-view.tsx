@@ -278,7 +278,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                 title: "Restrições",
                 key: "restrictions",
                 render: (_, row) => (
-                    <Space direction="vertical" size={4}>
+                    <Space orientation="vertical" size={4}>
                         <Space wrap>
                             <Text type="secondary">Tribos:</Text>
                             {row.allowedTribes.length === 0 ? <Tag>Todas</Tag> : null}
@@ -311,7 +311,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                 title: "Habilidades",
                 key: "abilities",
                 render: (_, row) => (
-                    <Space direction="vertical" size={6}>
+                    <Space orientation="vertical" size={6}>
                         {row.abilities.length === 0 ? <Text type="secondary">Sem habilidades</Text> : null}
                         {row.abilities.map((ability, index) => {
                             const effectLabel =
@@ -366,7 +366,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
 
     return (
         <AdminShell selectedKey="battlegear">
-            <Space direction="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
+            <Space orientation="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
                 <Card style={{ borderRadius: 16 }}>
                     <Space style={{ width: "100%", justifyContent: "space-between" }}>
                         <Space>
@@ -394,7 +394,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                             abilities: [{ description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], value: 0 }],
                         }}
                     >
-                        <Space direction="vertical" size={12} style={{ width: "100%" }}>
+                        <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                             <Form.Item label="Nome" name="name" rules={[{ required: true, message: "Informe o nome do equipamento." }]}>
                                 <Input placeholder="Ex.: Battle Gear de Mipedim" />
                             </Form.Item>
@@ -463,11 +463,11 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
 
                             <Form.List name="abilities">
                                 {(fields, { add, remove }) => (
-                                    <Space direction="vertical" size={12} style={{ width: "100%" }}>
+                                    <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                                         <Text strong>Habilidades do equipamento</Text>
                                         {fields.map((field) => (
                                             <Card key={field.key} size="small" style={{ borderRadius: 12 }}>
-                                                <Space direction="vertical" size={10} style={{ width: "100%" }}>
+                                                <Space orientation="vertical" size={10} style={{ width: "100%" }}>
                                                     <Form.Item
                                                         label="Descrição"
                                                         name={[field.name, "description"]}

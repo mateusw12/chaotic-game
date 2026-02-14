@@ -9,7 +9,7 @@ Pacotes de cartas
 
 Comuns, Incomuns etc...
 
-Mostrar quantos cards vêm por pacote, possíveis bônus de elemento ou facção, raridade média
+Mostrar quantos cards vêm por pacote, possíveis bônus de elemento ou tribo, raridade média
 
 Ex: Pacote “Starter” (10 cartas, 1 rara garantida)
 

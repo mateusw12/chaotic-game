@@ -373,7 +373,7 @@ export function MugicView({ mugics }: MugicViewProps) {
 
     return (
         <AdminShell selectedKey="mugic">
-            <Space direction="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
+            <Space orientation="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
                 <Card style={{ borderRadius: 16 }}>
                     <Space style={{ width: "100%", justifyContent: "space-between" }}>
                         <Space>
@@ -401,7 +401,7 @@ export function MugicView({ mugics }: MugicViewProps) {
                             abilities: [{ abilityType: "stat_modifier", description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], targetScope: "self", value: 0 }],
                         }}
                     >
-                        <Space direction="vertical" size={12} style={{ width: "100%" }}>
+                        <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                             <Form.Item label="Nome" name="name" rules={[{ required: true, message: "Informe o nome do mugic." }]}>
                                 <Input placeholder="Ex.: Canção de Mipedim" />
                             </Form.Item>
@@ -466,11 +466,11 @@ export function MugicView({ mugics }: MugicViewProps) {
 
                             <Form.List name="abilities">
                                 {(fields, { add, remove }) => (
-                                    <Space direction="vertical" size={12} style={{ width: "100%" }}>
+                                    <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                                         <Text strong>Habilidades do mugic</Text>
                                         {fields.map((field) => (
                                             <Card key={field.key} size="small" style={{ borderRadius: 12 }}>
-                                                <Space direction="vertical" size={10} style={{ width: "100%" }}>
+                                                <Space orientation="vertical" size={10} style={{ width: "100%" }}>
                                                     <Form.Item
                                                         label="Descrição"
                                                         name={[field.name, "description"]}

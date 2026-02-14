@@ -158,7 +158,7 @@ export function StoreView({ userName, userImageUrl }: StoreViewProps) {
                                             <span>{pack.name}</span>
                                             <Tooltip
                                                 title={(
-                                                    <Space direction="vertical" size={2}>
+                                                    <Space orientation="vertical" size={2}>
                                                         <Text style={{ color: "white" }}>
                                                             Tipos: {pack.cardTypes.map((item) => getEnumDescription(item)).join(", ")}
                                                         </Text>
@@ -262,7 +262,7 @@ export function StoreView({ userName, userImageUrl }: StoreViewProps) {
                                     className={styles.cardImage}
                                 />
                             ) : null}
-                            <Space direction="vertical" size={2} style={{ marginTop: 8 }}>
+                            <Space orientation="vertical" size={2} style={{ marginTop: 8 }}>
                                 <Text strong>{card.cardName ?? card.cardType}</Text>
                                 <Text type="secondary">{getEnumDescription(card.cardType)}</Text>
                                 <Text type="secondary">{getEnumDescription(card.rarity)}</Text>

@@ -265,7 +265,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                 title: "Habilidades",
                 key: "abilities",
                 render: (_, row) => (
-                    <Space direction="vertical" size={6}>
+                    <Space orientation="vertical" size={6}>
                         {row.abilities.length === 0 ? <Text type="secondary">Sem habilidades</Text> : null}
                         {row.abilities.map((ability, index) => {
                             const conditionElementLabel = ability.conditionElement
@@ -309,7 +309,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
 
     return (
         <AdminShell selectedKey="attacks">
-            <Space direction="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
+            <Space orientation="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
                 <Card style={{ borderRadius: 16 }}>
                     <Space style={{ width: "100%", justifyContent: "space-between" }}>
                         <Space>
@@ -335,7 +335,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                             abilities: [{ description: "", conditionElement: undefined, targetScope: "attacker", effectType: "increase", stat: "courage", value: 0 }],
                         }}
                     >
-                        <Space direction="vertical" size={12} style={{ width: "100%" }}>
+                        <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                             <Form.Item label="Nome" name="name" rules={[{ required: true, message: "Informe o nome do ataque." }]}>
                                 <Input placeholder="Ex.: Chuva de Lava" />
                             </Form.Item>
@@ -384,7 +384,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
 
                             <Form.List name="elementValues">
                                 {(fields, { add, remove }) => (
-                                    <Space direction="vertical" size={12} style={{ width: "100%" }}>
+                                    <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                                         <Text strong>Elementos e valores</Text>
                                         {fields.map((field) => (
                                             <Card key={field.key} size="small" style={{ borderRadius: 12 }}>
@@ -420,11 +420,11 @@ export function AttacksView({ attacks }: AttacksViewProps) {
 
                             <Form.List name="abilities">
                                 {(fields, { add, remove }) => (
-                                    <Space direction="vertical" size={12} style={{ width: "100%" }}>
+                                    <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                                         <Text strong>Habilidades do ataque</Text>
                                         {fields.map((field) => (
                                             <Card key={field.key} size="small" style={{ borderRadius: 12 }}>
-                                                <Space direction="vertical" size={10} style={{ width: "100%" }}>
+                                                <Space orientation="vertical" size={10} style={{ width: "100%" }}>
                                                     <Form.Item
                                                         label="Descrição"
                                                         name={[field.name, "description"]}

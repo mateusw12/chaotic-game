@@ -81,6 +81,149 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.starterCard {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(124, 77, 255, 0.35), transparent 32%),
+    radial-gradient(circle at 90% 0%, rgba(0, 188, 212, 0.22), transparent 40%),
+    radial-gradient(circle at 50% 120%, rgba(255, 140, 0, 0.14), transparent 45%),
+    rgba(8, 13, 30, 0.92);
+  box-shadow:
+    0 0 0 1px rgba(160, 168, 255, 0.2) inset,
+    0 18px 34px rgba(0, 0, 0, 0.35);
+}
+
+.starterBadge {
+  font-weight: 600;
+}
+
+.starterHeroHeader {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(135deg, rgba(23, 30, 66, 0.9), rgba(10, 15, 34, 0.86));
+}
+
+.starterTitle {
+  margin: 0 !important;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.starterSubtitle {
+  margin-bottom: 0 !important;
+  color: rgba(235, 240, 255, 0.88);
+}
+
+.starterPhase {
+  color: rgba(167, 182, 255, 0.92);
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.starterSectionTitle {
+  color: rgba(221, 229, 255, 0.96);
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.starterTribeCard {
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(176, 189, 255, 0.22);
+  background:
+    linear-gradient(175deg, rgba(20, 28, 60, 0.96), rgba(11, 16, 36, 0.92));
+  background-color: rgba(12, 18, 40, 0.95);
+  padding: 14px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.starterTribeCard:focus-visible {
+  outline: 2px solid rgba(129, 140, 248, 0.75);
+  outline-offset: 2px;
+}
+
+.starterTribeCard:hover {
+  transform: translateY(-3px) scale(1.01);
+  border-color: rgba(179, 149, 255, 0.95);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.34);
+}
+
+.starterTribeCardSelected {
+  border-color: rgba(129, 140, 248, 1);
+  box-shadow:
+    0 0 0 2px rgba(129, 140, 248, 0.3) inset,
+    0 0 24px rgba(129, 140, 248, 0.26);
+}
+
+.starterTribeCard:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.starterTribeImageWrap {
+  width: 112px;
+  height: 112px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 40%, rgba(62, 78, 144, 0.26), rgba(8, 12, 28, 0.92));
+  border: 1px solid rgba(173, 187, 255, 0.24);
+  box-shadow: 0 0 18px rgba(125, 145, 255, 0.22) inset;
+}
+
+.starterTribeImageWrap :global(span) {
+  background: transparent !important;
+}
+
+.starterTribeImageWrap :global(img) {
+  background: transparent !important;
+}
+
+.starterTribeImage {
+  object-fit: contain;
+  background: transparent !important;
+  mix-blend-mode: normal;
+  filter: drop-shadow(0 0 8px rgba(126, 156, 255, 0.24));
+}
+
+.starterTribeDescription {
+  text-align: center;
+  min-height: 40px;
+}
+
+.starterRewardStrip {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(12, 20, 46, 0.8), rgba(8, 14, 32, 0.72));
+}
+
+.starterCtaButton {
+  height: 46px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  box-shadow: 0 10px 22px rgba(101, 121, 255, 0.28);
+}
+
 @media (max-width: 900px) {
   .navbar {
     height: auto;

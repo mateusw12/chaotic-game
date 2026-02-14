@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOutlined, EnvironmentOutlined, SafetyOutlined, SettingOutlined, ToolOutlined, ThunderboltOutlined, AimOutlined, DollarCircleOutlined } from "@ant-design/icons";
+import { BookOutlined, EnvironmentOutlined, SafetyOutlined, SettingOutlined, ToolOutlined, ThunderboltOutlined, AimOutlined, DollarCircleOutlined, FileSearchOutlined } from "@ant-design/icons";
 import { Layout, Menu, Typography } from "antd";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -25,6 +25,11 @@ export function AdminShell({ selectedKey, children }: AdminShellProps) {
                 key: "wallets",
                 icon: <DollarCircleOutlined />,
                 label: <Link href="/admin/wallets">Carteiras</Link>,
+            },
+            {
+                key: "bulk-import",
+                icon: <FileSearchOutlined />,
+                label: <Link href="/admin/bulk-import">Importação em Massa</Link>,
             },
             {
                 key: "creatures",

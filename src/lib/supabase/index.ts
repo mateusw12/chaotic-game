@@ -8,4 +8,5 @@ export * from "./mugic";
 export * from "./attacks";
 export * from "./progression";
 export * from "./store";
+export * from "./starter";
 export * from "./storage";
