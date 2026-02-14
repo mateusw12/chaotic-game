@@ -58,7 +58,7 @@ Ledger de eventos que alteram progressão/economia.
 Campos principais:
 
 - `user_id`
-- `source` (`battle_victory`, `card_awarded`, `card_discarded`)
+- `source` (`battle_victory`, `card_awarded`, `card_discarded`, `daily_login`)
 - `xp_delta`
 - `coins_delta`
 - `diamonds_delta`
@@ -87,6 +87,10 @@ Exemplos:
 ## XP por vitória
 
 - Vitória em batalha: **50 XP**
+
+## Bônus por login diário
+
+- Login diário (1x por dia UTC): **5 XP** + **5 moedas**
 
 ## XP por carta recebida (por unidade)
 

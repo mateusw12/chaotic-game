@@ -4,6 +4,7 @@ import {
   ensureUserProgressionInSupabase,
   ensureDefaultAdminRoleByEmail,
   ensureUserWalletInSupabase,
+  registerDailyLoginReward,
   saveLoggedUserInSupabase,
 } from "../supabase";
 
@@ -33,6 +34,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         await ensureDefaultAdminRoleByEmail(savedUser.email);
         await ensureUserWalletInSupabase(savedUser.id);
         await ensureUserProgressionInSupabase(savedUser.id);
+        await registerDailyLoginReward(savedUser.id);
       } catch (error) {
         console.error("Erro ao salvar usuário no Supabase:", error);
       }

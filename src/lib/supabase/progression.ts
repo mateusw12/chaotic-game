@@ -36,6 +36,8 @@ import type {
 } from "./types";
 
 const BATTLE_VICTORY_XP = 50;
+const DAILY_LOGIN_XP = 5;
+const DAILY_LOGIN_COINS = 5;
 
 const XP_BY_RARITY: Record<CardRarity, number> = {
     comum: 8,
@@ -411,6 +413,79 @@ export async function registerBattleVictory(userId: string, referenceId?: string
             xp: BATTLE_VICTORY_XP,
         },
     });
+}
+
+function getUtcDayWindow(date: Date): { dayKey: string; dayStartIso: string; nextDayStartIso: string } {
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth();
+    const day = date.getUTCDate();
+
+    const dayStart = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
+    const nextDayStart = new Date(Date.UTC(year, month, day + 1, 0, 0, 0, 0));
+
+    return {
+        dayKey: dayStart.toISOString().slice(0, 10),
+        dayStartIso: dayStart.toISOString(),
+        nextDayStartIso: nextDayStart.toISOString(),
+    };
+}
+
+async function hasDailyLoginRewardForUtcDay(userId: string, now: Date): Promise<boolean> {
+    const supabase = getSupabaseAdminClient();
+    const eventsTable = getProgressionEventsTableName();
+    const { dayStartIso, nextDayStartIso } = getUtcDayWindow(now);
+
+    const { data, error } = await supabase
+        .from(eventsTable)
+        .select("id")
+        .eq("user_id", userId)
+        .eq("source", "daily_login")
+        .gte("created_at", dayStartIso)
+        .lt("created_at", nextDayStartIso)
+        .limit(1)
+        .maybeSingle<{ id: string }>();
+
+    if (error) {
+        throw new Error(`Erro ao consultar recompensa diária de login: ${error.message}`);
+    }
+
+    return Boolean(data?.id);
+}
+
+export async function registerDailyLoginReward(userId: string, now = new Date()) {
+    const alreadyGranted = await hasDailyLoginRewardForUtcDay(userId, now);
+
+    if (alreadyGranted) {
+        const progression = await ensureUserProgressionInSupabase(userId);
+        const wallet = await ensureWalletForProgression(userId);
+
+        return {
+            granted: false,
+            progression,
+            wallet,
+        };
+    }
+
+    const { dayKey } = getUtcDayWindow(now);
+    const result = await applyProgressionEvent({
+        userId,
+        source: "daily_login",
+        xpDelta: DAILY_LOGIN_XP,
+        coinsDelta: DAILY_LOGIN_COINS,
+        referenceId: `daily-login-${dayKey}`,
+        metadata: {
+            rule: "daily_login",
+            xp: DAILY_LOGIN_XP,
+            coins: DAILY_LOGIN_COINS,
+            dayKey,
+        },
+    });
+
+    return {
+        granted: true,
+        progression: result.progression,
+        wallet: result.wallet,
+    };
 }
 
 type RegisterCardAwardInput = {

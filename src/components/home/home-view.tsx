@@ -134,7 +134,7 @@ export function HomeView({
                         </Col>
                         <Col xs={24}>
                             <Card className={styles.statCard}>
-                                <Space direction="vertical" style={{ width: "100%" }} size={6}>
+                                <Space orientation="vertical" style={{ width: "100%" }} size={6}>
                                     <Statistic title="Nível" value={level} suffix={`(XP total: ${xpTotal})`} />
                                     <Text>
                                         XP no nível atual: {xpCurrentLevel}/{xpNextLevel}

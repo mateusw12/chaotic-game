@@ -129,6 +129,7 @@ Progressão (XP, nível, coleção e descarte):
 Regras iniciais de progressão:
 
 - XP por vitória em batalha: `50`
+- Login diário (1x por dia UTC): `5 XP` + `5 moedas`
 - XP por carta adquirida (por unidade):
   - `comum: 8`, `incomum: 16`, `rara: 28`, `super_rara: 45`, `ultra_rara: 70`
 - Moedas por descarte (por unidade):
