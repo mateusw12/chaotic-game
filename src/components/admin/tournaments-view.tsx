@@ -20,7 +20,6 @@ import {
     Upload,
 } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, TrophyOutlined } from "@ant-design/icons";
 import dayjs, { type Dayjs } from "dayjs";
 import Link from "next/link";
@@ -39,6 +38,8 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { TournamentsAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
+import { useImageUploadField } from "@/hooks/use-image-upload-field";
+import { useFormSubmitToast } from "@/hooks/use-form-submit-toast";
 
 type TournamentsViewProps = {
     tournaments: TournamentDto[];
@@ -78,13 +79,41 @@ function scheduleLabel(tournament: TournamentDto): string {
 
 export function TournamentsView({ tournaments }: TournamentsViewProps) {
     const { message } = AntdApp.useApp();
+    const { runWithSubmitToast } = useFormSubmitToast(message);
     const queryClient = useQueryClient();
     const [form] = Form.useForm<TournamentFormValues>();
     const [editingTournamentId, setEditingTournamentId] = useState<string | null>(null);
     const [deletingTournamentId, setDeletingTournamentId] = useState<string | null>(null);
-    const [isCoverUploading, setIsCoverUploading] = useState(false);
-    const [coverFileList, setCoverFileList] = useState<UploadFile[]>([]);
-    const [coverPreviewUrl, setCoverPreviewUrl] = useState<string | null>(null);
+
+    const {
+        isUploading: isCoverUploading,
+        previewUrl: coverPreviewUrl,
+        fileList: coverFileList,
+        attachFile: attachCoverFile,
+        clearImage: clearCover,
+        setExistingImage: setExistingCover,
+    } = useImageUploadField({
+        messageApi: message,
+        form,
+        fieldName: "coverImageFileId",
+        uploadFile: (formData) => TournamentsAdminService.uploadCover(formData),
+        getFieldValue: (response) => {
+            if (!response.success || !response.file?.imageFileId) {
+                throw new Error(response.message ?? "Falha ao enviar imagem.");
+            }
+
+            return response.file.imageFileId;
+        },
+        getPublicUrl: (response) => {
+            if (!response.success || !response.file?.imageFileId) {
+                throw new Error(response.message ?? "Falha ao enviar imagem.");
+            }
+
+            return response.file.publicUrl;
+        },
+        successMessage: "Capa enviada com sucesso.",
+        defaultErrorMessage: "Erro ao enviar capa.",
+    });
 
     const { data: rows = [] } = useQuery({
         queryKey: adminQueryKeys.tournaments,
@@ -101,72 +130,42 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
         mutationFn: (id: string) => TournamentsAdminService.remove(id),
     });
 
-    async function attachCoverFile(file: File & { uid?: string }) {
-        setIsCoverUploading(true);
-
-        try {
-            const formData = new FormData();
-            formData.append("file", file);
-
-            const data = await TournamentsAdminService.uploadCover(formData);
-
-            if (!data.success || !data.file?.imageFileId) {
-                throw new Error(data.message ?? "Falha ao enviar imagem.");
-            }
-
-            form.setFieldValue("coverImageFileId", data.file.imageFileId);
-            setCoverPreviewUrl(data.file.publicUrl ?? URL.createObjectURL(file));
-            setCoverFileList([
-                {
-                    uid: file.uid ?? `${Date.now()}`,
-                    name: file.name,
-                    status: "done",
-                    url: data.file.publicUrl ?? undefined,
-                },
-            ]);
-
-            message.success("Capa enviada com sucesso.");
-        } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao enviar capa.");
-        } finally {
-            setIsCoverUploading(false);
-        }
-    }
-
     async function onSubmit(values: TournamentFormValues) {
-        try {
-            const payload: CreateTournamentRequestDto = {
-                name: values.name,
-                coverImageFileId: values.coverImageFileId ?? null,
-                cardsCount: values.cardsCount,
-                playersCount: values.playersCount,
-                allowedFormats: values.allowedFormats,
-                deckArchetypes: values.deckArchetypes,
-                maxCardEnergy: values.maxCardEnergy ?? null,
-                allowedTribes: values.allowedTribes,
-                allowMugic: values.allowMugic,
-                locationMode: values.locationMode,
-                definedLocations: values.locationMode === "defined" ? values.definedLocations : [],
-                additionalRules: values.additionalRules ?? null,
-                scheduleType: values.scheduleType,
-                startAt: values.startAt ? values.startAt.toISOString() : null,
-                endAt: values.scheduleType === "date_range" && values.endAt ? values.endAt.toISOString() : null,
-                periodDays: values.scheduleType === "recurring_interval" ? values.periodDays ?? null : null,
-                isEnabled: values.isEnabled,
-            };
+        const payload: CreateTournamentRequestDto = {
+            name: values.name,
+            coverImageFileId: values.coverImageFileId ?? null,
+            cardsCount: values.cardsCount,
+            playersCount: values.playersCount,
+            allowedFormats: values.allowedFormats,
+            deckArchetypes: values.deckArchetypes,
+            maxCardEnergy: values.maxCardEnergy ?? null,
+            allowedTribes: values.allowedTribes,
+            allowMugic: values.allowMugic,
+            locationMode: values.locationMode,
+            definedLocations: values.locationMode === "defined" ? values.definedLocations : [],
+            additionalRules: values.additionalRules ?? null,
+            scheduleType: values.scheduleType,
+            startAt: values.startAt ? values.startAt.toISOString() : null,
+            endAt: values.scheduleType === "date_range" && values.endAt ? values.endAt.toISOString() : null,
+            periodDays: values.scheduleType === "recurring_interval" ? values.periodDays ?? null : null,
+            isEnabled: values.isEnabled,
+        };
 
-            const isEditing = Boolean(editingTournamentId);
-            await saveMutation.mutateAsync({ id: editingTournamentId, payload });
-            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.tournaments });
+        const isEditing = Boolean(editingTournamentId);
+        await runWithSubmitToast(
+            async () => {
+                await saveMutation.mutateAsync({ id: editingTournamentId, payload });
+                await queryClient.invalidateQueries({ queryKey: adminQueryKeys.tournaments });
 
-            setEditingTournamentId(null);
-            form.resetFields();
-            setCoverPreviewUrl(null);
-            setCoverFileList([]);
-            message.success(isEditing ? "Torneio atualizado com sucesso." : "Torneio cadastrado com sucesso.");
-        } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao salvar torneio.");
-        }
+                setEditingTournamentId(null);
+                form.resetFields();
+                clearCover();
+            },
+            {
+                successMessage: isEditing ? "Torneio atualizado com sucesso." : "Torneio cadastrado com sucesso.",
+                defaultErrorMessage: "Erro ao salvar torneio.",
+            },
+        );
     }
 
     const startEdit = useCallback((tournament: TournamentDto) => {
@@ -191,42 +190,37 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
             isEnabled: tournament.isEnabled,
         });
 
-        if (tournament.coverImageUrl) {
-            setCoverPreviewUrl(tournament.coverImageUrl);
-            setCoverFileList([
-                {
-                    uid: tournament.id,
-                    name: "capa-atual",
-                    status: "done",
-                    url: tournament.coverImageUrl,
-                },
-            ]);
-        } else {
-            setCoverPreviewUrl(null);
-            setCoverFileList([]);
-        }
-    }, [form]);
+        setExistingCover({
+            url: tournament.coverImageUrl,
+            uid: tournament.id,
+            name: "capa-atual",
+        });
+    }, [form, setExistingCover]);
 
     function cancelEdit() {
         setEditingTournamentId(null);
         form.resetFields();
-        setCoverPreviewUrl(null);
-        setCoverFileList([]);
+        clearCover();
     }
 
     const onDelete = useCallback(async (tournamentId: string) => {
         setDeletingTournamentId(tournamentId);
 
         try {
-            await deleteMutation.mutateAsync(tournamentId);
-            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.tournaments });
-            message.success("Torneio removido com sucesso.");
-        } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao remover torneio.");
+            await runWithSubmitToast(
+                async () => {
+                    await deleteMutation.mutateAsync(tournamentId);
+                    await queryClient.invalidateQueries({ queryKey: adminQueryKeys.tournaments });
+                },
+                {
+                    successMessage: "Torneio removido com sucesso.",
+                    defaultErrorMessage: "Erro ao remover torneio.",
+                },
+            );
         } finally {
             setDeletingTournamentId(null);
         }
-    }, [deleteMutation, message, queryClient]);
+    }, [deleteMutation, queryClient, runWithSubmitToast]);
 
     const columns = useMemo<ColumnsType<TournamentDto>>(
         () => [

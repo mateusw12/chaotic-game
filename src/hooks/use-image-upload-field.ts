@@ -5,14 +5,17 @@ import type { UploadFile } from "antd/es/upload/interface";
 import type { MessageInstance } from "antd/es/message/interface";
 
 type FormFieldSetter = {
-    setFieldValue: (name: string, value: unknown) => void;
+    setFieldValue: (...args: any[]) => void;
 };
 
-type UseImageUploadFieldOptions<TUploadResponse> = {
+type UploadFileHandler<TUploadResponse> = (formData: FormData) => Promise<TUploadResponse>;
+type UploadResponse<TUploadFn extends UploadFileHandler<unknown>> = Awaited<ReturnType<TUploadFn>>;
+
+type UseImageUploadFieldOptions<TUploadFn extends UploadFileHandler<unknown>> = {
     messageApi: MessageInstance;
-    uploadFile: (formData: FormData) => Promise<TUploadResponse>;
-    getPublicUrl: (response: TUploadResponse) => string | null | undefined;
-    getFieldValue?: (response: TUploadResponse) => string | null | undefined;
+    uploadFile: TUploadFn;
+    getPublicUrl: (response: UploadResponse<TUploadFn>) => string | null | undefined;
+    getFieldValue?: (response: UploadResponse<TUploadFn>) => string | null | undefined;
     form?: FormFieldSetter;
     fieldName?: string;
     successMessage?: string;
@@ -25,7 +28,7 @@ type ExistingImageOptions = {
     name?: string;
 };
 
-export function useImageUploadField<TUploadResponse>({
+export function useImageUploadField<TUploadFn extends UploadFileHandler<unknown>>({
     messageApi,
     uploadFile,
     getPublicUrl,
@@ -34,7 +37,7 @@ export function useImageUploadField<TUploadResponse>({
     fieldName,
     successMessage = "Imagem enviada com sucesso.",
     defaultErrorMessage = "Erro ao anexar imagem.",
-}: UseImageUploadFieldOptions<TUploadResponse>) {
+}: UseImageUploadFieldOptions<TUploadFn>) {
     const [isUploading, setIsUploading] = useState(false);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -73,7 +76,7 @@ export function useImageUploadField<TUploadResponse>({
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await uploadFile(formData);
+            const response = (await uploadFile(formData)) as UploadResponse<TUploadFn>;
             const fieldValue = getFieldValue?.(response);
             const publicUrl = getPublicUrl(response) ?? URL.createObjectURL(file);
 

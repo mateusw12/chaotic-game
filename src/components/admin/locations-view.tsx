@@ -18,7 +18,6 @@ import {
     Upload,
 } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import {
@@ -43,6 +42,8 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { LocationsAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
+import { useImageUploadField } from "@/hooks/use-image-upload-field";
+import { useFormSubmitToast } from "@/hooks/use-form-submit-toast";
 
 type LocationsViewProps = {
     locations: LocationDto[];
@@ -69,13 +70,41 @@ const { Title, Text } = Typography;
 
 export function LocationsView({ locations }: LocationsViewProps) {
     const { message } = AntdApp.useApp();
+    const { runWithSubmitToast } = useFormSubmitToast(message);
     const queryClient = useQueryClient();
     const [form] = Form.useForm<LocationFormValues>();
     const [editingLocationId, setEditingLocationId] = useState<string | null>(null);
     const [deletingLocationId, setDeletingLocationId] = useState<string | null>(null);
-    const [isImageUploading, setIsImageUploading] = useState(false);
-    const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
-    const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+
+    const {
+        isUploading: isImageUploading,
+        previewUrl: imagePreviewUrl,
+        fileList: imageFileList,
+        attachFile: attachImageFile,
+        clearImage,
+        setExistingImage,
+    } = useImageUploadField({
+        messageApi: message,
+        form,
+        fieldName: "imageFileId",
+        uploadFile: (formData) => LocationsAdminService.uploadImage(formData),
+        getFieldValue: (response) => {
+            if (!response.success || !response.file?.imageFileId) {
+                throw new Error(response.message ?? "Falha ao enviar imagem.");
+            }
+
+            return response.file.imageFileId;
+        },
+        getPublicUrl: (response) => {
+            if (!response.success || !response.file?.imageFileId) {
+                throw new Error(response.message ?? "Falha ao enviar imagem.");
+            }
+
+            return response.file.publicUrl;
+        },
+        successMessage: "Imagem enviada para o Storage com sucesso.",
+        defaultErrorMessage: "Erro ao anexar imagem.",
+    });
 
     const { data: rows = [] } = useQuery({
         queryKey: adminQueryKeys.locations,
@@ -92,70 +121,40 @@ export function LocationsView({ locations }: LocationsViewProps) {
         mutationFn: (id: string) => LocationsAdminService.remove(id),
     });
 
-    async function attachImageFile(file: File & { uid?: string }) {
-        setIsImageUploading(true);
-
-        try {
-            const formData = new FormData();
-            formData.append("file", file);
-
-            const data = await LocationsAdminService.uploadImage(formData);
-
-            if (!data.success || !data.file?.imageFileId) {
-                throw new Error(data.message ?? "Falha ao enviar imagem.");
-            }
-
-            form.setFieldValue("imageFileId", data.file.imageFileId);
-            setImagePreviewUrl(data.file.publicUrl ?? URL.createObjectURL(file));
-            setImageFileList([
-                {
-                    uid: file.uid ?? `${Date.now()}`,
-                    name: file.name,
-                    status: "done",
-                    url: data.file.publicUrl ?? undefined,
-                },
-            ]);
-
-            message.success("Imagem enviada para o Storage com sucesso.");
-        } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao anexar imagem.");
-        } finally {
-            setIsImageUploading(false);
-        }
-    }
-
     async function onSubmit(values: LocationFormValues) {
-        try {
-            const payload: CreateLocationRequestDto = {
-                name: values.name,
-                rarity: values.rarity,
-                imageFileId: values.imageFileId ?? null,
-                initiativeElements: values.initiativeElements,
-                tribes: values.tribes,
-                abilities: values.abilities.map((ability) => ({
-                    description: ability.description,
-                    effectType: ability.effectType,
-                    stats: ability.stats,
-                    cardTypes: ability.cardTypes,
-                    value: ability.value,
-                })),
-            };
+        const payload: CreateLocationRequestDto = {
+            name: values.name,
+            rarity: values.rarity,
+            imageFileId: values.imageFileId ?? null,
+            initiativeElements: values.initiativeElements,
+            tribes: values.tribes,
+            abilities: values.abilities.map((ability) => ({
+                description: ability.description,
+                effectType: ability.effectType,
+                stats: ability.stats,
+                cardTypes: ability.cardTypes,
+                value: ability.value,
+            })),
+        };
 
-            const isEditing = Boolean(editingLocationId);
-            await saveMutation.mutateAsync({
-                id: editingLocationId,
-                payload,
-            });
-            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
+        const isEditing = Boolean(editingLocationId);
+        await runWithSubmitToast(
+            async () => {
+                await saveMutation.mutateAsync({
+                    id: editingLocationId,
+                    payload,
+                });
+                await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
 
-            setEditingLocationId(null);
-            form.resetFields();
-            setImageFileList([]);
-            setImagePreviewUrl(null);
-            message.success(isEditing ? "Local atualizado com sucesso." : "Local cadastrado com sucesso.");
-        } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao salvar local.");
-        }
+                setEditingLocationId(null);
+                form.resetFields();
+                clearImage();
+            },
+            {
+                successMessage: isEditing ? "Local atualizado com sucesso." : "Local cadastrado com sucesso.",
+                defaultErrorMessage: "Erro ao salvar local.",
+            },
+        );
     }
 
     const startEdit = useCallback((location: LocationDto) => {
@@ -169,42 +168,37 @@ export function LocationsView({ locations }: LocationsViewProps) {
             abilities: location.abilities,
         });
 
-        if (location.imageUrl) {
-            setImagePreviewUrl(location.imageUrl);
-            setImageFileList([
-                {
-                    uid: location.id,
-                    name: "imagem-atual",
-                    status: "done",
-                    url: location.imageUrl,
-                },
-            ]);
-        } else {
-            setImagePreviewUrl(null);
-            setImageFileList([]);
-        }
-    }, [form]);
+        setExistingImage({
+            url: location.imageUrl,
+            uid: location.id,
+            name: "imagem-atual",
+        });
+    }, [form, setExistingImage]);
 
     function cancelEdit() {
         setEditingLocationId(null);
         form.resetFields();
-        setImagePreviewUrl(null);
-        setImageFileList([]);
+        clearImage();
     }
 
     const onDelete = useCallback(async (locationId: string) => {
         setDeletingLocationId(locationId);
 
         try {
-            await deleteMutation.mutateAsync(locationId);
-            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
-            message.success("Local removido com sucesso.");
-        } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao remover local.");
+            await runWithSubmitToast(
+                async () => {
+                    await deleteMutation.mutateAsync(locationId);
+                    await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
+                },
+                {
+                    successMessage: "Local removido com sucesso.",
+                    defaultErrorMessage: "Erro ao remover local.",
+                },
+            );
         } finally {
             setDeletingLocationId(null);
         }
-    }, [deleteMutation, message, queryClient]);
+    }, [deleteMutation, queryClient, runWithSubmitToast]);
 
     const columns = useMemo<ColumnsType<LocationDto>>(
         () => [
@@ -373,11 +367,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                                         void attachImageFile(file);
                                         return false;
                                     }}
-                                    onRemove={() => {
-                                        form.setFieldValue("imageFileId", undefined);
-                                        setImagePreviewUrl(null);
-                                        setImageFileList([]);
-                                    }}
+                                    onRemove={() => clearImage()}
                                 >
                                     <Button loading={isImageUploading}>Anexar imagem</Button>
                                 </Upload>

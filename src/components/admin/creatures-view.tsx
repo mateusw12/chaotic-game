@@ -4,7 +4,6 @@ import { useCallback, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { App as AntdApp, Button, Card, Form, Image, Input, InputNumber, Popconfirm, Select, Space, Tag, Typography, Upload } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, BookOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import {
@@ -21,6 +20,8 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { CreaturesAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
+import { useImageUploadField } from "@/hooks/use-image-upload-field";
+import { useFormSubmitToast } from "@/hooks/use-form-submit-toast";
 
 type CreaturesViewProps = {
     creatures: CreatureDto[];
@@ -45,13 +46,41 @@ type CreatureFormValues = {
 
 export function CreaturesView({ creatures }: CreaturesViewProps) {
     const { message } = AntdApp.useApp();
+    const { runWithSubmitToast } = useFormSubmitToast(message);
     const queryClient = useQueryClient();
     const [creatureForm] = Form.useForm<CreatureFormValues>();
-    const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
     const [editingCreatureId, setEditingCreatureId] = useState<string | null>(null);
     const [deletingCreatureId, setDeletingCreatureId] = useState<string | null>(null);
-    const [isImageUploading, setIsImageUploading] = useState(false);
-    const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
+
+    const {
+        isUploading: isImageUploading,
+        previewUrl: imagePreviewUrl,
+        fileList: imageFileList,
+        attachFile: attachImageFile,
+        clearImage,
+        setExistingImage,
+    } = useImageUploadField({
+        messageApi: message,
+        form: creatureForm,
+        fieldName: "imageFileId",
+        uploadFile: (formData) => CreaturesAdminService.uploadImage(formData),
+        getFieldValue: (response) => {
+            if (!response.success || !response.file?.imageFileId) {
+                throw new Error(response.message ?? "Falha ao enviar imagem.");
+            }
+
+            return response.file.imageFileId;
+        },
+        getPublicUrl: (response) => {
+            if (!response.success || !response.file?.imageFileId) {
+                throw new Error(response.message ?? "Falha ao enviar imagem.");
+            }
+
+            return response.file.publicUrl;
+        },
+        successMessage: "Imagem enviada para o Storage com sucesso.",
+        defaultErrorMessage: "Erro ao anexar imagem.",
+    });
 
     const { data: rows = [] } = useQuery({
         queryKey: adminQueryKeys.creatures,
@@ -68,79 +97,48 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
         mutationFn: (id: string) => CreaturesAdminService.remove(id),
     });
 
-    async function attachImageFile(file: File & { uid?: string }) {
-        setIsImageUploading(true);
-
-        try {
-            const formData = new FormData();
-            formData.append("file", file);
-
-            const data = await CreaturesAdminService.uploadImage(formData);
-
-            if (!data.success || !data.file?.imageFileId) {
-                throw new Error(data.message ?? "Falha ao enviar imagem.");
-            }
-
-            creatureForm.setFieldValue("imageFileId", data.file.imageFileId);
-            setImagePreviewUrl(data.file.publicUrl ?? URL.createObjectURL(file));
-            setImageFileList([
-                {
-                    uid: file.uid ?? `${Date.now()}`,
-                    name: file.name,
-                    status: "done",
-                    url: data.file.publicUrl ?? undefined,
-                },
-            ]);
-            message.success("Imagem enviada para o Storage com sucesso.");
-        } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao anexar imagem.");
-        } finally {
-            setIsImageUploading(false);
-        }
-    }
-
     async function onCreateCreature(values: CreatureFormValues) {
-        try {
-            const creatureBeingEdited = editingCreatureId
-                ? rows.find((row) => row.id === editingCreatureId)
-                : null;
+        const creatureBeingEdited = editingCreatureId
+            ? rows.find((row) => row.id === editingCreatureId)
+            : null;
 
-            const payload: CreateCreatureRequestDto = {
-                name: values.name,
-                rarity: values.rarity,
-                imageFileId: values.imageFileId ?? null,
-                tribe: values.tribe,
-                power: values.power,
-                courage: values.courage,
-                speed: values.speed,
-                wisdom: values.wisdom,
-                mugic: values.mugic,
-                energy: values.energy,
-                dominantElements: values.dominantElements,
-                supportAbilityId: creatureBeingEdited?.supportAbilityId ?? null,
-                brainwashedAbilityId: creatureBeingEdited?.brainwashedAbilityId ?? null,
-                equipmentNote: values.equipmentNote ?? null,
-            };
+        const payload: CreateCreatureRequestDto = {
+            name: values.name,
+            rarity: values.rarity,
+            imageFileId: values.imageFileId ?? null,
+            tribe: values.tribe,
+            power: values.power,
+            courage: values.courage,
+            speed: values.speed,
+            wisdom: values.wisdom,
+            mugic: values.mugic,
+            energy: values.energy,
+            dominantElements: values.dominantElements,
+            supportAbilityId: creatureBeingEdited?.supportAbilityId ?? null,
+            brainwashedAbilityId: creatureBeingEdited?.brainwashedAbilityId ?? null,
+            equipmentNote: values.equipmentNote ?? null,
+        };
 
-            const isEditing = Boolean(editingCreatureId);
-            await saveMutation.mutateAsync({
-                id: editingCreatureId,
-                payload,
-            });
-            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
+        const isEditing = Boolean(editingCreatureId);
+        await runWithSubmitToast(
+            async () => {
+                await saveMutation.mutateAsync({
+                    id: editingCreatureId,
+                    payload,
+                });
+                await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
 
-            setEditingCreatureId(null);
-            creatureForm.resetFields();
-            setImageFileList([]);
-            setImagePreviewUrl(null);
-            message.success(
-                isEditing
+                setEditingCreatureId(null);
+                creatureForm.resetFields();
+                clearImage();
+            },
+            {
+                successMessage: isEditing
                     ? "Criatura atualizada com sucesso."
                     : "Criatura cadastrada com sucesso.",
-            );
-        } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao salvar criatura.");
-        }
+                defaultErrorMessage: "Erro ao salvar criatura.",
+            },
+        );
     }
 
     const startEditCreature = useCallback((creature: CreatureDto) => {
@@ -160,42 +158,37 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             equipmentNote: creature.equipmentNote ?? undefined,
         });
 
-        if (creature.imageUrl) {
-            setImagePreviewUrl(creature.imageUrl);
-            setImageFileList([
-                {
-                    uid: creature.id,
-                    name: "imagem-atual",
-                    status: "done",
-                    url: creature.imageUrl,
-                },
-            ]);
-        } else {
-            setImagePreviewUrl(null);
-            setImageFileList([]);
-        }
-    }, [creatureForm]);
+        setExistingImage({
+            url: creature.imageUrl,
+            uid: creature.id,
+            name: "imagem-atual",
+        });
+    }, [creatureForm, setExistingImage]);
 
     function cancelEditCreature() {
         setEditingCreatureId(null);
         creatureForm.resetFields();
-        setImageFileList([]);
-        setImagePreviewUrl(null);
+        clearImage();
     }
 
     const onDeleteCreature = useCallback(async (creatureId: string) => {
         setDeletingCreatureId(creatureId);
 
         try {
-            await deleteMutation.mutateAsync(creatureId);
-            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
-            message.success("Criatura removida com sucesso.");
-        } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao remover criatura.");
+            await runWithSubmitToast(
+                async () => {
+                    await deleteMutation.mutateAsync(creatureId);
+                    await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
+                },
+                {
+                    successMessage: "Criatura removida com sucesso.",
+                    defaultErrorMessage: "Erro ao remover criatura.",
+                },
+            );
         } finally {
             setDeletingCreatureId(null);
         }
-    }, [deleteMutation, message, queryClient]);
+    }, [deleteMutation, queryClient, runWithSubmitToast]);
 
     const columns = useMemo<ColumnsType<CreatureDto>>(
         () => [
@@ -365,11 +358,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                                         void attachImageFile(file);
                                         return false;
                                     }}
-                                    onRemove={() => {
-                                        creatureForm.setFieldValue("imageFileId", undefined);
-                                        setImagePreviewUrl(null);
-                                        setImageFileList([]);
-                                    }}
+                                    onRemove={() => clearImage()}
                                 >
                                     <Button loading={isImageUploading}>Anexar imagem</Button>
                                 </Upload>
