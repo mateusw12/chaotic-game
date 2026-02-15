@@ -105,6 +105,12 @@ export async function POST(request: Request) {
             abilities: rawAbilities.map((ability) => ({
                 description: String(ability.description ?? ""),
                 effectType: ability.effectType as CreateLocationRequestDto["abilities"][number]["effectType"],
+                targetScope:
+                    (ability.targetScope as CreateLocationRequestDto["abilities"][number]["targetScope"])
+                    ?? "all_creatures",
+                targetTribes: Array.isArray(ability.targetTribes)
+                    ? (ability.targetTribes as CreateLocationRequestDto["abilities"][number]["targetTribes"])
+                    : [],
                 stats: Array.isArray(ability.stats)
                     ? (ability.stats as CreateLocationRequestDto["abilities"][number]["stats"])
                     : ability.stat
@@ -114,6 +120,9 @@ export async function POST(request: Request) {
                     ? (ability.cardTypes as CreateLocationRequestDto["abilities"][number]["cardTypes"])
                     : [],
                 value: Number(ability.value ?? 0),
+                battleRules:
+                    (ability.battleRules as CreateLocationRequestDto["abilities"][number]["battleRules"])
+                    ?? null,
             })),
         });
 

@@ -29,14 +29,18 @@ import {
     type CreatureTribe,
 } from "@/dto/creature";
 import {
+    LOCATION_BATTLE_RULE_TYPES,
     LOCATION_CARD_TYPE_OPTIONS,
     LOCATION_EFFECT_TYPE_OPTIONS,
     LOCATION_STAT_OPTIONS,
+    LOCATION_TARGET_SCOPE_OPTIONS,
     type CreateLocationRequestDto,
+    type LocationBattleRuleDto,
     type LocationCardType,
     type LocationDto,
     type LocationEffectType,
     type LocationStat,
+    type LocationTargetScope,
 } from "@/dto/location";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { LocationsAdminService } from "@/lib/api/service";
@@ -52,9 +56,12 @@ type LocationsViewProps = {
 type LocationAbilityFormValues = {
     description: string;
     effectType: LocationEffectType;
+    targetScope: LocationTargetScope;
+    targetTribes: CreatureTribe[];
     stats: LocationStat[];
     cardTypes: LocationCardType[];
     value: number;
+    battleRulesJson?: string;
 };
 
 type LocationFormValues = {
@@ -67,6 +74,20 @@ type LocationFormValues = {
 };
 
 const { Title, Text } = Typography;
+
+function parseBattleRulesJson(value: string | undefined): LocationBattleRuleDto | null {
+    if (!value?.trim()) {
+        return null;
+    }
+
+    const parsed = JSON.parse(value) as unknown;
+
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+        throw new Error("battleRules precisa ser um objeto JSON válido.");
+    }
+
+    return parsed as LocationBattleRuleDto;
+}
 
 export function LocationsView({ locations }: LocationsViewProps) {
     const { message } = AntdApp.useApp();
@@ -117,44 +138,55 @@ export function LocationsView({ locations }: LocationsViewProps) {
             id ? LocationsAdminService.update(id, payload) : LocationsAdminService.create(payload),
     });
 
+    const importMutation = useMutation({
+        mutationFn: () => LocationsAdminService.importFromJson(),
+    });
+
     const deleteMutation = useMutation({
         mutationFn: (id: string) => LocationsAdminService.remove(id),
     });
 
     async function onSubmit(values: LocationFormValues) {
-        const payload: CreateLocationRequestDto = {
-            name: values.name,
-            rarity: values.rarity,
-            imageFileId: values.imageFileId ?? null,
-            initiativeElements: values.initiativeElements,
-            tribes: values.tribes,
-            abilities: values.abilities.map((ability) => ({
-                description: ability.description,
-                effectType: ability.effectType,
-                stats: ability.stats,
-                cardTypes: ability.cardTypes,
-                value: ability.value,
-            })),
-        };
+        try {
+            const payload: CreateLocationRequestDto = {
+                name: values.name,
+                rarity: values.rarity,
+                imageFileId: values.imageFileId ?? null,
+                initiativeElements: values.initiativeElements,
+                tribes: values.tribes,
+                abilities: values.abilities.map((ability) => ({
+                    description: ability.description,
+                    effectType: ability.effectType,
+                    targetScope: ability.targetScope,
+                    targetTribes: ability.targetTribes,
+                    stats: ability.stats,
+                    cardTypes: ability.cardTypes,
+                    value: ability.value,
+                    battleRules: parseBattleRulesJson(ability.battleRulesJson),
+                })),
+            };
 
-        const isEditing = Boolean(editingLocationId);
-        await runWithSubmitToast(
-            async () => {
-                await saveMutation.mutateAsync({
-                    id: editingLocationId,
-                    payload,
-                });
-                await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
+            const isEditing = Boolean(editingLocationId);
+            await runWithSubmitToast(
+                async () => {
+                    await saveMutation.mutateAsync({
+                        id: editingLocationId,
+                        payload,
+                    });
+                    await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
 
-                setEditingLocationId(null);
-                form.resetFields();
-                clearImage();
-            },
-            {
-                successMessage: isEditing ? "Local atualizado com sucesso." : "Local cadastrado com sucesso.",
-                defaultErrorMessage: "Erro ao salvar local.",
-            },
-        );
+                    setEditingLocationId(null);
+                    form.resetFields();
+                    clearImage();
+                },
+                {
+                    successMessage: isEditing ? "Local atualizado com sucesso." : "Local cadastrado com sucesso.",
+                    defaultErrorMessage: "Erro ao salvar local.",
+                },
+            );
+        } catch (error) {
+            message.error(error instanceof Error ? error.message : "Erro ao salvar local.");
+        }
     }
 
     const startEdit = useCallback((location: LocationDto) => {
@@ -165,7 +197,12 @@ export function LocationsView({ locations }: LocationsViewProps) {
             imageFileId: location.imageFileId ?? undefined,
             initiativeElements: location.initiativeElements,
             tribes: location.tribes,
-            abilities: location.abilities,
+            abilities: location.abilities.map((ability) => ({
+                ...ability,
+                battleRulesJson: ability.battleRules
+                    ? JSON.stringify(ability.battleRules, null, 2)
+                    : undefined,
+            })),
         });
 
         setExistingImage({
@@ -199,6 +236,23 @@ export function LocationsView({ locations }: LocationsViewProps) {
             setDeletingLocationId(null);
         }
     }, [deleteMutation, queryClient, runWithSubmitToast]);
+
+    const onImportLocationsFromJson = useCallback(async () => {
+        try {
+            const result = await importMutation.mutateAsync();
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
+
+            message.success(
+                `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).`,
+            );
+        } catch (error) {
+            message.error(
+                error instanceof Error
+                    ? error.message
+                    : "Erro ao importar locais do JSON.",
+            );
+        }
+    }, [importMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<LocationDto>>(
         () => [
@@ -271,10 +325,16 @@ export function LocationsView({ locations }: LocationsViewProps) {
                                     : ability.cardTypes
                                         .map((cardType) => LOCATION_CARD_TYPE_OPTIONS.find((item) => item.value === cardType)?.label ?? cardType)
                                         .join(", ");
+                            const targetScopeLabel =
+                                LOCATION_TARGET_SCOPE_OPTIONS.find((item) => item.value === ability.targetScope)?.label
+                                ?? ability.targetScope;
+                            const targetTribesLabel = ability.targetTribes.length > 0
+                                ? ability.targetTribes.map((tribe) => CREATURE_TRIBE_OPTIONS.find((item) => item.value === tribe)?.label ?? tribe).join(", ")
+                                : "-";
 
                             return (
                                 <Tag key={`${row.id}-ability-${index}`} color={ability.effectType === "increase" ? "green" : "volcano"}>
-                                    {ability.description} • {effectLabel} {ability.value} em {statLabel} ({cardTypesLabel})
+                                    {ability.description} • {effectLabel} {ability.value} em {statLabel} ({cardTypesLabel}) • Alvo: {targetScopeLabel} {targetTribesLabel !== "-" ? `• Tribos: ${targetTribesLabel}` : ""} • Regra: {ability.battleRules?.type ?? "stat_modifier"}
                                 </Tag>
                             );
                         })}
@@ -320,9 +380,14 @@ export function LocationsView({ locations }: LocationsViewProps) {
                             </Title>
                         </Space>
 
-                        <Link href="/">
-                            <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
-                        </Link>
+                        <Space>
+                            <Button onClick={() => void onImportLocationsFromJson()} loading={importMutation.isPending}>
+                                Importar locations.json
+                            </Button>
+                            <Link href="/">
+                                <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
+                            </Link>
+                        </Space>
                     </Space>
                 </Card>
 
@@ -335,7 +400,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                             rarity: "comum",
                             initiativeElements: [],
                             tribes: [],
-                            abilities: [{ description: "", effectType: "increase", stats: ["speed"], cardTypes: [], value: 0 }],
+                            abilities: [{ description: "", effectType: "increase", targetScope: "all_creatures", targetTribes: [], stats: ["speed"], cardTypes: [], value: 0 }],
                         }}
                     >
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
@@ -442,6 +507,35 @@ export function LocationsView({ locations }: LocationsViewProps) {
                                                         </Form.Item>
 
                                                         <Form.Item
+                                                            label="Escopo do alvo"
+                                                            name={[field.name, "targetScope"]}
+                                                            rules={[{ required: true, message: "Selecione o escopo." }]}
+                                                        >
+                                                            <Select
+                                                                style={{ width: 220 }}
+                                                                options={LOCATION_TARGET_SCOPE_OPTIONS.map((item) => ({
+                                                                    value: item.value,
+                                                                    label: item.label,
+                                                                }))}
+                                                            />
+                                                        </Form.Item>
+
+                                                        <Form.Item
+                                                            label="Tribos alvo (opcional)"
+                                                            name={[field.name, "targetTribes"]}
+                                                        >
+                                                            <Select
+                                                                mode="multiple"
+                                                                style={{ width: 220 }}
+                                                                options={CREATURE_TRIBE_OPTIONS.map((item) => ({
+                                                                    value: item.value,
+                                                                    label: item.label,
+                                                                }))}
+                                                                placeholder="Use com escopo tribos"
+                                                            />
+                                                        </Form.Item>
+
+                                                        <Form.Item
                                                             label="Atributos"
                                                             name={[field.name, "stats"]}
                                                             rules={[{ required: true, message: "Selecione ao menos 1 atributo." }]}
@@ -483,11 +577,19 @@ export function LocationsView({ locations }: LocationsViewProps) {
                                                     <Button danger onClick={() => remove(field.name)}>
                                                         Remover habilidade
                                                     </Button>
+
+                                                    <Form.Item
+                                                        label="Regras de batalha (JSON opcional)"
+                                                        name={[field.name, "battleRulesJson"]}
+                                                        tooltip={`Tipos: ${LOCATION_BATTLE_RULE_TYPES.join(", ")}`}
+                                                    >
+                                                        <Input.TextArea rows={4} placeholder='{"type":"stat_modifier","requiresTarget":true,"usageLimitPerTurn":null}' />
+                                                    </Form.Item>
                                                 </Space>
                                             </Card>
                                         ))}
 
-                                        <Button onClick={() => add({ description: "", effectType: "increase", stats: ["speed"], cardTypes: [], value: 0 })}>
+                                        <Button onClick={() => add({ description: "", effectType: "increase", targetScope: "all_creatures", targetTribes: [], stats: ["speed"], cardTypes: [], value: 0 })}>
                                             Adicionar habilidade
                                         </Button>
                                     </Space>

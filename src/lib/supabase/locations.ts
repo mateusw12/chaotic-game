@@ -1,20 +1,24 @@
 import {
     type CreateLocationRequestDto,
+    type LocationBattleRuleDto,
     type LocationCardType,
     type LocationDto,
     type LocationEffectType,
     type LocationStat,
+    type LocationTargetScope,
     type UpdateLocationRequestDto,
 } from "@/dto/location";
-import { isValidCardRarity } from "@/dto/creature";
+import { isValidCardRarity, type CreatureTribe } from "@/dto/creature";
 import { getLocationImagePublicUrl, getSupabaseAdminClient } from "./storage";
 import {
     getLocationsTableName,
+    isValidLocationBattleRuleType,
     isMissingTableError,
     isValidElement,
     isValidLocationCardType,
     isValidLocationEffectType,
     isValidLocationStat,
+    isValidLocationTargetScope,
     isValidTribe,
 } from "./core";
 import type { SupabaseApiError, SupabaseLocationRow } from "./types";
@@ -22,10 +26,13 @@ import type { SupabaseApiError, SupabaseLocationRow } from "./types";
 type LegacyLocationAbility = {
     description: string;
     effectType: LocationEffectType;
+    targetScope?: LocationTargetScope;
+    targetTribes?: CreatureTribe[];
     value: number;
     stats?: LocationStat[];
     stat?: LocationStat;
     cardTypes?: LocationCardType[];
+    battleRules?: LocationBattleRuleDto | null;
 };
 
 function normalizeLocationAbilities(abilities: LegacyLocationAbility[]): CreateLocationRequestDto["abilities"] {
@@ -39,9 +46,12 @@ function normalizeLocationAbilities(abilities: LegacyLocationAbility[]): CreateL
         return {
             description: ability.description,
             effectType: ability.effectType,
+            targetScope: ability.targetScope ?? "all_creatures",
+            targetTribes: Array.isArray(ability.targetTribes) ? ability.targetTribes : [],
             stats,
             cardTypes: Array.isArray(ability.cardTypes) ? ability.cardTypes : [],
             value: ability.value,
+            battleRules: ability.battleRules ?? null,
         };
     });
 }
@@ -111,6 +121,21 @@ function validateLocationPayload(payload: CreateLocationRequestDto | UpdateLocat
             throw new Error(`Tipo da habilidade #${index + 1} é inválido.`);
         }
 
+        if (!isValidLocationTargetScope((ability.targetScope ?? "all_creatures") as LocationTargetScope)) {
+            throw new Error(`Escopo da habilidade #${index + 1} é inválido.`);
+        }
+
+        const targetTribes = Array.isArray(ability.targetTribes) ? ability.targetTribes : [];
+        const invalidTargetTribe = targetTribes.find((tribe) => !isValidTribe(tribe));
+
+        if (invalidTargetTribe) {
+            throw new Error(`Tribo alvo da habilidade #${index + 1} é inválida.`);
+        }
+
+        if ((ability.targetScope ?? "all_creatures") === "specific_tribes" && targetTribes.length === 0) {
+            throw new Error(`Selecione ao menos 1 tribo alvo na habilidade #${index + 1}.`);
+        }
+
         if (!Array.isArray(ability.stats) || ability.stats.length === 0) {
             throw new Error(`Selecione ao menos 1 atributo na habilidade #${index + 1}.`);
         }
@@ -135,6 +160,16 @@ function validateLocationPayload(payload: CreateLocationRequestDto | UpdateLocat
 
         if (ability.value < 0) {
             throw new Error(`Valor da habilidade #${index + 1} não pode ser negativo.`);
+        }
+
+        if (ability.battleRules !== undefined && ability.battleRules !== null) {
+            if (typeof ability.battleRules !== "object" || Array.isArray(ability.battleRules)) {
+                throw new Error(`Regra de batalha da habilidade #${index + 1} é inválida.`);
+            }
+
+            if (!isValidLocationBattleRuleType(ability.battleRules.type)) {
+                throw new Error(`Tipo de regra de batalha da habilidade #${index + 1} é inválido.`);
+            }
         }
     });
 }

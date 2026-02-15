@@ -76,6 +76,12 @@ export async function PATCH(request: Request, context: RouteContext) {
             abilities: rawAbilities.map((ability) => ({
                 description: String(ability.description ?? ""),
                 effectType: ability.effectType as UpdateLocationRequestDto["abilities"][number]["effectType"],
+                targetScope:
+                    (ability.targetScope as UpdateLocationRequestDto["abilities"][number]["targetScope"])
+                    ?? "all_creatures",
+                targetTribes: Array.isArray(ability.targetTribes)
+                    ? (ability.targetTribes as UpdateLocationRequestDto["abilities"][number]["targetTribes"])
+                    : [],
                 stats: Array.isArray(ability.stats)
                     ? (ability.stats as UpdateLocationRequestDto["abilities"][number]["stats"])
                     : ability.stat
@@ -85,6 +91,9 @@ export async function PATCH(request: Request, context: RouteContext) {
                     ? (ability.cardTypes as UpdateLocationRequestDto["abilities"][number]["cardTypes"])
                     : [],
                 value: Number(ability.value ?? 0),
+                battleRules:
+                    (ability.battleRules as UpdateLocationRequestDto["abilities"][number]["battleRules"])
+                    ?? null,
             })),
         });
 

@@ -1,12 +1,16 @@
 import { ABILITY_CATEGORIES, ABILITY_EFFECT_TYPES, ABILITY_STATS, ABILITY_TARGET_SCOPES, type AbilityCategory, type AbilityEffectType, type AbilityStat, type AbilityTargetScope } from "@/dto/ability";
 import { CREATURE_ELEMENTS, CREATURE_TRIBES, type CreatureElement, type CreatureTribe } from "@/dto/creature";
 import {
+    LOCATION_BATTLE_RULE_TYPES,
     LOCATION_CARD_TYPES,
     LOCATION_EFFECT_TYPES,
     LOCATION_STATS,
+    LOCATION_TARGET_SCOPES,
+    type LocationBattleRuleType,
     type LocationCardType,
     type LocationEffectType,
     type LocationStat,
+    type LocationTargetScope,
 } from "@/dto/location";
 import type { SupabaseApiError } from "./types";
 
@@ -96,4 +100,12 @@ export function isValidLocationStat(value: string): value is LocationStat {
 
 export function isValidLocationCardType(value: string): value is LocationCardType {
     return LOCATION_CARD_TYPES.includes(value as LocationCardType);
+}
+
+export function isValidLocationTargetScope(value: string): value is LocationTargetScope {
+    return LOCATION_TARGET_SCOPES.includes(value as LocationTargetScope);
+}
+
+export function isValidLocationBattleRuleType(value: string): value is LocationBattleRuleType {
+    return LOCATION_BATTLE_RULE_TYPES.includes(value as LocationBattleRuleType);
 }

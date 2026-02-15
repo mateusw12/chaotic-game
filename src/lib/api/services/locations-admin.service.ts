@@ -2,6 +2,15 @@ import type { CreateLocationRequestDto, LocationDto } from "@/dto/location";
 import { ApiClient } from "@/lib/api/api-client";
 import { BaseCrudService } from "@/lib/api/base-crud-service";
 
+type ImportJsonApiResponse = {
+    success: boolean;
+    imported: number;
+    updated: number;
+    skipped: number;
+    fileName: string;
+    message?: string;
+};
+
 type UploadFileApiResponse = {
     success: boolean;
     file: { imageFileId: string; path: string; publicUrl: string | null } | null;
@@ -34,6 +43,13 @@ export class LocationsAdminService extends BaseCrudService {
 
     static getAll() {
         return this.listEntities<LocationDto, "locations">(this.resourcePath, "locations");
+    }
+
+    static importFromJson() {
+        return ApiClient.post<ImportJsonApiResponse, Record<string, never>>(
+            "/admin/locations/import-json",
+            {},
+        );
     }
 
     static uploadImage(formData: FormData) {
