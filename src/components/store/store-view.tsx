@@ -4,11 +4,12 @@ import { Button, Card, Col, Modal, Row, Space, Spin, Tag, Tooltip, Typography, m
 import { InfoCircleOutlined, ShoppingOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { GetStorePacksResponseDto, PurchaseStorePackResponseDto, StorePackDto, StoreRevealCardDto } from "@/dto/store";
+import type { StorePackDto, StoreRevealCardDto } from "@/dto/store";
 import styles from "./store-view.module.css";
 import { PlayerShell } from "@/components/player/player-shell";
 import type { CardRarity, CreatureTribe } from "@/dto/creature";
 import type { UserCardType } from "@/dto/progression";
+import { StoreService } from "@/lib/api/service";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -63,15 +64,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
         setLoading(true);
 
         try {
-            const response = await fetch("/api/store/packs", {
-                method: "GET",
-                cache: "no-store",
-            });
-            const payload = (await response.json()) as GetStorePacksResponseDto;
-
-            if (!response.ok || !payload.success || !payload.wallet) {
-                throw new Error(payload.message ?? "Erro ao carregar loja.");
-            }
+            const payload = await StoreService.getPacks();
 
             setPacks(payload.packs);
             setCoins(payload.wallet.coins);
@@ -91,19 +84,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
         setPurchasingPackId(packId);
 
         try {
-            const response = await fetch("/api/store/purchase", {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify({ packId }),
-            });
-
-            const payload = (await response.json()) as PurchaseStorePackResponseDto;
-
-            if (!response.ok || !payload.success || !payload.wallet) {
-                throw new Error(payload.message ?? "Não foi possível concluir a compra.");
-            }
+            const payload = await StoreService.purchase(packId);
 
             setCoins(payload.wallet.coins);
             setDiamonds(payload.wallet.diamonds);

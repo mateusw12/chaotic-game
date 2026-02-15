@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
     App as AntdApp,
     Button,
@@ -36,6 +36,7 @@ import {
     type TournamentScheduleType,
 } from "@/dto/tournament";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { TournamentsAdminService } from "@/lib/api/service";
 
 type TournamentsViewProps = {
     tournaments: TournamentDto[];
@@ -91,18 +92,9 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch("/api/admin/uploads/tournaments", {
-                method: "POST",
-                body: formData,
-            });
+            const data = await TournamentsAdminService.uploadCover(formData);
 
-            const data = (await response.json()) as {
-                success: boolean;
-                file: { imageFileId: string; publicUrl: string | null } | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.file?.imageFileId) {
+            if (!data.success || !data.file?.imageFileId) {
                 throw new Error(data.message ?? "Falha ao enviar imagem.");
             }
 
@@ -150,34 +142,16 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
             };
 
             const isEditing = Boolean(editingTournamentId);
-            const endpoint = isEditing
-                ? `/api/admin/tournaments/${editingTournamentId}`
-                : "/api/admin/tournaments";
-
-            const response = await fetch(endpoint, {
-                method: isEditing ? "PATCH" : "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                tournament: TournamentDto | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.tournament) {
-                throw new Error(data.message ?? "Falha ao salvar torneio.");
-            }
+            const tournament = isEditing
+                ? await TournamentsAdminService.update(editingTournamentId as string, payload)
+                : await TournamentsAdminService.create(payload);
 
             if (isEditing) {
                 setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === data.tournament!.id ? data.tournament! : row)),
+                    previousRows.map((row) => (row.id === tournament.id ? tournament : row)),
                 );
             } else {
-                setRows((previousRows) => [data.tournament as TournamentDto, ...previousRows]);
+                setRows((previousRows) => [tournament, ...previousRows]);
             }
 
             setEditingTournamentId(null);
@@ -192,7 +166,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
         }
     }
 
-    function startEdit(tournament: TournamentDto) {
+    const startEdit = useCallback((tournament: TournamentDto) => {
         setEditingTournamentId(tournament.id);
         form.setFieldsValue({
             name: tournament.name,
@@ -228,7 +202,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
             setCoverPreviewUrl(null);
             setCoverFileList([]);
         }
-    }
+    }, [form]);
 
     function cancelEdit() {
         setEditingTournamentId(null);
@@ -237,22 +211,11 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
         setCoverFileList([]);
     }
 
-    async function onDelete(tournamentId: string) {
+    const onDelete = useCallback(async (tournamentId: string) => {
         setDeletingTournamentId(tournamentId);
 
         try {
-            const response = await fetch(`/api/admin/tournaments/${tournamentId}`, {
-                method: "DELETE",
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success) {
-                throw new Error(data.message ?? "Falha ao remover torneio.");
-            }
+            await TournamentsAdminService.remove(tournamentId);
 
             setRows((previousRows) => previousRows.filter((row) => row.id !== tournamentId));
             message.success("Torneio removido com sucesso.");
@@ -261,7 +224,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
         } finally {
             setDeletingTournamentId(null);
         }
-    }
+    }, [message]);
 
     const columns = useMemo<ColumnsType<TournamentDto>>(
         () => [
@@ -336,7 +299,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
                 ),
             },
         ],
-        [deletingTournamentId],
+        [deletingTournamentId, onDelete, startEdit],
     );
 
     return (

@@ -35,6 +35,7 @@ import {
     type CreateBattleGearRequestDto,
 } from "@/dto/battlegear";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { BattleGearAdminService } from "@/lib/api/service";
 
 type BattleGearViewProps = {
     battlegear: BattleGearDto[];
@@ -83,18 +84,9 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch("/api/admin/uploads/battlegear", {
-                method: "POST",
-                body: formData,
-            });
+            const data = await BattleGearAdminService.uploadImage(formData);
 
-            const data = (await response.json()) as {
-                success: boolean;
-                file: { imageFileId: string; path: string; publicUrl: string | null } | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.file?.imageFileId) {
+            if (!data.success || !data.file?.imageFileId) {
                 throw new Error(data.message ?? "Falha ao enviar imagem.");
             }
 
@@ -137,34 +129,16 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             };
 
             const isEditing = Boolean(editingId);
-            const endpoint = isEditing
-                ? `/api/admin/battlegear/${editingId}`
-                : "/api/admin/battlegear";
-
-            const response = await fetch(endpoint, {
-                method: isEditing ? "PATCH" : "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                battlegearItem: BattleGearDto | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.battlegearItem) {
-                throw new Error(data.message ?? "Falha ao salvar equipamento.");
-            }
+            const battlegearItem = isEditing
+                ? await BattleGearAdminService.update(editingId as string, payload)
+                : await BattleGearAdminService.create(payload);
 
             if (isEditing) {
                 setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === data.battlegearItem!.id ? data.battlegearItem! : row)),
+                    previousRows.map((row) => (row.id === battlegearItem.id ? battlegearItem : row)),
                 );
             } else {
-                setRows((previousRows) => [data.battlegearItem as BattleGearDto, ...previousRows]);
+                setRows((previousRows) => [battlegearItem, ...previousRows]);
             }
 
             setEditingId(null);
@@ -217,18 +191,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
         setDeletingId(itemId);
 
         try {
-            const response = await fetch(`/api/admin/battlegear/${itemId}`, {
-                method: "DELETE",
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success) {
-                throw new Error(data.message ?? "Falha ao remover equipamento.");
-            }
+            await BattleGearAdminService.remove(itemId);
 
             setRows((previousRows) => previousRows.filter((row) => row.id !== itemId));
             message.success("Equipamento removido com sucesso.");

@@ -40,6 +40,7 @@ import {
     type LocationStat,
 } from "@/dto/location";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { LocationsAdminService } from "@/lib/api/service";
 
 type LocationsViewProps = {
     locations: LocationDto[];
@@ -82,18 +83,9 @@ export function LocationsView({ locations }: LocationsViewProps) {
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch("/api/admin/uploads/locations", {
-                method: "POST",
-                body: formData,
-            });
+            const data = await LocationsAdminService.uploadImage(formData);
 
-            const data = (await response.json()) as {
-                success: boolean;
-                file: { imageFileId: string; path: string; publicUrl: string | null } | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.file?.imageFileId) {
+            if (!data.success || !data.file?.imageFileId) {
                 throw new Error(data.message ?? "Falha ao enviar imagem.");
             }
 
@@ -136,34 +128,16 @@ export function LocationsView({ locations }: LocationsViewProps) {
             };
 
             const isEditing = Boolean(editingLocationId);
-            const endpoint = isEditing
-                ? `/api/admin/locations/${editingLocationId}`
-                : "/api/admin/locations";
-
-            const response = await fetch(endpoint, {
-                method: isEditing ? "PATCH" : "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                location: LocationDto | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.location) {
-                throw new Error(data.message ?? "Falha ao salvar local.");
-            }
+            const location = isEditing
+                ? await LocationsAdminService.update(editingLocationId as string, payload)
+                : await LocationsAdminService.create(payload);
 
             if (isEditing) {
                 setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === data.location!.id ? data.location! : row)),
+                    previousRows.map((row) => (row.id === location.id ? location : row)),
                 );
             } else {
-                setRows((previousRows) => [data.location as LocationDto, ...previousRows]);
+                setRows((previousRows) => [location, ...previousRows]);
             }
 
             setEditingLocationId(null);
@@ -216,18 +190,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
         setDeletingLocationId(locationId);
 
         try {
-            const response = await fetch(`/api/admin/locations/${locationId}`, {
-                method: "DELETE",
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success) {
-                throw new Error(data.message ?? "Falha ao remover local.");
-            }
+            await LocationsAdminService.remove(locationId);
 
             setRows((previousRows) => previousRows.filter((row) => row.id !== locationId));
             message.success("Local removido com sucesso.");

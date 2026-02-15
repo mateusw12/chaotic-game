@@ -1,0 +1,12 @@
+export { AbilitiesAdminService } from "./abilities-admin.service";
+export { AttacksAdminService } from "./attacks-admin.service";
+export { BattleGearAdminService } from "./battlegear-admin.service";
+export { CreaturesAdminService } from "./creatures-admin.service";
+export { LocationsAdminService } from "./locations-admin.service";
+export { MugicAdminService } from "./mugic-admin.service";
+export { PermissionsAdminService } from "./permissions-admin.service";
+export { ProfileService } from "./profile.service";
+export { StarterProgressionService } from "./starter-progression.service";
+export { StoreService } from "./store.service";
+export { TournamentsAdminService } from "./tournaments-admin.service";
+export { WalletsAdminService } from "./wallets-admin.service";

@@ -7,6 +7,7 @@ import { ArrowLeftOutlined, SafetyOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { type UserPermissionDto, type UserRole } from "@/dto/user";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { PermissionsAdminService } from "@/lib/api/service";
 
 type PermissionsViewProps = {
     users: UserPermissionDto[];
@@ -23,22 +24,7 @@ export function PermissionsView({ users }: PermissionsViewProps) {
         setLoadingUserId(userId);
 
         try {
-            const response = await fetch(`/api/admin/users/${userId}/role`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ role }),
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success) {
-                throw new Error(data.message ?? "Falha ao atualizar role.");
-            }
+            await PermissionsAdminService.updateUserRole(userId, role);
 
             setRows((previousRows) =>
                 previousRows.map((row) =>

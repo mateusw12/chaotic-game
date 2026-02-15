@@ -37,6 +37,7 @@ import {
 } from "@/dto/mugic";
 import type { LocationCardType, LocationEffectType, LocationStat } from "@/dto/location";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { MugicAdminService } from "@/lib/api/service";
 
 type MugicViewProps = {
     mugics: MugicDto[];
@@ -82,18 +83,9 @@ export function MugicView({ mugics }: MugicViewProps) {
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch("/api/admin/uploads/mugic", {
-                method: "POST",
-                body: formData,
-            });
+            const data = await MugicAdminService.uploadImage(formData);
 
-            const data = (await response.json()) as {
-                success: boolean;
-                file: { imageFileId: string; path: string; publicUrl: string | null } | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.file?.imageFileId) {
+            if (!data.success || !data.file?.imageFileId) {
                 throw new Error(data.message ?? "Falha ao enviar imagem.");
             }
 
@@ -139,32 +131,16 @@ export function MugicView({ mugics }: MugicViewProps) {
             };
 
             const isEditing = Boolean(editingId);
-            const endpoint = isEditing ? `/api/admin/mugic/${editingId}` : "/api/admin/mugic";
-
-            const response = await fetch(endpoint, {
-                method: isEditing ? "PATCH" : "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                mugic: MugicDto | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.mugic) {
-                throw new Error(data.message ?? "Falha ao salvar mugic.");
-            }
+            const mugic = isEditing
+                ? await MugicAdminService.update(editingId as string, payload)
+                : await MugicAdminService.create(payload);
 
             if (isEditing) {
                 setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === data.mugic!.id ? data.mugic! : row)),
+                    previousRows.map((row) => (row.id === mugic.id ? mugic : row)),
                 );
             } else {
-                setRows((previousRows) => [data.mugic as MugicDto, ...previousRows]);
+                setRows((previousRows) => [mugic, ...previousRows]);
             }
 
             setEditingId(null);
@@ -217,18 +193,7 @@ export function MugicView({ mugics }: MugicViewProps) {
         setDeletingId(mugicId);
 
         try {
-            const response = await fetch(`/api/admin/mugic/${mugicId}`, {
-                method: "DELETE",
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success) {
-                throw new Error(data.message ?? "Falha ao remover mugic.");
-            }
+            await MugicAdminService.remove(mugicId);
 
             setRows((previousRows) => previousRows.filter((row) => row.id !== mugicId));
             message.success("Mugic removido com sucesso.");

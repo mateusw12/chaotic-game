@@ -3,11 +3,11 @@
 import { useMemo, useState } from "react";
 import { App as AntdApp, Avatar, Button, Card, Col, Form, Input, Progress, Row, Space, Statistic, Typography, Upload } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
-import type { UserProfileResponseDto } from "@/dto/user";
 import type { UserProgressionOverviewDto } from "@/dto/progression";
 import { CREATURE_TRIBE_OPTIONS } from "@/dto/creature";
 import { PlayerShell } from "@/components/player/player-shell";
 import { useDisplayUserName } from "@/hooks/use-display-user-name";
+import { ProfileService } from "@/lib/api/service";
 import styles from "./profile-view.module.css";
 
 type ProfileViewProps = {
@@ -61,25 +61,13 @@ export function ProfileView({
         setSaving(true);
 
         try {
-            const response = await fetch("/api/users/profile", {
-                method: "PATCH",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify({
-                    nickName: values.nickName,
-                    imageUrl: values.imageUrl,
-                }),
+            const profile = await ProfileService.updateProfile({
+                nickName: values.nickName,
+                imageUrl: values.imageUrl,
             });
 
-            const payload = (await response.json()) as UserProfileResponseDto;
-
-            if (!response.ok || !payload.success || !payload.profile) {
-                throw new Error(payload.message ?? "Não foi possível atualizar o perfil.");
-            }
-
-            setCurrentNickName(payload.profile.nickName);
-            setCurrentImageUrl(payload.profile.imageUrl);
+            setCurrentNickName(profile.nickName);
+            setCurrentImageUrl(profile.imageUrl);
             message.success("Perfil atualizado com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao atualizar perfil.");
@@ -95,29 +83,16 @@ export function ProfileView({
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch("/api/users/uploads/profile", {
-                method: "POST",
-                body: formData,
-            });
+            const publicUrl = await ProfileService.uploadProfileImage(formData);
 
-            const payload = (await response.json()) as {
-                success: boolean;
-                file: { path: string; publicUrl: string } | null;
-                message?: string;
-            };
-
-            if (!response.ok || !payload.success || !payload.file?.publicUrl) {
-                throw new Error(payload.message ?? "Falha ao enviar imagem de perfil.");
-            }
-
-            setCurrentImageUrl(payload.file.publicUrl);
-            profileForm.setFieldValue("imageUrl", payload.file.publicUrl);
+            setCurrentImageUrl(publicUrl);
+            profileForm.setFieldValue("imageUrl", publicUrl);
             setImageFileList([
                 {
                     uid: file.uid ?? `${Date.now()}`,
                     name: file.name,
                     status: "done",
-                    url: payload.file.publicUrl,
+                    url: publicUrl,
                 },
             ]);
             message.success("Imagem enviada para o Storage com sucesso.");

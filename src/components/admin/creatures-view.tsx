@@ -17,6 +17,7 @@ import {
     type CreatureTribe,
 } from "@/dto/creature";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { CreaturesAdminService } from "@/lib/api/service";
 
 type CreaturesViewProps = {
     creatures: CreatureDto[];
@@ -57,18 +58,9 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch("/api/admin/uploads/creatures", {
-                method: "POST",
-                body: formData,
-            });
+            const data = await CreaturesAdminService.uploadImage(formData);
 
-            const data = (await response.json()) as {
-                success: boolean;
-                file: { imageFileId: string; path: string; publicUrl: string | null } | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.file?.imageFileId) {
+            if (!data.success || !data.file?.imageFileId) {
                 throw new Error(data.message ?? "Falha ao enviar imagem.");
             }
 
@@ -116,34 +108,16 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             };
 
             const isEditing = Boolean(editingCreatureId);
-            const endpoint = isEditing
-                ? `/api/admin/creatures/${editingCreatureId}`
-                : "/api/admin/creatures";
-
-            const response = await fetch(endpoint, {
-                method: isEditing ? "PATCH" : "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                creature: CreatureDto | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.creature) {
-                throw new Error(data.message ?? "Falha ao salvar criatura.");
-            }
+            const creature = isEditing
+                ? await CreaturesAdminService.update(editingCreatureId as string, payload)
+                : await CreaturesAdminService.create(payload);
 
             if (isEditing) {
                 setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === data.creature!.id ? data.creature! : row)),
+                    previousRows.map((row) => (row.id === creature.id ? creature : row)),
                 );
             } else {
-                setRows((previous) => [data.creature as CreatureDto, ...previous]);
+                setRows((previous) => [creature, ...previous]);
             }
 
             setEditingCreatureId(null);
@@ -206,18 +180,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
         setDeletingCreatureId(creatureId);
 
         try {
-            const response = await fetch(`/api/admin/creatures/${creatureId}`, {
-                method: "DELETE",
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success) {
-                throw new Error(data.message ?? "Falha ao remover criatura.");
-            }
+            await CreaturesAdminService.remove(creatureId);
 
             setRows((previousRows) => previousRows.filter((row) => row.id !== creatureId));
             message.success("Criatura removida com sucesso.");

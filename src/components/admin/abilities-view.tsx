@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
     App as AntdApp,
     Button,
@@ -31,6 +31,7 @@ import {
     type CreateAbilityRequestDto,
 } from "@/dto/ability";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { AbilitiesAdminService } from "@/lib/api/service";
 
 type AbilitiesViewProps = {
     abilities: AbilityDto[];
@@ -71,34 +72,16 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
             };
 
             const isEditing = Boolean(editingAbilityId);
-            const endpoint = isEditing
-                ? `/api/admin/abilities/${editingAbilityId}`
-                : "/api/admin/abilities";
-
-            const response = await fetch(endpoint, {
-                method: isEditing ? "PATCH" : "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                ability: AbilityDto | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.ability) {
-                throw new Error(data.message ?? "Falha ao salvar habilidade.");
-            }
+            const ability = isEditing
+                ? await AbilitiesAdminService.update(editingAbilityId as string, payload)
+                : await AbilitiesAdminService.create(payload);
 
             if (isEditing) {
                 setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === data.ability!.id ? data.ability! : row)),
+                    previousRows.map((row) => (row.id === ability.id ? ability : row)),
                 );
             } else {
-                setRows((previous) => [data.ability as AbilityDto, ...previous]);
+                setRows((previous) => [ability, ...previous]);
             }
 
             setEditingAbilityId(null);
@@ -115,7 +98,7 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
         }
     }
 
-    function startEditAbility(ability: AbilityDto) {
+    const startEditAbility = useCallback((ability: AbilityDto) => {
         setEditingAbilityId(ability.id);
         form.setFieldsValue({
             name: ability.name,
@@ -126,29 +109,18 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
             value: ability.value,
             description: ability.description ?? undefined,
         });
-    }
+    }, [form]);
 
     function cancelEditAbility() {
         setEditingAbilityId(null);
         form.resetFields();
     }
 
-    async function onDeleteAbility(abilityId: string) {
+    const onDeleteAbility = useCallback(async (abilityId: string) => {
         setDeletingAbilityId(abilityId);
 
         try {
-            const response = await fetch(`/api/admin/abilities/${abilityId}`, {
-                method: "DELETE",
-            });
-
-            const data = (await response.json()) as {
-                success: boolean;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success) {
-                throw new Error(data.message ?? "Falha ao remover habilidade.");
-            }
+            await AbilitiesAdminService.remove(abilityId);
 
             setRows((previousRows) => previousRows.filter((row) => row.id !== abilityId));
             message.success("Habilidade removida com sucesso.");
@@ -157,7 +129,7 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
         } finally {
             setDeletingAbilityId(null);
         }
-    }
+    }, [message]);
 
     const columns = useMemo<ColumnsType<AbilityDto>>(
         () => [
@@ -234,7 +206,7 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                 ),
             },
         ],
-        [deletingAbilityId],
+        [deletingAbilityId, onDeleteAbility, startEditAbility],
     );
 
     return (

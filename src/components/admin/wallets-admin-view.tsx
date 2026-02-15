@@ -5,8 +5,9 @@ import { App as AntdApp, Avatar, Button, Card, InputNumber, Space, Table, Tag, T
 import type { ColumnsType } from "antd/es/table";
 import { ArrowLeftOutlined, DollarCircleOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import type { AdminUserWalletDto, CreditUserWalletResponseDto } from "@/dto/wallet";
+import type { AdminUserWalletDto } from "@/dto/wallet";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { WalletsAdminService } from "@/lib/api/service";
 
 type WalletsAdminViewProps = {
     wallets: AdminUserWalletDto[];
@@ -128,30 +129,18 @@ export function WalletsAdminView({ wallets }: WalletsAdminViewProps) {
                         setLoadingUserId(row.userId);
 
                         try {
-                            const response = await fetch("/api/admin/wallets", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    userId: row.userId,
-                                    coins,
-                                    diamonds,
-                                }),
+                            const wallet = await WalletsAdminService.credit({
+                                userId: row.userId,
+                                coins,
+                                diamonds,
                             });
-
-                            const payload = (await response.json()) as CreditUserWalletResponseDto;
-
-                            if (!response.ok || !payload.success || !payload.wallet) {
-                                throw new Error(payload.message ?? "Erro ao creditar saldo.");
-                            }
 
                             setRows((previous) => previous.map((item) => (
                                 item.userId === row.userId
                                     ? {
                                         ...item,
-                                        coins: payload.wallet!.coins,
-                                        diamonds: payload.wallet!.diamonds,
+                                        coins: wallet.coins,
+                                        diamonds: wallet.diamonds,
                                     }
                                     : item
                             )));

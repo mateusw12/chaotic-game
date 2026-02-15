@@ -25,11 +25,10 @@ import styles from "@/app/page.module.css";
 import { PlayerShell } from "@/components/player/player-shell";
 import { CREATURE_TRIBE_OPTIONS } from "@/dto/creature";
 import type {
-    ChooseStarterTribeResponseDto,
-    GetStarterProgressionStatusResponseDto,
     StarterSelectableTribe,
 } from "@/dto/progression";
 import { isValidStarterSelectableTribe } from "@/dto/progression";
+import { StarterProgressionService } from "@/lib/api/service";
 
 type HomeViewProps = {
     isAuthenticated: boolean;
@@ -84,17 +83,7 @@ export function HomeView({
         setLoadingStarterStatus(true);
 
         try {
-            const response = await fetch("/api/progression/starter", {
-                method: "GET",
-                cache: "no-store",
-            });
-
-            const payload = (await response.json()) as GetStarterProgressionStatusResponseDto;
-
-            if (!response.ok || !payload.success) {
-                message.error(payload.message ?? "Não foi possível verificar a tribo inicial.");
-                return;
-            }
+            const payload = await StarterProgressionService.getStarterStatus();
 
             setRequiresStarterChoice(payload.requiresChoice);
 
@@ -129,20 +118,7 @@ export function HomeView({
         setSubmittingStarterChoice(true);
 
         try {
-            const response = await fetch("/api/progression/starter", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ tribe: starterSelection }),
-            });
-
-            const payload = (await response.json()) as ChooseStarterTribeResponseDto;
-
-            if (!response.ok || !payload.success) {
-                message.error(payload.message ?? "Não foi possível confirmar a tribo inicial.");
-                return;
-            }
+            await StarterProgressionService.chooseStarterTribe(starterSelection);
 
             message.success("Tribo inicial definida e pacotes adicionados ao seu deck.");
             setRequiresStarterChoice(false);

@@ -34,6 +34,7 @@ import {
 } from "@/dto/attack";
 import type { LocationEffectType, LocationStat } from "@/dto/location";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { AttacksAdminService } from "@/lib/api/service";
 
 type AttacksViewProps = {
     attacks: AttackDto[];
@@ -82,18 +83,9 @@ export function AttacksView({ attacks }: AttacksViewProps) {
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch("/api/admin/uploads/attacks", {
-                method: "POST",
-                body: formData,
-            });
+            const data = await AttacksAdminService.uploadImage(formData);
 
-            const data = (await response.json()) as {
-                success: boolean;
-                file: { imageFileId: string; path: string; publicUrl: string | null } | null;
-                message?: string;
-            };
-
-            if (!response.ok || !data.success || !data.file?.imageFileId) {
+            if (!data.success || !data.file?.imageFileId) {
                 throw new Error(data.message ?? "Falha ao enviar imagem.");
             }
 
@@ -133,24 +125,14 @@ export function AttacksView({ attacks }: AttacksViewProps) {
             };
 
             const isEditing = Boolean(editingId);
-            const endpoint = isEditing ? `/api/admin/attacks/${editingId}` : "/api/admin/attacks";
-
-            const response = await fetch(endpoint, {
-                method: isEditing ? "PATCH" : "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            });
-
-            const data = (await response.json()) as { success: boolean; attack: AttackDto | null; message?: string };
-
-            if (!response.ok || !data.success || !data.attack) {
-                throw new Error(data.message ?? "Falha ao salvar ataque.");
-            }
+            const attack = isEditing
+                ? await AttacksAdminService.update(editingId as string, payload)
+                : await AttacksAdminService.create(payload);
 
             if (isEditing) {
-                setRows((previousRows) => previousRows.map((row) => (row.id === data.attack!.id ? data.attack! : row)));
+                setRows((previousRows) => previousRows.map((row) => (row.id === attack.id ? attack : row)));
             } else {
-                setRows((previousRows) => [data.attack as AttackDto, ...previousRows]);
+                setRows((previousRows) => [attack, ...previousRows]);
             }
 
             setEditingId(null);
@@ -196,12 +178,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
         setDeletingId(attackId);
 
         try {
-            const response = await fetch(`/api/admin/attacks/${attackId}`, { method: "DELETE" });
-            const data = (await response.json()) as { success: boolean; message?: string };
-
-            if (!response.ok || !data.success) {
-                throw new Error(data.message ?? "Falha ao remover ataque.");
-            }
+            await AttacksAdminService.remove(attackId);
 
             setRows((previousRows) => previousRows.filter((row) => row.id !== attackId));
             message.success("Ataque removido com sucesso.");
