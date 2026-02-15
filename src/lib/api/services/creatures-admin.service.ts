@@ -2,6 +2,15 @@ import type { CreateCreatureRequestDto, CreatureDto } from "@/dto/creature";
 import { ApiClient } from "@/lib/api/api-client";
 import { BaseCrudService } from "@/lib/api/base-crud-service";
 
+type ImportJsonApiResponse = {
+    success: boolean;
+    imported: number;
+    updated: number;
+    skipped: number;
+    fileName: string;
+    message?: string;
+};
+
 type UploadFileApiResponse = {
     success: boolean;
     file: { imageFileId: string; path: string; publicUrl: string | null } | null;
@@ -38,5 +47,12 @@ export class CreaturesAdminService extends BaseCrudService {
 
     static uploadImage(formData: FormData) {
         return ApiClient.postFormData<UploadFileApiResponse>("/admin/uploads/creatures", formData);
+    }
+
+    static importFromJson() {
+        return ApiClient.post<ImportJsonApiResponse, Record<string, never>>(
+            "/admin/creatures/import-json",
+            {},
+        );
     }
 }

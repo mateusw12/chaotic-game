@@ -114,6 +114,10 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             id ? CreaturesAdminService.update(id, payload) : CreaturesAdminService.create(payload),
     });
 
+    const importMutation = useMutation({
+        mutationFn: () => CreaturesAdminService.importFromJson(),
+    });
+
     const deleteMutation = useMutation({
         mutationFn: (id: string) => CreaturesAdminService.remove(id),
     });
@@ -208,6 +212,23 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             setDeletingCreatureId(null);
         }
     }, [deleteMutation, queryClient, runWithSubmitToast]);
+
+    const onImportCreaturesFromJson = useCallback(async () => {
+        try {
+            const result = await importMutation.mutateAsync();
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
+
+            message.success(
+                `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).`,
+            );
+        } catch (error) {
+            message.error(
+                error instanceof Error
+                    ? error.message
+                    : "Erro ao importar criaturas do JSON.",
+            );
+        }
+    }, [importMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<CreatureDto>>(
         () => [
@@ -463,6 +484,10 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                             <Form.Item label="Equipamentos (anotação temporária)" name="equipmentNote">
                                 <Input.TextArea rows={2} placeholder="Ex.: Em breve terá cadastro próprio" />
                             </Form.Item>
+
+                            <Button onClick={onImportCreaturesFromJson} loading={importMutation.isPending}>
+                                Importar creatures.json
+                            </Button>
 
                             <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
                                 {editingCreatureId ? "Salvar edição" : "Cadastrar criatura"}

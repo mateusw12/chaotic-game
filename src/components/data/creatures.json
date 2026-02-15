@@ -1,0 +1,759 @@
+[
+    {
+        "name": "Akkrean",
+        "rarity": "comum",
+        "tribe": "overworld",
+        "courage": 40,
+        "power": 40,
+        "wisdom": 70,
+        "speed": 45,
+        "mugic": 2,
+        "energy": 35,
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "e45a8231-8921-4f11-9231-f92189214f11"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Frafdo the Hero",
+        "rarity": "super_rara",
+        "tribe": "overworld",
+        "courage": 50,
+        "power": 70,
+        "wisdom": 90,
+        "speed": 85,
+        "mugic": 0,
+        "energy": 55,
+        "dominantElements": [],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "f56b9342-9a32-5e22-a342-0a329a325e22"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Grindaald",
+        "rarity": "comum",
+        "tribe": "overworld",
+        "courage": 25,
+        "power": 35,
+        "wisdom": 60,
+        "speed": 40,
+        "mugic": 2,
+        "energy": 35,
+        "dominantElements": [],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "a12c4710-1b21-6f33-b121-1b21a12c4710"
+        ],
+        "brainwashed_ability_ids": [
+            "b23d5821-2c32-7g44-c232-2c32b23d5821"
+        ]
+    },
+    {
+        "name": "Lystone",
+        "rarity": "comum",
+        "tribe": "overworld",
+        "courage": 25,
+        "power": 30,
+        "wisdom": 60,
+        "speed": 25,
+        "mugic": 3,
+        "energy": 30,
+        "dominantElements": [],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "c34e6932-1a11-4b22-a111-c34e69321a11"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Gronmor",
+        "rarity": "super_rara",
+        "tribe": "overworld",
+        "courage": 75,
+        "power": 50,
+        "wisdom": 80,
+        "speed": 50,
+        "mugic": 0,
+        "energy": 60,
+        "dominantElements": [
+            "fire",
+            "earth",
+            "water"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "d45f7043-2b22-5c33-b222-d45f70432b22"
+        ],
+        "brainwashed_ability_ids": [
+            "bd3be0b0-ce35-407c-9370-76ca644c014c"
+        ]
+    },
+    {
+        "name": "Ikkatosh",
+        "rarity": "comum",
+        "tribe": "overworld",
+        "courage": 45,
+        "power": 35,
+        "wisdom": 85,
+        "speed": 60,
+        "mugic": 1,
+        "energy": 55,
+        "dominantElements": [
+            "fire",
+            "water"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "e56g8154-3c33-6d44-c333-e56g81543c33"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Issaley",
+        "rarity": "comum",
+        "tribe": "overworld",
+        "courage": 60,
+        "power": 50,
+        "wisdom": 75,
+        "speed": 40,
+        "mugic": 1,
+        "energy": 55,
+        "dominantElements": [
+            "water"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "f67h9265-4d44-7e55-d444-f67h92654d44"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Okaxor",
+        "rarity": "super_rara",
+        "tribe": "overworld",
+        "courage": 45,
+        "power": 25,
+        "wisdom": 75,
+        "speed": 30,
+        "mugic": 3,
+        "energy": 40,
+        "dominantElements": [],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "g78i0376-5e55-8f66-e555-g78i03765e55"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Tangath Toborn in Training",
+        "rarity": "super_rara",
+        "tribe": "overworld",
+        "courage": 50,
+        "power": 75,
+        "wisdom": 85,
+        "speed": 35,
+        "mugic": 2,
+        "energy": 65,
+        "dominantElements": [
+            "fire",
+            "earth",
+            "water"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "h89j1487-6f66-9g77-f666-h89j14876f66"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Targubaj",
+        "rarity": "comum",
+        "tribe": "overworld",
+        "courage": 45,
+        "power": 55,
+        "wisdom": 65,
+        "speed": 50,
+        "mugic": 1,
+        "energy": 45,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "i90k2598-7g77-0h88-g777-i90k25987g77"
+        ],
+        "brainwashed_ability_ids": [
+            "j01l3609-8h88-1i99-h888-j01l36098h88"
+        ]
+    },
+    {
+        "name": "Tartarek Psi Overloader",
+        "rarity": "ultra_rara",
+        "tribe": "overworld",
+        "courage": 100,
+        "power": 40,
+        "wisdom": 100,
+        "speed": 60,
+        "mugic": 2,
+        "energy": 65,
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
+        "equipmentNote": "Tartarek may use its regular abilities while Brainwashed.",
+        "support_ability_ids": [
+            "k12m4710-9i99-2j00-i999-k12m47109i99"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Trimdaal",
+        "rarity": "comum",
+        "tribe": "overworld",
+        "courage": 45,
+        "power": 50,
+        "wisdom": 80,
+        "speed": 40,
+        "mugic": 1,
+        "energy": 45,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "l23n5821-0j00-3k11-j000-l23n58210j00"
+        ],
+        "brainwashed_ability_ids": [
+            "m34o6932-1k11-4l22-k111-m34o69321k11"
+        ]
+    },
+    {
+        "name": "Wrenges",
+        "rarity": "comum",
+        "tribe": "overworld",
+        "courage": 30,
+        "power": 25,
+        "wisdom": 45,
+        "speed": 40,
+        "mugic": 2,
+        "energy": 35,
+        "dominantElements": [],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "n45p7043-2l22-5m33-l222-n45p70432l22"
+        ],
+        "brainwashed_ability_ids": [
+            "o56q8154-3m33-6n44-m333-o56q81543m33"
+        ]
+    },
+    {
+        "name": "Aokua",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 100,
+        "power": 100,
+        "wisdom": 100,
+        "speed": 100,
+        "mugic": 1,
+        "energy": 50,
+        "dominantElements": [],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "p67r9265-4n44-7o55-n444-p67r92654n44"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Asadab",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 20,
+        "power": 55,
+        "wisdom": 55,
+        "speed": 30,
+        "mugic": 2,
+        "energy": 25,
+        "dominantElements": [
+            "water"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "q78s0376-5o55-8p66-o555-q78s03765o55"
+        ],
+        "brainwashed_ability_ids": [
+            "r89t1487-6p66-9q77-p666-r89t14876p66"
+        ]
+    },
+    {
+        "name": "Brimflame",
+        "rarity": "super_rara",
+        "tribe": "underworld",
+        "courage": 55,
+        "power": 65,
+        "wisdom": 35,
+        "speed": 60,
+        "mugic": 1,
+        "energy": 45,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "s90u2598-7q77-0r88-q777-s90u25987q77",
+            "t01v3609-8r88-1s99-r888-t01v36098r88"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Drakness",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 60,
+        "power": 60,
+        "wisdom": 20,
+        "speed": 40,
+        "mugic": 0,
+        "energy": 45,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Geltus",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 35,
+        "power": 30,
+        "wisdom": 60,
+        "speed": 20,
+        "mugic": 2,
+        "energy": 30,
+        "dominantElements": [],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "u12w4710-9s99-2t00-s999-u12w47109s99"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Hammerdoom Chantcaller",
+        "rarity": "super_rara",
+        "tribe": "underworld",
+        "courage": 70,
+        "power": 75,
+        "wisdom": 40,
+        "speed": 45,
+        "mugic": 1,
+        "energy": 55,
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "v23x5821-0t00-3u11-t000-v23x58210t00"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Krekk",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 50,
+        "power": 35,
+        "wisdom": 40,
+        "speed": 65,
+        "mugic": 1,
+        "energy": 40,
+        "dominantElements": [
+            "fire",
+            "air"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "w34y6932-1u11-4v22-u111-w34y69321u11"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Kreeti",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 45,
+        "power": 45,
+        "wisdom": 45,
+        "speed": 45,
+        "mugic": 2,
+        "energy": 40,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "x45z7043-2v22-5w33-v222-x45z70432v22"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Nivenna",
+        "rarity": "super_rara",
+        "tribe": "underworld",
+        "courage": 45,
+        "power": 50,
+        "wisdom": 60,
+        "speed": 55,
+        "mugic": 2,
+        "energy": 50,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": "Habilidades: Intimidação Sabedoria 10 e Fogo 5.",
+        "support_ability_ids": [
+            "y56a8154-3w33-6x44-w333-y56a81543w33",
+            "l23n5821-0j00-3k11-j000-l23n58210j00"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Rorth-Ma",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 45,
+        "power": 55,
+        "wisdom": 15,
+        "speed": 40,
+        "mugic": 1,
+        "energy": 35,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "z67b9265-4x44-7y55-x444-z67b92654x44"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Ulmar",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 15,
+        "power": 15,
+        "wisdom": 95,
+        "speed": 25,
+        "mugic": 3,
+        "energy": 30,
+        "dominantElements": [],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "d01f3609-8b88-1c99-b888-d01f36098b88"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Spyder",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 60,
+        "power": 45,
+        "wisdom": 15,
+        "speed": 40,
+        "mugic": 0,
+        "energy": 40,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "c90e2598-7a77-0b88-a777-c90e25987a77"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Skreeth",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 40,
+        "power": 30,
+        "wisdom": 15,
+        "speed": 65,
+        "mugic": 1,
+        "energy": 30,
+        "dominantElements": [
+            "fire",
+            "air"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "b89d1487-6z66-9a77-z666-b89d14876z66"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Skelic",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 40,
+        "power": 35,
+        "wisdom": 20,
+        "speed": 70,
+        "mugic": 1,
+        "energy": 35,
+        "dominantElements": [
+            "fire",
+            "air"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "a78c0376-5y55-8z66-y555-a78c03765y55"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Borth-Majar",
+        "rarity": "super_rara",
+        "tribe": "underworld",
+        "courage": 70,
+        "power": 65,
+        "wisdom": 30,
+        "speed": 55,
+        "mugic": 1,
+        "energy": 55,
+        "dominantElements": [
+            "air",
+            "earth"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "e12g4710-9c99-2d00-c999-e12g47109c99",
+            "f23h5821-0d00-3e11-d000-f23h58210d00"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Blazier",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 45,
+        "power": 55,
+        "wisdom": 20,
+        "speed": 45,
+        "mugic": 1,
+        "energy": 40,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "g34i6932-1e11-4f22-e111-g34i69321e11"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Daimani",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 35,
+        "power": 40,
+        "wisdom": 35,
+        "speed": 35,
+        "mugic": 1,
+        "energy": 35,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "h45j7043-2f22-5g33-f222-h45j70432f22"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Dardanos",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 40,
+        "power": 50,
+        "wisdom": 30,
+        "speed": 35,
+        "mugic": 0,
+        "energy": 40,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Nauthilax",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 40,
+        "power": 45,
+        "wisdom": 15,
+        "speed": 55,
+        "mugic": 1,
+        "energy": 35,
+        "dominantElements": [
+            "water"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "p12q3456-7r88-9s99-t000-u111v222w333"
+        ],
+        "brainwashed_ability_ids": [
+            "bd3be0b0-ce35-407c-9370-76ca644c014c"
+        ]
+    },
+    {
+        "name": "Lyssita",
+        "rarity": "comum",
+        "tribe": "overworld",
+        "courage": 35,
+        "power": 45,
+        "wisdom": 35,
+        "speed": 25,
+        "mugic": 1,
+        "energy": 35,
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "q23r4567-8s99-0t00-u111-v222w333x444"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Kraade",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 35,
+        "power": 40,
+        "wisdom": 35,
+        "speed": 35,
+        "mugic": 1,
+        "energy": 35,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "s45t6789-0u11-2v22-w333-x444y555z666"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Kreaal",
+        "rarity": "super_rara",
+        "tribe": "overworld",
+        "courage": 45,
+        "power": 35,
+        "wisdom": 75,
+        "speed": 40,
+        "mugic": 2,
+        "energy": 30,
+        "dominantElements": [
+            "fire",
+            "air"
+        ],
+        "equipmentNote": "Possui múltiplas habilidades de suporte: Fire 5 e Air 5.",
+        "support_ability_ids": [
+            "t56u7890-1v22-3w33-x444-y555z666a777"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Tomugar",
+        "rarity": "super_rara",
+        "tribe": "underworld",
+        "courage": 35,
+        "power": 50,
+        "wisdom": 60,
+        "speed": 25,
+        "mugic": 2,
+        "energy": 40,
+        "dominantElements": [],
+        "equipmentNote": "Unique",
+        "support_ability_ids": [
+            "7a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d"
+        ],
+        "brainwashed_ability_ids": [
+            "8b2c3d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6e"
+        ]
+    },
+    {
+        "name": "Ooloo",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 40,
+        "power": 70,
+        "wisdom": 35,
+        "speed": 40,
+        "mugic": 1,
+        "energy": 55,
+        "dominantElements": [
+            "fire"
+        ],
+        "equipmentNote": "Possui Recklessness 5.",
+        "support_ability_ids": [
+            "9c3d4e5f-6a7b-8c9d-0e1f-2a3b4c5d6e7f"
+        ],
+        "brainwashed_ability_ids": [
+            "c6f7a8b9-c0d1-e2f3-a4b5-c6d7e8f9a0b1"
+        ]
+    },
+    {
+        "name": "Ragetrod",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 55,
+        "power": 75,
+        "wisdom": 40,
+        "speed": 50,
+        "mugic": 2,
+        "energy": 55,
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
+        "equipmentNote": "Possui Recklessness 5.",
+        "support_ability_ids": [
+            "b5e6f7a8-b9c0-d1e2-f3a4-b5c6d7e8f9a0"
+        ],
+        "brainwashed_ability_ids": [
+            "j01l3609-8h88-1i99-h888-j01l36098h88"
+        ]
+    },
+    {
+        "name": "Rarran Tainted",
+        "rarity": "comum",
+        "tribe": "underworld",
+        "courage": 30,
+        "power": 90,
+        "wisdom": 20,
+        "speed": 85,
+        "mugic": 0,
+        "energy": 50,
+        "dominantElements": [],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "d7a8b9c0-d1e2-f3a4-b5c6-d7e8f9a0b1c2"
+        ],
+        "brainwashed_ability_ids": [
+            "e8b9c0d1-e2f3-a4b5-c6d7-e8f9a0b1c2d3"
+        ]
+    }
+]

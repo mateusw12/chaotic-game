@@ -69,6 +69,10 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
             id ? AbilitiesAdminService.update(id, payload) : AbilitiesAdminService.create(payload),
     });
 
+    const importMutation = useMutation({
+        mutationFn: () => AbilitiesAdminService.importFromJson(),
+    });
+
     const deleteMutation = useMutation({
         mutationFn: (id: string) => AbilitiesAdminService.remove(id),
     });
@@ -135,6 +139,23 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
             setDeletingAbilityId(null);
         }
     }, [deleteMutation, message, queryClient]);
+
+    const onImportAbilitiesFromJson = useCallback(async () => {
+        try {
+            const result = await importMutation.mutateAsync();
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.abilities });
+
+            message.success(
+                `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).`,
+            );
+        } catch (error) {
+            message.error(
+                error instanceof Error
+                    ? error.message
+                    : "Erro ao importar habilidades do JSON.",
+            );
+        }
+    }, [importMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<AbilityDto>>(
         () => [
@@ -296,6 +317,10 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                             <Form.Item label="Descrição" name="description">
                                 <Input.TextArea rows={2} placeholder="Descrição opcional da habilidade" />
                             </Form.Item>
+
+                            <Button onClick={onImportAbilitiesFromJson} loading={importMutation.isPending}>
+                                Importar abilities.json
+                            </Button>
 
                             <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
                                 {editingAbilityId ? "Salvar edição" : "Cadastrar habilidade"}
