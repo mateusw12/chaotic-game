@@ -17,15 +17,25 @@ export type StorePackLimitDto = {
 
 export type StorePackRarityWeightsDto = Record<CardRarity, number>;
 
+export type StorePackTribeWeightsDto = Partial<Record<CreatureTribe, number>>;
+
+export type StorePackPriceOptionDto = {
+    currency: StoreCurrency;
+    price: number;
+};
+
 export type StorePackDto = {
     id: string;
     name: string;
     description: string;
+    imageUrl: string | null;
+    priceOptions: StorePackPriceOptionDto[];
     currency: StoreCurrency;
     price: number;
     cardsCount: number;
     cardTypes: UserCardType[];
-    tribeFilter: CreatureTribe | null;
+    allowedTribes: CreatureTribe[];
+    tribeWeights: StorePackTribeWeightsDto;
     guaranteedMinRarity: CardRarity | null;
     guaranteedCount: number;
     rarityWeights: StorePackRarityWeightsDto;
@@ -60,6 +70,7 @@ export type GetStorePacksResponseDto = {
 
 export type PurchaseStorePackRequestDto = {
     packId: string;
+    currency?: StoreCurrency;
 };
 
 export type PurchaseStorePackResponseDto = {
@@ -87,6 +98,71 @@ export type SellStoreCardsResponseDto = {
         diamonds: number;
     } | null;
     progression: UserProgressionDto | null;
+    message?: string;
+};
+
+export type AdminStorePackDto = {
+    id: string;
+    name: string;
+    description: string;
+    imageFileId: string | null;
+    imageUrl: string | null;
+    cardsCount: number;
+    cardTypes: UserCardType[];
+    allowedTribes: CreatureTribe[];
+    tribeWeights: StorePackTribeWeightsDto;
+    rarityWeights: StorePackRarityWeightsDto;
+    guaranteedMinRarity: CardRarity | null;
+    guaranteedCount: number;
+    priceCoins: number | null;
+    priceDiamonds: number | null;
+    dailyLimit: number | null;
+    weeklyLimit: number | null;
+    isActive: boolean;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type CreateAdminStorePackRequestDto = {
+    name: string;
+    description?: string | null;
+    imageFileId?: string | null;
+    cardsCount: number;
+    cardTypes: UserCardType[];
+    allowedTribes?: CreatureTribe[];
+    tribeWeights?: StorePackTribeWeightsDto;
+    rarityWeights: StorePackRarityWeightsDto;
+    guaranteedMinRarity?: CardRarity | null;
+    guaranteedCount?: number;
+    priceCoins?: number | null;
+    priceDiamonds?: number | null;
+    dailyLimit?: number | null;
+    weeklyLimit?: number | null;
+    isActive?: boolean;
+};
+
+export type UpdateAdminStorePackRequestDto = Partial<CreateAdminStorePackRequestDto>;
+
+export type ListAdminStorePacksResponseDto = {
+    success: boolean;
+    packs: AdminStorePackDto[];
+    message?: string;
+};
+
+export type CreateAdminStorePackResponseDto = {
+    success: boolean;
+    pack: AdminStorePackDto | null;
+    message?: string;
+};
+
+export type UpdateAdminStorePackResponseDto = {
+    success: boolean;
+    pack: AdminStorePackDto | null;
+    message?: string;
+};
+
+export type DeleteAdminStorePackResponseDto = {
+    success: boolean;
     message?: string;
 };
 

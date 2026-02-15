@@ -4,6 +4,7 @@ import type {
     PurchaseStorePackResponseDto,
     SellStoreCardsRequestDto,
     SellStoreCardsResponseDto,
+    StoreCurrency,
     StoreSellCardInputDto,
 } from "@/dto/store";
 import { ApiClient } from "@/lib/api/api-client";
@@ -24,10 +25,10 @@ export class StoreService {
         return data;
     }
 
-    static async purchase(packId: string) {
+    static async purchase(packId: string, currency?: StoreCurrency) {
         const data = await ApiClient.post<PurchaseStorePackResponseDto, PurchaseStorePackRequestDto>(
             "/store/purchase",
-            { packId },
+            { packId, currency },
         );
 
         if (!data.success || !data.wallet) {

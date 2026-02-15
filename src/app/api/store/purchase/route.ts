@@ -53,7 +53,7 @@ export async function POST(request: Request) {
             return NextResponse.json(response, { status: 400 });
         }
 
-        const result = await purchaseStorePack(user.id, body.packId);
+        const result = await purchaseStorePack(user.id, body.packId, body.currency);
 
         const response: PurchaseStorePackResponseDto = {
             success: true,

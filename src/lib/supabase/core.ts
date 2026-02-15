@@ -70,6 +70,10 @@ export function getUserDeckCardsTableName() {
     return process.env.SUPABASE_USER_DECK_CARDS_TABLE ?? "user_deck_cards";
 }
 
+export function getStorePacksTableName() {
+    return process.env.SUPABASE_STORE_PACKS_TABLE ?? "store_packs";
+}
+
 export function getTournamentsTableName() {
     return process.env.SUPABASE_TOURNAMENTS_TABLE ?? "tournaments";
 }

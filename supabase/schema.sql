@@ -278,6 +278,34 @@ create table if not exists public.user_deck_cards (
   unique (deck_id, card_type, card_id)
 );
 
+create table if not exists public.store_packs (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  description text,
+  image_file_id text,
+  image_url text,
+  cards_count integer not null default 6 check (cards_count > 0),
+  card_types text[] not null default array['creature', 'location', 'mugic', 'battlegear', 'attack']::text[]
+    check (card_types <@ array['creature', 'location', 'mugic', 'battlegear', 'attack']::text[] and array_length(card_types, 1) > 0),
+  allowed_tribes text[] not null default '{}'::text[]
+    check (allowed_tribes <@ array['overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient']::text[]),
+  tribe_weights jsonb not null default '{}'::jsonb,
+  rarity_weights jsonb not null default '{"comum":55,"incomum":25,"rara":14,"super_rara":5,"ultra_rara":1}'::jsonb,
+  guaranteed_min_rarity text check (guaranteed_min_rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
+  guaranteed_count integer not null default 0 check (guaranteed_count >= 0),
+  price_coins integer check (price_coins is null or price_coins > 0),
+  price_diamonds integer check (price_diamonds is null or price_diamonds > 0),
+  daily_limit integer check (daily_limit is null or daily_limit >= 0),
+  weekly_limit integer check (weekly_limit is null or weekly_limit >= 0),
+  is_active boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  check (price_coins is not null or price_diamonds is not null)
+);
+
+alter table if exists public.store_packs
+  add column if not exists image_file_id text;
+
 create table if not exists public.progression_events (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.users(id) on delete cascade,
@@ -297,6 +325,7 @@ create table if not exists public.progression_events (
 create index if not exists idx_user_cards_user_id on public.user_cards(user_id);
 create index if not exists idx_user_decks_user_id on public.user_decks(user_id);
 create index if not exists idx_user_deck_cards_deck_id on public.user_deck_cards(deck_id);
+create index if not exists idx_store_packs_active on public.store_packs(is_active);
 create index if not exists idx_progression_events_user_id_created_at on public.progression_events(user_id, created_at desc);
 
 do $$

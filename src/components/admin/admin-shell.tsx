@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOutlined, EnvironmentOutlined, SafetyOutlined, SettingOutlined, ToolOutlined, ThunderboltOutlined, AimOutlined, DollarCircleOutlined, TrophyOutlined } from "@ant-design/icons";
+import { BookOutlined, EnvironmentOutlined, SafetyOutlined, SettingOutlined, ToolOutlined, ThunderboltOutlined, AimOutlined, DollarCircleOutlined, TrophyOutlined, ShopOutlined } from "@ant-design/icons";
 import { Layout, Menu, Typography } from "antd";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -60,6 +60,11 @@ export function AdminShell({ selectedKey, children }: AdminShellProps) {
                 key: "tournaments",
                 icon: <TrophyOutlined />,
                 label: <Link href="/admin/tournaments">Cadastro de Torneios</Link>,
+            },
+            {
+                key: "store-packs",
+                icon: <ShopOutlined />,
+                label: <Link href="/admin/store-packs">Pacotes da Loja</Link>,
             },
         ],
         [],

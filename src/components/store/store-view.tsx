@@ -56,7 +56,7 @@ function getCurrencySymbol(currency: StorePackDto["currency"]) {
 
 export function StoreView({ userName, userNickName, userImageUrl }: StoreViewProps) {
     const [loading, setLoading] = useState(true);
-    const [purchasingPackId, setPurchasingPackId] = useState<string | null>(null);
+    const [purchasingPackKey, setPurchasingPackKey] = useState<string | null>(null);
     const [packs, setPacks] = useState<StorePackDto[]>([]);
     const [coins, setCoins] = useState(0);
     const [diamonds, setDiamonds] = useState(0);
@@ -100,11 +100,12 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
         void loadStore();
     }, [loadStore]);
 
-    const handlePurchase = useCallback(async (packId: string) => {
-        setPurchasingPackId(packId);
+    const handlePurchase = useCallback(async (packId: string, currency: StorePackDto["currency"]) => {
+        const purchaseKey = `${packId}:${currency}`;
+        setPurchasingPackKey(purchaseKey);
 
         try {
-            const payload = await StoreService.purchase(packId);
+            const payload = await StoreService.purchase(packId, currency);
 
             setCoins(payload.wallet.coins);
             setDiamonds(payload.wallet.diamonds);
@@ -116,7 +117,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
         } catch (error) {
             apiMessage.error(error instanceof Error ? error.message : "Erro na compra do pacote.");
         } finally {
-            setPurchasingPackId(null);
+            setPurchasingPackKey(null);
         }
     }, [apiMessage, loadStore]);
 
@@ -267,9 +268,9 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                                                             <Text style={{ color: "white" }}>
                                                                 Tipos: {pack.cardTypes.map((item) => getEnumDescription(item)).join(", ")}
                                                             </Text>
-                                                            {pack.tribeFilter ? (
+                                                            {pack.allowedTribes.length > 0 ? (
                                                                 <Text style={{ color: "white" }}>
-                                                                    Região: {getEnumDescription(pack.tribeFilter)}
+                                                                    Tribos: {pack.allowedTribes.map((tribe) => getEnumDescription(tribe)).join(", ")}
                                                                 </Text>
                                                             ) : null}
                                                             {pack.guaranteedMinRarity ? (
@@ -286,25 +287,42 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                                         )}
                                     >
                                         <div className={styles.packContent}>
+                                            {pack.imageUrl ? (
+                                                <Image
+                                                    src={pack.imageUrl}
+                                                    alt={pack.name}
+                                                    width={640}
+                                                    height={360}
+                                                    unoptimized
+                                                    style={{ width: "100%", height: 120, objectFit: "cover", borderRadius: 10 }}
+                                                />
+                                            ) : null}
                                             <Text className={styles.packDescription}>{pack.description}</Text>
 
                                             <div className={styles.offerBox}>
                                                 <div className={styles.offerTopRow}>
                                                     <Tag className={styles.countTag}>{pack.cardsCount} cartas</Tag>
-                                                    <Tag color={pack.currency === "coins" ? "gold" : "geekblue"}>
-                                                        {pack.currency === "coins" ? "Moedas" : "Diamantes"}
-                                                    </Tag>
+                                                    <Space size={4}>
+                                                        {pack.priceOptions.map((option) => (
+                                                            <Tag key={`${pack.id}-${option.currency}`} color={option.currency === "coins" ? "gold" : "geekblue"}>
+                                                                {option.currency === "coins" ? "Moedas" : "Diamantes"}
+                                                            </Tag>
+                                                        ))}
+                                                    </Space>
                                                 </div>
 
-                                                <div className={styles.priceLine}>
-                                                    <Text className={styles.priceSymbol}>{getCurrencySymbol(pack.currency)}</Text>
-                                                    <Text className={styles.priceValue}>{pack.price}</Text>
-                                                    <Text className={styles.priceUnit}>{getCurrencyLabel(pack.currency)}</Text>
-                                                </div>
-
-                                                <Text className={styles.priceHint}>
-                                                    ≈ {Math.max(1, Math.round(pack.price / pack.cardsCount))} {getCurrencyLabel(pack.currency)} por carta
-                                                </Text>
+                                                {pack.priceOptions.map((option) => (
+                                                    <div key={`${pack.id}-price-${option.currency}`}>
+                                                        <div className={styles.priceLine}>
+                                                            <Text className={styles.priceSymbol}>{getCurrencySymbol(option.currency)}</Text>
+                                                            <Text className={styles.priceValue}>{option.price}</Text>
+                                                            <Text className={styles.priceUnit}>{getCurrencyLabel(option.currency)}</Text>
+                                                        </div>
+                                                        <Text className={styles.priceHint}>
+                                                            ≈ {Math.max(1, Math.round(option.price / pack.cardsCount))} {getCurrencyLabel(option.currency)} por carta
+                                                        </Text>
+                                                    </div>
+                                                ))}
                                             </div>
 
                                             <Space wrap className={styles.limitsRow}>
@@ -320,16 +338,25 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                                                 ) : null}
                                             </Space>
 
-                                            <Button
-                                                className={styles.buyButton}
-                                                type="primary"
-                                                icon={purchasingPackId === pack.id ? loadingLogoIcon : <ShoppingOutlined />}
-                                                onClick={() => void handlePurchase(pack.id)}
-                                                disabled={!canPurchase || purchasingPackId !== null}
-                                                block
-                                            >
-                                                Comprar
-                                            </Button>
+                                            <Space direction="vertical" size={8} style={{ width: "100%", marginTop: "auto" }}>
+                                                {pack.priceOptions.map((option) => {
+                                                    const purchaseKey = `${pack.id}:${option.currency}`;
+
+                                                    return (
+                                                        <Button
+                                                            key={purchaseKey}
+                                                            className={styles.buyButton}
+                                                            type="primary"
+                                                            icon={purchasingPackKey === purchaseKey ? loadingLogoIcon : <ShoppingOutlined />}
+                                                            onClick={() => void handlePurchase(pack.id, option.currency)}
+                                                            disabled={!canPurchase || purchasingPackKey !== null}
+                                                            block
+                                                        >
+                                                            Comprar com {option.currency === "coins" ? "Moedas" : "Diamantes"}
+                                                        </Button>
+                                                    );
+                                                })}
+                                            </Space>
                                         </div>
                                     </Card>
                                 </motion.div>
