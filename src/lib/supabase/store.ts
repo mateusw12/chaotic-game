@@ -1,5 +1,5 @@
 import type { CardRarity, CreatureTribe } from "@/dto/creature";
-import type { StorePackDto, StoreRevealCardDto } from "@/dto/store";
+import type { StorePackDto, StoreRevealCardDto, StoreSellCardInputDto } from "@/dto/store";
 import {
     getAttacksTableName,
     getBattlegearTableName,
@@ -17,7 +17,7 @@ import {
     getMugicImagePublicUrl,
     getSupabaseAdminClient,
 } from "./storage";
-import { applyProgressionEvent, registerCardAward } from "./progression";
+import { applyProgressionEvent, discardUserCardByReference, getCardSellValue, registerCardAward } from "./progression";
 import { ensureUserWalletInSupabase } from "./wallets";
 import type { ProgressionEventSource, UserCardType, UserProgressionDto } from "@/dto/progression";
 
@@ -568,6 +568,8 @@ async function buildPackDraw(pack: StorePackConfig, userId: string): Promise<Sto
             guaranteedRemaining = Math.max(0, guaranteedRemaining - 1);
         }
 
+        const sellValue = await getCardSellValue(selected.cardType, selected.rarity, selected.cardId);
+
         cards.push({
             cardType: selected.cardType,
             cardId: selected.cardId,
@@ -575,6 +577,7 @@ async function buildPackDraw(pack: StorePackConfig, userId: string): Promise<Sto
             cardName: selected.cardName,
             cardImageUrl: selected.cardImageUrl,
             isDuplicateInCollection: ownedKeys.has(cardKey),
+            sellValue,
         });
     }
 
@@ -583,6 +586,62 @@ async function buildPackDraw(pack: StorePackConfig, userId: string): Promise<Sto
     }
 
     return cards;
+}
+
+export async function sellStoreCards(
+    userId: string,
+    cards: StoreSellCardInputDto[],
+): Promise<{ soldCount: number; coinsEarned: number; progression: UserProgressionDto; wallet: { coins: number; diamonds: number } }> {
+    const normalized = cards
+        .map((card) => ({
+            cardType: card.cardType,
+            cardId: card.cardId,
+            quantity: Math.max(1, Math.trunc(card.quantity ?? 1)),
+        }))
+        .filter((card) => Boolean(card.cardId));
+
+    if (normalized.length === 0) {
+        throw new Error("Informe ao menos uma carta para vender.");
+    }
+
+    const aggregated = new Map<string, { cardType: UserCardType; cardId: string; quantity: number }>();
+
+    for (const card of normalized) {
+        const key = `${card.cardType}:${card.cardId}`;
+        const current = aggregated.get(key);
+
+        if (current) {
+            current.quantity += card.quantity;
+            continue;
+        }
+
+        aggregated.set(key, { ...card });
+    }
+
+    let soldCount = 0;
+    let coinsEarned = 0;
+    let lastProgression: UserProgressionDto | null = null;
+    let lastWallet: { coins: number; diamonds: number } | null = null;
+
+    for (const card of aggregated.values()) {
+        const result = await discardUserCardByReference(userId, card.cardType, card.cardId, card.quantity);
+
+        soldCount += card.quantity;
+        coinsEarned += result.coinsEarned;
+        lastProgression = result.progression;
+        lastWallet = result.wallet;
+    }
+
+    if (!lastProgression || !lastWallet) {
+        throw new Error("Não foi possível concluir a venda das cartas.");
+    }
+
+    return {
+        soldCount,
+        coinsEarned,
+        progression: lastProgression,
+        wallet: lastWallet,
+    };
 }
 
 export async function listStorePacksForUser(userId: string): Promise<{ packs: StorePackDto[]; wallet: { coins: number; diamonds: number } }> {

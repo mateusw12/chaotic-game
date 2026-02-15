@@ -36,25 +36,166 @@ import type {
     SupabaseUserProgressionRow,
 } from "./types";
 
-const BATTLE_VICTORY_XP = 50;
+const BATTLE_VICTORY_XP = 20;
 const DAILY_LOGIN_XP = 5;
 const DAILY_LOGIN_COINS = 5;
 
 const XP_BY_RARITY: Record<CardRarity, number> = {
     comum: 8,
-    incomum: 16,
-    rara: 28,
-    super_rara: 45,
-    ultra_rara: 70,
+    incomum: 12,
+    rara: 20,
+    super_rara: 35,
+    ultra_rara: 55,
 };
 
 const DISCARD_COINS_BY_RARITY: Record<CardRarity, number> = {
     comum: 20,
-    incomum: 45,
-    rara: 90,
-    super_rara: 170,
-    ultra_rara: 300,
+    incomum: 35,
+    rara: 55,
+    super_rara: 70,
+    ultra_rara: 150,
 };
+
+const DISCARD_TYPE_MULTIPLIER: Record<UserCardType, number> = {
+    creature: 1.2,
+    mugic: 1.35,
+    battlegear: 1,
+    location: 0.95,
+    attack: 0.9,
+};
+
+const DISCARD_TRIBE_MULTIPLIER: Partial<Record<CreatureTribe, number>> = {
+    marrillian: 1.12,
+    ancient: 1.2,
+};
+
+type CardSellContext = {
+    tribes: CreatureTribe[];
+    energy: number;
+    elementCount: number;
+};
+
+function getEnergySellMultiplier(energy: number): number {
+    if (energy <= 0) {
+        return 1;
+    }
+
+    const bonus = Math.min(0.4, energy * 0.025);
+    return 1 + bonus;
+}
+
+function getTribeSellMultiplier(tribes: CreatureTribe[]): number {
+    let multiplier = 1;
+
+    for (const tribe of tribes) {
+        const tribeMultiplier = DISCARD_TRIBE_MULTIPLIER[tribe] ?? 1;
+        if (tribeMultiplier > multiplier) {
+            multiplier = tribeMultiplier;
+        }
+    }
+
+    return multiplier;
+}
+
+function getElementCountSellMultiplier(elementCount: number): number {
+    if (elementCount <= 0) {
+        return 1;
+    }
+
+    const bonus = Math.min(0.3, elementCount * 0.06);
+    return 1 + bonus;
+}
+
+async function resolveCardSellContext(cardType: UserCardType, cardId: string): Promise<CardSellContext> {
+    const supabase = getSupabaseAdminClient();
+
+    if (cardType === "creature") {
+        const { data } = await supabase
+            .from(getCreaturesTableName())
+            .select("tribe,energy,dominant_elements")
+            .eq("id", cardId)
+            .maybeSingle<{ tribe: CreatureTribe; energy: number; dominant_elements: string[] }>();
+
+        return {
+            tribes: data?.tribe ? [data.tribe] : [],
+            energy: Math.max(0, Math.trunc(data?.energy ?? 0)),
+            elementCount: Math.max(0, data?.dominant_elements?.length ?? 0),
+        };
+    }
+
+    if (cardType === "mugic") {
+        const { data } = await supabase
+            .from(getMugicTableName())
+            .select("tribes,cost")
+            .eq("id", cardId)
+            .maybeSingle<{ tribes: CreatureTribe[]; cost: number }>();
+
+        return {
+            tribes: data?.tribes ?? [],
+            energy: Math.max(0, Math.trunc(data?.cost ?? 0)),
+            elementCount: 0,
+        };
+    }
+
+    if (cardType === "attack") {
+        const { data } = await supabase
+            .from(getAttacksTableName())
+            .select("energy_cost,element_values")
+            .eq("id", cardId)
+            .maybeSingle<{ energy_cost: number; element_values: Array<{ value?: number }> }>();
+
+        const elementCount = (data?.element_values ?? []).reduce((count, item) => {
+            if (typeof item?.value === "number") {
+                return item.value > 0 ? count + 1 : count;
+            }
+
+            return count + 1;
+        }, 0);
+
+        return {
+            tribes: [],
+            energy: Math.max(0, Math.trunc(data?.energy_cost ?? 0)),
+            elementCount: Math.max(0, elementCount),
+        };
+    }
+
+    if (cardType === "location") {
+        const { data } = await supabase
+            .from(getLocationsTableName())
+            .select("tribes,initiative_elements")
+            .eq("id", cardId)
+            .maybeSingle<{ tribes: CreatureTribe[]; initiative_elements: string[] }>();
+
+        return {
+            tribes: data?.tribes ?? [],
+            energy: 0,
+            elementCount: Math.max(0, data?.initiative_elements?.length ?? 0),
+        };
+    }
+
+    const { data } = await supabase
+        .from(getBattlegearTableName())
+        .select("allowed_tribes")
+        .eq("id", cardId)
+        .maybeSingle<{ allowed_tribes: CreatureTribe[] }>();
+
+    return {
+        tribes: data?.allowed_tribes ?? [],
+        energy: 0,
+        elementCount: 0,
+    };
+}
+
+export async function getCardSellValue(cardType: UserCardType, rarity: CardRarity, cardId: string): Promise<number> {
+    const base = DISCARD_COINS_BY_RARITY[rarity] ?? DISCARD_COINS_BY_RARITY.comum;
+    const typeMultiplier = DISCARD_TYPE_MULTIPLIER[cardType] ?? 1;
+    const context = await resolveCardSellContext(cardType, cardId);
+    const tribeMultiplier = getTribeSellMultiplier(context.tribes);
+    const energyMultiplier = getEnergySellMultiplier(context.energy);
+    const elementMultiplier = getElementCountSellMultiplier(context.elementCount);
+
+    return Math.max(1, Math.round(base * typeMultiplier * tribeMultiplier * energyMultiplier * elementMultiplier));
+}
 
 function getXpRequiredForLevel(level: number): number {
     return 100 + 25 * (level - 1);
@@ -568,25 +709,19 @@ export async function registerCardAward(input: RegisterCardAwardInput) {
     });
 }
 
-export async function discardUserCardById(userId: string, userCardId: string, quantityInput?: number) {
+async function discardUserCardRow(userId: string, userCard: SupabaseUserCardRow, quantityInput?: number) {
     const quantity = Math.max(1, Math.trunc(quantityInput ?? 1));
-    const supabase = getSupabaseAdminClient();
-    const cardsTable = getUserCardsTableName();
 
-    const { data: userCard, error: cardError } = await supabase
-        .from(cardsTable)
-        .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
-        .eq("id", userCardId)
-        .eq("user_id", userId)
-        .single<SupabaseUserCardRow>();
-
-    if (cardError || !userCard) {
+    if (userCard.user_id !== userId) {
         throw new Error("Carta não encontrada na coleção do usuário.");
     }
 
     if (userCard.quantity < quantity) {
         throw new Error("Quantidade para descarte maior que o total disponível.");
     }
+
+    const supabase = getSupabaseAdminClient();
+    const cardsTable = getUserCardsTableName();
 
     const remaining = userCard.quantity - quantity;
 
@@ -610,9 +745,10 @@ export async function discardUserCardById(userId: string, userCardId: string, qu
         }
     }
 
-    const coinsDelta = DISCARD_COINS_BY_RARITY[userCard.rarity] * quantity;
+    const sellValue = await getCardSellValue(userCard.card_type, userCard.rarity, userCard.card_id);
+    const coinsDelta = sellValue * quantity;
 
-    return applyProgressionEvent({
+    const result = await applyProgressionEvent({
         userId,
         source: "card_discarded",
         xpDelta: 0,
@@ -623,10 +759,57 @@ export async function discardUserCardById(userId: string, userCardId: string, qu
         quantity,
         metadata: {
             rule: "card_discarded",
-            coinsByRarity: DISCARD_COINS_BY_RARITY[userCard.rarity],
+            sellValue,
             totalCoins: coinsDelta,
         },
     });
+
+    return {
+        ...result,
+        coinsEarned: coinsDelta,
+    };
+}
+
+export async function discardUserCardById(userId: string, userCardId: string, quantityInput?: number) {
+    const supabase = getSupabaseAdminClient();
+    const cardsTable = getUserCardsTableName();
+
+    const { data: userCard, error: cardError } = await supabase
+        .from(cardsTable)
+        .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
+        .eq("id", userCardId)
+        .eq("user_id", userId)
+        .single<SupabaseUserCardRow>();
+
+    if (cardError || !userCard) {
+        throw new Error("Carta não encontrada na coleção do usuário.");
+    }
+
+    return discardUserCardRow(userId, userCard, quantityInput);
+}
+
+export async function discardUserCardByReference(
+    userId: string,
+    cardType: UserCardType,
+    cardId: string,
+    quantityInput?: number,
+) {
+    const supabase = getSupabaseAdminClient();
+    const cardsTable = getUserCardsTableName();
+
+    const { data: userCard, error: cardError } = await supabase
+        .from(cardsTable)
+        .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
+        .eq("user_id", userId)
+        .eq("card_type", cardType)
+        .eq("card_id", cardId)
+        .single<SupabaseUserCardRow>();
+
+    if (cardError || !userCard) {
+        throw new Error("Carta não encontrada na coleção do usuário.");
+    }
+
+    return discardUserCardRow(userId, userCard, quantityInput);
 }
 
 function createEmptyTribeCounter(): Record<CreatureTribe, number> {

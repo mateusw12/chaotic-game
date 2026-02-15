@@ -1,4 +1,11 @@
-import type { GetStorePacksResponseDto, PurchaseStorePackRequestDto, PurchaseStorePackResponseDto } from "@/dto/store";
+import type {
+    GetStorePacksResponseDto,
+    PurchaseStorePackRequestDto,
+    PurchaseStorePackResponseDto,
+    SellStoreCardsRequestDto,
+    SellStoreCardsResponseDto,
+    StoreSellCardInputDto,
+} from "@/dto/store";
 import { ApiClient } from "@/lib/api/api-client";
 
 export class StoreService {
@@ -25,6 +32,19 @@ export class StoreService {
 
         if (!data.success || !data.wallet) {
             throw new Error(data.message ?? "Não foi possível concluir a compra.");
+        }
+
+        return data;
+    }
+
+    static async sellCards(cards: StoreSellCardInputDto[]) {
+        const data = await ApiClient.post<SellStoreCardsResponseDto, SellStoreCardsRequestDto>(
+            "/store/sell",
+            { cards },
+        );
+
+        if (!data.success || !data.wallet) {
+            throw new Error(data.message ?? "Não foi possível vender as cartas.");
         }
 
         return data;

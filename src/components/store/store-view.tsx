@@ -5,12 +5,13 @@ import { InfoCircleOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { StorePackDto, StoreRevealCardDto } from "@/dto/store";
+import type { StorePackDto, StoreRevealCardDto, StoreSellCardInputDto } from "@/dto/store";
 import styles from "./store-view.module.css";
 import { PlayerShell } from "@/components/player/player-shell";
 import type { CardRarity, CreatureTribe } from "@/dto/creature";
 import type { UserCardType } from "@/dto/progression";
-import { StoreService } from "@/lib/api/service";
+import { ApiClient } from "@/lib/api/api-client";
+import { StoreService } from "@/lib/api/services/store.service";
 
 const { Title, Paragraph, Text } = Typography;
 const REVEAL_CARD_FALLBACK_IMAGE = "/assets/card/verso.png";
@@ -61,6 +62,8 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
     const [revealedCards, setRevealedCards] = useState<StoreRevealCardDto[]>([]);
     const [isRevealOpen, setIsRevealOpen] = useState(false);
     const [recentlyPurchasedPackId, setRecentlyPurchasedPackId] = useState<string | null>(null);
+    const [sellingCardKey, setSellingCardKey] = useState<string | null>(null);
+    const [sellingAll, setSellingAll] = useState(false);
     const [apiMessage, contextHolder] = message.useMessage();
 
     useEffect(() => {
@@ -136,6 +139,75 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
             .map((entry) => entry.card),
         [revealedCards],
     );
+
+    const totalRevealSellValue = useMemo(
+        () => sortedRevealedCards.reduce((sum, card) => sum + card.sellValue, 0),
+        [sortedRevealedCards],
+    );
+
+    const removeSoldCardsFromList = useCallback((source: StoreRevealCardDto[], cards: StoreSellCardInputDto[]) => {
+        const quantitiesByKey = new Map<string, number>();
+
+        for (const card of cards) {
+            const quantity = Math.max(1, Math.trunc(card.quantity ?? 1));
+            const key = `${card.cardType}:${card.cardId}`;
+            quantitiesByKey.set(key, (quantitiesByKey.get(key) ?? 0) + quantity);
+        }
+
+        return source.filter((card) => {
+            const key = `${card.cardType}:${card.cardId}`;
+            const remainingToRemove = quantitiesByKey.get(key) ?? 0;
+
+            if (remainingToRemove <= 0) {
+                return true;
+            }
+
+            quantitiesByKey.set(key, remainingToRemove - 1);
+            return false;
+        });
+    }, []);
+
+    const handleSellCards = useCallback(async (cards: StoreSellCardInputDto[], mode: "single" | "all") => {
+        if (cards.length === 0) {
+            return;
+        }
+
+        let rollbackCards: StoreRevealCardDto[] | null = null;
+
+        if (mode === "all") {
+            setSellingAll(true);
+        } else {
+            const card = cards[0];
+            setSellingCardKey(`${card.cardType}:${card.cardId}`);
+        }
+
+        try {
+            setRevealedCards((previous) => {
+                rollbackCards = previous;
+                return removeSoldCardsFromList(previous, cards);
+            });
+
+            const payload = typeof StoreService.sellCards === "function"
+                ? await StoreService.sellCards(cards)
+                : await ApiClient.post("/store/sell", { cards });
+
+            if (!payload.success || !payload.wallet) {
+                throw new Error(payload.message ?? "Não foi possível vender as cartas.");
+            }
+
+            setCoins(payload.wallet.coins);
+            setDiamonds(payload.wallet.diamonds);
+            apiMessage.success(`Venda concluída: +${payload.coinsEarned} moedas.`);
+        } catch (error) {
+            if (rollbackCards) {
+                setRevealedCards(rollbackCards);
+            }
+            apiMessage.error(error instanceof Error ? error.message : "Erro ao vender cartas.");
+        } finally {
+            setSellingAll(false);
+            setSellingCardKey(null);
+        }
+    }, [apiMessage, removeSoldCardsFromList]);
 
     return (
         <PlayerShell
@@ -279,7 +351,26 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
             >
                 <div className={styles.revealHeader}>
                     <Text className={styles.revealTitle}>Cartas Reveladas</Text>
-                    <Tag className={styles.revealCountTag}>{sortedRevealedCards.length} cartas</Tag>
+                    <Space>
+                        <Tag className={styles.revealCountTag}>{sortedRevealedCards.length} cartas</Tag>
+                        <Tag className={styles.revealCoinsTag}>Valor total: {totalRevealSellValue} moedas</Tag>
+                        <Button
+                            size="small"
+                            type="primary"
+                            disabled={sortedRevealedCards.length === 0}
+                            loading={sellingAll}
+                            onClick={() => void handleSellCards(
+                                sortedRevealedCards.map((card) => ({
+                                    cardType: card.cardType,
+                                    cardId: card.cardId,
+                                    quantity: 1,
+                                })),
+                                "all",
+                            )}
+                        >
+                            Vender todas
+                        </Button>
+                    </Space>
                 </div>
                 <AnimatePresence mode="wait">
                     {isRevealOpen ? (
@@ -339,7 +430,23 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                                             <Space size={6} wrap className={styles.revealMetaRow}>
                                                 <Tag className={styles.revealMetaTag}>{getEnumDescription(card.cardType)}</Tag>
                                                 <Tag className={styles.revealMetaTag}>{getEnumDescription(card.rarity)}</Tag>
+                                                <Tag className={styles.revealValueTag}>🪙 Valor {card.sellValue}</Tag>
                                             </Space>
+                                            <Button
+                                                size="small"
+                                                block
+                                                disabled={sellingAll}
+                                                loading={sellingCardKey === `${card.cardType}:${card.cardId}`}
+                                                onClick={() => void handleSellCards([
+                                                    {
+                                                        cardType: card.cardType,
+                                                        cardId: card.cardId,
+                                                        quantity: 1,
+                                                    },
+                                                ], "single")}
+                                            >
+                                                Vender carta
+                                            </Button>
                                         </Space>
                                     </Card>
                                 </motion.div>

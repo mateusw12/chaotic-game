@@ -39,6 +39,13 @@ export type StoreRevealCardDto = {
     cardName: string | null;
     cardImageUrl: string | null;
     isDuplicateInCollection: boolean;
+    sellValue: number;
+};
+
+export type StoreSellCardInputDto = {
+    cardType: UserCardType;
+    cardId: string;
+    quantity?: number;
 };
 
 export type GetStorePacksResponseDto = {
@@ -64,6 +71,22 @@ export type PurchaseStorePackResponseDto = {
         coins: number;
         diamonds: number;
     } | null;
+    message?: string;
+};
+
+export type SellStoreCardsRequestDto = {
+    cards: StoreSellCardInputDto[];
+};
+
+export type SellStoreCardsResponseDto = {
+    success: boolean;
+    soldCount: number;
+    coinsEarned: number;
+    wallet: {
+        coins: number;
+        diamonds: number;
+    } | null;
+    progression: UserProgressionDto | null;
     message?: string;
 };
 
