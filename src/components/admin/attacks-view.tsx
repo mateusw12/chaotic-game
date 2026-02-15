@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
     Button,
@@ -35,6 +36,7 @@ import {
 import type { LocationEffectType, LocationStat } from "@/dto/location";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { AttacksAdminService } from "@/lib/api/service";
+import { adminQueryKeys } from "@/lib/api/query-keys";
 
 type AttacksViewProps = {
     attacks: AttackDto[];
@@ -67,14 +69,28 @@ const { Title, Text } = Typography;
 
 export function AttacksView({ attacks }: AttacksViewProps) {
     const { message } = AntdApp.useApp();
+    const queryClient = useQueryClient();
     const [form] = Form.useForm<AttackFormValues>();
-    const [rows, setRows] = useState<AttackDto[]>(attacks);
-    const [isSaving, setIsSaving] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+
+    const { data: rows = [] } = useQuery({
+        queryKey: adminQueryKeys.attacks,
+        queryFn: () => AttacksAdminService.getAll(),
+        initialData: attacks,
+    });
+
+    const saveMutation = useMutation({
+        mutationFn: ({ id, payload }: { id: string | null; payload: CreateAttackRequestDto }) =>
+            id ? AttacksAdminService.update(id, payload) : AttacksAdminService.create(payload),
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: (id: string) => AttacksAdminService.remove(id),
+    });
 
     async function attachImageFile(file: File & { uid?: string }) {
         setIsImageUploading(true);
@@ -102,8 +118,6 @@ export function AttacksView({ attacks }: AttacksViewProps) {
     }
 
     async function onSubmit(values: AttackFormValues) {
-        setIsSaving(true);
-
         try {
             const payload: CreateAttackRequestDto = {
                 name: values.name,
@@ -125,15 +139,8 @@ export function AttacksView({ attacks }: AttacksViewProps) {
             };
 
             const isEditing = Boolean(editingId);
-            const attack = isEditing
-                ? await AttacksAdminService.update(editingId as string, payload)
-                : await AttacksAdminService.create(payload);
-
-            if (isEditing) {
-                setRows((previousRows) => previousRows.map((row) => (row.id === attack.id ? attack : row)));
-            } else {
-                setRows((previousRows) => [attack, ...previousRows]);
-            }
+            await saveMutation.mutateAsync({ id: editingId, payload });
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.attacks });
 
             setEditingId(null);
             form.resetFields();
@@ -142,8 +149,6 @@ export function AttacksView({ attacks }: AttacksViewProps) {
             message.success(isEditing ? "Ataque atualizado com sucesso." : "Ataque cadastrado com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao salvar ataque.");
-        } finally {
-            setIsSaving(false);
         }
     }
 
@@ -178,16 +183,15 @@ export function AttacksView({ attacks }: AttacksViewProps) {
         setDeletingId(attackId);
 
         try {
-            await AttacksAdminService.remove(attackId);
-
-            setRows((previousRows) => previousRows.filter((row) => row.id !== attackId));
+            await deleteMutation.mutateAsync(attackId);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.attacks });
             message.success("Ataque removido com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao remover ataque.");
         } finally {
             setDeletingId(null);
         }
-    }, [message]);
+    }, [deleteMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<AttackDto>>(
         () => [
@@ -474,7 +478,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                                 )}
                             </Form.List>
 
-                            <Button type="primary" htmlType="submit" loading={isSaving}>
+                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
                                 {editingId ? "Salvar edição" : "Cadastrar ataque"}
                             </Button>
 

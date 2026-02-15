@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
     Button,
@@ -41,6 +42,7 @@ import {
 } from "@/dto/location";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { LocationsAdminService } from "@/lib/api/service";
+import { adminQueryKeys } from "@/lib/api/query-keys";
 
 type LocationsViewProps = {
     locations: LocationDto[];
@@ -67,14 +69,28 @@ const { Title, Text } = Typography;
 
 export function LocationsView({ locations }: LocationsViewProps) {
     const { message } = AntdApp.useApp();
+    const queryClient = useQueryClient();
     const [form] = Form.useForm<LocationFormValues>();
-    const [rows, setRows] = useState<LocationDto[]>(locations);
-    const [isSaving, setIsSaving] = useState(false);
     const [editingLocationId, setEditingLocationId] = useState<string | null>(null);
     const [deletingLocationId, setDeletingLocationId] = useState<string | null>(null);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+
+    const { data: rows = [] } = useQuery({
+        queryKey: adminQueryKeys.locations,
+        queryFn: () => LocationsAdminService.getAll(),
+        initialData: locations,
+    });
+
+    const saveMutation = useMutation({
+        mutationFn: ({ id, payload }: { id: string | null; payload: CreateLocationRequestDto }) =>
+            id ? LocationsAdminService.update(id, payload) : LocationsAdminService.create(payload),
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: (id: string) => LocationsAdminService.remove(id),
+    });
 
     async function attachImageFile(file: File & { uid?: string }) {
         setIsImageUploading(true);
@@ -109,8 +125,6 @@ export function LocationsView({ locations }: LocationsViewProps) {
     }
 
     async function onSubmit(values: LocationFormValues) {
-        setIsSaving(true);
-
         try {
             const payload: CreateLocationRequestDto = {
                 name: values.name,
@@ -128,17 +142,11 @@ export function LocationsView({ locations }: LocationsViewProps) {
             };
 
             const isEditing = Boolean(editingLocationId);
-            const location = isEditing
-                ? await LocationsAdminService.update(editingLocationId as string, payload)
-                : await LocationsAdminService.create(payload);
-
-            if (isEditing) {
-                setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === location.id ? location : row)),
-                );
-            } else {
-                setRows((previousRows) => [location, ...previousRows]);
-            }
+            await saveMutation.mutateAsync({
+                id: editingLocationId,
+                payload,
+            });
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
 
             setEditingLocationId(null);
             form.resetFields();
@@ -147,8 +155,6 @@ export function LocationsView({ locations }: LocationsViewProps) {
             message.success(isEditing ? "Local atualizado com sucesso." : "Local cadastrado com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao salvar local.");
-        } finally {
-            setIsSaving(false);
         }
     }
 
@@ -190,16 +196,15 @@ export function LocationsView({ locations }: LocationsViewProps) {
         setDeletingLocationId(locationId);
 
         try {
-            await LocationsAdminService.remove(locationId);
-
-            setRows((previousRows) => previousRows.filter((row) => row.id !== locationId));
+            await deleteMutation.mutateAsync(locationId);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
             message.success("Local removido com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao remover local.");
         } finally {
             setDeletingLocationId(null);
         }
-    }, [message]);
+    }, [deleteMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<LocationDto>>(
         () => [
@@ -516,7 +521,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                                 )}
                             </Form.List>
 
-                            <Button type="primary" htmlType="submit" loading={isSaving}>
+                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
                                 {editingLocationId ? "Salvar edição" : "Cadastrar local"}
                             </Button>
 

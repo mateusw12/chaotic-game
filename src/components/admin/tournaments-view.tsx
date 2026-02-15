@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
     Button,
@@ -37,6 +38,7 @@ import {
 } from "@/dto/tournament";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { TournamentsAdminService } from "@/lib/api/service";
+import { adminQueryKeys } from "@/lib/api/query-keys";
 
 type TournamentsViewProps = {
     tournaments: TournamentDto[];
@@ -76,14 +78,28 @@ function scheduleLabel(tournament: TournamentDto): string {
 
 export function TournamentsView({ tournaments }: TournamentsViewProps) {
     const { message } = AntdApp.useApp();
+    const queryClient = useQueryClient();
     const [form] = Form.useForm<TournamentFormValues>();
-    const [rows, setRows] = useState<TournamentDto[]>(tournaments);
-    const [isSaving, setIsSaving] = useState(false);
     const [editingTournamentId, setEditingTournamentId] = useState<string | null>(null);
     const [deletingTournamentId, setDeletingTournamentId] = useState<string | null>(null);
     const [isCoverUploading, setIsCoverUploading] = useState(false);
     const [coverFileList, setCoverFileList] = useState<UploadFile[]>([]);
     const [coverPreviewUrl, setCoverPreviewUrl] = useState<string | null>(null);
+
+    const { data: rows = [] } = useQuery({
+        queryKey: adminQueryKeys.tournaments,
+        queryFn: () => TournamentsAdminService.getAll(),
+        initialData: tournaments,
+    });
+
+    const saveMutation = useMutation({
+        mutationFn: ({ id, payload }: { id: string | null; payload: CreateTournamentRequestDto }) =>
+            id ? TournamentsAdminService.update(id, payload) : TournamentsAdminService.create(payload),
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: (id: string) => TournamentsAdminService.remove(id),
+    });
 
     async function attachCoverFile(file: File & { uid?: string }) {
         setIsCoverUploading(true);
@@ -118,8 +134,6 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
     }
 
     async function onSubmit(values: TournamentFormValues) {
-        setIsSaving(true);
-
         try {
             const payload: CreateTournamentRequestDto = {
                 name: values.name,
@@ -142,17 +156,8 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
             };
 
             const isEditing = Boolean(editingTournamentId);
-            const tournament = isEditing
-                ? await TournamentsAdminService.update(editingTournamentId as string, payload)
-                : await TournamentsAdminService.create(payload);
-
-            if (isEditing) {
-                setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === tournament.id ? tournament : row)),
-                );
-            } else {
-                setRows((previousRows) => [tournament, ...previousRows]);
-            }
+            await saveMutation.mutateAsync({ id: editingTournamentId, payload });
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.tournaments });
 
             setEditingTournamentId(null);
             form.resetFields();
@@ -161,8 +166,6 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
             message.success(isEditing ? "Torneio atualizado com sucesso." : "Torneio cadastrado com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao salvar torneio.");
-        } finally {
-            setIsSaving(false);
         }
     }
 
@@ -215,16 +218,15 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
         setDeletingTournamentId(tournamentId);
 
         try {
-            await TournamentsAdminService.remove(tournamentId);
-
-            setRows((previousRows) => previousRows.filter((row) => row.id !== tournamentId));
+            await deleteMutation.mutateAsync(tournamentId);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.tournaments });
             message.success("Torneio removido com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao remover torneio.");
         } finally {
             setDeletingTournamentId(null);
         }
-    }, [message]);
+    }, [deleteMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<TournamentDto>>(
         () => [
@@ -473,7 +475,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
                             </Form.Item>
 
                             <Space>
-                                <Button type="primary" htmlType="submit" loading={isSaving}>
+                                <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
                                     {editingTournamentId ? "Salvar edição" : "Cadastrar torneio"}
                                 </Button>
                                 {editingTournamentId ? (

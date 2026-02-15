@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
     Button,
@@ -38,6 +39,7 @@ import {
 import type { LocationCardType, LocationEffectType, LocationStat } from "@/dto/location";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { MugicAdminService } from "@/lib/api/service";
+import { adminQueryKeys } from "@/lib/api/query-keys";
 
 type MugicViewProps = {
     mugics: MugicDto[];
@@ -67,14 +69,28 @@ const { Title, Text } = Typography;
 
 export function MugicView({ mugics }: MugicViewProps) {
     const { message } = AntdApp.useApp();
+    const queryClient = useQueryClient();
     const [form] = Form.useForm<MugicFormValues>();
-    const [rows, setRows] = useState<MugicDto[]>(mugics);
-    const [isSaving, setIsSaving] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+
+    const { data: rows = [] } = useQuery({
+        queryKey: adminQueryKeys.mugic,
+        queryFn: () => MugicAdminService.getAll(),
+        initialData: mugics,
+    });
+
+    const saveMutation = useMutation({
+        mutationFn: ({ id, payload }: { id: string | null; payload: CreateMugicRequestDto }) =>
+            id ? MugicAdminService.update(id, payload) : MugicAdminService.create(payload),
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: (id: string) => MugicAdminService.remove(id),
+    });
 
     async function attachImageFile(file: File & { uid?: string }) {
         setIsImageUploading(true);
@@ -109,8 +125,6 @@ export function MugicView({ mugics }: MugicViewProps) {
     }
 
     async function onSubmit(values: MugicFormValues) {
-        setIsSaving(true);
-
         try {
             const payload: CreateMugicRequestDto = {
                 name: values.name,
@@ -131,17 +145,8 @@ export function MugicView({ mugics }: MugicViewProps) {
             };
 
             const isEditing = Boolean(editingId);
-            const mugic = isEditing
-                ? await MugicAdminService.update(editingId as string, payload)
-                : await MugicAdminService.create(payload);
-
-            if (isEditing) {
-                setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === mugic.id ? mugic : row)),
-                );
-            } else {
-                setRows((previousRows) => [mugic, ...previousRows]);
-            }
+            await saveMutation.mutateAsync({ id: editingId, payload });
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.mugic });
 
             setEditingId(null);
             form.resetFields();
@@ -150,8 +155,6 @@ export function MugicView({ mugics }: MugicViewProps) {
             message.success(isEditing ? "Mugic atualizado com sucesso." : "Mugic cadastrado com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao salvar mugic.");
-        } finally {
-            setIsSaving(false);
         }
     }
 
@@ -193,16 +196,15 @@ export function MugicView({ mugics }: MugicViewProps) {
         setDeletingId(mugicId);
 
         try {
-            await MugicAdminService.remove(mugicId);
-
-            setRows((previousRows) => previousRows.filter((row) => row.id !== mugicId));
+            await deleteMutation.mutateAsync(mugicId);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.mugic });
             message.success("Mugic removido com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao remover mugic.");
         } finally {
             setDeletingId(null);
         }
-    }, [message]);
+    }, [deleteMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<MugicDto>>(
         () => [
@@ -560,7 +562,7 @@ export function MugicView({ mugics }: MugicViewProps) {
                                 )}
                             </Form.List>
 
-                            <Button type="primary" htmlType="submit" loading={isSaving}>
+                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
                                 {editingId ? "Salvar edição" : "Cadastrar mugic"}
                             </Button>
 

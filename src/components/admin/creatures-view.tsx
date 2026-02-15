@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { App as AntdApp, Button, Card, Form, Image, Input, InputNumber, Popconfirm, Select, Space, Table, Tag, Typography, Upload } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import type { UploadFile } from "antd/es/upload/interface";
@@ -18,6 +19,7 @@ import {
 } from "@/dto/creature";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { CreaturesAdminService } from "@/lib/api/service";
+import { adminQueryKeys } from "@/lib/api/query-keys";
 
 type CreaturesViewProps = {
     creatures: CreatureDto[];
@@ -42,14 +44,28 @@ type CreatureFormValues = {
 
 export function CreaturesView({ creatures }: CreaturesViewProps) {
     const { message } = AntdApp.useApp();
+    const queryClient = useQueryClient();
     const [creatureForm] = Form.useForm<CreatureFormValues>();
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
-    const [rows, setRows] = useState<CreatureDto[]>(creatures);
-    const [isCreatureSaving, setIsCreatureSaving] = useState(false);
     const [editingCreatureId, setEditingCreatureId] = useState<string | null>(null);
     const [deletingCreatureId, setDeletingCreatureId] = useState<string | null>(null);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
+
+    const { data: rows = [] } = useQuery({
+        queryKey: adminQueryKeys.creatures,
+        queryFn: () => CreaturesAdminService.getAll(),
+        initialData: creatures,
+    });
+
+    const saveMutation = useMutation({
+        mutationFn: ({ id, payload }: { id: string | null; payload: CreateCreatureRequestDto }) =>
+            id ? CreaturesAdminService.update(id, payload) : CreaturesAdminService.create(payload),
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: (id: string) => CreaturesAdminService.remove(id),
+    });
 
     async function attachImageFile(file: File & { uid?: string }) {
         setIsImageUploading(true);
@@ -83,8 +99,6 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
     }
 
     async function onCreateCreature(values: CreatureFormValues) {
-        setIsCreatureSaving(true);
-
         try {
             const creatureBeingEdited = editingCreatureId
                 ? rows.find((row) => row.id === editingCreatureId)
@@ -108,17 +122,11 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             };
 
             const isEditing = Boolean(editingCreatureId);
-            const creature = isEditing
-                ? await CreaturesAdminService.update(editingCreatureId as string, payload)
-                : await CreaturesAdminService.create(payload);
-
-            if (isEditing) {
-                setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === creature.id ? creature : row)),
-                );
-            } else {
-                setRows((previous) => [creature, ...previous]);
-            }
+            await saveMutation.mutateAsync({
+                id: editingCreatureId,
+                payload,
+            });
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
 
             setEditingCreatureId(null);
             creatureForm.resetFields();
@@ -131,8 +139,6 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             );
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao salvar criatura.");
-        } finally {
-            setIsCreatureSaving(false);
         }
     }
 
@@ -180,16 +186,15 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
         setDeletingCreatureId(creatureId);
 
         try {
-            await CreaturesAdminService.remove(creatureId);
-
-            setRows((previousRows) => previousRows.filter((row) => row.id !== creatureId));
+            await deleteMutation.mutateAsync(creatureId);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
             message.success("Criatura removida com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao remover criatura.");
         } finally {
             setDeletingCreatureId(null);
         }
-    }, [message]);
+    }, [deleteMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<CreatureDto>>(
         () => [
@@ -445,7 +450,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                                 <Input.TextArea rows={2} placeholder="Ex.: Em breve terá cadastro próprio" />
                             </Form.Item>
 
-                            <Button type="primary" htmlType="submit" loading={isCreatureSaving}>
+                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
                                 {editingCreatureId ? "Salvar edição" : "Cadastrar criatura"}
                             </Button>
 

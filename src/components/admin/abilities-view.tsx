@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
     Button,
@@ -32,6 +33,7 @@ import {
 } from "@/dto/ability";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { AbilitiesAdminService } from "@/lib/api/service";
+import { adminQueryKeys } from "@/lib/api/query-keys";
 
 type AbilitiesViewProps = {
     abilities: AbilityDto[];
@@ -51,15 +53,27 @@ const { Title, Text } = Typography;
 
 export function AbilitiesView({ abilities }: AbilitiesViewProps) {
     const { message } = AntdApp.useApp();
+    const queryClient = useQueryClient();
     const [form] = Form.useForm<AbilityFormValues>();
-    const [rows, setRows] = useState<AbilityDto[]>(abilities);
-    const [isSaving, setIsSaving] = useState(false);
     const [editingAbilityId, setEditingAbilityId] = useState<string | null>(null);
     const [deletingAbilityId, setDeletingAbilityId] = useState<string | null>(null);
 
-    async function onCreateAbility(values: AbilityFormValues) {
-        setIsSaving(true);
+    const { data: rows = [] } = useQuery({
+        queryKey: adminQueryKeys.abilities,
+        queryFn: () => AbilitiesAdminService.getAll(),
+        initialData: abilities,
+    });
 
+    const saveMutation = useMutation({
+        mutationFn: ({ id, payload }: { id: string | null; payload: CreateAbilityRequestDto }) =>
+            id ? AbilitiesAdminService.update(id, payload) : AbilitiesAdminService.create(payload),
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: (id: string) => AbilitiesAdminService.remove(id),
+    });
+
+    async function onCreateAbility(values: AbilityFormValues) {
         try {
             const payload: CreateAbilityRequestDto = {
                 name: values.name,
@@ -72,17 +86,11 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
             };
 
             const isEditing = Boolean(editingAbilityId);
-            const ability = isEditing
-                ? await AbilitiesAdminService.update(editingAbilityId as string, payload)
-                : await AbilitiesAdminService.create(payload);
-
-            if (isEditing) {
-                setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === ability.id ? ability : row)),
-                );
-            } else {
-                setRows((previous) => [ability, ...previous]);
-            }
+            await saveMutation.mutateAsync({
+                id: editingAbilityId,
+                payload,
+            });
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.abilities });
 
             setEditingAbilityId(null);
             form.resetFields();
@@ -93,8 +101,6 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
             );
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao salvar habilidade.");
-        } finally {
-            setIsSaving(false);
         }
     }
 
@@ -120,16 +126,15 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
         setDeletingAbilityId(abilityId);
 
         try {
-            await AbilitiesAdminService.remove(abilityId);
-
-            setRows((previousRows) => previousRows.filter((row) => row.id !== abilityId));
+            await deleteMutation.mutateAsync(abilityId);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.abilities });
             message.success("Habilidade removida com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao remover habilidade.");
         } finally {
             setDeletingAbilityId(null);
         }
-    }, [message]);
+    }, [deleteMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<AbilityDto>>(
         () => [
@@ -292,7 +297,7 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                                 <Input.TextArea rows={2} placeholder="Descrição opcional da habilidade" />
                             </Form.Item>
 
-                            <Button type="primary" htmlType="submit" loading={isSaving}>
+                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
                                 {editingAbilityId ? "Salvar edição" : "Cadastrar habilidade"}
                             </Button>
 

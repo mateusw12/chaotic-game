@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
     Button,
@@ -36,6 +37,7 @@ import {
 } from "@/dto/battlegear";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { BattleGearAdminService } from "@/lib/api/service";
+import { adminQueryKeys } from "@/lib/api/query-keys";
 
 type BattleGearViewProps = {
     battlegear: BattleGearDto[];
@@ -63,14 +65,28 @@ const { Title, Text } = Typography;
 
 export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
     const { message } = AntdApp.useApp();
+    const queryClient = useQueryClient();
     const [form] = Form.useForm<BattleGearFormValues>();
-    const [rows, setRows] = useState<BattleGearDto[]>(battlegear);
-    const [isSaving, setIsSaving] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+
+    const { data: rows = [] } = useQuery({
+        queryKey: adminQueryKeys.battlegear,
+        queryFn: () => BattleGearAdminService.getAll(),
+        initialData: battlegear,
+    });
+
+    const saveMutation = useMutation({
+        mutationFn: ({ id, payload }: { id: string | null; payload: CreateBattleGearRequestDto }) =>
+            id ? BattleGearAdminService.update(id, payload) : BattleGearAdminService.create(payload),
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: (id: string) => BattleGearAdminService.remove(id),
+    });
 
     const creatureOptions = useMemo(
         () => creatures.map((creature) => ({ value: creature.id, label: creature.name })),
@@ -110,8 +126,6 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
     }
 
     async function onSubmit(values: BattleGearFormValues) {
-        setIsSaving(true);
-
         try {
             const payload: CreateBattleGearRequestDto = {
                 name: values.name,
@@ -129,17 +143,8 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             };
 
             const isEditing = Boolean(editingId);
-            const battlegearItem = isEditing
-                ? await BattleGearAdminService.update(editingId as string, payload)
-                : await BattleGearAdminService.create(payload);
-
-            if (isEditing) {
-                setRows((previousRows) =>
-                    previousRows.map((row) => (row.id === battlegearItem.id ? battlegearItem : row)),
-                );
-            } else {
-                setRows((previousRows) => [battlegearItem, ...previousRows]);
-            }
+            await saveMutation.mutateAsync({ id: editingId, payload });
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.battlegear });
 
             setEditingId(null);
             form.resetFields();
@@ -148,8 +153,6 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             message.success(isEditing ? "Equipamento atualizado com sucesso." : "Equipamento cadastrado com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao salvar equipamento.");
-        } finally {
-            setIsSaving(false);
         }
     }
 
@@ -191,16 +194,15 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
         setDeletingId(itemId);
 
         try {
-            await BattleGearAdminService.remove(itemId);
-
-            setRows((previousRows) => previousRows.filter((row) => row.id !== itemId));
+            await deleteMutation.mutateAsync(itemId);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.battlegear });
             message.success("Equipamento removido com sucesso.");
         } catch (error) {
             message.error(error instanceof Error ? error.message : "Erro ao remover equipamento.");
         } finally {
             setDeletingId(null);
         }
-    }, [message]);
+    }, [deleteMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<BattleGearDto>>(
         () => [
@@ -509,7 +511,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                                 )}
                             </Form.List>
 
-                            <Button type="primary" htmlType="submit" loading={isSaving}>
+                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
                                 {editingId ? "Salvar edição" : "Cadastrar equipamento"}
                             </Button>
 
