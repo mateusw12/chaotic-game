@@ -15,7 +15,6 @@ import {
     Select,
     Space,
     Switch,
-    Table,
     Tag,
     Typography,
     Upload,
@@ -39,6 +38,7 @@ import {
 import { AdminShell } from "@/components/admin/admin-shell";
 import { TournamentsAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
+import { SearchableDataTable } from "@/components/shared/searchable-data-table";
 
 type TournamentsViewProps = {
     tournaments: TournamentDto[];
@@ -230,23 +230,6 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
 
     const columns = useMemo<ColumnsType<TournamentDto>>(
         () => [
-            {
-                title: "Capa",
-                dataIndex: "coverImageUrl",
-                key: "coverImageUrl",
-                width: 90,
-                render: (coverImageUrl: string | null, row) =>
-                    coverImageUrl ? (
-                        <Image
-                            src={coverImageUrl}
-                            alt={row.name}
-                            preview={false}
-                            style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 8 }}
-                        />
-                    ) : (
-                        <Tag>Sem capa</Tag>
-                    ),
-            },
             {
                 title: "Nome",
                 dataIndex: "name",
@@ -487,11 +470,14 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
                 </Card>
 
                 <Card title="Torneios cadastrados" style={{ borderRadius: 16 }}>
-                    <Table<TournamentDto>
+                    <SearchableDataTable<TournamentDto>
                         rowKey="id"
                         columns={columns}
                         dataSource={rows}
-                        pagination={{ pageSize: 8 }}
+                        searchFields={["name", "scheduleType"]}
+                        searchPlaceholder="Buscar torneio por nome ou tipo de agenda"
+                        pageSize={8}
+                        scrollX={1200}
                     />
                 </Card>
             </Space>

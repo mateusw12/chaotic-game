@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { App as AntdApp, Button, Card, Form, Image, Input, InputNumber, Popconfirm, Select, Space, Table, Tag, Typography, Upload } from "antd";
+import { App as AntdApp, Button, Card, Form, Image, Input, InputNumber, Popconfirm, Select, Space, Tag, Typography, Upload } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, BookOutlined } from "@ant-design/icons";
@@ -20,6 +20,7 @@ import {
 import { AdminShell } from "@/components/admin/admin-shell";
 import { CreaturesAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
+import { SearchableDataTable } from "@/components/shared/searchable-data-table";
 
 type CreaturesViewProps = {
     creatures: CreatureDto[];
@@ -198,23 +199,6 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
 
     const columns = useMemo<ColumnsType<CreatureDto>>(
         () => [
-            {
-                title: "Imagem",
-                dataIndex: "imageUrl",
-                key: "imageUrl",
-                width: 110,
-                render: (imageUrl: string | null, row) =>
-                    imageUrl ? (
-                        <Image
-                            src={imageUrl}
-                            alt={row.name}
-                            preview={false}
-                            style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 8 }}
-                        />
-                    ) : (
-                        <Tag>Sem imagem</Tag>
-                    ),
-            },
             {
                 title: "Nome",
                 dataIndex: "name",
@@ -462,12 +446,14 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                 </Card>
 
                 <Card title="Criaturas cadastradas" style={{ borderRadius: 16 }}>
-                    <Table<CreatureDto>
+                    <SearchableDataTable<CreatureDto>
                         rowKey="id"
                         columns={columns}
                         dataSource={rows}
-                        pagination={{ pageSize: 8 }}
-                        scroll={{ x: 1000 }}
+                        searchFields={["name", "rarity", "tribe"]}
+                        searchPlaceholder="Buscar criatura por nome, raridade ou tribo"
+                        pageSize={8}
+                        scrollX={1000}
                     />
                 </Card>
             </Space>

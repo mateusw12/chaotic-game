@@ -12,7 +12,6 @@ import {
     Popconfirm,
     Select,
     Space,
-    Table,
     Tag,
     Typography,
 } from "antd";
@@ -34,6 +33,7 @@ import {
 import { AdminShell } from "@/components/admin/admin-shell";
 import { AbilitiesAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
+import { SearchableDataTable } from "@/components/shared/searchable-data-table";
 
 type AbilitiesViewProps = {
     abilities: AbilityDto[];
@@ -309,11 +309,13 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                 </Card>
 
                 <Card title="Habilidades cadastradas" style={{ borderRadius: 16 }}>
-                    <Table<AbilityDto>
+                    <SearchableDataTable<AbilityDto>
                         rowKey="id"
                         columns={columns}
                         dataSource={rows}
-                        pagination={{ pageSize: 8 }}
+                        searchFields={["name", "category", "description"]}
+                        searchPlaceholder="Buscar habilidade por nome, categoria ou descrição"
+                        pageSize={8}
                     />
                 </Card>
             </Space>

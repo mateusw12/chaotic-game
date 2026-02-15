@@ -13,7 +13,6 @@ import {
     Popconfirm,
     Select,
     Space,
-    Table,
     Tag,
     Typography,
     Upload,
@@ -37,6 +36,7 @@ import type { LocationEffectType, LocationStat } from "@/dto/location";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { AttacksAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
+import { SearchableDataTable } from "@/components/shared/searchable-data-table";
 
 type AttacksViewProps = {
     attacks: AttackDto[];
@@ -195,15 +195,6 @@ export function AttacksView({ attacks }: AttacksViewProps) {
 
     const columns = useMemo<ColumnsType<AttackDto>>(
         () => [
-            {
-                title: "Imagem",
-                dataIndex: "imageUrl",
-                key: "imageUrl",
-                width: 100,
-                render: (imageUrl: string | null, row) => imageUrl
-                    ? <Image src={imageUrl} alt={row.name} preview={false} style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 8 }} />
-                    : <Tag>Sem imagem</Tag>,
-            },
             {
                 title: "Nome",
                 dataIndex: "name",
@@ -488,12 +479,14 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                 </Card>
 
                 <Card title="Ataques cadastrados" style={{ borderRadius: 16 }}>
-                    <Table<AttackDto>
+                    <SearchableDataTable<AttackDto>
                         rowKey="id"
                         columns={columns}
                         dataSource={rows}
-                        pagination={{ pageSize: 8 }}
-                        scroll={{ x: 1200 }}
+                        searchFields={["name", "rarity"]}
+                        searchPlaceholder="Buscar ataque por nome ou raridade"
+                        pageSize={8}
+                        scrollX={1200}
                     />
                 </Card>
             </Space>

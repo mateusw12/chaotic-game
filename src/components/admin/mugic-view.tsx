@@ -13,7 +13,6 @@ import {
     Popconfirm,
     Select,
     Space,
-    Table,
     Tag,
     Typography,
     Upload,
@@ -40,6 +39,7 @@ import type { LocationCardType, LocationEffectType, LocationStat } from "@/dto/l
 import { AdminShell } from "@/components/admin/admin-shell";
 import { MugicAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
+import { SearchableDataTable } from "@/components/shared/searchable-data-table";
 
 type MugicViewProps = {
     mugics: MugicDto[];
@@ -208,23 +208,6 @@ export function MugicView({ mugics }: MugicViewProps) {
 
     const columns = useMemo<ColumnsType<MugicDto>>(
         () => [
-            {
-                title: "Imagem",
-                dataIndex: "imageUrl",
-                key: "imageUrl",
-                width: 100,
-                render: (imageUrl: string | null, row) =>
-                    imageUrl ? (
-                        <Image
-                            src={imageUrl}
-                            alt={row.name}
-                            preview={false}
-                            style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 8 }}
-                        />
-                    ) : (
-                        <Tag>Sem imagem</Tag>
-                    ),
-            },
             {
                 title: "Nome",
                 dataIndex: "name",
@@ -572,12 +555,14 @@ export function MugicView({ mugics }: MugicViewProps) {
                 </Card>
 
                 <Card title="Mugics cadastrados" style={{ borderRadius: 16 }}>
-                    <Table<MugicDto>
+                    <SearchableDataTable<MugicDto>
                         rowKey="id"
                         columns={columns}
                         dataSource={rows}
-                        pagination={{ pageSize: 8 }}
-                        scroll={{ x: 1200 }}
+                        searchFields={["name", "rarity"]}
+                        searchPlaceholder="Buscar mugic por nome ou raridade"
+                        pageSize={8}
+                        scrollX={1200}
                     />
                 </Card>
             </Space>

@@ -13,7 +13,6 @@ import {
     Popconfirm,
     Select,
     Space,
-    Table,
     Tag,
     Typography,
     Upload,
@@ -43,6 +42,7 @@ import {
 import { AdminShell } from "@/components/admin/admin-shell";
 import { LocationsAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
+import { SearchableDataTable } from "@/components/shared/searchable-data-table";
 
 type LocationsViewProps = {
     locations: LocationDto[];
@@ -208,23 +208,6 @@ export function LocationsView({ locations }: LocationsViewProps) {
 
     const columns = useMemo<ColumnsType<LocationDto>>(
         () => [
-            {
-                title: "Imagem",
-                dataIndex: "imageUrl",
-                key: "imageUrl",
-                width: 100,
-                render: (imageUrl: string | null, row) =>
-                    imageUrl ? (
-                        <Image
-                            src={imageUrl}
-                            alt={row.name}
-                            preview={false}
-                            style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 8 }}
-                        />
-                    ) : (
-                        <Tag>Sem imagem</Tag>
-                    ),
-            },
             {
                 title: "Nome",
                 dataIndex: "name",
@@ -531,12 +514,14 @@ export function LocationsView({ locations }: LocationsViewProps) {
                 </Card>
 
                 <Card title="Locais cadastrados" style={{ borderRadius: 16 }}>
-                    <Table<LocationDto>
+                    <SearchableDataTable<LocationDto>
                         rowKey="id"
                         columns={columns}
                         dataSource={rows}
-                        pagination={{ pageSize: 8 }}
-                        scroll={{ x: 1000 }}
+                        searchFields={["name", "rarity"]}
+                        searchPlaceholder="Buscar local por nome ou raridade"
+                        pageSize={8}
+                        scrollX={1000}
                     />
                 </Card>
             </Space>
