@@ -62,10 +62,10 @@ export type SupabaseCreatureRow = {
     mugic: number;
     energy: number;
     dominant_elements: CreatureElement[];
-    support_ability_id: string | null;
-    support_ability_name: string | null;
-    brainwashed_ability_id: string | null;
-    brainwashed_ability_name: string | null;
+    support_ability_ids: string[];
+    support_ability_name: string[];
+    brainwashed_ability_ids: string[];
+    brainwashed_ability_name: string[];
     equipment_note: string | null;
     created_at: string;
     updated_at: string;

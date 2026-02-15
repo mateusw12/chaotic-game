@@ -308,8 +308,8 @@ create table if not exists public.creatures (
   mugic integer not null default 0 check (mugic >= 0),
   energy integer not null default 0 check (energy >= 0),
   dominant_elements text[] not null default '{}'::text[],
-  support_ability_id uuid,
-  brainwashed_ability_id uuid,
+  support_ability_ids uuid[] not null default '{}'::uuid[],
+  brainwashed_ability_ids uuid[] not null default '{}'::uuid[],
   equipment_note text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -401,10 +401,45 @@ begin
 end $$;
 
 alter table if exists public.creatures
-  add column if not exists support_ability_id uuid;
+  add column if not exists support_ability_ids uuid[] not null default '{}'::uuid[];
 
 alter table if exists public.creatures
-  add column if not exists brainwashed_ability_id uuid;
+  add column if not exists brainwashed_ability_ids uuid[] not null default '{}'::uuid[];
+
+do $$
+begin
+  if exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'creatures'
+      and column_name = 'support_ability_id'
+  ) then
+    update public.creatures
+    set support_ability_ids = case
+      when support_ability_id is null then support_ability_ids
+      else array[support_ability_id]
+    end
+    where support_ability_id is not null
+      and coalesce(array_length(support_ability_ids, 1), 0) = 0;
+  end if;
+
+  if exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'creatures'
+      and column_name = 'brainwashed_ability_id'
+  ) then
+    update public.creatures
+    set brainwashed_ability_ids = case
+      when brainwashed_ability_id is null then brainwashed_ability_ids
+      else array[brainwashed_ability_id]
+    end
+    where brainwashed_ability_id is not null
+      and coalesce(array_length(brainwashed_ability_ids, 1), 0) = 0;
+  end if;
+end $$;
 
 alter table if exists public.creatures
   add column if not exists image_url text;
@@ -527,30 +562,30 @@ begin
       check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara'));
   end if;
 
-  if not exists (
+  if exists (
     select 1
     from pg_constraint
     where conname = 'creatures_support_ability_id_fkey'
   ) then
     alter table public.creatures
-      add constraint creatures_support_ability_id_fkey
-      foreign key (support_ability_id)
-      references public.abilities(id)
-      on delete set null;
+      drop constraint creatures_support_ability_id_fkey;
   end if;
 
-  if not exists (
+  if exists (
     select 1
     from pg_constraint
     where conname = 'creatures_brainwashed_ability_id_fkey'
   ) then
     alter table public.creatures
-      add constraint creatures_brainwashed_ability_id_fkey
-      foreign key (brainwashed_ability_id)
-      references public.abilities(id)
-      on delete set null;
+      drop constraint creatures_brainwashed_ability_id_fkey;
   end if;
 end $$;
+
+alter table if exists public.creatures
+  drop column if exists support_ability_id;
+
+alter table if exists public.creatures
+  drop column if exists brainwashed_ability_id;
 
 do $$
 begin

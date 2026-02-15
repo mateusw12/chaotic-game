@@ -106,10 +106,10 @@ export type CreatureDto = {
     mugic: number;
     energy: number;
     dominantElements: CreatureElement[];
-    supportAbilityId: string | null;
-    supportAbilityName: string | null;
-    brainwashedAbilityId: string | null;
-    brainwashedAbilityName: string | null;
+    supportAbilityId: string[];
+    supportAbilityName: string[];
+    brainwashedAbilityId: string[];
+    brainwashedAbilityName: string[];
     equipmentNote: string | null;
     createdAt: string;
     updatedAt: string;
@@ -127,8 +127,8 @@ export type CreateCreatureRequestDto = {
     mugic: number;
     energy: number;
     dominantElements: CreatureElement[];
-    supportAbilityId?: string | null;
-    brainwashedAbilityId?: string | null;
+    supportAbilityId?: string[] | null;
+    brainwashedAbilityId?: string[] | null;
     equipmentNote?: string | null;
 };
 

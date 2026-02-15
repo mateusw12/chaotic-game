@@ -8,6 +8,21 @@ import {
 import { auth } from "@/lib/auth";
 import { deleteCreatureById, getUserByEmail, updateCreatureById } from "@/lib/supabase";
 
+function parseAbilityIds(value: unknown): string[] {
+    if (Array.isArray(value)) {
+        return value
+            .filter((item): item is string => typeof item === "string")
+            .map((item) => item.trim())
+            .filter(Boolean);
+    }
+
+    if (typeof value === "string" && value.trim()) {
+        return [value.trim()];
+    }
+
+    return [];
+}
+
 type RouteContext = {
     params: Promise<{
         creatureId: string;
@@ -71,8 +86,8 @@ export async function PATCH(request: Request, context: RouteContext) {
             dominantElements: Array.isArray(body.dominantElements)
                 ? body.dominantElements
                 : [],
-            supportAbilityId: body.supportAbilityId ?? null,
-            brainwashedAbilityId: body.brainwashedAbilityId ?? null,
+            supportAbilityId: parseAbilityIds(body.supportAbilityId),
+            brainwashedAbilityId: parseAbilityIds(body.brainwashedAbilityId),
             equipmentNote: body.equipmentNote ?? null,
         });
 

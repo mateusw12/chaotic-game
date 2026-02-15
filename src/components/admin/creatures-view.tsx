@@ -17,7 +17,7 @@ import {
     type CreatureTribe,
 } from "@/dto/creature";
 import { AdminShell } from "@/components/admin/admin-shell";
-import { CreaturesAdminService } from "@/lib/api/service";
+import { AbilitiesAdminService, CreaturesAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
 import { useImageUploadField } from "@/hooks/use-image-upload-field";
@@ -41,6 +41,8 @@ type CreatureFormValues = {
     mugic: number;
     energy: number;
     dominantElements: CreatureElement[];
+    supportAbilityId: string[];
+    brainwashedAbilityId: string[];
     equipmentNote?: string;
 };
 
@@ -88,6 +90,25 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
         initialData: creatures,
     });
 
+    const { data: abilities = [] } = useQuery({
+        queryKey: adminQueryKeys.abilities,
+        queryFn: () => AbilitiesAdminService.getAll(),
+    });
+
+    const supportAbilityOptions = useMemo(
+        () => abilities
+            .filter((ability) => ability.category === "support")
+            .map((ability) => ({ value: ability.id, label: ability.name })),
+        [abilities],
+    );
+
+    const brainwashedAbilityOptions = useMemo(
+        () => abilities
+            .filter((ability) => ability.category === "brainwashed")
+            .map((ability) => ({ value: ability.id, label: ability.name })),
+        [abilities],
+    );
+
     const saveMutation = useMutation({
         mutationFn: ({ id, payload }: { id: string | null; payload: CreateCreatureRequestDto }) =>
             id ? CreaturesAdminService.update(id, payload) : CreaturesAdminService.create(payload),
@@ -98,10 +119,6 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
     });
 
     async function onCreateCreature(values: CreatureFormValues) {
-        const creatureBeingEdited = editingCreatureId
-            ? rows.find((row) => row.id === editingCreatureId)
-            : null;
-
         const payload: CreateCreatureRequestDto = {
             name: values.name,
             rarity: values.rarity,
@@ -114,8 +131,8 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             mugic: values.mugic,
             energy: values.energy,
             dominantElements: values.dominantElements,
-            supportAbilityId: creatureBeingEdited?.supportAbilityId ?? null,
-            brainwashedAbilityId: creatureBeingEdited?.brainwashedAbilityId ?? null,
+            supportAbilityId: values.supportAbilityId,
+            brainwashedAbilityId: values.brainwashedAbilityId,
             equipmentNote: values.equipmentNote ?? null,
         };
 
@@ -155,6 +172,8 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             mugic: creature.mugic,
             energy: creature.energy,
             dominantElements: creature.dominantElements,
+            supportAbilityId: creature.supportAbilityId,
+            brainwashedAbilityId: creature.brainwashedAbilityId,
             equipmentNote: creature.equipmentNote ?? undefined,
         });
 
@@ -256,10 +275,10 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                 render: (_, row) => (
                     <Space orientation="vertical" size={6}>
                         <Tag color="geekblue">
-                            Support: {row.supportAbilityName ?? "Sem habilidade"}
+                            Support: {row.supportAbilityName.length > 0 ? row.supportAbilityName.join(", ") : "Sem habilidade"}
                         </Tag>
                         <Tag color="magenta">
-                            Brainwashed: {row.brainwashedAbilityName ?? "Sem habilidade"}
+                            Brainwashed: {row.brainwashedAbilityName.length > 0 ? row.brainwashedAbilityName.join(", ") : "Sem habilidade"}
                         </Tag>
                     </Space>
                 ),
@@ -327,6 +346,8 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                             mugic: 0,
                             energy: 0,
                             dominantElements: [],
+                            supportAbilityId: [],
+                            brainwashedAbilityId: [],
                         }}
                     >
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
@@ -416,6 +437,26 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                                         label: item.label,
                                     }))}
                                     placeholder="Selecione um ou mais"
+                                />
+                            </Form.Item>
+
+                            <Form.Item label="Habilidades de suporte" name="supportAbilityId">
+                                <Select
+                                    mode="multiple"
+                                    options={supportAbilityOptions}
+                                    placeholder="Selecione habilidades support"
+                                    optionFilterProp="label"
+                                    showSearch
+                                />
+                            </Form.Item>
+
+                            <Form.Item label="Habilidades brainwashed" name="brainwashedAbilityId">
+                                <Select
+                                    mode="multiple"
+                                    options={brainwashedAbilityOptions}
+                                    placeholder="Selecione habilidades brainwashed"
+                                    optionFilterProp="label"
+                                    showSearch
                                 />
                             </Form.Item>
 
