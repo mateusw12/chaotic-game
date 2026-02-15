@@ -2,6 +2,15 @@ import type { BattleGearDto, CreateBattleGearRequestDto } from "@/dto/battlegear
 import { ApiClient } from "@/lib/api/api-client";
 import { BaseCrudService } from "@/lib/api/base-crud-service";
 
+type ImportJsonApiResponse = {
+    success: boolean;
+    imported: number;
+    updated: number;
+    skipped: number;
+    fileName: string;
+    message?: string;
+};
+
 type UploadFileApiResponse = {
     success: boolean;
     file: { imageFileId: string; path: string; publicUrl: string | null } | null;
@@ -34,6 +43,13 @@ export class BattleGearAdminService extends BaseCrudService {
 
     static getAll() {
         return this.listEntities<BattleGearDto, "battlegear">(this.resourcePath, "battlegear");
+    }
+
+    static importFromJson() {
+        return ApiClient.post<ImportJsonApiResponse, Record<string, never>>(
+            "/admin/battlegear/import-json",
+            {},
+        );
     }
 
     static uploadImage(formData: FormData) {

@@ -84,6 +84,10 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             id ? BattleGearAdminService.update(id, payload) : BattleGearAdminService.create(payload),
     });
 
+    const importMutation = useMutation({
+        mutationFn: () => BattleGearAdminService.importFromJson(),
+    });
+
     const deleteMutation = useMutation({
         mutationFn: (id: string) => BattleGearAdminService.remove(id),
     });
@@ -203,6 +207,23 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             setDeletingId(null);
         }
     }, [deleteMutation, message, queryClient]);
+
+    const onImportBattlegearFromJson = useCallback(async () => {
+        try {
+            const result = await importMutation.mutateAsync();
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.battlegear });
+
+            message.success(
+                `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).`,
+            );
+        } catch (error) {
+            message.error(
+                error instanceof Error
+                    ? error.message
+                    : "Erro ao importar equipamentos do JSON.",
+            );
+        }
+    }, [importMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<BattleGearDto>>(
         () => [
@@ -324,9 +345,14 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                             </Title>
                         </Space>
 
-                        <Link href="/">
-                            <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
-                        </Link>
+                        <Space>
+                            <Button onClick={() => void onImportBattlegearFromJson()} loading={importMutation.isPending}>
+                                Importar battlegear.json
+                            </Button>
+                            <Link href="/">
+                                <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
+                            </Link>
+                        </Space>
                     </Space>
                 </Card>
 
