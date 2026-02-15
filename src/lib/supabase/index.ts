@@ -11,3 +11,4 @@ export * from "./store";
 export * from "./starter";
 export * from "./storage";
 export * from "./tournaments";
+export * from "./decks";

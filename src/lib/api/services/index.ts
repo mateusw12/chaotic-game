@@ -10,3 +10,4 @@ export { StarterProgressionService } from "./starter-progression.service";
 export { StoreService } from "./store.service";
 export { TournamentsAdminService } from "./tournaments-admin.service";
 export { WalletsAdminService } from "./wallets-admin.service";
+export { DecksService } from "./decks.service";

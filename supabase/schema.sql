@@ -259,6 +259,25 @@ create table if not exists public.user_cards (
   unique (user_id, card_type, card_id)
 );
 
+create table if not exists public.user_decks (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  name text not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.user_deck_cards (
+  id uuid primary key default gen_random_uuid(),
+  deck_id uuid not null references public.user_decks(id) on delete cascade,
+  card_type text not null check (card_type in ('creature', 'location', 'mugic', 'battlegear', 'attack')),
+  card_id uuid not null,
+  quantity integer not null default 1 check (quantity >= 1),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (deck_id, card_type, card_id)
+);
+
 create table if not exists public.progression_events (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.users(id) on delete cascade,
@@ -276,6 +295,8 @@ create table if not exists public.progression_events (
 );
 
 create index if not exists idx_user_cards_user_id on public.user_cards(user_id);
+create index if not exists idx_user_decks_user_id on public.user_decks(user_id);
+create index if not exists idx_user_deck_cards_deck_id on public.user_deck_cards(deck_id);
 create index if not exists idx_progression_events_user_id_created_at on public.progression_events(user_id, created_at desc);
 
 do $$

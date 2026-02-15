@@ -62,6 +62,14 @@ export function getUserCardsTableName() {
     return process.env.SUPABASE_USER_CARDS_TABLE ?? "user_cards";
 }
 
+export function getUserDecksTableName() {
+    return process.env.SUPABASE_USER_DECKS_TABLE ?? "user_decks";
+}
+
+export function getUserDeckCardsTableName() {
+    return process.env.SUPABASE_USER_DECK_CARDS_TABLE ?? "user_deck_cards";
+}
+
 export function getTournamentsTableName() {
     return process.env.SUPABASE_TOURNAMENTS_TABLE ?? "tournaments";
 }
