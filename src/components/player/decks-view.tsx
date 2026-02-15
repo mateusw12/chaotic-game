@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { DeleteOutlined } from "@ant-design/icons";
 import {
@@ -88,6 +88,7 @@ export function DecksView({
     const [deckCardTypeFilter, setDeckCardTypeFilter] = useState<UserCardType | undefined>(undefined);
     const [selectedCollectionCard, setSelectedCollectionCard] = useState<DeckCollectionCardDto | null>(null);
     const [sellQuantity, setSellQuantity] = useState(1);
+    const [pendingDeckActionKey, setPendingDeckActionKey] = useState<string | null>(null);
 
     const [modalNameFilter, setModalNameFilter] = useState("");
     const [modalRarityFilter, setModalRarityFilter] = useState<CardRarity | undefined>(undefined);
@@ -117,6 +118,13 @@ export function DecksView({
             await query.refetch();
         },
         onError: (error) => {
+            if (error instanceof Error && error.message.toLowerCase().includes("deck não encontrado")) {
+                void query.refetch().then((result) => {
+                    const nextDecks = result.data?.decks ?? [];
+                    setSelectedDeckId(nextDecks[0]?.id ?? null);
+                });
+            }
+
             message.error(error instanceof Error ? error.message : "Erro ao atualizar deck.");
         },
     });
@@ -158,6 +166,19 @@ export function DecksView({
     const decks = overview?.decks ?? [];
     const selectedDeck = decks.find((deck) => deck.id === selectedDeckId) ?? decks[0] ?? null;
     const viewedDeck = decks.find((deck) => deck.id === viewDeckId) ?? null;
+
+    useEffect(() => {
+        if (decks.length === 0) {
+            if (selectedDeckId !== null) {
+                setSelectedDeckId(null);
+            }
+            return;
+        }
+
+        if (!selectedDeckId || !decks.some((deck) => deck.id === selectedDeckId)) {
+            setSelectedDeckId(decks[0].id);
+        }
+    }, [decks, selectedDeckId]);
 
     const collection = overview?.collection ?? [];
     const collectionByKey = useMemo(
@@ -266,46 +287,70 @@ export function DecksView({
     }, [viewedDeck, viewedDeckCardsFiltered]);
 
     const handleAddCardToDeck = async (card: DeckCollectionCardDto) => {
-        if (!selectedDeck) {
+        const activeDeck = selectedDeckId
+            ? decks.find((deck) => deck.id === selectedDeckId) ?? decks[0] ?? null
+            : decks[0] ?? null;
+
+        if (!activeDeck) {
             message.warning("Crie ou selecione um deck primeiro.");
             return;
         }
 
         const key = `${card.cardType}:${card.cardId}`;
-        const currentQuantity = deckCardMap.get(key) ?? 0;
+        const activeDeckCardMap = new Map(activeDeck.cards.map((entry) => [`${entry.cardType}:${entry.cardId}`, entry.quantity]));
+        const currentQuantity = activeDeckCardMap.get(key) ?? 0;
+
+        if (currentQuantity > 0) {
+            message.warning("Essa carta já está no deck. Apenas 1 cópia por carta é permitida.");
+            return;
+        }
 
         const nextCards = [
-            ...(selectedDeck.cards.filter((entry) => `${entry.cardType}:${entry.cardId}` !== key)),
+            ...(activeDeck.cards.filter((entry) => `${entry.cardType}:${entry.cardId}` !== key)),
             {
                 cardType: card.cardType,
                 cardId: card.cardId,
-                quantity: currentQuantity + 1,
+                quantity: 1,
             },
         ];
 
-        await updateDeckMutation.mutateAsync({
-            deckId: selectedDeck.id,
-            payload: { cards: nextCards },
-        });
+        setPendingDeckActionKey(key);
+        try {
+            await updateDeckMutation.mutateAsync({
+                deckId: activeDeck.id,
+                payload: { cards: nextCards },
+            });
+        } finally {
+            setPendingDeckActionKey(null);
+        }
     };
 
     const handleChangeDeckCardQuantity = async (cardKey: string, quantity: number) => {
-        if (!selectedDeck) {
+        const activeDeck = selectedDeckId
+            ? decks.find((deck) => deck.id === selectedDeckId) ?? decks[0] ?? null
+            : decks[0] ?? null;
+
+        if (!activeDeck) {
             return;
         }
 
         const [cardType, cardId] = cardKey.split(":");
         const normalizedQuantity = Math.max(0, Math.trunc(quantity));
 
-        const baseCards = selectedDeck.cards.filter((entry) => `${entry.cardType}:${entry.cardId}` !== cardKey);
+        const baseCards = activeDeck.cards.filter((entry) => `${entry.cardType}:${entry.cardId}` !== cardKey);
         const nextCards = normalizedQuantity > 0
             ? [...baseCards, { cardType: cardType as DeckDto["cards"][number]["cardType"], cardId, quantity: normalizedQuantity }]
             : baseCards;
 
-        await updateDeckMutation.mutateAsync({
-            deckId: selectedDeck.id,
-            payload: { cards: nextCards },
-        });
+        setPendingDeckActionKey(cardKey);
+        try {
+            await updateDeckMutation.mutateAsync({
+                deckId: activeDeck.id,
+                payload: { cards: nextCards },
+            });
+        } finally {
+            setPendingDeckActionKey(null);
+        }
     };
 
     const handleCardClick = (card: DeckCollectionCardDto) => {
@@ -347,6 +392,30 @@ export function DecksView({
         [deckCardTypeFilter, selectedDeck],
     );
 
+    const isCardDeckActionPending = (cardType: UserCardType, cardId: string) =>
+        updateDeckMutation.isPending && pendingDeckActionKey === `${cardType}:${cardId}`;
+
+    const cardDeckNamesMap = useMemo(() => {
+        const map = new Map<string, string[]>();
+
+        for (const deck of decks) {
+            for (const entry of deck.cards) {
+                const key = `${entry.cardType}:${entry.cardId}`;
+                const list = map.get(key) ?? [];
+                if (!list.includes(deck.name)) {
+                    list.push(deck.name);
+                }
+                map.set(key, list);
+            }
+        }
+
+        return map;
+    }, [decks]);
+
+    const selectedCardDeckNames = selectedCollectionCard
+        ? (cardDeckNamesMap.get(`${selectedCollectionCard.cardType}:${selectedCollectionCard.cardId}`) ?? [])
+        : [];
+
     const collectionTabs = useMemo(
         () => [
             {
@@ -364,11 +433,18 @@ export function DecksView({
                                     <img src={card.imageUrl} alt={card.name} className={styles.cardImage} />
                                 </div>
                                 <Text className={styles.cardName}>{card.name}</Text>
+                                {(cardDeckNamesMap.get(`${card.cardType}:${card.cardId}`)?.length ?? 0) > 0 ? (
+                                    <Tag color="cyan" style={{ marginTop: 6, marginInlineEnd: 0 }}>
+                                        Em {cardDeckNamesMap.get(`${card.cardType}:${card.cardId}`)?.length} deck(s)
+                                    </Tag>
+                                ) : null}
                                 <Space style={{ marginTop: 6, width: "100%", justifyContent: "space-between" }}>
                                     <Tag>{card.quantity}x</Tag>
                                     <Button
                                         size="small"
                                         type="primary"
+                                        loading={isCardDeckActionPending(card.cardType, card.cardId)}
+                                        disabled={updateDeckMutation.isPending}
                                         onClick={(event) => {
                                             event.stopPropagation();
                                             void handleAddCardToDeck(card);
@@ -403,11 +479,18 @@ export function DecksView({
                                     <img src={card.imageUrl} alt={card.name} className={styles.cardImage} />
                                 </div>
                                 <Text className={styles.cardName}>{card.name}</Text>
+                                {(cardDeckNamesMap.get(`${card.cardType}:${card.cardId}`)?.length ?? 0) > 0 ? (
+                                    <Tag color="cyan" style={{ marginTop: 6, marginInlineEnd: 0 }}>
+                                        Em {cardDeckNamesMap.get(`${card.cardType}:${card.cardId}`)?.length} deck(s)
+                                    </Tag>
+                                ) : null}
                                 <Space style={{ marginTop: 6, width: "100%", justifyContent: "space-between" }}>
                                     <Tag>{card.quantity}x</Tag>
                                     <Button
                                         size="small"
                                         type="primary"
+                                        loading={isCardDeckActionPending(card.cardType, card.cardId)}
+                                        disabled={updateDeckMutation.isPending}
                                         onClick={(event) => {
                                             event.stopPropagation();
                                             void handleAddCardToDeck(card);
@@ -422,7 +505,17 @@ export function DecksView({
                 ),
             },
         ],
-        [filteredCollection, repeatedCards, repeatedCardsCount, repeatedTotalQuantity],
+        [
+            cardDeckNamesMap,
+            filteredCollection,
+            handleAddCardToDeck,
+            handleCardClick,
+            isCardDeckActionPending,
+            repeatedCards,
+            repeatedCardsCount,
+            repeatedTotalQuantity,
+            updateDeckMutation.isPending,
+        ],
     );
 
     return (
@@ -546,11 +639,17 @@ export function DecksView({
                                                 <InputNumber
                                                     min={0}
                                                     value={entry.quantity}
+                                                    disabled={updateDeckMutation.isPending}
                                                     onChange={(value) => {
                                                         void handleChangeDeckCardQuantity(key, Number(value ?? 0));
                                                     }}
                                                 />
-                                                <Button danger onClick={() => void handleChangeDeckCardQuantity(key, 0)}>
+                                                <Button
+                                                    danger
+                                                    loading={isCardDeckActionPending(entry.cardType, entry.cardId)}
+                                                    disabled={updateDeckMutation.isPending && !isCardDeckActionPending(entry.cardType, entry.cardId)}
+                                                    onClick={() => void handleChangeDeckCardQuantity(key, 0)}
+                                                >
                                                     X
                                                 </Button>
                                             </div>
@@ -611,6 +710,7 @@ export function DecksView({
                                                         <InputNumber
                                                             min={0}
                                                             value={card.deckQuantity}
+                                                            disabled={updateDeckMutation.isPending}
                                                             onChange={(value) => {
                                                                 void handleChangeDeckCardQuantity(cardKey, Number(value ?? 0));
                                                             }}
@@ -622,6 +722,8 @@ export function DecksView({
                                                             icon={<DeleteOutlined />}
                                                             aria-label="Remover carta"
                                                             title="Remover carta"
+                                                            loading={isCardDeckActionPending(card.cardType, card.cardId)}
+                                                            disabled={updateDeckMutation.isPending && !isCardDeckActionPending(card.cardType, card.cardId)}
                                                             onClick={() => void handleChangeDeckCardQuantity(cardKey, 0)}
                                                         />
                                                     </Space>
@@ -650,6 +752,17 @@ export function DecksView({
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
                             <Text type="secondary">Gerencie esta carta de forma rápida: adicione ao deck ou venda por moedas.</Text>
 
+                            {selectedCardDeckNames.length > 0 ? (
+                                <div className={styles.actionCardDeckWarn}>
+                                    <Text strong>Esta carta está em {selectedCardDeckNames.length} deck(s):</Text>
+                                    <Space wrap style={{ marginTop: 8 }}>
+                                        {selectedCardDeckNames.map((deckName) => (
+                                            <Tag key={deckName} color="purple">{deckName}</Tag>
+                                        ))}
+                                    </Space>
+                                </div>
+                            ) : null}
+
                             <div className={styles.actionCardSummary}>
                                 <div>
                                     <Text className={styles.actionCardLabel}>Disponível</Text>
@@ -677,7 +790,12 @@ export function DecksView({
                             </div>
 
                             <div className={styles.actionCardButtons}>
-                                <Button block onClick={() => void handleAddCardToDeck(selectedCollectionCard)}>
+                                <Button
+                                    block
+                                    loading={isCardDeckActionPending(selectedCollectionCard.cardType, selectedCollectionCard.cardId)}
+                                    disabled={updateDeckMutation.isPending && !isCardDeckActionPending(selectedCollectionCard.cardType, selectedCollectionCard.cardId)}
+                                    onClick={() => void handleAddCardToDeck(selectedCollectionCard)}
+                                >
                                     Adicionar ao deck
                                 </Button>
                                 <Button

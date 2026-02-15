@@ -340,13 +340,26 @@ export async function updateUserDeck(userId: string, deckId: string, payload: Up
     }
 
     if (payload.cards) {
-        const normalizedCards = payload.cards
-            .map((item) => ({
-                card_type: item.cardType,
-                card_id: item.cardId,
-                quantity: Math.max(0, Math.trunc(item.quantity)),
-            }))
-            .filter((item) => item.quantity > 0);
+        const normalizedCardsMap = new Map<string, { card_type: UserCardType; card_id: string; quantity: number }>();
+
+        for (const item of payload.cards) {
+            const normalizedQuantity = Math.max(0, Math.trunc(item.quantity));
+            if (normalizedQuantity <= 0) {
+                continue;
+            }
+
+            const key = `${item.cardType}:${item.cardId}`;
+
+            if (!normalizedCardsMap.has(key)) {
+                normalizedCardsMap.set(key, {
+                    card_type: item.cardType,
+                    card_id: item.cardId,
+                    quantity: 1,
+                });
+            }
+        }
+
+        const normalizedCards = [...normalizedCardsMap.values()];
 
         const { error: deleteError } = await supabase
             .from(getUserDeckCardsTableName())
@@ -383,6 +396,30 @@ export async function updateUserDeck(userId: string, deckId: string, payload: Up
 
 export async function deleteUserDeck(userId: string, deckId: string): Promise<void> {
     const supabase = getSupabaseAdminClient();
+
+    const { data: deck, error: deckLookupError } = await supabase
+        .from(getUserDecksTableName())
+        .select("id")
+        .eq("id", deckId)
+        .eq("user_id", userId)
+        .maybeSingle<{ id: string }>();
+
+    if (deckLookupError) {
+        throw new Error(`Erro ao localizar deck: ${deckLookupError.message}`);
+    }
+
+    if (!deck) {
+        throw new Error("Deck não encontrado.");
+    }
+
+    const { error: deckCardsDeleteError } = await supabase
+        .from(getUserDeckCardsTableName())
+        .delete()
+        .eq("deck_id", deckId);
+
+    if (deckCardsDeleteError) {
+        throw new Error(`Erro ao remover cartas vinculadas ao deck: ${deckCardsDeleteError.message}`);
+    }
 
     const { error } = await supabase
         .from(getUserDecksTableName())
