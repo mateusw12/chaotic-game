@@ -2,40 +2,82 @@
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     gap: 16px;
+    position: relative;
+}
+
+.root::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    z-index: -1;
+    border-radius: 22px;
+    background: radial-gradient(circle at 15% 15%, rgba(94, 210, 255, 0.2), transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(134, 110, 255, 0.18), transparent 45%);
+    filter: blur(8px);
+}
+
+.pageTitle {
+    color: #e8f1ff !important;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-shadow: 0 0 16px rgba(120, 198, 255, 0.45), 0 0 28px rgba(151, 132, 255, 0.2);
 }
 
 .panel {
+    position: relative;
     border-radius: 16px;
-    border: 1px solid rgba(157, 176, 255, 0.24);
-    background: linear-gradient(160deg, rgba(17, 24, 51, 0.88), rgba(6, 11, 28, 0.95));
+    border: 1px solid rgba(129, 194, 255, 0.32);
+    background: linear-gradient(165deg, rgba(16, 26, 58, 0.92), rgba(5, 10, 28, 0.96));
+    box-shadow: inset 0 1px 0 rgba(194, 228, 255, 0.2), 0 12px 28px rgba(2, 8, 24, 0.55);
+    overflow: hidden;
+}
+
+.panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(109, 192, 255, 0.08), transparent 45%, rgba(146, 116, 255, 0.08));
 }
 
 .filters {
     display: grid;
     grid-template-columns: repeat(4, minmax(120px, 1fr));
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .cardsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
+    gap: 13px;
 }
 
 .cardButton {
-    border: 1px solid rgba(157, 176, 255, 0.18);
+    position: relative;
+    border: 1px solid rgba(149, 189, 255, 0.26);
     border-radius: 12px;
     padding: 8px;
-    background: rgba(10, 15, 34, 0.78);
+    background: linear-gradient(170deg, rgba(12, 19, 42, 0.86), rgba(8, 13, 30, 0.86));
     cursor: pointer;
     text-align: left;
-    transition: transform 0.14s ease, box-shadow 0.14s ease;
+    box-shadow: inset 0 1px 0 rgba(181, 220, 255, 0.14), 0 10px 20px rgba(3, 7, 18, 0.35);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.cardButton::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    pointer-events: none;
+    border: 1px solid rgba(104, 203, 255, 0.08);
 }
 
 .cardButton:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.28);
+    border-color: rgba(129, 214, 255, 0.5);
+    box-shadow: inset 0 1px 0 rgba(211, 238, 255, 0.2), 0 14px 26px rgba(4, 10, 25, 0.45);
 }
 
 .cardImageWrap {
@@ -43,6 +85,7 @@
     aspect-ratio: 0.72;
     border-radius: 8px;
     overflow: hidden;
+    border: 1px solid rgba(149, 193, 255, 0.2);
     background: rgba(255, 255, 255, 0.06);
 }
 
@@ -100,6 +143,7 @@
     gap: 8px;
     max-height: 220px;
     overflow: auto;
+    padding-right: 3px;
 }
 
 .deckRow {
@@ -109,8 +153,8 @@
     gap: 8px;
     padding: 8px;
     border-radius: 10px;
-    border: 1px solid rgba(149, 170, 255, 0.2);
-    background: rgba(8, 13, 31, 0.7);
+    border: 1px solid rgba(150, 192, 255, 0.24);
+    background: linear-gradient(170deg, rgba(13, 20, 46, 0.78), rgba(8, 14, 33, 0.7));
 }
 
 .deckCards {
@@ -118,6 +162,7 @@
     gap: 8px;
     max-height: 420px;
     overflow: auto;
+    padding-right: 3px;
 }
 
 .deckCardRow {
@@ -127,8 +172,67 @@
     align-items: center;
     padding: 8px;
     border-radius: 10px;
-    border: 1px solid rgba(149, 170, 255, 0.2);
-    background: rgba(8, 13, 31, 0.7);
+    border: 1px solid rgba(150, 192, 255, 0.24);
+    background: linear-gradient(170deg, rgba(13, 20, 46, 0.78), rgba(8, 14, 33, 0.7));
+}
+
+.deckList::-webkit-scrollbar,
+.deckCards::-webkit-scrollbar {
+    width: 8px;
+}
+
+.deckList::-webkit-scrollbar-thumb,
+.deckCards::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(123, 205, 255, 0.8), rgba(117, 110, 255, 0.8));
+}
+
+.viewDeckModal :global(.ant-modal-content) {
+    border: 1px solid rgba(142, 198, 255, 0.34);
+    background: linear-gradient(170deg, rgba(9, 18, 44, 0.96), rgba(5, 11, 27, 0.98));
+    box-shadow: 0 24px 42px rgba(2, 8, 24, 0.64);
+}
+
+.viewDeckModal :global(.ant-modal-header) {
+    background: transparent;
+    border-bottom: 1px solid rgba(143, 199, 255, 0.2);
+}
+
+.viewDeckModal :global(.ant-modal-title) {
+    color: #dfe9ff;
+    text-shadow: 0 0 14px rgba(126, 199, 255, 0.35);
+}
+
+.viewDeckModal :global(.ant-tabs-tab-btn) {
+    color: rgba(221, 235, 255, 0.8);
+}
+
+.viewDeckModal :global(.ant-tabs-tab-active .ant-tabs-tab-btn) {
+    color: #dff4ff;
+}
+
+.panel :global(.ant-tabs-ink-bar),
+.viewDeckModal :global(.ant-tabs-ink-bar) {
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #62d8ff, #9581ff);
+}
+
+.panel :global(.ant-input),
+.panel :global(.ant-input-number),
+.panel :global(.ant-select-selector),
+.viewDeckModal :global(.ant-input),
+.viewDeckModal :global(.ant-input-number),
+.viewDeckModal :global(.ant-select-selector) {
+    border-color: rgba(141, 191, 255, 0.34) !important;
+    background: rgba(7, 13, 30, 0.78) !important;
+}
+
+.panel :global(.ant-tag),
+.viewDeckModal :global(.ant-tag) {
+    border-color: rgba(124, 195, 255, 0.45);
+    background: rgba(63, 151, 235, 0.14);
+    color: #deecff;
 }
 
 @media (max-width: 1024px) {

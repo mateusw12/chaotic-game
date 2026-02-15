@@ -355,7 +355,7 @@ export function DecksView({
             diamonds={diamonds}
         >
             <Space orientation="vertical" size={14} style={{ width: "100%" }}>
-                <Title level={3} style={{ margin: 0 }}>Meu Deck</Title>
+                <Title level={3} style={{ margin: 0 }} className={styles.pageTitle}>Meu Deck</Title>
                 <div className={styles.root}>
                     <Card className={styles.panel}>
                         <div className={styles.filters}>
@@ -482,6 +482,7 @@ export function DecksView({
 
                 <Modal
                     title={viewedDeck ? `Visualizar deck: ${viewedDeck.name}` : "Visualizar deck"}
+                    className={styles.viewDeckModal}
                     open={Boolean(viewedDeck)}
                     onCancel={() => setViewDeckId(null)}
                     footer={null}
