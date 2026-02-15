@@ -40,3 +40,44 @@ a {
     color-scheme: dark;
   }
 }
+
+.loadingLogoSpin,
+.loadingLogoSpinLarge {
+  object-fit: contain;
+  animation: loadingLogoSpin 0.9s linear infinite, loadingLogoPulse 1.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(112, 201, 255, 0.55));
+}
+
+.loadingLogoSpin {
+  width: 16px;
+  height: 16px;
+}
+
+.loadingLogoSpinLarge {
+  width: 48px;
+  height: 48px;
+}
+
+@keyframes loadingLogoSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingLogoPulse {
+
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}

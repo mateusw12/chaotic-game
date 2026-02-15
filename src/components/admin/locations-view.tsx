@@ -46,6 +46,7 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { LocationsAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 import { useImageUploadField } from "@/hooks/use-image-upload-field";
 import { useFormSubmitToast } from "@/hooks/use-form-submit-toast";
 
@@ -357,7 +358,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                             cancelText="Cancelar"
                             onConfirm={() => onDelete(row.id)}
                         >
-                            <Button size="small" danger loading={deletingLocationId === row.id}>
+                            <Button size="small" danger icon={deletingLocationId === row.id ? <LoadingLogo /> : undefined} disabled={deletingLocationId === row.id}>
                                 Remover
                             </Button>
                         </Popconfirm>
@@ -381,7 +382,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                         </Space>
 
                         <Space>
-                            <Button onClick={() => void onImportLocationsFromJson()} loading={importMutation.isPending}>
+                            <Button onClick={() => void onImportLocationsFromJson()} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar locations.json
                             </Button>
                             <Link href="/">
@@ -434,7 +435,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                                     }}
                                     onRemove={() => clearImage()}
                                 >
-                                    <Button loading={isImageUploading}>Anexar imagem</Button>
+                                    <Button icon={isImageUploading ? <LoadingLogo /> : undefined} disabled={isImageUploading}>Anexar imagem</Button>
                                 </Upload>
                             </Form.Item>
 
@@ -596,7 +597,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                                 )}
                             </Form.List>
 
-                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
+                            <Button type="primary" htmlType="submit" icon={saveMutation.isPending ? <LoadingLogo /> : undefined} disabled={saveMutation.isPending}>
                                 {editingLocationId ? "Salvar edição" : "Cadastrar local"}
                             </Button>
 

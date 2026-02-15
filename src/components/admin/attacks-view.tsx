@@ -37,6 +37,7 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { AttacksAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 
 type AttacksViewProps = {
     attacks: AttackDto[];
@@ -291,7 +292,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                             cancelText="Cancelar"
                             onConfirm={() => onDelete(row.id)}
                         >
-                            <Button size="small" danger loading={deletingId === row.id}>Remover</Button>
+                            <Button size="small" danger icon={deletingId === row.id ? <LoadingLogo /> : undefined} disabled={deletingId === row.id}>Remover</Button>
                         </Popconfirm>
                     </Space>
                 ),
@@ -311,7 +312,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                         </Space>
 
                         <Space>
-                            <Button onClick={() => void onImportAttacksFromJson()} loading={importMutation.isPending}>
+                            <Button onClick={() => void onImportAttacksFromJson()} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar attack.json
                             </Button>
                             <Link href="/">
@@ -368,7 +369,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                                         setImageFileList([]);
                                     }}
                                 >
-                                    <Button loading={isImageUploading}>Anexar imagem</Button>
+                                    <Button icon={isImageUploading ? <LoadingLogo /> : undefined} disabled={isImageUploading}>Anexar imagem</Button>
                                 </Upload>
                             </Form.Item>
 
@@ -495,7 +496,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                                 )}
                             </Form.List>
 
-                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
+                            <Button type="primary" htmlType="submit" icon={saveMutation.isPending ? <LoadingLogo /> : undefined} disabled={saveMutation.isPending}>
                                 {editingId ? "Salvar edição" : "Cadastrar ataque"}
                             </Button>
 

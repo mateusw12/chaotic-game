@@ -32,6 +32,7 @@ import {
     type CreateAbilityRequestDto,
 } from "@/dto/ability";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 import { AbilitiesAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
@@ -251,7 +252,8 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                             <Button
                                 size="small"
                                 danger
-                                loading={deletingAbilityId === row.id}
+                                icon={deletingAbilityId === row.id ? <LoadingLogo /> : undefined}
+                                disabled={deletingAbilityId === row.id}
                             >
                                 Remover
                             </Button>
@@ -354,11 +356,11 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                                 <Input.TextArea rows={6} placeholder='{"type":"discipline_tradeoff","requiresTarget":true}' />
                             </Form.Item>
 
-                            <Button onClick={onImportAbilitiesFromJson} loading={importMutation.isPending}>
+                            <Button onClick={onImportAbilitiesFromJson} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar abilities.json
                             </Button>
 
-                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
+                            <Button type="primary" htmlType="submit" icon={saveMutation.isPending ? <LoadingLogo /> : undefined} disabled={saveMutation.isPending}>
                                 {editingAbilityId ? "Salvar edição" : "Cadastrar habilidade"}
                             </Button>
 

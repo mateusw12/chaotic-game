@@ -38,6 +38,7 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { TournamentsAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 import { useImageUploadField } from "@/hooks/use-image-upload-field";
 import { useFormSubmitToast } from "@/hooks/use-form-submit-toast";
 
@@ -270,7 +271,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
                             cancelText="Cancelar"
                             onConfirm={() => onDelete(row.id)}
                         >
-                            <Button size="small" danger loading={deletingTournamentId === row.id}>
+                            <Button size="small" danger icon={deletingTournamentId === row.id ? <LoadingLogo /> : undefined} disabled={deletingTournamentId === row.id}>
                                 Remover
                             </Button>
                         </Popconfirm>
@@ -338,7 +339,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
                                         return false;
                                     }}
                                 >
-                                    <Button loading={isCoverUploading}>Anexar imagem</Button>
+                                    <Button icon={isCoverUploading ? <LoadingLogo /> : undefined} disabled={isCoverUploading}>Anexar imagem</Button>
                                 </Upload>
                                 {coverPreviewUrl ? (
                                     <div style={{ marginTop: 8 }}>
@@ -452,7 +453,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
                             </Form.Item>
 
                             <Space>
-                                <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
+                                <Button type="primary" htmlType="submit" icon={saveMutation.isPending ? <LoadingLogo /> : undefined} disabled={saveMutation.isPending}>
                                     {editingTournamentId ? "Salvar edição" : "Cadastrar torneio"}
                                 </Button>
                                 {editingTournamentId ? (

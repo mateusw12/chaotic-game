@@ -20,6 +20,7 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { AbilitiesAdminService, CreaturesAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 import { useImageUploadField } from "@/hooks/use-image-upload-field";
 import { useFormSubmitToast } from "@/hooks/use-form-submit-toast";
 
@@ -323,7 +324,8 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                             <Button
                                 size="small"
                                 danger
-                                loading={deletingCreatureId === row.id}
+                                icon={deletingCreatureId === row.id ? <LoadingLogo /> : undefined}
+                                disabled={deletingCreatureId === row.id}
                             >
                                 Remover
                             </Button>
@@ -402,7 +404,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                                     }}
                                     onRemove={() => clearImage()}
                                 >
-                                    <Button loading={isImageUploading}>Anexar imagem</Button>
+                                    <Button icon={isImageUploading ? <LoadingLogo /> : undefined} disabled={isImageUploading}>Anexar imagem</Button>
                                 </Upload>
                             </Form.Item>
 
@@ -485,11 +487,11 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                                 <Input.TextArea rows={2} placeholder="Ex.: Em breve terá cadastro próprio" />
                             </Form.Item>
 
-                            <Button onClick={onImportCreaturesFromJson} loading={importMutation.isPending}>
+                            <Button onClick={onImportCreaturesFromJson} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar creatures.json
                             </Button>
 
-                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
+                            <Button type="primary" htmlType="submit" icon={saveMutation.isPending ? <LoadingLogo /> : undefined} disabled={saveMutation.isPending}>
                                 {editingCreatureId ? "Salvar edição" : "Cadastrar criatura"}
                             </Button>
 

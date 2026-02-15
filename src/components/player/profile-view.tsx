@@ -6,6 +6,7 @@ import type { UploadFile } from "antd/es/upload/interface";
 import type { UserProgressionOverviewDto } from "@/dto/progression";
 import { CREATURE_TRIBE_OPTIONS } from "@/dto/creature";
 import { PlayerShell } from "@/components/player/player-shell";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 import { useDisplayUserName } from "@/hooks/use-display-user-name";
 import { ProfileService } from "@/lib/api/service";
 import styles from "./profile-view.module.css";
@@ -234,11 +235,11 @@ export function ProfileView({
                                     profileForm.setFieldValue("imageUrl", null);
                                 }}
                             >
-                                <Button loading={isImageUploading}>Anexar imagem</Button>
+                                <Button icon={isImageUploading ? <LoadingLogo /> : undefined} disabled={isImageUploading}>Anexar imagem</Button>
                             </Upload>
                         </Form.Item>
 
-                        <Button type="primary" htmlType="submit" loading={saving}>
+                        <Button type="primary" htmlType="submit" icon={saving ? <LoadingLogo /> : undefined} disabled={saving}>
                             Salvar alterações
                         </Button>
                     </Form>

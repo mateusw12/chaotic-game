@@ -21,6 +21,7 @@ import { CARD_RARITY_OPTIONS, CREATURE_TRIBE_OPTIONS, type CardRarity, type Crea
 import type { UserCardType } from "@/dto/progression";
 import { StoreService } from "@/lib/api/services/store.service";
 import { PlayerShell } from "@/components/player/player-shell";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 import { DecksService } from "@/lib/api/service";
 import styles from "./decks-view.module.css";
 
@@ -395,6 +396,8 @@ export function DecksView({
     const isCardDeckActionPending = (cardType: UserCardType, cardId: string) =>
         updateDeckMutation.isPending && pendingDeckActionKey === `${cardType}:${cardId}`;
 
+    const loadingLogoIcon = <LoadingLogo />;
+
     const cardDeckNamesMap = useMemo(() => {
         const map = new Map<string, string[]>();
 
@@ -443,7 +446,7 @@ export function DecksView({
                                     <Button
                                         size="small"
                                         type="primary"
-                                        loading={isCardDeckActionPending(card.cardType, card.cardId)}
+                                        icon={isCardDeckActionPending(card.cardType, card.cardId) ? loadingLogoIcon : undefined}
                                         disabled={updateDeckMutation.isPending}
                                         onClick={(event) => {
                                             event.stopPropagation();
@@ -489,7 +492,7 @@ export function DecksView({
                                     <Button
                                         size="small"
                                         type="primary"
-                                        loading={isCardDeckActionPending(card.cardType, card.cardId)}
+                                        icon={isCardDeckActionPending(card.cardType, card.cardId) ? loadingLogoIcon : undefined}
                                         disabled={updateDeckMutation.isPending}
                                         onClick={(event) => {
                                             event.stopPropagation();
@@ -585,7 +588,8 @@ export function DecksView({
                                 />
                                 <Button
                                     type="primary"
-                                    loading={createDeckMutation.isPending}
+                                    icon={createDeckMutation.isPending ? loadingLogoIcon : undefined}
+                                    disabled={createDeckMutation.isPending}
                                     onClick={() => {
                                         if (!newDeckName.trim()) {
                                             message.warning("Informe o nome do deck.");
@@ -608,7 +612,12 @@ export function DecksView({
                                             </Button>
                                             <Button onClick={() => setViewDeckId(deck.id)}>Visualizar</Button>
                                         </Space>
-                                        <Button danger onClick={() => void removeDeckMutation.mutateAsync(deck.id)} loading={removeDeckMutation.isPending}>
+                                        <Button
+                                            danger
+                                            icon={removeDeckMutation.isPending ? loadingLogoIcon : undefined}
+                                            disabled={removeDeckMutation.isPending}
+                                            onClick={() => void removeDeckMutation.mutateAsync(deck.id)}
+                                        >
                                             Remover
                                         </Button>
                                     </div>
@@ -646,7 +655,7 @@ export function DecksView({
                                                 />
                                                 <Button
                                                     danger
-                                                    loading={isCardDeckActionPending(entry.cardType, entry.cardId)}
+                                                    icon={isCardDeckActionPending(entry.cardType, entry.cardId) ? loadingLogoIcon : undefined}
                                                     disabled={updateDeckMutation.isPending && !isCardDeckActionPending(entry.cardType, entry.cardId)}
                                                     onClick={() => void handleChangeDeckCardQuantity(key, 0)}
                                                 >
@@ -719,10 +728,11 @@ export function DecksView({
                                                             danger
                                                             type="text"
                                                             size="small"
-                                                            icon={<DeleteOutlined />}
                                                             aria-label="Remover carta"
                                                             title="Remover carta"
-                                                            loading={isCardDeckActionPending(card.cardType, card.cardId)}
+                                                            icon={isCardDeckActionPending(card.cardType, card.cardId)
+                                                                ? loadingLogoIcon
+                                                                : <DeleteOutlined />}
                                                             disabled={updateDeckMutation.isPending && !isCardDeckActionPending(card.cardType, card.cardId)}
                                                             onClick={() => void handleChangeDeckCardQuantity(cardKey, 0)}
                                                         />
@@ -792,7 +802,9 @@ export function DecksView({
                             <div className={styles.actionCardButtons}>
                                 <Button
                                     block
-                                    loading={isCardDeckActionPending(selectedCollectionCard.cardType, selectedCollectionCard.cardId)}
+                                    icon={isCardDeckActionPending(selectedCollectionCard.cardType, selectedCollectionCard.cardId)
+                                        ? loadingLogoIcon
+                                        : undefined}
                                     disabled={updateDeckMutation.isPending && !isCardDeckActionPending(selectedCollectionCard.cardType, selectedCollectionCard.cardId)}
                                     onClick={() => void handleAddCardToDeck(selectedCollectionCard)}
                                 >
@@ -802,7 +814,8 @@ export function DecksView({
                                     danger
                                     type="primary"
                                     block
-                                    loading={sellCardMutation.isPending}
+                                    icon={sellCardMutation.isPending ? loadingLogoIcon : undefined}
+                                    disabled={sellCardMutation.isPending}
                                     onClick={() => void handleSellSelectedCard()}
                                 >
                                     Vender carta

@@ -40,6 +40,7 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { MugicAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
 import { SearchableDataTable } from "@/components/shared/searchable-data-table";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 
 type MugicViewProps = {
     mugics: MugicDto[];
@@ -357,7 +358,7 @@ export function MugicView({ mugics }: MugicViewProps) {
                             cancelText="Cancelar"
                             onConfirm={() => onDelete(row.id)}
                         >
-                            <Button size="small" danger loading={deletingId === row.id}>
+                            <Button size="small" danger icon={deletingId === row.id ? <LoadingLogo /> : undefined} disabled={deletingId === row.id}>
                                 Remover
                             </Button>
                         </Popconfirm>
@@ -381,7 +382,7 @@ export function MugicView({ mugics }: MugicViewProps) {
                         </Space>
 
                         <Space>
-                            <Button onClick={() => void onImportMugicFromJson()} loading={importMutation.isPending}>
+                            <Button onClick={() => void onImportMugicFromJson()} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar mugic.json
                             </Button>
                             <Link href="/">
@@ -438,7 +439,7 @@ export function MugicView({ mugics }: MugicViewProps) {
                                         setImageFileList([]);
                                     }}
                                 >
-                                    <Button loading={isImageUploading}>Anexar imagem</Button>
+                                    <Button icon={isImageUploading ? <LoadingLogo /> : undefined} disabled={isImageUploading}>Anexar imagem</Button>
                                 </Upload>
                             </Form.Item>
 
@@ -612,7 +613,7 @@ export function MugicView({ mugics }: MugicViewProps) {
                                 )}
                             </Form.List>
 
-                            <Button type="primary" htmlType="submit" loading={saveMutation.isPending}>
+                            <Button type="primary" htmlType="submit" icon={saveMutation.isPending ? <LoadingLogo /> : undefined} disabled={saveMutation.isPending}>
                                 {editingId ? "Salvar edição" : "Cadastrar mugic"}
                             </Button>
 

@@ -11,7 +11,6 @@ import {
     Col,
     Progress,
     Row,
-    Spin,
     Space,
     Statistic,
     Tag,
@@ -23,6 +22,7 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import styles from "@/app/page.module.css";
 import { PlayerShell } from "@/components/player/player-shell";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 import { CREATURE_TRIBE_OPTIONS } from "@/dto/creature";
 import type {
     StarterSelectableTribe,
@@ -175,7 +175,7 @@ export function HomeView({
             {loadingStarterStatus ? (
                 <Card className={styles.heroCard}>
                     <Space>
-                        <Spin size="small" />
+                        <LoadingLogo />
                         <Text>Carregando configuração inicial...</Text>
                     </Space>
                 </Card>
@@ -250,9 +250,9 @@ export function HomeView({
                             type="primary"
                             size="large"
                             className={styles.starterCtaButton}
+                            icon={submittingStarterChoice ? <LoadingLogo /> : undefined}
                             onClick={() => void handleConfirmStarterTribe()}
-                            loading={submittingStarterChoice}
-                            disabled={!starterSelection}
+                            disabled={!starterSelection || submittingStarterChoice}
                         >
                             Iniciar jornada e receber deck
                         </Button>

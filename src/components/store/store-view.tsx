@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, Col, Modal, Row, Space, Spin, Tag, Tooltip, Typography, message } from "antd";
+import { Button, Card, Col, Modal, Row, Space, Tag, Tooltip, Typography, message } from "antd";
 import { InfoCircleOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import type { CardRarity, CreatureTribe } from "@/dto/creature";
 import type { UserCardType } from "@/dto/progression";
 import { ApiClient } from "@/lib/api/api-client";
 import { StoreService } from "@/lib/api/services/store.service";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 
 const { Title, Paragraph, Text } = Typography;
 const REVEAL_CARD_FALLBACK_IMAGE = "/assets/card/verso.png";
@@ -65,6 +66,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
     const [sellingCardKey, setSellingCardKey] = useState<string | null>(null);
     const [sellingAll, setSellingAll] = useState(false);
     const [apiMessage, contextHolder] = message.useMessage();
+    const loadingLogoIcon = <LoadingLogo />;
 
     useEffect(() => {
         if (!recentlyPurchasedPackId) {
@@ -227,7 +229,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
 
             {loading ? (
                 <Space style={{ width: "100%", justifyContent: "center", paddingTop: 40 }}>
-                    <Spin size="large" />
+                    <LoadingLogo size="large" alt="Carregando loja" />
                 </Space>
             ) : (
                 <Row gutter={[16, 16]}>
@@ -321,9 +323,8 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                                             <Button
                                                 className={styles.buyButton}
                                                 type="primary"
-                                                icon={<ShoppingOutlined />}
+                                                icon={purchasingPackId === pack.id ? loadingLogoIcon : <ShoppingOutlined />}
                                                 onClick={() => void handlePurchase(pack.id)}
-                                                loading={purchasingPackId === pack.id}
                                                 disabled={!canPurchase || purchasingPackId !== null}
                                                 block
                                             >
@@ -358,7 +359,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                             size="small"
                             type="primary"
                             disabled={sortedRevealedCards.length === 0}
-                            loading={sellingAll}
+                            icon={sellingAll ? loadingLogoIcon : undefined}
                             onClick={() => void handleSellCards(
                                 sortedRevealedCards.map((card) => ({
                                     cardType: card.cardType,
@@ -436,7 +437,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                                                 size="small"
                                                 block
                                                 disabled={sellingAll}
-                                                loading={sellingCardKey === `${card.cardType}:${card.cardId}`}
+                                                icon={sellingCardKey === `${card.cardType}:${card.cardId}` ? loadingLogoIcon : undefined}
                                                 onClick={() => void handleSellCards([
                                                     {
                                                         cardType: card.cardType,

@@ -7,6 +7,7 @@ import { ArrowLeftOutlined, SafetyOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { type UserPermissionDto, type UserRole } from "@/dto/user";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 import { PermissionsAdminService } from "@/lib/api/service";
 
 type PermissionsViewProps = {
@@ -79,7 +80,8 @@ export function PermissionsView({ users }: PermissionsViewProps) {
                 render: (_, row) => (
                     <Select
                         value={row.role}
-                        loading={loadingUserId === row.id}
+                        disabled={loadingUserId === row.id}
+                        suffixIcon={loadingUserId === row.id ? <LoadingLogo /> : undefined}
                         onChange={(newRole: UserRole) => handleRoleChange(row.id, newRole)}
                         options={[
                             { value: "user", label: "user" },

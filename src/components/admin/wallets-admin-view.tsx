@@ -7,6 +7,7 @@ import { ArrowLeftOutlined, DollarCircleOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import type { AdminUserWalletDto } from "@/dto/wallet";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { LoadingLogo } from "@/components/shared/loading-logo";
 import { WalletsAdminService } from "@/lib/api/service";
 
 type WalletsAdminViewProps = {
@@ -116,7 +117,8 @@ export function WalletsAdminView({ wallets }: WalletsAdminViewProps) {
             render: (_, row) => (
                 <Button
                     type="primary"
-                    loading={loadingUserId === row.userId}
+                    icon={loadingUserId === row.userId ? <LoadingLogo /> : undefined}
+                    disabled={loadingUserId === row.userId}
                     onClick={async () => {
                         const coins = Math.max(0, Math.trunc(credits[row.userId]?.coins ?? 0));
                         const diamonds = Math.max(0, Math.trunc(credits[row.userId]?.diamonds ?? 0));
