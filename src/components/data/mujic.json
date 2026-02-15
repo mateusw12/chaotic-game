@@ -1,0 +1,606 @@
+[
+    {
+        "id": "1820dacb-cd1b-4c12-a381-b7dddb77403d",
+        "name": "Surpresa Riffs",
+        "rarity": "comum",
+        "image_file_id": "mugic/2026/f52b006a-d4a4-4c1a-b310-5299f7132b23-173.png",
+        "image_url": null,
+        "tribes": [],
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Vire de cabeça para baixo (flip) um Equipamento de Batalha alvo",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "equipment"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "flip_target_battlegear",
+                "actionPayload": null,
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-14 17:34:12.054312+00",
+        "updated_at": "2026-02-14 17:34:12.054312+00"
+    },
+    {
+        "id": "227e03dd-bf58-428d-bb15-5e63f6208401",
+        "name": "Destruição Tonal",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 0,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Seu oponente revela X cartas de Mugic da mão dele(a) e você escolhe uma delas. Seu oponente descarta a carta escolhida.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "discard_opponent_mugic_from_hand",
+                "actionPayload": {
+                    "revealCount": "X",
+                    "chooseCount": 1,
+                    "sourceZone": "hand",
+                    "cardType": "mugic"
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.081Z",
+        "updated_at": "2026-02-15T18:15:37.084Z"
+    },
+    {
+        "id": "2b8cc558-556a-4042-bc29-e5d302c22325",
+        "name": "Dissonância de Vontade",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [
+            "overworld"
+        ],
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Negue a habilidade ativada de uma Criatura alvo. (Habilidades ativadas são aquelas com um custo).",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "cancel_target_activated_ability",
+                "actionPayload": {
+                    "targetType": "creature",
+                    "requireActivatedAbility": true
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.084Z",
+        "updated_at": "2026-02-15T18:15:37.084Z"
+    },
+    {
+        "id": "4023a82e-bb21-4aff-8ea0-260920f331ae",
+        "name": "Fanfarra Extasiante",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [
+            "overworld"
+        ],
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo ganha 20 de Sabedoria, 15 de Coragem, 10 de Velocidade e 5 de Poder.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "modify_stats_map",
+                "actionPayload": {
+                    "effectType": "increase",
+                    "valuesByStat": {
+                        "wisdom": 20,
+                        "courage": 15,
+                        "speed": 10,
+                        "power": 5
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.084Z",
+        "updated_at": "2026-02-15T18:15:37.084Z"
+    },
+    {
+        "id": "52f7fa57-52bc-42a6-886a-badc050033f7",
+        "name": "Serenata de Empoderamento",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [
+            "overworld"
+        ],
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo ganha 10 de Energia e 10 de Sabedoria.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "modify_stats_map",
+                "actionPayload": {
+                    "effectType": "increase",
+                    "valuesByStat": {
+                        "energy": 10,
+                        "wisdom": 10
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.084Z",
+        "updated_at": "2026-02-15T18:15:37.084Z"
+    },
+    {
+        "id": "f2a1fbdc-e8b4-48e3-b66b-782473b7ce67",
+        "name": "Melodia dos Milagres",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [
+            "overworld"
+        ],
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Cure 15 de dano da Criatura alvo. Se sua Criatura engajada venceu um Desafio de Sabedoria neste turno, o custo de Melodia dos Milagres é 1.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "heal_target",
+                "actionPayload": {
+                    "healAmount": 15,
+                    "conditionalCostReduction": {
+                        "reducedCost": 1,
+                        "condition": "won_wisdom_challenge_this_turn"
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.084Z",
+        "updated_at": "2026-02-15T18:15:37.084Z"
+    },
+    {
+        "id": "8169fec5-6667-4714-9d04-707ec228d0d3",
+        "name": "Obra Ímpar",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [
+            "overworld"
+        ],
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo ganha 15 de Energia e 15 em todas as Disciplinas.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "modify_stats_map",
+                "actionPayload": {
+                    "effectType": "increase",
+                    "valuesByStat": {
+                        "energy": 15,
+                        "power": 15,
+                        "courage": 15,
+                        "speed": 15,
+                        "wisdom": 15,
+                        "mugic": 15
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.084Z",
+        "updated_at": "2026-02-15T18:15:37.084Z"
+    },
+    {
+        "id": "70a702e1-39c9-4fa7-bb4d-1d70b5328a00",
+        "name": "Fluidmorpher's Fanfare",
+        "rarity": "super_rara",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo ganha um contador de Mugic e 'Elemento Água 5'.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "grant_mugic_counter",
+                "actionPayload": {
+                    "amount": 1,
+                    "extraEffect": {
+                        "type": "grant_element_attack_bonus",
+                        "element": "water",
+                        "value": 5
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.084Z",
+        "updated_at": "2026-02-15T18:15:37.084Z"
+    },
+    {
+        "id": "0b764a1d-fce2-4506-afd7-535058747a73",
+        "name": "Melody of Mirrored Actions",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Destrua um Equipamento de Batalha (Battlegear) alvo equipado em uma Criatura engajada.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "destroy_target_battlegear",
+                "actionPayload": {
+                    "targetMustBeEquippedAndEngaged": true
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.085Z",
+        "updated_at": "2026-02-15T18:15:37.085Z"
+    },
+    {
+        "id": "f22c645c-7e33-46cf-8952-fdd4d61c1ce3",
+        "name": "Nourishing Nocturne",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Sacrifique uma Criatura Minion. Se o fizer, uma Criatura engajada alvo ganha Energia igual à Energia Escaneada da Criatura sacrificada.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "sacrifice_friendly_then_gain_energy_from_sacrificed",
+                "actionPayload": {
+                    "requiredTribeOrSubtype": "minion",
+                    "gainFrom": "sacrificed_scanned_energy"
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.085Z",
+        "updated_at": "2026-02-15T18:15:37.085Z"
+    },
+    {
+        "id": "ef49e66e-caf1-4a2e-a5d7-9d229df10162",
+        "name": "Predator's Song",
+        "rarity": "ultra_rara",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Sacrifique uma Criatura não engajada. Se o fizer, a Criatura engajada alvo perde X de cada Disciplina, onde X são as Disciplinas Escaneadas da Criatura sacrificada. Se a criatura sacrificada for um Minion, as Criaturas engajadas também perdem 10 de Energia.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "sacrifice_friendly_then_reduce_enemy_by_sacrificed_stats",
+                "actionPayload": {
+                    "gainFrom": "sacrificed_scanned_disciplines",
+                    "additionalIfSacrificedIsMinion": {
+                        "allEngagedLoseEnergy": 10
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.085Z",
+        "updated_at": "2026-02-15T18:15:37.085Z"
+    },
+    {
+        "id": "8d7c3d8d-e1b6-4672-ba4e-f949774c887b",
+        "name": "Prelude to Dominance",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Cause 10 de dano à Criatura alvo.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "modify_stats_map",
+                "actionPayload": {
+                    "effectType": "decrease",
+                    "valuesByStat": {
+                        "energy": 10
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.086Z",
+        "updated_at": "2026-02-15T18:15:37.086Z"
+    },
+    {
+        "id": "7d09fed1-5743-4d65-98f6-efebafe56f52",
+        "name": "Psionic Serenade",
+        "rarity": "ultra_rara",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Remova do jogo uma carta de Criatura Minion da sua pilha de descarte geral. Se o fizer, cause dano à Criatura engajada alvo igual à Energia Escaneada da carta removida. Única.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "banish_mugic_card_from_discard_then_deal_damage",
+                "actionPayload": {
+                    "requiredCardSubtype": "minion",
+                    "damageFrom": "banished_card_scanned_energy",
+                    "unique": true
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.086Z",
+        "updated_at": "2026-02-15T18:15:37.086Z"
+    },
+    {
+        "id": "08051f98-ab3c-440b-9868-a0b2e3df1a20",
+        "name": "Song of Stable Shields",
+        "rarity": "super_rara",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Mugics e habilidades que aumentariam ou diminuiriam as Disciplinas da Criatura alvo não têm efeito.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "prevent_stat_modifiers_on_target",
+                "actionPayload": {
+                    "blockedSources": [
+                        "mugic",
+                        "ability"
+                    ],
+                    "blockedEffects": [
+                        "increase",
+                        "decrease"
+                    ],
+                    "affectedStats": "all_disciplines"
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.086Z",
+        "updated_at": "2026-02-15T18:15:37.086Z"
+    },
+    {
+        "id": "cdd27e4e-c85a-4fd1-8acc-2c8ac692d765",
+        "name": "Specific Diminishing",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo perde 20 de uma Disciplina à sua escolha.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "reduce_chosen_discipline",
+                "actionPayload": {
+                    "amount": 20,
+                    "chooseOneFrom": [
+                        "power",
+                        "courage",
+                        "speed",
+                        "wisdom",
+                        "mugic"
+                    ]
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.086Z",
+        "updated_at": "2026-02-15T18:15:37.086Z"
+    },
+    {
+        "id": "88f15903-d6b1-4b5b-bbb9-31881fb56be0",
+        "name": "Estudo Efervescente",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "stat_modifier",
+                "description": "Cause 15 de dano a uma Criatura M'arrillian alvo.",
+                "effectType": "decrease",
+                "stats": [
+                    "energy"
+                ],
+                "cardTypes": [],
+                "targetScope": "enemy",
+                "value": 15,
+                "actionType": null,
+                "actionPayload": null,
+                "targetTribes": [
+                    "marrillian"
+                ]
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.087Z",
+        "updated_at": "2026-02-15T18:15:37.087Z"
+    },
+    {
+        "id": "88396056-98cf-4f25-a290-95ef0f322b7f",
+        "name": "Estudo da Exaustão",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo ganha 'Exaurir todas as Disciplinas 5'.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "apply_status_effect",
+                "actionPayload": {
+                    "effectType": "status_effect",
+                    "statusType": "exhaust_disciplines",
+                    "statScope": "all_disciplines",
+                    "value": 5,
+                    "durationTurns": null
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.087Z",
+        "updated_at": "2026-02-15T18:15:37.087Z"
+    },
+    {
+        "id": "fa70dc98-f9dc-45fd-b839-c0806116d809",
+        "name": "Fanfarra do Cérebro",
+        "rarity": "ultra_rara",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "stat_modifier",
+                "description": "Criatura alvo ganha 25 de Coragem e 25 de Sabedoria.",
+                "effectType": "increase",
+                "stats": [
+                    "courage",
+                    "wisdom"
+                ],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 25,
+                "actionType": null,
+                "actionPayload": null,
+                "targetTribes": []
+            },
+            {
+                "abilityType": "stat_modifier",
+                "description": "Se o alvo for um Minion, ele ganha outros 25 de Coragem e 25 de Sabedoria.",
+                "effectType": "increase",
+                "stats": [
+                    "courage",
+                    "wisdom"
+                ],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 25,
+                "actionType": null,
+                "actionPayload": null,
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.088Z",
+        "updated_at": "2026-02-15T18:15:37.088Z"
+    },
+    {
+        "id": "1d980c65-1e2e-4dd7-83e1-ddee42d43227",
+        "name": "Falsete Fatigante",
+        "rarity": "comum",
+        "image_file_id": null,
+        "image_url": null,
+        "tribes": [],
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo ganha 'Exaurir todas as Disciplinas 15'.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [],
+                "targetScope": "self",
+                "value": 0,
+                "actionType": "apply_status_effect",
+                "actionPayload": {
+                    "effectType": "status_effect",
+                    "statusType": "exhaust_disciplines",
+                    "statScope": "all_disciplines",
+                    "value": 15,
+                    "durationTurns": null
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-15T18:15:37.088Z",
+        "updated_at": "2026-02-15T18:15:37.088Z"
+    }
+]

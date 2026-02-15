@@ -1,6 +1,8 @@
 import {
+    type CreatureTribe,
     type MugicAbilityType,
     type MugicActionType,
+    type MugicStatusEffectActionPayload,
     type CreateMugicRequestDto,
     type MugicDto,
     type MugicTargetScope,
@@ -27,8 +29,44 @@ type LegacyMugicAbility = {
     stats?: LocationStat[];
     stat?: LocationStat;
     cardTypes?: LocationCardType[];
+    targetTribes?: CreatureTribe[];
     actionType?: MugicActionType;
+    actionPayload?: Record<string, unknown> | null;
 };
+
+function isValidStatusEffectActionPayload(payload: unknown): payload is MugicStatusEffectActionPayload {
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+        return false;
+    }
+
+    const record = payload as Record<string, unknown>;
+
+    if (record.effectType !== "status_effect") {
+        return false;
+    }
+
+    if (record.statusType !== "exhaust_disciplines") {
+        return false;
+    }
+
+    if (record.statScope !== "all_disciplines") {
+        return false;
+    }
+
+    if (typeof record.value !== "number" || Number.isNaN(record.value) || record.value < 0) {
+        return false;
+    }
+
+    if (
+        record.durationTurns !== undefined
+        && record.durationTurns !== null
+        && (typeof record.durationTurns !== "number" || Number.isNaN(record.durationTurns) || record.durationTurns < 0)
+    ) {
+        return false;
+    }
+
+    return true;
+}
 
 function normalizeAbilities(abilities: LegacyMugicAbility[]): CreateMugicRequestDto["abilities"] {
     return abilities.map((ability) => {
@@ -45,8 +83,10 @@ function normalizeAbilities(abilities: LegacyMugicAbility[]): CreateMugicRequest
                     : [],
             cardTypes: Array.isArray(ability.cardTypes) ? ability.cardTypes : [],
             targetScope: ability.targetScope ?? "self",
+            targetTribes: Array.isArray(ability.targetTribes) ? ability.targetTribes : [],
             value: ability.value,
             actionType: ability.actionType,
+            actionPayload: ability.actionPayload ?? null,
         };
     });
 }
@@ -115,9 +155,30 @@ function validatePayload(payload: CreateMugicRequestDto | UpdateMugicRequestDto)
             throw new Error(`Alvo da habilidade #${index + 1} é inválido.`);
         }
 
+        if (!Array.isArray(ability.targetTribes)) {
+            throw new Error(`Tribos alvo da habilidade #${index + 1} precisam ser uma lista.`);
+        }
+
+        const invalidTargetTribe = ability.targetTribes.find((tribe) => !isValidTribe(tribe));
+        if (invalidTargetTribe) {
+            throw new Error(`Tribo alvo da habilidade #${index + 1} é inválida.`);
+        }
+
         if (ability.abilityType === "action") {
             if (!ability.actionType || !isValidMugicActionType(ability.actionType as MugicActionType)) {
                 throw new Error(`Ação da habilidade #${index + 1} é inválida.`);
+            }
+
+            if (
+                ability.actionPayload !== undefined
+                && ability.actionPayload !== null
+                && (typeof ability.actionPayload !== "object" || Array.isArray(ability.actionPayload))
+            ) {
+                throw new Error(`Payload da ação #${index + 1} é inválido.`);
+            }
+
+            if (ability.actionType === "apply_status_effect" && !isValidStatusEffectActionPayload(ability.actionPayload)) {
+                throw new Error(`Payload de status da habilidade #${index + 1} é inválido.`);
             }
 
             return;

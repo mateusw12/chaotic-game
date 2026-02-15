@@ -8,6 +8,15 @@ type UploadFileApiResponse = {
     message?: string;
 };
 
+type ImportJsonApiResponse = {
+    success: boolean;
+    imported: number;
+    updated: number;
+    skipped: number;
+    fileName: string;
+    message?: string;
+};
+
 export class MugicAdminService extends BaseCrudService {
     private static readonly resourcePath = "/admin/mugic";
 
@@ -34,6 +43,13 @@ export class MugicAdminService extends BaseCrudService {
 
     static getAll() {
         return this.listEntities<MugicDto, "mugics">(this.resourcePath, "mugics");
+    }
+
+    static importFromJson() {
+        return ApiClient.post<ImportJsonApiResponse, Record<string, never>>(
+            "/admin/mugic/import-json",
+            {},
+        );
     }
 
     static uploadImage(formData: FormData) {

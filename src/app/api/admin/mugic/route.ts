@@ -114,8 +114,15 @@ export async function POST(request: Request) {
                         ? (ability.cardTypes as CreateMugicRequestDto["abilities"][number]["cardTypes"])
                         : [],
                     targetScope: ability.targetScope as CreateMugicRequestDto["abilities"][number]["targetScope"],
+                    targetTribes: Array.isArray(ability.targetTribes)
+                        ? (ability.targetTribes as CreateMugicRequestDto["abilities"][number]["targetTribes"])
+                        : [],
                     value: Number(ability.value ?? 0),
                     actionType: ability.actionType as CreateMugicRequestDto["abilities"][number]["actionType"],
+                    actionPayload:
+                        ability.actionPayload && typeof ability.actionPayload === "object" && !Array.isArray(ability.actionPayload)
+                            ? (ability.actionPayload as Record<string, unknown>)
+                            : null,
                 };
             }),
         });

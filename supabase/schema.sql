@@ -831,6 +831,10 @@ declare
   target_scope text;
   action_type text;
   effect_type text;
+  payload_type text;
+  status_type text;
+  stat_scope text;
+  duration_turns numeric;
   value_num numeric;
 begin
   if jsonb_typeof(payload) <> 'array' then
@@ -873,6 +877,18 @@ begin
       end if;
     end if;
 
+    if jsonb_typeof(item->'targetTribes') <> 'array' then
+      return false;
+    end if;
+
+    if exists (
+      select 1
+      from jsonb_array_elements_text(item->'targetTribes') as tribe(value)
+      where tribe.value not in ('overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient')
+    ) then
+      return false;
+    end if;
+
     if ability_type = 'action' then
       action_type := item->>'actionType';
 
@@ -882,9 +898,65 @@ begin
         'destroy_target_battlegear',
         'destroy_target_attack',
         'return_target_card_to_hand',
-        'cancel_target_mugic'
+        'cancel_target_mugic',
+        'discard_opponent_mugic_from_hand',
+        'cancel_target_activated_ability',
+        'modify_stats_map',
+        'heal_target',
+        'grant_mugic_counter',
+        'grant_element_attack_bonus',
+        'sacrifice_friendly_then_gain_energy_from_sacrificed',
+        'sacrifice_friendly_then_reduce_enemy_by_sacrificed_stats',
+        'banish_mugic_card_from_discard_then_deal_damage',
+        'reduce_chosen_discipline',
+        'apply_status_effect',
+        'prevent_stat_modifiers_on_target'
       ) then
         return false;
+      end if;
+
+      if action_type = 'apply_status_effect' then
+        if jsonb_typeof(item->'actionPayload') <> 'object' then
+          return false;
+        end if;
+
+        payload_type := item->'actionPayload'->>'effectType';
+        status_type := item->'actionPayload'->>'statusType';
+        stat_scope := item->'actionPayload'->>'statScope';
+
+        if payload_type <> 'status_effect' then
+          return false;
+        end if;
+
+        if status_type not in ('exhaust_disciplines') then
+          return false;
+        end if;
+
+        if stat_scope not in ('all_disciplines') then
+          return false;
+        end if;
+
+        if jsonb_typeof(item->'actionPayload'->'value') <> 'number' then
+          return false;
+        end if;
+
+        value_num := (item->'actionPayload'->>'value')::numeric;
+
+        if value_num < 0 then
+          return false;
+        end if;
+
+        if item->'actionPayload' ? 'durationTurns' then
+          if jsonb_typeof(item->'actionPayload'->'durationTurns') <> 'number' then
+            return false;
+          end if;
+
+          duration_turns := (item->'actionPayload'->>'durationTurns')::numeric;
+
+          if duration_turns < 0 then
+            return false;
+          end if;
+        end if;
       end if;
     else
       effect_type := item->>'effectType';

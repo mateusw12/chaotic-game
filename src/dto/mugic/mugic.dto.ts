@@ -23,9 +23,29 @@ export const MUGIC_ACTION_TYPES = [
     "destroy_target_attack",
     "return_target_card_to_hand",
     "cancel_target_mugic",
+    "discard_opponent_mugic_from_hand",
+    "cancel_target_activated_ability",
+    "modify_stats_map",
+    "heal_target",
+    "grant_mugic_counter",
+    "grant_element_attack_bonus",
+    "sacrifice_friendly_then_gain_energy_from_sacrificed",
+    "sacrifice_friendly_then_reduce_enemy_by_sacrificed_stats",
+    "banish_mugic_card_from_discard_then_deal_damage",
+    "reduce_chosen_discipline",
+    "prevent_stat_modifiers_on_target",
+    "apply_status_effect",
 ] as const;
 
 export type MugicActionType = (typeof MUGIC_ACTION_TYPES)[number];
+
+export const MUGIC_STATUS_EFFECT_TYPES = ["exhaust_disciplines"] as const;
+
+export type MugicStatusEffectType = (typeof MUGIC_STATUS_EFFECT_TYPES)[number];
+
+export const MUGIC_STATUS_EFFECT_STAT_SCOPES = ["all_disciplines"] as const;
+
+export type MugicStatusEffectStatScope = (typeof MUGIC_STATUS_EFFECT_STAT_SCOPES)[number];
 
 export const MUGIC_ABILITY_TYPE_OPTIONS: Array<{
     value: MugicAbilityType;
@@ -45,7 +65,27 @@ export const MUGIC_ACTION_TYPE_OPTIONS: Array<{
         { value: "destroy_target_attack", label: "Destrua um Ataque alvo" },
         { value: "return_target_card_to_hand", label: "Retorne uma carta alvo para a mão" },
         { value: "cancel_target_mugic", label: "Cancele um Mugic alvo" },
+        { value: "discard_opponent_mugic_from_hand", label: "Descartar Mugic da mão do oponente" },
+        { value: "cancel_target_activated_ability", label: "Cancelar habilidade ativada" },
+        { value: "modify_stats_map", label: "Modificar múltiplos atributos" },
+        { value: "heal_target", label: "Curar criatura alvo" },
+        { value: "grant_mugic_counter", label: "Conceder contador de Mugic" },
+        { value: "grant_element_attack_bonus", label: "Conceder bônus elemental" },
+        { value: "sacrifice_friendly_then_gain_energy_from_sacrificed", label: "Sacrificar aliado e ganhar energia" },
+        { value: "sacrifice_friendly_then_reduce_enemy_by_sacrificed_stats", label: "Sacrificar aliado e reduzir inimigo" },
+        { value: "banish_mugic_card_from_discard_then_deal_damage", label: "Banir carta e causar dano" },
+        { value: "reduce_chosen_discipline", label: "Reduzir disciplina escolhida" },
+        { value: "prevent_stat_modifiers_on_target", label: "Impedir aumento/redução de disciplinas" },
+        { value: "apply_status_effect", label: "Aplicar efeito de status" },
     ];
+
+export type MugicStatusEffectActionPayload = {
+    effectType: "status_effect";
+    statusType: MugicStatusEffectType;
+    statScope: MugicStatusEffectStatScope;
+    value: number;
+    durationTurns?: number | null;
+};
 
 export const MUGIC_TARGET_SCOPE_OPTIONS: Array<{
     value: MugicTargetScope;
@@ -93,8 +133,10 @@ export type MugicAbilityDto = {
     stats?: LocationStat[];
     cardTypes: LocationCardType[];
     targetScope: MugicTargetScope;
+    targetTribes: CreatureTribe[];
     value?: number;
     actionType?: MugicActionType;
+    actionPayload?: MugicStatusEffectActionPayload | Record<string, unknown> | null;
 };
 
 export type MugicDto = {

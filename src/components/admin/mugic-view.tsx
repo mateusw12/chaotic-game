@@ -52,8 +52,10 @@ type MugicAbilityFormValues = {
     stats?: LocationStat[];
     cardTypes: LocationCardType[];
     targetScope: MugicTargetScope;
+    targetTribes: CreatureTribe[];
     value?: number;
     actionType?: MugicActionType;
+    actionPayload?: Record<string, {} | undefined> | null;
 };
 
 type MugicFormValues = {
@@ -86,6 +88,10 @@ export function MugicView({ mugics }: MugicViewProps) {
     const saveMutation = useMutation({
         mutationFn: ({ id, payload }: { id: string | null; payload: CreateMugicRequestDto }) =>
             id ? MugicAdminService.update(id, payload) : MugicAdminService.create(payload),
+    });
+
+    const importMutation = useMutation({
+        mutationFn: () => MugicAdminService.importFromJson(),
     });
 
     const deleteMutation = useMutation({
@@ -139,8 +145,10 @@ export function MugicView({ mugics }: MugicViewProps) {
                     stats: ability.stats ?? [],
                     cardTypes: ability.cardTypes,
                     targetScope: ability.targetScope,
+                    targetTribes: ability.targetTribes ?? [],
                     value: ability.value,
                     actionType: ability.actionType,
+                    actionPayload: ability.actionPayload ?? null,
                 })),
             };
 
@@ -166,7 +174,23 @@ export function MugicView({ mugics }: MugicViewProps) {
             imageFileId: mugic.imageFileId ?? undefined,
             tribes: mugic.tribes,
             cost: mugic.cost,
-            abilities: mugic.abilities,
+            abilities: mugic.abilities.map((ability) => ({
+                abilityType: ability.abilityType,
+                description: ability.description,
+                effectType: ability.effectType,
+                stats: ability.stats ?? [],
+                cardTypes: ability.cardTypes,
+                targetScope: ability.targetScope,
+                targetTribes: ability.targetTribes ?? [],
+                value: ability.value,
+                actionType: ability.actionType,
+                actionPayload:
+                    ability.actionPayload
+                        && typeof ability.actionPayload === "object"
+                        && !Array.isArray(ability.actionPayload)
+                        ? (ability.actionPayload as Record<string, {} | undefined>)
+                        : null,
+            })),
         });
 
         if (mugic.imageUrl) {
@@ -205,6 +229,23 @@ export function MugicView({ mugics }: MugicViewProps) {
             setDeletingId(null);
         }
     }, [deleteMutation, message, queryClient]);
+
+    const onImportMugicFromJson = useCallback(async () => {
+        try {
+            const result = await importMutation.mutateAsync();
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.mugic });
+
+            message.success(
+                `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).`,
+            );
+        } catch (error) {
+            message.error(
+                error instanceof Error
+                    ? error.message
+                    : "Erro ao importar mugic do JSON.",
+            );
+        }
+    }, [importMutation, message, queryClient]);
 
     const columns = useMemo<ColumnsType<MugicDto>>(
         () => [
@@ -273,6 +314,12 @@ export function MugicView({ mugics }: MugicViewProps) {
                             const targetScopeLabel =
                                 MUGIC_TARGET_SCOPE_OPTIONS.find((item) => item.value === ability.targetScope)?.label
                                 ?? ability.targetScope;
+                            const targetTribesLabel =
+                                (ability.targetTribes ?? []).length === 0
+                                    ? "Qualquer tribo"
+                                    : (ability.targetTribes ?? [])
+                                        .map((tribe) => CREATURE_TRIBE_OPTIONS.find((item) => item.value === tribe)?.label ?? tribe)
+                                        .join(", ");
                             const actionTypeLabel =
                                 MUGIC_ACTION_TYPE_OPTIONS.find((item) => item.value === ability.actionType)?.label
                                 ?? ability.actionType;
@@ -280,14 +327,14 @@ export function MugicView({ mugics }: MugicViewProps) {
                             if (ability.abilityType === "action") {
                                 return (
                                     <Tag key={`${row.id}-ability-${index}`} color="gold">
-                                        {ability.description} • {abilityTypeLabel} ({actionTypeLabel}) • {targetScopeLabel}
+                                        {ability.description} • {abilityTypeLabel} ({actionTypeLabel}) • {targetScopeLabel} • {targetTribesLabel}
                                     </Tag>
                                 );
                             }
 
                             return (
                                 <Tag key={`${row.id}-ability-${index}`} color={ability.effectType === "increase" ? "green" : "volcano"}>
-                                    {ability.description} • {abilityTypeLabel} • {effectLabel} {ability.value} em {statLabel} ({cardTypesLabel}) • {targetScopeLabel}
+                                    {ability.description} • {abilityTypeLabel} • {effectLabel} {ability.value} em {statLabel} ({cardTypesLabel}) • {targetScopeLabel} • {targetTribesLabel}
                                 </Tag>
                             );
                         })}
@@ -333,9 +380,14 @@ export function MugicView({ mugics }: MugicViewProps) {
                             </Title>
                         </Space>
 
-                        <Link href="/">
-                            <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
-                        </Link>
+                        <Space>
+                            <Button onClick={() => void onImportMugicFromJson()} loading={importMutation.isPending}>
+                                Importar mugic.json
+                            </Button>
+                            <Link href="/">
+                                <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
+                            </Link>
+                        </Space>
                     </Space>
                 </Card>
 
@@ -348,7 +400,7 @@ export function MugicView({ mugics }: MugicViewProps) {
                             rarity: "comum",
                             tribes: [],
                             cost: 0,
-                            abilities: [{ abilityType: "stat_modifier", description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], targetScope: "self", value: 0 }],
+                            abilities: [{ abilityType: "stat_modifier", description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], targetScope: "self", targetTribes: [], value: 0 }],
                         }}
                     >
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
@@ -505,6 +557,21 @@ export function MugicView({ mugics }: MugicViewProps) {
                                                         </Form.Item>
 
                                                         <Form.Item
+                                                            label="Tribos alvo"
+                                                            name={[field.name, "targetTribes"]}
+                                                        >
+                                                            <Select
+                                                                mode="multiple"
+                                                                style={{ width: 220 }}
+                                                                options={CREATURE_TRIBE_OPTIONS.map((item) => ({
+                                                                    value: item.value,
+                                                                    label: item.label,
+                                                                }))}
+                                                                placeholder="Se vazio, qualquer tribo"
+                                                            />
+                                                        </Form.Item>
+
+                                                        <Form.Item
                                                             label="Valor"
                                                             name={[field.name, "value"]}
                                                             dependencies={[["abilities", field.name, "abilityType"]]}
@@ -537,7 +604,7 @@ export function MugicView({ mugics }: MugicViewProps) {
                                         ))}
 
                                         <Button
-                                            onClick={() => add({ abilityType: "stat_modifier", description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], targetScope: "self", value: 0 })}
+                                            onClick={() => add({ abilityType: "stat_modifier", description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], targetScope: "self", targetTribes: [], value: 0 })}
                                         >
                                             Adicionar habilidade
                                         </Button>
