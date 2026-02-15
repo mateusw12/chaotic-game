@@ -64,6 +64,7 @@ export async function PATCH(request: Request, context: RouteContext) {
             stat: (body.stat ?? "") as UpdateAbilityRequestDto["stat"],
             value: Number(body.value ?? 0),
             description: body.description ?? null,
+            battleRules: body.battleRules ?? null,
         });
 
         const response: UpdateAbilityResponseDto = {

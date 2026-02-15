@@ -318,12 +318,13 @@ create table if not exists public.creatures (
 create table if not exists public.abilities (
   id uuid primary key default gen_random_uuid(),
   name text not null,
-  category text not null check (category in ('support', 'brainwashed')),
-  effect_type text not null check (effect_type in ('increase', 'decrease')),
-  target_scope text not null check (target_scope in ('all_creatures', 'same_tribe', 'enemy_only')),
-  stat text not null check (stat in ('power', 'courage', 'speed', 'wisdom', 'energy')),
+  category text not null check (category in ('support', 'brainwashed', 'activated', 'innate')),
+  effect_type text not null check (effect_type in ('increase', 'decrease', 'special')),
+  target_scope text not null check (target_scope in ('all_creatures', 'same_tribe', 'enemy_only', 'self', 'same_side', 'opposing_creatures')),
+  stat text not null check (stat in ('power', 'courage', 'speed', 'wisdom', 'energy', 'mugic', 'all', 'none')),
   value integer not null check (value >= 0),
   description text,
+  battle_rules jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -383,22 +384,47 @@ create table if not exists public.attacks (
 alter table if exists public.abilities
   add column if not exists target_scope text not null default 'all_creatures';
 
+alter table if exists public.abilities
+  add column if not exists battle_rules jsonb;
+
 update public.abilities
 set target_scope = 'all_creatures'
 where target_scope is null;
 
-do $$
-begin
-  if not exists (
-    select 1
-    from pg_constraint
-    where conname = 'abilities_target_scope_check'
-  ) then
-    alter table public.abilities
-      add constraint abilities_target_scope_check
-      check (target_scope in ('all_creatures', 'same_tribe', 'enemy_only'));
-  end if;
-end $$;
+alter table if exists public.abilities
+  drop constraint if exists abilities_category_check;
+
+alter table if exists public.abilities
+  add constraint abilities_category_check
+  check (category in ('support', 'brainwashed', 'activated', 'innate'));
+
+alter table if exists public.abilities
+  drop constraint if exists abilities_effect_type_check;
+
+alter table if exists public.abilities
+  add constraint abilities_effect_type_check
+  check (effect_type in ('increase', 'decrease', 'special'));
+
+alter table if exists public.abilities
+  drop constraint if exists abilities_target_scope_check;
+
+alter table if exists public.abilities
+  add constraint abilities_target_scope_check
+  check (target_scope in ('all_creatures', 'same_tribe', 'enemy_only', 'self', 'same_side', 'opposing_creatures'));
+
+alter table if exists public.abilities
+  drop constraint if exists abilities_stat_check;
+
+alter table if exists public.abilities
+  add constraint abilities_stat_check
+  check (stat in ('power', 'courage', 'speed', 'wisdom', 'energy', 'mugic', 'all', 'none'));
+
+alter table if exists public.abilities
+  drop constraint if exists abilities_battle_rules_json_check;
+
+alter table if exists public.abilities
+  add constraint abilities_battle_rules_json_check
+  check (battle_rules is null or jsonb_typeof(battle_rules) = 'object');
 
 alter table if exists public.creatures
   add column if not exists support_ability_ids uuid[] not null default '{}'::uuid[];

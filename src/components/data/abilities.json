@@ -87,7 +87,7 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 5,
-    "description": "Water 5",
+    "description": "Água 5",
     "created_at": "2026-02-15 09:00:00.000000+00",
     "target_scope": "same_tribe"
   },
@@ -153,7 +153,7 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 5,
-    "description": "Fire 5",
+    "description": "Fogo 5",
     "created_at": "2026-02-15 09:30:00.000000+00",
     "target_scope": "same_tribe"
   },
@@ -164,7 +164,7 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 5,
-    "description": "Water 5",
+    "description": "Água 5",
     "created_at": "2026-02-15 09:30:00.000000+00",
     "target_scope": "same_tribe"
   },
@@ -230,7 +230,7 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 10,
-    "description": "Fire 10",
+    "description": "Fogo 10",
     "created_at": "2026-02-15 10:10:00.000000+00",
     "target_scope": "same_tribe"
   },
@@ -241,7 +241,7 @@
     "effect_type": "decrease",
     "stat": "courage",
     "value": 10,
-    "description": "Intimidate Courage 10",
+    "description": "Intimidação: Coragem 10",
     "created_at": "2026-02-15 10:10:00.000000+00",
     "target_scope": "opposing_creatures"
   },
@@ -274,7 +274,7 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 5,
-    "description": "Air 5",
+    "description": "Ar 5",
     "created_at": "2026-02-15 11:15:00.000000+00",
     "target_scope": "same_tribe"
   },
@@ -296,7 +296,7 @@
     "effect_type": "decrease",
     "stat": "wisdom",
     "value": 10,
-    "description": "Intimidate Wisdom 10",
+    "description": "Intimidação: Sabedoria 10",
     "created_at": "2026-02-15 11:15:00.000000+00",
     "target_scope": "opposing_creatures"
   },
@@ -318,7 +318,7 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 10,
-    "description": "Air 10",
+    "description": "Ar 10",
     "created_at": "2026-02-15 12:00:00.000000+00",
     "target_scope": "same_tribe"
   },
@@ -362,7 +362,7 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 10,
-    "description": "Air 10",
+    "description": "Ar 10",
     "created_at": "2026-02-15 13:00:00.000000+00",
     "target_scope": "same_tribe"
   },
@@ -373,7 +373,7 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 10,
-    "description": "Earth 10",
+    "description": "Terra 10",
     "created_at": "2026-02-15 13:00:00.000000+00",
     "target_scope": "same_tribe"
   },
@@ -395,7 +395,7 @@
     "effect_type": "decrease",
     "stat": "power",
     "value": 10,
-    "description": "Intimidate Power 10",
+    "description": "Intimidação: Poder 10",
     "created_at": "2026-02-15 13:00:00.000000+00",
     "target_scope": "opposing_creatures"
   },
@@ -406,7 +406,7 @@
     "effect_type": "decrease",
     "stat": "speed",
     "value": 10,
-    "description": "Intimidate Speed 10",
+    "description": "Intimidação: Velocidade 10",
     "created_at": "2026-02-15 14:30:00+00",
     "target_scope": "opposing_creatures"
   },
@@ -439,7 +439,7 @@
     "effect_type": "increase",
     "stat": "power",
     "value": 5,
-    "description": "Power 5",
+    "description": "Poder 5",
     "created_at": "2026-02-15 14:40:00+00",
     "target_scope": "same_tribe"
   },
@@ -450,7 +450,7 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 5,
-    "description": "Fire 5, Air 5",
+    "description": "Fogo 5, Ar 5",
     "created_at": "2026-02-15 14:40:00+00",
     "target_scope": "same_tribe"
   },
@@ -461,7 +461,29 @@
     "effect_type": "special",
     "stat": "all",
     "value": 25,
-    "description": "Target Creature gains 25 to a Discipline and loses 10 to another.",
+    "description": "Criatura alvo ganha 25 em uma Disciplina e perde 10 em outra.",
+    "battle_rules": {
+      "type": "discipline_tradeoff",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "chooseIncreaseFrom": [
+        "power",
+        "courage",
+        "speed",
+        "wisdom",
+        "energy"
+      ],
+      "chooseDecreaseFrom": [
+        "power",
+        "courage",
+        "speed",
+        "wisdom",
+        "energy"
+      ],
+      "increaseValue": 25,
+      "decreaseValue": 10,
+      "notes": "Jogador escolhe uma disciplina para aumentar e outra para diminuir."
+    },
     "created_at": "2026-02-15 12:45:00.000000+00",
     "target_scope": "all_creatures"
   },
@@ -472,7 +494,15 @@
     "effect_type": "special",
     "stat": "mugic",
     "value": 0,
-    "description": "Discard a Mugic Card: Target opponent discards a random Mugic Card. Use only once per turn.",
+    "description": "Descarte uma Carta Mugic: o oponente alvo descarta uma Carta Mugic aleatória. Use apenas uma vez por turno.",
+    "battle_rules": {
+      "type": "discard_mugic_random",
+      "requiresTarget": true,
+      "usageLimitPerTurn": 1,
+      "ownMugicCardsToDiscard": 1,
+      "targetMugicCardsRandomDiscard": 1,
+      "notes": "Custo e efeito de descarte aplicados uma vez por turno."
+    },
     "created_at": "2026-02-15 12:45:00.000000+00",
     "target_scope": "opposing_creatures"
   },
@@ -483,40 +513,40 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 5,
-    "description": "Air 5",
+    "description": "Ar 5",
     "created_at": "2026-02-15 12:45:00.000000+00",
     "target_scope": "self"
   },
   {
     "id": "a4d5e6f7-a8b9-c0d1-e2f3-a4b5c6d7e8f9",
-    "name": "Recklessness 5",
+    "name": "Imprudência 5",
     "category": "innate",
     "effect_type": "decrease",
     "stat": "energy",
     "value": 5,
-    "description": "Recklessness 5",
+    "description": "Imprudência 5",
     "created_at": "2026-02-15 12:45:00.000000+00",
     "target_scope": "self"
   },
   {
     "id": "b5e6f7a8-b9c0-d1e2-f3a4-b5c6d7e8f9a0",
-    "name": "Outperform Power 5",
+    "name": "Superar Poder 5",
     "category": "innate",
     "effect_type": "increase",
     "stat": "power",
     "value": 5,
-    "description": "Outperform Power 5",
+    "description": "Superar Poder 5",
     "created_at": "2026-02-15 12:45:00.000000+00",
     "target_scope": "self"
   },
   {
     "id": "c6f7a8b9-c0d1-e2f3-a4b5-c6d7e8f9a0b1",
-    "name": "Exhaust all Disciplines 5",
+    "name": "Exaurir Todas as Disciplinas 5",
     "category": "brainwashed",
     "effect_type": "decrease",
     "stat": "all",
     "value": 5,
-    "description": "Exhaust all Disciplines 5",
+    "description": "Exaurir Todas as Disciplinas 5",
     "created_at": "2026-02-15 12:45:00.000000+00",
     "target_scope": "all_creatures"
   },
@@ -538,7 +568,13 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "If a Creature you control is attacked by a Creature with Range, Rarran may intercept as if it had Defender and was adjacent.",
+    "description": "Se uma Criatura que você controla for atacada por uma Criatura com Range, Rarran pode interceptar como se tivesse Defender e estivesse adjacente.",
+    "battle_rules": {
+      "type": "intercept_range",
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "notes": "Permite interceptar ataques de criaturas com Range como se tivesse Defender adjacente."
+    },
     "created_at": "2026-02-15 12:45:00.000000+00",
     "target_scope": "same_side"
   }

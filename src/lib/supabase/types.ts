@@ -1,5 +1,6 @@
 import type { UserRole } from "@/dto/user";
 import type {
+    AbilityBattleRuleDto,
     AbilityCategory,
     AbilityEffectType,
     AbilityStat,
@@ -80,6 +81,7 @@ export type SupabaseAbilityRow = {
     stat: AbilityStat;
     value: number;
     description: string | null;
+    battle_rules: AbilityBattleRuleDto | null;
     created_at: string;
     updated_at: string;
 };

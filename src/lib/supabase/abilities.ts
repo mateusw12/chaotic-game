@@ -24,6 +24,7 @@ function mapSupabaseAbilityRow(row: SupabaseAbilityRow): AbilityDto {
         stat: row.stat,
         value: row.value,
         description: row.description,
+        battleRules: row.battle_rules,
         createdAt: row.created_at,
         updatedAt: row.updated_at,
     };
@@ -35,7 +36,7 @@ export async function getAbilityById(abilityId: string): Promise<AbilityDto | nu
 
     const { data, error } = await supabase
         .from(tableName)
-        .select("id,name,category,effect_type,target_scope,stat,value,description,created_at,updated_at")
+        .select("id,name,category,effect_type,target_scope,stat,value,description,battle_rules,created_at,updated_at")
         .eq("id", abilityId)
         .maybeSingle<SupabaseAbilityRow>();
 
@@ -62,7 +63,7 @@ export async function listAbilities(): Promise<AbilityDto[]> {
 
     const { data, error } = await supabase
         .from(tableName)
-        .select("id,name,category,effect_type,target_scope,stat,value,description,created_at,updated_at")
+        .select("id,name,category,effect_type,target_scope,stat,value,description,battle_rules,created_at,updated_at")
         .order("created_at", { ascending: false })
         .returns<SupabaseAbilityRow[]>();
 
@@ -123,8 +124,9 @@ export async function createAbility(
             stat: payload.stat,
             value: payload.value,
             description: payload.description?.trim() || null,
+            battle_rules: payload.battleRules ?? null,
         })
-        .select("id,name,category,effect_type,target_scope,stat,value,description,created_at,updated_at")
+        .select("id,name,category,effect_type,target_scope,stat,value,description,battle_rules,created_at,updated_at")
         .single<SupabaseAbilityRow>();
 
     if (error) {
@@ -185,9 +187,10 @@ export async function updateAbilityById(
             stat: payload.stat,
             value: payload.value,
             description: payload.description?.trim() || null,
+            battle_rules: payload.battleRules ?? null,
         })
         .eq("id", abilityId)
-        .select("id,name,category,effect_type,target_scope,stat,value,description,created_at,updated_at")
+        .select("id,name,category,effect_type,target_scope,stat,value,description,battle_rules,created_at,updated_at")
         .single<SupabaseAbilityRow>();
 
     if (error) {

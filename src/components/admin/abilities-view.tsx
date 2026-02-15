@@ -24,6 +24,7 @@ import {
     ABILITY_STAT_OPTIONS,
     ABILITY_TARGET_SCOPE_OPTIONS,
     type AbilityCategory,
+    type AbilityBattleRuleDto,
     type AbilityDto,
     type AbilityEffectType,
     type AbilityStat,
@@ -47,7 +48,22 @@ type AbilityFormValues = {
     stat: AbilityStat;
     value: number;
     description?: string;
+    battleRulesJson?: string;
 };
+
+function parseBattleRulesJson(value: string | undefined): AbilityBattleRuleDto | null {
+    if (!value?.trim()) {
+        return null;
+    }
+
+    const parsed = JSON.parse(value) as unknown;
+
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+        throw new Error("battleRules precisa ser um objeto JSON válido.");
+    }
+
+    return parsed as AbilityBattleRuleDto;
+}
 
 const { Title, Text } = Typography;
 
@@ -87,6 +103,7 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                 stat: values.stat,
                 value: values.value,
                 description: values.description ?? null,
+                battleRules: parseBattleRulesJson(values.battleRulesJson),
             };
 
             const isEditing = Boolean(editingAbilityId);
@@ -118,6 +135,9 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
             stat: ability.stat,
             value: ability.value,
             description: ability.description ?? undefined,
+            battleRulesJson: ability.battleRules
+                ? JSON.stringify(ability.battleRules, null, 2)
+                : undefined,
         });
     }, [form]);
 
@@ -197,6 +217,14 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                         </Space>
                     );
                 },
+            },
+            {
+                title: "Regra de Batalha",
+                key: "battleRules",
+                width: 220,
+                render: (_, row) => (
+                    <Tag color="orange">{row.battleRules?.type ?? "stat_modifier"}</Tag>
+                ),
             },
             {
                 title: "Descrição",
@@ -316,6 +344,14 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
 
                             <Form.Item label="Descrição" name="description">
                                 <Input.TextArea rows={2} placeholder="Descrição opcional da habilidade" />
+                            </Form.Item>
+
+                            <Form.Item
+                                label="Regras de batalha (JSON)"
+                                name="battleRulesJson"
+                                extra="Opcional. Use para comportamentos especiais (ex.: discipline_tradeoff, discard_mugic_random)."
+                            >
+                                <Input.TextArea rows={6} placeholder='{"type":"discipline_tradeoff","requiresTarget":true}' />
                             </Form.Item>
 
                             <Button onClick={onImportAbilitiesFromJson} loading={importMutation.isPending}>

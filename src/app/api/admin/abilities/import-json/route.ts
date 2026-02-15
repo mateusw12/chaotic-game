@@ -1,5 +1,16 @@
 import { NextResponse } from "next/server";
-import type { AbilityCategory, AbilityEffectType, AbilityStat, AbilityTargetScope } from "@/dto/ability";
+import {
+    ABILITY_DISCIPLINE_STATS,
+    ABILITY_CATEGORIES,
+    ABILITY_EFFECT_TYPES,
+    ABILITY_STATS,
+    ABILITY_TARGET_SCOPES,
+    type AbilityBattleRuleDto,
+    type AbilityCategory,
+    type AbilityEffectType,
+    type AbilityStat,
+    type AbilityTargetScope,
+} from "@/dto/ability";
 import abilitiesSeed from "@/components/data/abilities.json";
 import { auth } from "@/lib/auth";
 import {
@@ -28,13 +39,15 @@ type SeedAbility = {
     stat?: unknown;
     value?: unknown;
     description?: unknown;
+    battle_rules?: unknown;
+    battleRules?: unknown;
 };
 
 const FILE_NAME = "abilities.json";
 
 function normalizeCategory(value: unknown): AbilityCategory {
-    if (value === "support" || value === "brainwashed") {
-        return value;
+    if (typeof value === "string" && ABILITY_CATEGORIES.includes(value as AbilityCategory)) {
+        return value as AbilityCategory;
     }
 
     return "support";
@@ -57,20 +70,24 @@ function getRawTargetScope(item: SeedAbility): unknown {
 }
 
 function normalizeEffectType(value: unknown): AbilityEffectType {
-    return value === "decrease" ? "decrease" : "increase";
+    if (typeof value === "string" && ABILITY_EFFECT_TYPES.includes(value as AbilityEffectType)) {
+        return value as AbilityEffectType;
+    }
+
+    return "increase";
 }
 
 function normalizeTargetScope(value: unknown): AbilityTargetScope {
-    if (value === "same_tribe" || value === "enemy_only" || value === "all_creatures") {
-        return value;
+    if (typeof value === "string" && ABILITY_TARGET_SCOPES.includes(value as AbilityTargetScope)) {
+        return value as AbilityTargetScope;
     }
 
     return "all_creatures";
 }
 
 function normalizeStat(value: unknown): AbilityStat {
-    if (value === "power" || value === "courage" || value === "speed" || value === "wisdom" || value === "energy") {
-        return value;
+    if (typeof value === "string" && ABILITY_STATS.includes(value as AbilityStat)) {
+        return value as AbilityStat;
     }
 
     return "energy";
@@ -93,6 +110,100 @@ function normalizeDescription(value: unknown): string | null {
 
     const trimmed = value.trim();
     return trimmed ? trimmed : null;
+}
+
+function parseBattleRules(value: unknown): AbilityBattleRuleDto | null {
+    if (!value || typeof value !== "object") {
+        return null;
+    }
+
+    return value as AbilityBattleRuleDto;
+}
+
+function inferBattleRules(payload: {
+    name: string;
+    effectType: AbilityEffectType;
+    targetScope: AbilityTargetScope;
+    stat: AbilityStat;
+    value: number;
+    description: string | null;
+    seedBattleRules: AbilityBattleRuleDto | null;
+}): AbilityBattleRuleDto | null {
+    if (payload.seedBattleRules) {
+        return payload.seedBattleRules;
+    }
+
+    const normalizedName = payload.name.toLowerCase();
+    const normalizedDescription = (payload.description ?? "").toLowerCase();
+    const combinedText = `${normalizedName} ${normalizedDescription}`;
+
+    if (combinedText.includes("ganha 25 em uma disciplina") && combinedText.includes("perde 10 em outra")) {
+        return {
+            type: "discipline_tradeoff",
+            requiresTarget: true,
+            usageLimitPerTurn: null,
+            chooseIncreaseFrom: [...ABILITY_DISCIPLINE_STATS],
+            chooseDecreaseFrom: [...ABILITY_DISCIPLINE_STATS],
+            increaseValue: 25,
+            decreaseValue: 10,
+            notes: "Jogador escolhe uma disciplina para aumentar e outra para diminuir.",
+        };
+    }
+
+    if (combinedText.includes("descarte uma carta mugic") && combinedText.includes("aleatória")) {
+        return {
+            type: "discard_mugic_random",
+            requiresTarget: true,
+            usageLimitPerTurn: 1,
+            ownMugicCardsToDiscard: 1,
+            targetMugicCardsRandomDiscard: 1,
+            notes: "O controlador paga o custo descartando Mugic e o oponente descarta aleatoriamente.",
+        };
+    }
+
+    if (combinedText.includes("range") && combinedText.includes("intercept")) {
+        return {
+            type: "intercept_range",
+            requiresTarget: false,
+            usageLimitPerTurn: null,
+            notes: "Permite interceptar ataques de criaturas com Range como se tivesse Defender adjacente.",
+        };
+    }
+
+    if (combinedText.includes("mugic counter") && combinedText.includes("remova")) {
+        return {
+            type: "remove_mugic_counter",
+            requiresTarget: true,
+            usageLimitPerTurn: null,
+            notes: "Remove Mugic Counter da criatura alvo.",
+        };
+    }
+
+    if (combinedText.includes("pode se mover") && payload.value > 0) {
+        return {
+            type: "move_bonus",
+            requiresTarget: false,
+            usageLimitPerTurn: null,
+            moveBonusCells: payload.value,
+            notes: "Concede movimento adicional no tabuleiro.",
+        };
+    }
+
+    if (payload.effectType === "special") {
+        return {
+            type: "generic_special",
+            requiresTarget: payload.stat !== "none",
+            usageLimitPerTurn: null,
+            notes: payload.description,
+        };
+    }
+
+    return {
+        type: "stat_modifier",
+        requiresTarget: payload.targetScope !== "self",
+        usageLimitPerTurn: null,
+        notes: null,
+    };
 }
 
 async function ensureAdminBySessionEmail(email: string | null | undefined) {
@@ -163,7 +274,18 @@ export async function POST() {
                 stat: normalizeStat(item.stat),
                 value: normalizeValue(item.value),
                 description: normalizeDescription(item.description),
+                battleRules: null as AbilityBattleRuleDto | null,
             };
+
+            payload.battleRules = inferBattleRules({
+                name: payload.name,
+                effectType: payload.effectType,
+                targetScope: payload.targetScope,
+                stat: payload.stat,
+                value: payload.value,
+                description: payload.description,
+                seedBattleRules: parseBattleRules(item.battle_rules ?? item.battleRules ?? null),
+            });
 
             const existingAbility = existingByName.get(normalizedName);
 

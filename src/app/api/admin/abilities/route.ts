@@ -93,6 +93,7 @@ export async function POST(request: Request) {
             stat: (body.stat ?? "") as CreateAbilityRequestDto["stat"],
             value: Number(body.value ?? 0),
             description: body.description ?? null,
+            battleRules: body.battleRules ?? null,
         });
 
         const response: CreateAbilityResponseDto = {
