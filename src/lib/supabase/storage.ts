@@ -27,6 +27,10 @@ function getUserProfileImagesBucketName() {
     return process.env.SUPABASE_USER_PROFILE_IMAGES_BUCKET ?? "user-profile-images";
 }
 
+function getTournamentCoverImagesBucketName() {
+    return process.env.SUPABASE_TOURNAMENT_IMAGES_BUCKET ?? "tournament-images";
+}
+
 type StorageApiError = {
     name?: string;
     message: string;
@@ -116,6 +120,20 @@ export function getAttackImagePublicUrl(imageFileId: string | null): string | nu
 
     const supabase = getSupabaseAdminClient();
     const bucketName = getAttacksImagesBucketName();
+    const {
+        data: { publicUrl },
+    } = supabase.storage.from(bucketName).getPublicUrl(imageFileId);
+
+    return publicUrl || null;
+}
+
+export function getTournamentCoverImagePublicUrl(imageFileId: string | null): string | null {
+    if (!imageFileId) {
+        return null;
+    }
+
+    const supabase = getSupabaseAdminClient();
+    const bucketName = getTournamentCoverImagesBucketName();
     const {
         data: { publicUrl },
     } = supabase.storage.from(bucketName).getPublicUrl(imageFileId);
@@ -490,6 +508,68 @@ export async function uploadUserProfileImageToStorage(payload: {
 
     if (!publicUrl) {
         throw new Error("Não foi possível obter a URL pública da imagem de perfil.");
+    }
+
+    return { path, publicUrl };
+}
+
+export async function uploadTournamentCoverToStorage(payload: {
+    fileName: string;
+    fileBuffer: ArrayBuffer;
+    contentType?: string;
+}): Promise<{ path: string; publicUrl: string }> {
+    const supabase = getSupabaseAdminClient();
+    const bucketName = getTournamentCoverImagesBucketName();
+
+    const { data: existingBucket, error: getBucketError } = await supabase.storage.getBucket(bucketName);
+
+    const bucketNotFound = Boolean(
+        getBucketError
+        && (
+            (getBucketError as StorageApiError).statusCode === 404
+            || /bucket not found/i.test(getBucketError.message)
+        ),
+    );
+
+    if (getBucketError && !bucketNotFound) {
+        throw new Error(
+            `Erro ao validar bucket de capas de torneio [${getBucketError.name ?? "STORAGE"}]: ${getBucketError.message}`,
+        );
+    }
+
+    if (!existingBucket || bucketNotFound) {
+        const { error: createBucketError } = await supabase.storage.createBucket(bucketName, {
+            public: true,
+            fileSizeLimit: "10MB",
+        });
+
+        if (createBucketError && !/already exists/i.test(createBucketError.message)) {
+            throw new Error(
+                `Erro ao criar bucket de capas de torneio [${createBucketError.name ?? "STORAGE"}]: ${createBucketError.message}`,
+            );
+        }
+    }
+
+    const safeFileName = sanitizeFileName(payload.fileName || "tournament-cover");
+    const path = `tournaments/${new Date().getFullYear()}/${crypto.randomUUID()}-${safeFileName}`;
+
+    const { error } = await supabase.storage.from(bucketName).upload(path, payload.fileBuffer, {
+        contentType: payload.contentType,
+        upsert: false,
+    });
+
+    if (error) {
+        throw new Error(
+            `Erro ao enviar capa de torneio para o Storage [${error.name ?? "STORAGE"}]: ${error.message}`,
+        );
+    }
+
+    const {
+        data: { publicUrl },
+    } = supabase.storage.from(bucketName).getPublicUrl(path);
+
+    if (!publicUrl) {
+        throw new Error("Não foi possível obter a URL pública da capa do torneio.");
     }
 
     return { path, publicUrl };

@@ -77,6 +77,153 @@ begin
   end if;
 end $$;
 
+create table if not exists public.tournaments (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  cover_image_file_id text,
+  cover_image_url text,
+  cards_count integer not null default 20 check (cards_count > 0),
+  players_count integer not null default 2 check (players_count > 0),
+  allowed_formats text[] not null default '{"1x1"}'::text[],
+  deck_archetypes text[] not null default '{}'::text[],
+  max_card_energy integer,
+  allowed_tribes text[] not null default '{}'::text[],
+  allow_mugic boolean not null default true,
+  location_mode text not null default 'random' check (location_mode in ('defined', 'random')),
+  defined_locations text[] not null default '{}'::text[],
+  additional_rules text,
+  schedule_type text not null default 'date_range' check (schedule_type in ('date_range', 'recurring_interval')),
+  start_at timestamptz,
+  end_at timestamptz,
+  period_days integer,
+  is_enabled boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table if exists public.tournaments
+  add column if not exists cover_image_file_id text;
+
+alter table if exists public.tournaments
+  add column if not exists cover_image_url text;
+
+alter table if exists public.tournaments
+  add column if not exists cards_count integer not null default 20;
+
+alter table if exists public.tournaments
+  add column if not exists players_count integer not null default 2;
+
+alter table if exists public.tournaments
+  add column if not exists allowed_formats text[] not null default '{"1x1"}'::text[];
+
+alter table if exists public.tournaments
+  add column if not exists deck_archetypes text[] not null default '{}'::text[];
+
+alter table if exists public.tournaments
+  add column if not exists max_card_energy integer;
+
+alter table if exists public.tournaments
+  add column if not exists allowed_tribes text[] not null default '{}'::text[];
+
+alter table if exists public.tournaments
+  add column if not exists allow_mugic boolean not null default true;
+
+alter table if exists public.tournaments
+  add column if not exists location_mode text not null default 'random';
+
+alter table if exists public.tournaments
+  add column if not exists defined_locations text[] not null default '{}'::text[];
+
+alter table if exists public.tournaments
+  add column if not exists additional_rules text;
+
+alter table if exists public.tournaments
+  add column if not exists schedule_type text not null default 'date_range';
+
+alter table if exists public.tournaments
+  add column if not exists start_at timestamptz;
+
+alter table if exists public.tournaments
+  add column if not exists end_at timestamptz;
+
+alter table if exists public.tournaments
+  add column if not exists period_days integer;
+
+alter table if exists public.tournaments
+  add column if not exists is_enabled boolean not null default true;
+
+alter table if exists public.tournaments
+  add column if not exists created_at timestamptz not null default now();
+
+alter table if exists public.tournaments
+  add column if not exists updated_at timestamptz not null default now();
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'tournaments_allowed_formats_check'
+  ) then
+    alter table public.tournaments
+      add constraint tournaments_allowed_formats_check
+      check (allowed_formats <@ array['1x1', '3x3', '5x5', '7x7']::text[]);
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'tournaments_allowed_tribes_check'
+  ) then
+    alter table public.tournaments
+      add constraint tournaments_allowed_tribes_check
+      check (allowed_tribes <@ array['overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient']::text[]);
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'tournaments_cards_count_check'
+  ) then
+    alter table public.tournaments
+      add constraint tournaments_cards_count_check
+      check (cards_count > 0);
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'tournaments_players_count_check'
+  ) then
+    alter table public.tournaments
+      add constraint tournaments_players_count_check
+      check (players_count > 0);
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'tournaments_location_mode_check'
+  ) then
+    alter table public.tournaments
+      add constraint tournaments_location_mode_check
+      check (location_mode in ('defined', 'random'));
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'tournaments_schedule_type_check'
+  ) then
+    alter table public.tournaments
+      add constraint tournaments_schedule_type_check
+      check (schedule_type in ('date_range', 'recurring_interval'));
+  end if;
+end $$;
+
+create index if not exists idx_tournaments_schedule_type on public.tournaments(schedule_type);
+create index if not exists idx_tournaments_is_enabled on public.tournaments(is_enabled);
+
 create table if not exists public.user_wallets (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.users(id) on delete cascade,

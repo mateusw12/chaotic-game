@@ -9,7 +9,7 @@ import { useDisplayUserName } from "@/hooks/use-display-user-name";
 import styles from "./player-shell.module.css";
 
 type PlayerShellProps = {
-    selectedKey: "home" | "store" | "codex-trials";
+    selectedKey: "home" | "store" | "codex-trials" | "tournaments";
     userName: string | null;
     userNickName: string | null;
     userImageUrl: string | null;
@@ -50,6 +50,11 @@ export function PlayerShell({
                 key: "codex-trials",
                 icon: <TrophyOutlined />,
                 label: <Link href="/codex-trials">Codex Trials</Link>,
+            },
+            {
+                key: "tournaments",
+                icon: <TrophyOutlined />,
+                label: <Link href="/tournaments">Torneios</Link>,
             },
         ];
 

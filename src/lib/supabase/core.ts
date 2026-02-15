@@ -58,6 +58,10 @@ export function getUserCardsTableName() {
     return process.env.SUPABASE_USER_CARDS_TABLE ?? "user_cards";
 }
 
+export function getTournamentsTableName() {
+    return process.env.SUPABASE_TOURNAMENTS_TABLE ?? "tournaments";
+}
+
 export function isValidTribe(value: string): value is CreatureTribe {
     return CREATURE_TRIBES.includes(value as CreatureTribe);
 }
