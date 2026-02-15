@@ -1,0 +1,169 @@
+[
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147ef",
+        "name": "Torrente de Água",
+        "image_file_id": "attacks/2026/bb54cd21-5d42-47de-83a9-9d23ef0ed67f-120.png",
+        "image_url": null,
+        "energy_cost": 1,
+        "element_values": "[{\"value\": 5, \"element\": \"water\"}, {\"value\": 5, \"element\": \"earth\"}]",
+        "abilities": "[{\"stat\": \"courage\", \"value\": 10, \"effectType\": \"increase\", \"description\": \"Criatura atacante for água aumenta coragem em 10\", \"targetScope\": \"attacker\", \"conditionElement\": \"water\"}]",
+        "created_at": "2026-02-14 17:57:10.788682+00",
+        "updated_at": "2026-02-14 17:57:10.788682+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gh",
+        "name": "Torrente de Cinzas",
+        "image_file_id": "",
+        "image_url": null,
+        "energy_cost": 1,
+        "element_values": "[{\"value\": 5, \"element\": \"fire\"}, {\"value\": 5, \"element\": \"earth\"}]",
+        "abilities": "[{\"stat\": \"power\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Desafio Poder 15: Cause 10 de dano\", \"targetScope\": \"opponent\", \"conditionValue\": 15}]",
+        "created_at": "2026-02-15 17:00:00.000000+00",
+        "updated_at": "2026-02-15 17:00:00.000000+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gi",
+        "name": "Bravura Intimidante",
+        "image_url": null,
+        "energy_cost": 1,
+        "element_values": "[]",
+        "abilities": "[{\"stat\": \"courage\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Desafio Coragem 15: Cause 10 de dano\"}, {\"stat\": \"courage\", \"value\": 15, \"effectType\": \"decrease\", \"description\": \"Teste de Atributo Coragem 50: Criatura oponente engajada perde 15 de Coragem\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gj",
+        "name": "Desaceleração",
+        "image_url": null,
+        "energy_cost": 2,
+        "element_values": "[]",
+        "abilities": "[{\"stat\": \"speed\", \"value\": 5, \"effectType\": \"damage\", \"description\": \"Falha de Atributo Velocidade 100: Cause 5 de dano\"}, {\"stat\": \"speed\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Falha de Atributo Velocidade 50: Cause 10 de dano\"}, {\"stat\": \"speed\", \"value\": 15, \"effectType\": \"damage\", \"description\": \"Falha de Atributo Velocidade 5: Cause 15 de dano\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gk",
+        "name": "Delírio",
+        "image_url": null,
+        "energy_cost": 0,
+        "element_values": "[]",
+        "abilities": "[{\"stat\": \"wisdom\", \"value\": 5, \"effectType\": \"damage\", \"description\": \"Teste de Atributo Sabedoria 50: Cause 5 de dano\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gl",
+        "name": "Chuva Ardente",
+        "image_url": null,
+        "energy_cost": 0,
+        "element_values": "[{\"value\": 5, \"element\": \"water\"}]",
+        "abilities": "[{\"description\": \"Se Chuva Ardente fosse causar mais de 10 de dano, ela causará 10 de dano em vez disso\", \"effectType\": \"modification\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "super rara"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gm",
+        "name": "Confusão",
+        "image_url": null,
+        "energy_cost": 1,
+        "element_values": "[{\"value\": 5, \"element\": \"fire\"}, {\"value\": 5, \"element\": \"air\"}]",
+        "abilities": "[{\"stat\": \"power\", \"value\": 10, \"effectType\": \"increase\", \"description\": \"Ar: Ganhe 10 de Poder\", \"conditionElement\": \"air\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gn",
+        "name": "Combo de Desenergização",
+        "image_url": null,
+        "energy_cost": 4,
+        "element_values": "[{\"value\": 5, \"element\": \"water\"}]",
+        "abilities": "[{\"stat\": \"courage\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Falha de Atributo Coragem 30: Cause 10 de dano\"}, {\"stat\": \"power\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Falha de Atributo Poder 30: Cause 10 de dano\"}, {\"stat\": \"wisdom\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Falha de Atributo Sabedoria 30: Cause 10 de dano\"}, {\"stat\": \"speed\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Falha de Atributo Velocidade 30: Cause 10 de dano\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "super rara"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147go",
+        "name": "Líquido Seco",
+        "image_url": null,
+        "energy_cost": 1,
+        "element_values": "[]",
+        "abilities": "[{\"stat\": \"power\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Desafio Poder 15: Cause 10 de dano\"}, {\"stat\": \"power\", \"value\": 15, \"effectType\": \"decrease\", \"description\": \"Teste de Atributo Poder 50: Criatura oponente engajada perde 15 de Poder\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gp",
+        "name": "Eletroteia",
+        "image_url": null,
+        "energy_cost": 2,
+        "element_values": "[{\"value\": 0, \"element\": \"water\"}]",
+        "abilities": "[{\"stat\": \"power\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Desafio Poder 30: Cause 10 de dano. Se você perder este Desafio, ganhe 15 de Poder\"}, {\"stat\": \"speed\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Desafio Velocidade 30: Cause 10 de dano. Se você perder este Desafio, ganhe 15 de Velocidade\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gq",
+        "name": "Enxame de Brasas",
+        "image_url": null,
+        "energy_cost": 1,
+        "element_values": "[{\"value\": 5, \"element\": \"fire\"}]",
+        "abilities": "[{\"stat\": \"wisdom\", \"value\": 25, \"effectType\": \"decrease\", \"description\": \"Fogo: Criatura oponente engajada perde 25 de Sabedoria\", \"conditionElement\": \"fire\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gr",
+        "name": "Projeção de Medo",
+        "image_url": null,
+        "energy_cost": 0,
+        "element_values": "[]",
+        "abilities": "[{\"stat\": \"courage\", \"value\": 20, \"effectType\": \"decrease\", \"description\": \"Criatura oponente engajada perde 20 de Coragem\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gs",
+        "name": "Carvões em Chamas",
+        "image_url": null,
+        "energy_cost": 3,
+        "element_values": "[{\"value\": 10, \"element\": \"fire\"}, {\"value\": 10, \"element\": \"water\"}]",
+        "abilities": "[{\"description\": \"Carvões em Chamas não pode ser alvo de Mugic ou habilidades\", \"effectType\": \"protection\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gt",
+        "name": "Distorção Instantânea",
+        "image_url": null,
+        "energy_cost": 0,
+        "element_values": "[]",
+        "abilities": "[{\"stat\": \"power\", \"value\": 10, \"effectType\": \"damage\", \"description\": \"Desafio Poder 15: Cause 10 de dano\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    },
+    {
+        "id": "9806a09a-1b80-42b8-843d-fec5f66147gu",
+        "name": "Dilúvio da Perdição",
+        "image_url": null,
+        "energy_cost": 2,
+        "element_values": "[{\"value\": 10, \"element\": \"earth\"}, {\"value\": 10, \"element\": \"water\"}]",
+        "abilities": "[{\"stat\": \"courage\", \"value\": 25, \"effectType\": \"decrease\", \"description\": \"Água: Criatura oponente engajada perde 25 de Coragem\", \"conditionElement\": \"water\"}]",
+        "created_at": "2026-02-15 17:00:00+00",
+        "updated_at": "2026-02-15 17:00:00+00",
+        "rarity": "comum"
+    }
+]

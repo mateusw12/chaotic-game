@@ -88,6 +88,10 @@ export function AttacksView({ attacks }: AttacksViewProps) {
             id ? AttacksAdminService.update(id, payload) : AttacksAdminService.create(payload),
     });
 
+    const importMutation = useMutation({
+        mutationFn: () => AttacksAdminService.importFromJson(),
+    });
+
     const deleteMutation = useMutation({
         mutationFn: (id: string) => AttacksAdminService.remove(id),
     });
@@ -193,6 +197,23 @@ export function AttacksView({ attacks }: AttacksViewProps) {
         }
     }, [deleteMutation, message, queryClient]);
 
+    const onImportAttacksFromJson = useCallback(async () => {
+        try {
+            const result = await importMutation.mutateAsync();
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.attacks });
+
+            message.success(
+                `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).`,
+            );
+        } catch (error) {
+            message.error(
+                error instanceof Error
+                    ? error.message
+                    : "Erro ao importar ataques do JSON.",
+            );
+        }
+    }, [importMutation, message, queryClient]);
+
     const columns = useMemo<ColumnsType<AttackDto>>(
         () => [
             {
@@ -289,9 +310,14 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                             <Title level={3} style={{ margin: 0 }}>Cadastro de Ataques</Title>
                         </Space>
 
-                        <Link href="/">
-                            <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
-                        </Link>
+                        <Space>
+                            <Button onClick={() => void onImportAttacksFromJson()} loading={importMutation.isPending}>
+                                Importar attack.json
+                            </Button>
+                            <Link href="/">
+                                <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
+                            </Link>
+                        </Space>
                     </Space>
                 </Card>
 
