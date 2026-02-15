@@ -48,8 +48,8 @@ type CreatureFormValues = {
 };
 
 export function CreaturesView({ creatures }: CreaturesViewProps) {
-    const { message } = AntdApp.useApp();
-    const { runWithSubmitToast } = useFormSubmitToast(message);
+    const { notification } = AntdApp.useApp();
+    const { runWithSubmitToast } = useFormSubmitToast(notification);
     const queryClient = useQueryClient();
     const [creatureForm] = Form.useForm<CreatureFormValues>();
     const [editingCreatureId, setEditingCreatureId] = useState<string | null>(null);
@@ -63,7 +63,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
         clearImage,
         setExistingImage,
     } = useImageUploadField({
-        messageApi: message,
+        messageApi: notification,
         form: creatureForm,
         fieldName: "imageFileId",
         uploadFile: (formData) => CreaturesAdminService.uploadImage(formData),
@@ -219,17 +219,15 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             const result = await importMutation.mutateAsync();
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
 
-            message.success(
-                `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).`,
-            );
+            notification.success({ message: `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).` });
         } catch (error) {
-            message.error(
-                error instanceof Error
+            notification.error({
+                message: error instanceof Error
                     ? error.message
                     : "Erro ao importar criaturas do JSON.",
-            );
+            });
         }
-    }, [importMutation, message, queryClient]);
+    }, [importMutation, notification, queryClient]);
 
     const columns = useMemo<ColumnsType<CreatureDto>>(
         () => [

@@ -69,7 +69,7 @@ function parseBattleRulesJson(value: string | undefined): AbilityBattleRuleDto |
 const { Title, Text } = Typography;
 
 export function AbilitiesView({ abilities }: AbilitiesViewProps) {
-    const { message } = AntdApp.useApp();
+    const { notification } = AntdApp.useApp();
     const queryClient = useQueryClient();
     const [form] = Form.useForm<AbilityFormValues>();
     const [editingAbilityId, setEditingAbilityId] = useState<string | null>(null);
@@ -116,13 +116,14 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
 
             setEditingAbilityId(null);
             form.resetFields();
-            message.success(
-                isEditing
-                    ? "Habilidade atualizada com sucesso."
-                    : "Habilidade cadastrada com sucesso.",
-            );
+            notification.success({
+                message:
+                    isEditing
+                        ? "Habilidade atualizada com sucesso."
+                        : "Habilidade cadastrada com sucesso.",
+            });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao salvar habilidade.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao salvar habilidade." });
         }
     }
 
@@ -153,30 +154,28 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
         try {
             await deleteMutation.mutateAsync(abilityId);
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.abilities });
-            message.success("Habilidade removida com sucesso.");
+            notification.success({ message: "Habilidade removida com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao remover habilidade.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao remover habilidade." });
         } finally {
             setDeletingAbilityId(null);
         }
-    }, [deleteMutation, message, queryClient]);
+    }, [deleteMutation, notification, queryClient]);
 
     const onImportAbilitiesFromJson = useCallback(async () => {
         try {
             const result = await importMutation.mutateAsync();
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.abilities });
 
-            message.success(
-                `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).`,
-            );
+            notification.success({ message: `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).` });
         } catch (error) {
-            message.error(
-                error instanceof Error
+            notification.error({
+                message: error instanceof Error
                     ? error.message
                     : "Erro ao importar habilidades do JSON.",
-            );
+            });
         }
-    }, [importMutation, message, queryClient]);
+    }, [importMutation, notification, queryClient]);
 
     const columns = useMemo<ColumnsType<AbilityDto>>(
         () => [

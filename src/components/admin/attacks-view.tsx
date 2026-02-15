@@ -69,7 +69,7 @@ type AttackFormValues = {
 const { Title, Text } = Typography;
 
 export function AttacksView({ attacks }: AttacksViewProps) {
-    const { message } = AntdApp.useApp();
+    const { notification } = AntdApp.useApp();
     const queryClient = useQueryClient();
     const [form] = Form.useForm<AttackFormValues>();
     const [editingId, setEditingId] = useState<string | null>(null);
@@ -114,9 +114,9 @@ export function AttacksView({ attacks }: AttacksViewProps) {
             setImagePreviewUrl(data.file.publicUrl ?? URL.createObjectURL(file));
             setImageFileList([{ uid: file.uid ?? `${Date.now()}`, name: file.name, status: "done", url: data.file.publicUrl ?? undefined }]);
 
-            message.success("Imagem enviada para o Storage com sucesso.");
+            notification.success({ message: "Imagem enviada para o Storage com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao anexar imagem.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao anexar imagem." });
         } finally {
             setIsImageUploading(false);
         }
@@ -151,9 +151,9 @@ export function AttacksView({ attacks }: AttacksViewProps) {
             form.resetFields();
             setImageFileList([]);
             setImagePreviewUrl(null);
-            message.success(isEditing ? "Ataque atualizado com sucesso." : "Ataque cadastrado com sucesso.");
+            notification.success({ message: isEditing ? "Ataque atualizado com sucesso." : "Ataque cadastrado com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao salvar ataque.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao salvar ataque." });
         }
     }
 
@@ -190,30 +190,28 @@ export function AttacksView({ attacks }: AttacksViewProps) {
         try {
             await deleteMutation.mutateAsync(attackId);
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.attacks });
-            message.success("Ataque removido com sucesso.");
+            notification.success({ message: "Ataque removido com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao remover ataque.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao remover ataque." });
         } finally {
             setDeletingId(null);
         }
-    }, [deleteMutation, message, queryClient]);
+    }, [deleteMutation, notification, queryClient]);
 
     const onImportAttacksFromJson = useCallback(async () => {
         try {
             const result = await importMutation.mutateAsync();
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.attacks });
 
-            message.success(
-                `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).`,
-            );
+            notification.success({ message: `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).` });
         } catch (error) {
-            message.error(
-                error instanceof Error
+            notification.error({
+                message: error instanceof Error
                     ? error.message
                     : "Erro ao importar ataques do JSON.",
-            );
+            });
         }
-    }, [importMutation, message, queryClient]);
+    }, [importMutation, notification, queryClient]);
 
     const columns = useMemo<ColumnsType<AttackDto>>(
         () => [

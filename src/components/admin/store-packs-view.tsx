@@ -46,7 +46,7 @@ const CARD_TYPE_OPTIONS: Array<{ value: UserCardType; label: string }> = [
 ];
 
 export function StorePacksView({ packs }: StorePacksViewProps) {
-    const { message } = AntdApp.useApp();
+    const { notification } = AntdApp.useApp();
     const [rows, setRows] = useState<AdminStorePackDto[]>(packs);
     const [creating, setCreating] = useState(false);
     const [removingId, setRemovingId] = useState<string | null>(null);
@@ -58,7 +58,7 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
         attachFile,
         clearImage,
     } = useImageUploadField({
-        messageApi: message,
+        messageApi: notification,
         uploadFile: (formData) => StorePacksAdminService.uploadImage(formData),
         getPublicUrl: (response) => response.file?.publicUrl,
         getFieldValue: (response) => response.file?.imageFileId,
@@ -127,9 +127,9 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
                         try {
                             await StorePacksAdminService.remove(row.id);
                             setRows((previous) => previous.filter((item) => item.id !== row.id));
-                            message.success("Pacote removido.");
+                            notification.success({ message: "Pacote removido." });
                         } catch (error) {
-                            message.error(error instanceof Error ? error.message : "Erro ao remover pacote.");
+                            notification.error({ message: error instanceof Error ? error.message : "Erro ao remover pacote." });
                         } finally {
                             setRemovingId(null);
                         }
@@ -141,7 +141,7 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
                 </Popconfirm>
             ),
         },
-    ], [message, removingId]);
+    ], [notification, removingId]);
 
     const handleCreate = async (values: FormValues) => {
         setCreating(true);
@@ -168,9 +168,9 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
             setRows((previous) => [pack, ...previous]);
             form.resetFields();
             clearImage();
-            message.success("Pacote criado com sucesso.");
+            notification.success({ message: "Pacote criado com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao criar pacote.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao criar pacote." });
         } finally {
             setCreating(false);
         }

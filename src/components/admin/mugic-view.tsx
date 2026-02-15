@@ -71,7 +71,7 @@ type MugicFormValues = {
 const { Title, Text } = Typography;
 
 export function MugicView({ mugics }: MugicViewProps) {
-    const { message } = AntdApp.useApp();
+    const { notification } = AntdApp.useApp();
     const queryClient = useQueryClient();
     const [form] = Form.useForm<MugicFormValues>();
     const [editingId, setEditingId] = useState<string | null>(null);
@@ -123,9 +123,9 @@ export function MugicView({ mugics }: MugicViewProps) {
                 },
             ]);
 
-            message.success("Imagem enviada para o Storage com sucesso.");
+            notification.success({ message: "Imagem enviada para o Storage com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao anexar imagem.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao anexar imagem." });
         } finally {
             setIsImageUploading(false);
         }
@@ -161,9 +161,9 @@ export function MugicView({ mugics }: MugicViewProps) {
             form.resetFields();
             setImageFileList([]);
             setImagePreviewUrl(null);
-            message.success(isEditing ? "Mugic atualizado com sucesso." : "Mugic cadastrado com sucesso.");
+            notification.success({ message: isEditing ? "Mugic atualizado com sucesso." : "Mugic cadastrado com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao salvar mugic.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao salvar mugic." });
         }
     }
 
@@ -223,30 +223,28 @@ export function MugicView({ mugics }: MugicViewProps) {
         try {
             await deleteMutation.mutateAsync(mugicId);
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.mugic });
-            message.success("Mugic removido com sucesso.");
+            notification.success({ message: "Mugic removido com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao remover mugic.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao remover mugic." });
         } finally {
             setDeletingId(null);
         }
-    }, [deleteMutation, message, queryClient]);
+    }, [deleteMutation, notification, queryClient]);
 
     const onImportMugicFromJson = useCallback(async () => {
         try {
             const result = await importMutation.mutateAsync();
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.mugic });
 
-            message.success(
-                `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).`,
-            );
+            notification.success({ message: `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).` });
         } catch (error) {
-            message.error(
-                error instanceof Error
+            notification.error({
+                message: error instanceof Error
                     ? error.message
-                    : "Erro ao importar mugic do JSON.",
-            );
+                    : "Erro ao importar mugics do JSON.",
+            });
         }
-    }, [importMutation, message, queryClient]);
+    }, [importMutation, notification, queryClient]);
 
     const columns = useMemo<ColumnsType<MugicDto>>(
         () => [

@@ -15,7 +15,7 @@ import {
     Statistic,
     Tag,
     Typography,
-    message,
+    notification,
 } from "antd";
 import Link from "next/link";
 import Image from "next/image";
@@ -99,7 +99,7 @@ export function HomeView({
                 setLockedStarterTribe(null);
             }
         } catch {
-            message.error("Falha ao consultar status da escolha inicial de tribo.");
+            notification.error({ message: "Falha ao consultar status da escolha inicial de tribo." });
         } finally {
             setLoadingStarterStatus(false);
         }
@@ -111,7 +111,7 @@ export function HomeView({
 
     const handleConfirmStarterTribe = useCallback(async () => {
         if (!starterSelection) {
-            message.warning("Selecione uma tribo para continuar.");
+            notification.warning({ message: "Selecione uma tribo para continuar." });
             return;
         }
 
@@ -120,11 +120,11 @@ export function HomeView({
         try {
             await StarterProgressionService.chooseStarterTribe(starterSelection);
 
-            message.success("Tribo inicial definida e pacotes adicionados ao seu deck.");
+            notification.success({ message: "Tribo inicial definida e pacotes adicionados ao seu deck." });
             setRequiresStarterChoice(false);
             window.location.reload();
         } catch {
-            message.error("Falha ao definir tribo inicial.");
+            notification.error({ message: "Falha ao definir tribo inicial." });
         } finally {
             setSubmittingStarterChoice(false);
         }

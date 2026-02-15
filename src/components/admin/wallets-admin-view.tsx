@@ -22,7 +22,7 @@ type CreditState = {
 const { Title, Text } = Typography;
 
 export function WalletsAdminView({ wallets }: WalletsAdminViewProps) {
-    const { message } = AntdApp.useApp();
+    const { notification } = AntdApp.useApp();
     const [rows, setRows] = useState<AdminUserWalletDto[]>(wallets);
     const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
     const [credits, setCredits] = useState<Record<string, CreditState>>(() => {
@@ -124,7 +124,7 @@ export function WalletsAdminView({ wallets }: WalletsAdminViewProps) {
                         const diamonds = Math.max(0, Math.trunc(credits[row.userId]?.diamonds ?? 0));
 
                         if (coins === 0 && diamonds === 0) {
-                            message.warning("Informe moedas ou diamantes maiores que zero.");
+                            notification.warning({ message: "Informe moedas ou diamantes maiores que zero." });
                             return;
                         }
 
@@ -155,9 +155,9 @@ export function WalletsAdminView({ wallets }: WalletsAdminViewProps) {
                                 },
                             }));
 
-                            message.success("Saldo creditado com sucesso.");
+                            notification.success({ message: "Saldo creditado com sucesso." });
                         } catch (error) {
-                            message.error(error instanceof Error ? error.message : "Erro ao creditar saldo.");
+                            notification.error({ message: error instanceof Error ? error.message : "Erro ao creditar saldo." });
                         } finally {
                             setLoadingUserId(null);
                         }
@@ -168,7 +168,7 @@ export function WalletsAdminView({ wallets }: WalletsAdminViewProps) {
                 </Button>
             ),
         },
-    ], [credits, loadingUserId, message]);
+    ], [credits, loadingUserId, notification]);
 
     return (
         <AdminShell selectedKey="wallets">

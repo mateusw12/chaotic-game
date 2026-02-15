@@ -2,17 +2,22 @@
 
 import { useCallback, useState } from "react";
 import type { UploadFile } from "antd/es/upload/interface";
-import type { MessageInstance } from "antd/es/message/interface";
+import type { ArgsProps } from "antd/es/notification/interface";
+
+type ToastApi = {
+    success: (args: ArgsProps) => unknown;
+    error: (args: ArgsProps) => unknown;
+};
 
 type FormFieldSetter = {
     setFieldValue: (...args: any[]) => void;
 };
 
 type UploadFileHandler<TUploadResponse> = (formData: FormData) => Promise<TUploadResponse>;
-type UploadResponse<TUploadFn extends UploadFileHandler<unknown>> = Awaited<ReturnType<TUploadFn>>;
+type UploadResponse<TUploadFn extends UploadFileHandler<any>> = Awaited<ReturnType<TUploadFn>>;
 
-type UseImageUploadFieldOptions<TUploadFn extends UploadFileHandler<unknown>> = {
-    messageApi: MessageInstance;
+type UseImageUploadFieldOptions<TUploadFn extends UploadFileHandler<any>> = {
+    messageApi: ToastApi;
     uploadFile: TUploadFn;
     getPublicUrl: (response: UploadResponse<TUploadFn>) => string | null | undefined;
     getFieldValue?: (response: UploadResponse<TUploadFn>) => string | null | undefined;
@@ -28,7 +33,7 @@ type ExistingImageOptions = {
     name?: string;
 };
 
-export function useImageUploadField<TUploadFn extends UploadFileHandler<unknown>>({
+export function useImageUploadField<TUploadFn extends UploadFileHandler<any>>({
     messageApi,
     uploadFile,
     getPublicUrl,
@@ -94,9 +99,9 @@ export function useImageUploadField<TUploadFn extends UploadFileHandler<unknown>
                 },
             ]);
 
-            messageApi.success(successMessage);
+            messageApi.success({ message: successMessage });
         } catch (error) {
-            messageApi.error(error instanceof Error ? error.message : defaultErrorMessage);
+            messageApi.error({ message: error instanceof Error ? error.message : defaultErrorMessage });
         } finally {
             setIsUploading(false);
         }

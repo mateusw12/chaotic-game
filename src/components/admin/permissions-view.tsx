@@ -17,7 +17,7 @@ type PermissionsViewProps = {
 const { Title, Text } = Typography;
 
 export function PermissionsView({ users }: PermissionsViewProps) {
-    const { message } = AntdApp.useApp();
+    const { notification } = AntdApp.useApp();
     const [rows, setRows] = useState<UserPermissionDto[]>(users);
     const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
 
@@ -38,13 +38,13 @@ export function PermissionsView({ users }: PermissionsViewProps) {
                 ),
             );
 
-            message.success("Permissão atualizada com sucesso.");
+            notification.success({ message: "Permissão atualizada com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao atualizar role.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao atualizar role." });
         } finally {
             setLoadingUserId(null);
         }
-    }, [message]);
+    }, [notification]);
 
     const columns = useMemo<ColumnsType<UserPermissionDto>>(
         () => [

@@ -91,8 +91,8 @@ function parseBattleRulesJson(value: string | undefined): LocationBattleRuleDto 
 }
 
 export function LocationsView({ locations }: LocationsViewProps) {
-    const { message } = AntdApp.useApp();
-    const { runWithSubmitToast } = useFormSubmitToast(message);
+    const { notification } = AntdApp.useApp();
+    const { runWithSubmitToast } = useFormSubmitToast(notification);
     const queryClient = useQueryClient();
     const [form] = Form.useForm<LocationFormValues>();
     const [editingLocationId, setEditingLocationId] = useState<string | null>(null);
@@ -106,7 +106,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
         clearImage,
         setExistingImage,
     } = useImageUploadField({
-        messageApi: message,
+        messageApi: notification,
         form,
         fieldName: "imageFileId",
         uploadFile: (formData) => LocationsAdminService.uploadImage(formData),
@@ -186,7 +186,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                 },
             );
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao salvar local.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao salvar local." });
         }
     }
 
@@ -243,17 +243,15 @@ export function LocationsView({ locations }: LocationsViewProps) {
             const result = await importMutation.mutateAsync();
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
 
-            message.success(
-                `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).`,
-            );
+            notification.success({ message: `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).` });
         } catch (error) {
-            message.error(
-                error instanceof Error
+            notification.error({
+                message: error instanceof Error
                     ? error.message
                     : "Erro ao importar locais do JSON.",
-            );
+            });
         }
-    }, [importMutation, message, queryClient]);
+    }, [importMutation, notification, queryClient]);
 
     const columns = useMemo<ColumnsType<LocationDto>>(
         () => [

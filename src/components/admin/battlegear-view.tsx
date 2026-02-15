@@ -65,7 +65,7 @@ type BattleGearFormValues = {
 const { Title, Text } = Typography;
 
 export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
-    const { message } = AntdApp.useApp();
+    const { notification } = AntdApp.useApp();
     const queryClient = useQueryClient();
     const [form] = Form.useForm<BattleGearFormValues>();
     const [editingId, setEditingId] = useState<string | null>(null);
@@ -122,9 +122,9 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                 },
             ]);
 
-            message.success("Imagem enviada para o Storage com sucesso.");
+            notification.success({ message: "Imagem enviada para o Storage com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao anexar imagem.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao anexar imagem." });
         } finally {
             setIsImageUploading(false);
         }
@@ -155,9 +155,9 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             form.resetFields();
             setImageFileList([]);
             setImagePreviewUrl(null);
-            message.success(isEditing ? "Equipamento atualizado com sucesso." : "Equipamento cadastrado com sucesso.");
+            notification.success({ message: isEditing ? "Equipamento atualizado com sucesso." : "Equipamento cadastrado com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao salvar equipamento.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao salvar equipamento." });
         }
     }
 
@@ -201,30 +201,28 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
         try {
             await deleteMutation.mutateAsync(itemId);
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.battlegear });
-            message.success("Equipamento removido com sucesso.");
+            notification.success({ message: "Equipamento removido com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao remover equipamento.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao remover equipamento." });
         } finally {
             setDeletingId(null);
         }
-    }, [deleteMutation, message, queryClient]);
+    }, [deleteMutation, notification, queryClient]);
 
     const onImportBattlegearFromJson = useCallback(async () => {
         try {
             const result = await importMutation.mutateAsync();
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.battlegear });
 
-            message.success(
-                `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).`,
-            );
+            notification.success({ message: `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).` });
         } catch (error) {
-            message.error(
-                error instanceof Error
+            notification.error({
+                message: error instanceof Error
                     ? error.message
                     : "Erro ao importar equipamentos do JSON.",
-            );
+            });
         }
-    }, [importMutation, message, queryClient]);
+    }, [importMutation, notification, queryClient]);
 
     const columns = useMemo<ColumnsType<BattleGearDto>>(
         () => [

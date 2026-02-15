@@ -79,8 +79,8 @@ function scheduleLabel(tournament: TournamentDto): string {
 }
 
 export function TournamentsView({ tournaments }: TournamentsViewProps) {
-    const { message } = AntdApp.useApp();
-    const { runWithSubmitToast } = useFormSubmitToast(message);
+    const { notification } = AntdApp.useApp();
+    const { runWithSubmitToast } = useFormSubmitToast(notification);
     const queryClient = useQueryClient();
     const [form] = Form.useForm<TournamentFormValues>();
     const [editingTournamentId, setEditingTournamentId] = useState<string | null>(null);
@@ -94,7 +94,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
         clearImage: clearCover,
         setExistingImage: setExistingCover,
     } = useImageUploadField({
-        messageApi: message,
+        messageApi: notification,
         form,
         fieldName: "coverImageFileId",
         uploadFile: (formData) => TournamentsAdminService.uploadCover(formData),

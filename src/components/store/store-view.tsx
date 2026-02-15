@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, Col, Modal, Row, Space, Tag, Tooltip, Typography, message } from "antd";
+import { Button, Card, Col, Modal, Row, Space, Tag, Tooltip, Typography, notification } from "antd";
 import { InfoCircleOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
@@ -65,7 +65,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
     const [recentlyPurchasedPackId, setRecentlyPurchasedPackId] = useState<string | null>(null);
     const [sellingCardKey, setSellingCardKey] = useState<string | null>(null);
     const [sellingAll, setSellingAll] = useState(false);
-    const [apiMessage, contextHolder] = message.useMessage();
+    const [apiMessage, contextHolder] = notification.useNotification();
     const loadingLogoIcon = <LoadingLogo />;
 
     useEffect(() => {
@@ -90,7 +90,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
             setCoins(payload.wallet.coins);
             setDiamonds(payload.wallet.diamonds);
         } catch (error) {
-            apiMessage.error(error instanceof Error ? error.message : "Erro ao carregar loja.");
+            apiMessage.error({ message: error instanceof Error ? error.message : "Erro ao carregar loja." });
         } finally {
             setLoading(false);
         }
@@ -112,10 +112,10 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
             setRevealedCards(payload.cards);
             setIsRevealOpen(true);
             setRecentlyPurchasedPackId(packId);
-            apiMessage.success("Pacote comprado com sucesso!");
+            apiMessage.success({ message: "Pacote comprado com sucesso!" });
             await loadStore();
         } catch (error) {
-            apiMessage.error(error instanceof Error ? error.message : "Erro na compra do pacote.");
+            apiMessage.error({ message: error instanceof Error ? error.message : "Erro na compra do pacote." });
         } finally {
             setPurchasingPackKey(null);
         }
@@ -200,12 +200,12 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
 
             setCoins(payload.wallet.coins);
             setDiamonds(payload.wallet.diamonds);
-            apiMessage.success(`Venda concluída: +${payload.coinsEarned} moedas.`);
+            apiMessage.success({ message: `Venda concluída: +${payload.coinsEarned} moedas.` });
         } catch (error) {
             if (rollbackCards) {
                 setRevealedCards(rollbackCards);
             }
-            apiMessage.error(error instanceof Error ? error.message : "Erro ao vender cartas.");
+            apiMessage.error({ message: error instanceof Error ? error.message : "Erro ao vender cartas." });
         } finally {
             setSellingAll(false);
             setSellingCardKey(null);
@@ -216,7 +216,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
         setIsRevealOpen(false);
 
         if (revealedCards.length > 0) {
-            apiMessage.success("Cartas adicionadas ao seu deck com sucesso.");
+            apiMessage.success({ message: "Cartas adicionadas ao seu deck com sucesso." });
         }
     }, [apiMessage, revealedCards.length]);
 

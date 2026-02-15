@@ -37,7 +37,7 @@ export function ProfileView({
     diamonds,
     progressionOverview,
 }: ProfileViewProps) {
-    const { message } = AntdApp.useApp();
+    const { notification } = AntdApp.useApp();
     const [profileForm] = Form.useForm<ProfileFormValues>();
     const [saving, setSaving] = useState(false);
     const [isImageUploading, setIsImageUploading] = useState(false);
@@ -69,9 +69,9 @@ export function ProfileView({
 
             setCurrentNickName(profile.nickName);
             setCurrentImageUrl(profile.imageUrl);
-            message.success("Perfil atualizado com sucesso.");
+            notification.success({ message: "Perfil atualizado com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao atualizar perfil.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao atualizar perfil." });
         } finally {
             setSaving(false);
         }
@@ -96,9 +96,9 @@ export function ProfileView({
                     url: publicUrl,
                 },
             ]);
-            message.success("Imagem enviada para o Storage com sucesso.");
+            notification.success({ message: "Imagem enviada para o Storage com sucesso." });
         } catch (error) {
-            message.error(error instanceof Error ? error.message : "Erro ao anexar imagem de perfil.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao anexar imagem de perfil." });
         } finally {
             setIsImageUploading(false);
         }

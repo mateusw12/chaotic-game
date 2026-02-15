@@ -79,7 +79,7 @@ export function DecksView({
     coins,
     diamonds,
 }: DecksViewProps) {
-    const { message } = AntdApp.useApp();
+    const { notification } = AntdApp.useApp();
     const [currentCoins, setCurrentCoins] = useState(coins);
     const [currentDiamonds, setCurrentDiamonds] = useState(diamonds);
     const [filters, setFilters] = useState<DeckFilters>({ name: "" });
@@ -105,10 +105,10 @@ export function DecksView({
         onSuccess: async () => {
             setNewDeckName("");
             await query.refetch();
-            message.success("Deck criado com sucesso.");
+            notification.success({ message: "Deck criado com sucesso." });
         },
         onError: (error) => {
-            message.error(error instanceof Error ? error.message : "Erro ao criar deck.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao criar deck." });
         },
     });
 
@@ -126,7 +126,7 @@ export function DecksView({
                 });
             }
 
-            message.error(error instanceof Error ? error.message : "Erro ao atualizar deck.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao atualizar deck." });
         },
     });
 
@@ -136,10 +136,10 @@ export function DecksView({
             setSelectedDeckId(null);
             setViewDeckId(null);
             await query.refetch();
-            message.success("Deck removido.");
+            notification.success({ message: "Deck removido." });
         },
         onError: (error) => {
-            message.error(error instanceof Error ? error.message : "Erro ao remover deck.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao remover deck." });
         },
     });
 
@@ -156,10 +156,10 @@ export function DecksView({
             setSelectedCollectionCard(null);
             setSellQuantity(1);
             await query.refetch();
-            message.success(`Carta vendida: +${response.coinsEarned} moedas.`);
+            notification.success({ message: `Carta vendida: +${response.coinsEarned} moedas.` });
         },
         onError: (error) => {
-            message.error(error instanceof Error ? error.message : "Erro ao vender carta.");
+            notification.error({ message: error instanceof Error ? error.message : "Erro ao vender carta." });
         },
     });
 
@@ -293,7 +293,7 @@ export function DecksView({
             : decks[0] ?? null;
 
         if (!activeDeck) {
-            message.warning("Crie ou selecione um deck primeiro.");
+            notification.warning({ message: "Crie ou selecione um deck primeiro." });
             return;
         }
 
@@ -302,7 +302,7 @@ export function DecksView({
         const currentQuantity = activeDeckCardMap.get(key) ?? 0;
 
         if (currentQuantity > 0) {
-            message.warning("Essa carta já está no deck. Apenas 1 cópia por carta é permitida.");
+            notification.warning({ message: "Essa carta já está no deck. Apenas 1 cópia por carta é permitida." });
             return;
         }
 
@@ -592,7 +592,7 @@ export function DecksView({
                                     disabled={createDeckMutation.isPending}
                                     onClick={() => {
                                         if (!newDeckName.trim()) {
-                                            message.warning("Informe o nome do deck.");
+                                            notification.warning({ message: "Informe o nome do deck." });
                                             return;
                                         }
 
