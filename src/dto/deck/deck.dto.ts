@@ -11,6 +11,7 @@ export type DeckCollectionCardDto = {
     quantity: number;
     energy: number;
     primaryTribe: CreatureTribe | null;
+    sellValue: number;
 };
 
 export type DeckEntryDto = {

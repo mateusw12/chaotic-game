@@ -32,6 +32,7 @@ import type {
     SupabaseUserDeckCardRow,
     SupabaseUserDeckRow,
 } from "./types";
+import { getCardSellValue } from "./progression";
 
 const CARD_FALLBACK_IMAGE = "/assets/card/verso.png";
 
@@ -56,7 +57,7 @@ function mapDeck(deck: SupabaseUserDeckRow, cards: SupabaseUserDeckCardRow[]): D
     };
 }
 
-function mapCollectionCard(row: SupabaseUserCardRow, meta: CardMeta): DeckCollectionCardDto {
+function mapCollectionCard(row: SupabaseUserCardRow, meta: CardMeta, sellValue: number): DeckCollectionCardDto {
     return {
         userCardId: row.id,
         cardType: row.card_type,
@@ -67,6 +68,7 @@ function mapCollectionCard(row: SupabaseUserCardRow, meta: CardMeta): DeckCollec
         quantity: row.quantity,
         energy: meta.energy,
         primaryTribe: meta.primaryTribe,
+        sellValue,
     };
 }
 
@@ -239,7 +241,7 @@ export async function getUserDeckOverview(userId: string): Promise<DeckOverviewD
 
     const metadataMap = await resolveCardsMetadata(collectionRows ?? []);
 
-    const collection = (collectionRows ?? []).map((row) => {
+    const collection = await Promise.all((collectionRows ?? []).map(async (row) => {
         const key = `${row.card_type}:${row.card_id}`;
         const meta = metadataMap.get(key) ?? {
             name: "Carta sem nome",
@@ -248,8 +250,10 @@ export async function getUserDeckOverview(userId: string): Promise<DeckOverviewD
             primaryTribe: null,
         };
 
-        return mapCollectionCard(row, meta);
-    });
+        const sellValue = await getCardSellValue(row.card_type, row.rarity, row.card_id);
+
+        return mapCollectionCard(row, meta, sellValue);
+    }));
 
     const decks = (deckRows ?? []).map((deckRow) => {
         const cards = deckCardRows.filter((entry) => entry.deck_id === deckRow.id);

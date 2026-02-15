@@ -19,6 +19,7 @@ import {
 import type { DeckCollectionCardDto, DeckDto } from "@/dto/deck";
 import { CARD_RARITY_OPTIONS, CREATURE_TRIBE_OPTIONS, type CardRarity, type CreatureTribe } from "@/dto/creature";
 import type { UserCardType } from "@/dto/progression";
+import { StoreService } from "@/lib/api/services/store.service";
 import { PlayerShell } from "@/components/player/player-shell";
 import { DecksService } from "@/lib/api/service";
 import styles from "./decks-view.module.css";
@@ -78,11 +79,15 @@ export function DecksView({
     diamonds,
 }: DecksViewProps) {
     const { message } = AntdApp.useApp();
+    const [currentCoins, setCurrentCoins] = useState(coins);
+    const [currentDiamonds, setCurrentDiamonds] = useState(diamonds);
     const [filters, setFilters] = useState<DeckFilters>({ name: "" });
     const [newDeckName, setNewDeckName] = useState("");
     const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null);
     const [viewDeckId, setViewDeckId] = useState<string | null>(null);
     const [deckCardTypeFilter, setDeckCardTypeFilter] = useState<UserCardType | undefined>(undefined);
+    const [selectedCollectionCard, setSelectedCollectionCard] = useState<DeckCollectionCardDto | null>(null);
+    const [sellQuantity, setSellQuantity] = useState(1);
 
     const [modalNameFilter, setModalNameFilter] = useState("");
     const [modalRarityFilter, setModalRarityFilter] = useState<CardRarity | undefined>(undefined);
@@ -126,6 +131,26 @@ export function DecksView({
         },
         onError: (error) => {
             message.error(error instanceof Error ? error.message : "Erro ao remover deck.");
+        },
+    });
+
+    const sellCardMutation = useMutation({
+        mutationFn: (payload: { cardType: UserCardType; cardId: string; quantity: number }) =>
+            StoreService.sellCards([payload]),
+        onSuccess: async (response) => {
+            if (!response.wallet) {
+                throw new Error("Não foi possível atualizar a carteira após a venda.");
+            }
+
+            setCurrentCoins(response.wallet.coins);
+            setCurrentDiamonds(response.wallet.diamonds);
+            setSelectedCollectionCard(null);
+            setSellQuantity(1);
+            await query.refetch();
+            message.success(`Carta vendida: +${response.coinsEarned} moedas.`);
+        },
+        onError: (error) => {
+            message.error(error instanceof Error ? error.message : "Erro ao vender carta.");
         },
     });
 
@@ -283,6 +308,40 @@ export function DecksView({
         });
     };
 
+    const handleCardClick = (card: DeckCollectionCardDto) => {
+        setSelectedCollectionCard(card);
+        setSellQuantity(1);
+    };
+
+    const handleSellSelectedCard = async () => {
+        if (!selectedCollectionCard) {
+            return;
+        }
+
+        const quantity = Math.min(selectedCollectionCard.quantity, Math.max(1, Math.trunc(sellQuantity)));
+
+        await sellCardMutation.mutateAsync({
+            cardType: selectedCollectionCard.cardType,
+            cardId: selectedCollectionCard.cardId,
+            quantity,
+        });
+    };
+
+    const selectedSellUnitValue = selectedCollectionCard
+        ? Number.isFinite(Number(selectedCollectionCard.sellValue))
+            ? Math.max(0, Math.trunc(Number(selectedCollectionCard.sellValue)))
+            : 0
+        : 0;
+
+    const selectedSellQuantity = selectedCollectionCard
+        ? Math.min(
+            Math.max(1, Math.trunc(Number(selectedCollectionCard.quantity) || 1)),
+            Math.max(1, Math.trunc(Number(sellQuantity) || 1)),
+        )
+        : 1;
+
+    const selectedSellTotal = selectedSellUnitValue * selectedSellQuantity;
+
     const selectedDeckCards = useMemo(
         () => (selectedDeck?.cards ?? []).filter((entry) => !deckCardTypeFilter || entry.cardType === deckCardTypeFilter),
         [deckCardTypeFilter, selectedDeck],
@@ -296,14 +355,25 @@ export function DecksView({
                 children: (
                     <div className={styles.cardsGrid}>
                         {filteredCollection.map((card) => (
-                            <div key={`${card.cardType}:${card.cardId}`} className={`${styles.cardButton} ${tribeClass(card.primaryTribe)}`}>
+                            <div
+                                key={`${card.cardType}:${card.cardId}`}
+                                className={`${styles.cardButton} ${tribeClass(card.primaryTribe)}`}
+                                onClick={() => handleCardClick(card)}
+                            >
                                 <div className={styles.cardImageWrap}>
                                     <img src={card.imageUrl} alt={card.name} className={styles.cardImage} />
                                 </div>
                                 <Text className={styles.cardName}>{card.name}</Text>
                                 <Space style={{ marginTop: 6, width: "100%", justifyContent: "space-between" }}>
                                     <Tag>{card.quantity}x</Tag>
-                                    <Button size="small" type="primary" onClick={() => void handleAddCardToDeck(card)}>
+                                    <Button
+                                        size="small"
+                                        type="primary"
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            void handleAddCardToDeck(card);
+                                        }}
+                                    >
                                         Adicionar
                                     </Button>
                                 </Space>
@@ -324,14 +394,25 @@ export function DecksView({
                 children: (
                     <div className={styles.cardsGrid}>
                         {repeatedCards.map((card) => (
-                            <div key={`repeated-${card.cardType}:${card.cardId}`} className={`${styles.cardButton} ${tribeClass(card.primaryTribe)}`}>
+                            <div
+                                key={`repeated-${card.cardType}:${card.cardId}`}
+                                className={`${styles.cardButton} ${tribeClass(card.primaryTribe)}`}
+                                onClick={() => handleCardClick(card)}
+                            >
                                 <div className={styles.cardImageWrap}>
                                     <img src={card.imageUrl} alt={card.name} className={styles.cardImage} />
                                 </div>
                                 <Text className={styles.cardName}>{card.name}</Text>
                                 <Space style={{ marginTop: 6, width: "100%", justifyContent: "space-between" }}>
                                     <Tag>{card.quantity}x</Tag>
-                                    <Button size="small" type="primary" onClick={() => void handleAddCardToDeck(card)}>
+                                    <Button
+                                        size="small"
+                                        type="primary"
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            void handleAddCardToDeck(card);
+                                        }}
+                                    >
                                         Adicionar
                                     </Button>
                                 </Space>
@@ -351,8 +432,8 @@ export function DecksView({
             userNickName={userNickName}
             userImageUrl={userImageUrl}
             userRole={userRole}
-            coins={coins}
-            diamonds={diamonds}
+            coins={currentCoins}
+            diamonds={currentDiamonds}
         >
             <Space orientation="vertical" size={14} style={{ width: "100%" }}>
                 <Title level={3} style={{ margin: 0 }} className={styles.pageTitle}>Meu Deck</Title>
@@ -552,6 +633,65 @@ export function DecksView({
                             }))}
                         />
                     </Space>
+                </Modal>
+
+                <Modal
+                    title={selectedCollectionCard ? `Carta: ${selectedCollectionCard.name}` : "Carta"}
+                    className={styles.actionCardModal}
+                    open={Boolean(selectedCollectionCard)}
+                    onCancel={() => {
+                        setSelectedCollectionCard(null);
+                        setSellQuantity(1);
+                    }}
+                    footer={null}
+                    width={420}
+                >
+                    {selectedCollectionCard ? (
+                        <Space orientation="vertical" size={12} style={{ width: "100%" }}>
+                            <Text type="secondary">Gerencie esta carta de forma rápida: adicione ao deck ou venda por moedas.</Text>
+
+                            <div className={styles.actionCardSummary}>
+                                <div>
+                                    <Text className={styles.actionCardLabel}>Disponível</Text>
+                                    <div><Tag>{selectedCollectionCard.quantity}x</Tag></div>
+                                </div>
+                                <div>
+                                    <Text className={styles.actionCardLabel}>Valor unitário</Text>
+                                    <div><Tag color="gold">{selectedSellUnitValue} moedas</Tag></div>
+                                </div>
+                                <div>
+                                    <Text className={styles.actionCardLabel}>Total da venda</Text>
+                                    <div><Tag color="gold">{selectedSellTotal} moedas</Tag></div>
+                                </div>
+                            </div>
+
+                            <div className={styles.actionCardQuantity}>
+                                <Text className={styles.actionCardLabel}>Quantidade para venda</Text>
+                                <InputNumber
+                                    min={1}
+                                    max={selectedCollectionCard.quantity}
+                                    value={sellQuantity}
+                                    onChange={(value) => setSellQuantity(Math.max(1, Number(value ?? 1)))}
+                                    style={{ width: "100%" }}
+                                />
+                            </div>
+
+                            <div className={styles.actionCardButtons}>
+                                <Button block onClick={() => void handleAddCardToDeck(selectedCollectionCard)}>
+                                    Adicionar ao deck
+                                </Button>
+                                <Button
+                                    danger
+                                    type="primary"
+                                    block
+                                    loading={sellCardMutation.isPending}
+                                    onClick={() => void handleSellSelectedCard()}
+                                >
+                                    Vender carta
+                                </Button>
+                            </div>
+                        </Space>
+                    ) : null}
                 </Modal>
             </Space>
         </PlayerShell>

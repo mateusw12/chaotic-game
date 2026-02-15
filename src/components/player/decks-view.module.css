@@ -235,6 +235,60 @@
     color: #deecff;
 }
 
+.actionCardModal :global(.ant-modal-content) {
+    border: 1px solid rgba(142, 198, 255, 0.34);
+    background: linear-gradient(170deg, rgba(9, 18, 44, 0.96), rgba(5, 11, 27, 0.98));
+    box-shadow: 0 20px 40px rgba(2, 8, 24, 0.6);
+}
+
+.actionCardModal :global(.ant-modal-header) {
+    background: transparent;
+    border-bottom: 1px solid rgba(143, 199, 255, 0.2);
+}
+
+.actionCardModal :global(.ant-modal-title) {
+    color: #dfe9ff;
+    text-shadow: 0 0 14px rgba(126, 199, 255, 0.35);
+}
+
+.actionCardModal :global(.ant-tag) {
+    border-color: rgba(124, 195, 255, 0.45);
+    background: rgba(63, 151, 235, 0.14);
+    color: #deecff;
+    margin-inline-end: 0 !important;
+}
+
+.actionCardSummary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(150, 192, 255, 0.24);
+    background: linear-gradient(170deg, rgba(13, 20, 46, 0.78), rgba(8, 14, 33, 0.7));
+}
+
+.actionCardLabel {
+    display: block;
+    margin-bottom: 6px;
+    color: rgba(214, 231, 255, 0.8) !important;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+}
+
+.actionCardQuantity {
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(150, 192, 255, 0.24);
+    background: linear-gradient(170deg, rgba(13, 20, 46, 0.78), rgba(8, 14, 33, 0.7));
+}
+
+.actionCardButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
 @media (max-width: 1024px) {
     .root {
         grid-template-columns: 1fr;
@@ -242,5 +296,10 @@
 
     .filters {
         grid-template-columns: repeat(2, minmax(120px, 1fr));
+    }
+
+    .actionCardSummary,
+    .actionCardButtons {
+        grid-template-columns: 1fr;
     }
 }
