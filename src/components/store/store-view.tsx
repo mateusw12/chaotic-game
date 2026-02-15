@@ -212,6 +212,14 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
         }
     }, [apiMessage, removeSoldCardsFromList]);
 
+    const handleCloseRevealModal = useCallback(() => {
+        setIsRevealOpen(false);
+
+        if (revealedCards.length > 0) {
+            apiMessage.success("Cartas adicionadas ao seu deck com sucesso.");
+        }
+    }, [apiMessage, revealedCards.length]);
+
     return (
         <PlayerShell
             selectedKey="store"
@@ -369,9 +377,9 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                 open={isRevealOpen}
                 title="Abertura do Pacote"
                 className={styles.revealModal}
-                onCancel={() => setIsRevealOpen(false)}
+                onCancel={handleCloseRevealModal}
                 footer={[
-                    <Button key="close" type="primary" onClick={() => setIsRevealOpen(false)}>
+                    <Button key="close" type="primary" onClick={handleCloseRevealModal}>
                         Fechar
                     </Button>,
                 ]}
