@@ -40,6 +40,8 @@ function normalizeAbilities(abilities: LegacyAbility[]): CreateBattleGearRequest
         return {
             description: ability.description,
             effectType: ability.effectType,
+            targetScope: "all_creatures",
+            targetTribes: [],
             stats,
             cardTypes: Array.isArray(ability.cardTypes) ? ability.cardTypes : [],
             value: ability.value,

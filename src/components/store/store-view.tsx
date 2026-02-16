@@ -5,7 +5,7 @@ import { InfoCircleOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { StorePackDto, StoreRevealCardDto, StoreSellCardInputDto } from "@/dto/store";
+import type { SellStoreCardsResponseDto, StorePackDto, StoreRevealCardDto, StoreSellCardInputDto } from "@/dto/store";
 import styles from "./store-view.module.css";
 import { PlayerShell } from "@/components/player/player-shell";
 import type { CardRarity, CreatureTribe } from "@/dto/creature";
@@ -86,6 +86,10 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
         try {
             const payload = await StoreService.getPacks();
 
+            if (!payload.wallet) {
+                throw new Error("Carteira não encontrada ao carregar loja.");
+            }
+
             setPacks(payload.packs);
             setCoins(payload.wallet.coins);
             setDiamonds(payload.wallet.diamonds);
@@ -106,6 +110,10 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
 
         try {
             const payload = await StoreService.purchase(packId, currency);
+
+            if (!payload.wallet) {
+                throw new Error("Carteira não encontrada após a compra.");
+            }
 
             setCoins(payload.wallet.coins);
             setDiamonds(payload.wallet.diamonds);
@@ -190,9 +198,9 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                 return removeSoldCardsFromList(previous, cards);
             });
 
-            const payload = typeof StoreService.sellCards === "function"
+            const payload: SellStoreCardsResponseDto = typeof StoreService.sellCards === "function"
                 ? await StoreService.sellCards(cards)
-                : await ApiClient.post("/store/sell", { cards });
+                : await ApiClient.post<SellStoreCardsResponseDto, { cards: StoreSellCardInputDto[] }>("/store/sell", { cards });
 
             if (!payload.success || !payload.wallet) {
                 throw new Error(payload.message ?? "Não foi possível vender as cartas.");

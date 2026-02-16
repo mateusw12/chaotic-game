@@ -1,5 +1,4 @@
 import {
-    type CreatureTribe,
     type MugicAbilityType,
     type MugicActionType,
     type MugicStatusEffectActionPayload,
@@ -14,7 +13,7 @@ import {
     isValidMugicStat,
     isValidMugicTargetScope,
 } from "@/dto/mugic";
-import { isValidCardRarity } from "@/dto/creature";
+import { type CreatureTribe, isValidCardRarity } from "@/dto/creature";
 import type { LocationCardType, LocationEffectType, LocationStat } from "@/dto/location";
 import { getMugicImagePublicUrl, getSupabaseAdminClient } from "./storage";
 import { getMugicTableName, isMissingTableError, isValidTribe } from "./core";

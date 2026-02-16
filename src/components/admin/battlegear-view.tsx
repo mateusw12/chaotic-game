@@ -141,6 +141,8 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                 abilities: values.abilities.map((ability) => ({
                     description: ability.description,
                     effectType: ability.effectType,
+                    targetScope: "all_creatures",
+                    targetTribes: [],
                     stats: ability.stats,
                     cardTypes: ability.cardTypes,
                     value: ability.value,
