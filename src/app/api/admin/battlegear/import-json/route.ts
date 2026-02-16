@@ -207,24 +207,27 @@ function normalizeValue(value: unknown): number {
 
 function normalizeAbilities(value: unknown): CreateBattleGearRequestDto["abilities"] {
     const rawAbilities = parseJsonArray(value) as SeedAbility[];
+    const normalized: CreateBattleGearRequestDto["abilities"] = [];
 
-    return rawAbilities
-        .map((ability) => {
-            const description = typeof ability.description === "string" ? ability.description.trim() : "";
+    for (const ability of rawAbilities) {
+        const description = typeof ability.description === "string" ? ability.description.trim() : "";
 
-            if (!description) {
-                return null;
-            }
+        if (!description) {
+            continue;
+        }
 
-            return {
-                description,
-                effectType: normalizeEffectType(ability.effect_type ?? ability.effectType),
-                stats: normalizeStats(ability.stats ?? (ability.stat !== undefined ? [ability.stat] : []), description),
-                cardTypes: normalizeCardTypes(ability.card_types ?? ability.cardTypes ?? []),
-                value: normalizeValue(ability.value),
-            } satisfies CreateBattleGearRequestDto["abilities"][number];
-        })
-        .filter((ability): ability is CreateBattleGearRequestDto["abilities"][number] => Boolean(ability));
+        normalized.push({
+            description,
+            effectType: normalizeEffectType(ability.effect_type ?? ability.effectType),
+            targetScope: "all_creatures",
+            targetTribes: [],
+            stats: normalizeStats(ability.stats ?? (ability.stat !== undefined ? [ability.stat] : []), description),
+            cardTypes: normalizeCardTypes(ability.card_types ?? ability.cardTypes ?? []),
+            value: normalizeValue(ability.value),
+        });
+    }
+
+    return normalized;
 }
 
 function normalizePayload(item: SeedBattleGear): CreateBattleGearRequestDto | null {

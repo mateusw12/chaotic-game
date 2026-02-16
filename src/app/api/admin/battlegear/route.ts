@@ -101,6 +101,10 @@ export async function POST(request: Request) {
             abilities: rawAbilities.map((ability) => ({
                 description: String(ability.description ?? ""),
                 effectType: ability.effectType as CreateBattleGearRequestDto["abilities"][number]["effectType"],
+                targetScope: (ability.targetScope ?? "all_creatures") as CreateBattleGearRequestDto["abilities"][number]["targetScope"],
+                targetTribes: Array.isArray(ability.targetTribes)
+                    ? (ability.targetTribes as CreateBattleGearRequestDto["abilities"][number]["targetTribes"])
+                    : [],
                 stats: Array.isArray(ability.stats)
                     ? (ability.stats as CreateBattleGearRequestDto["abilities"][number]["stats"])
                     : ability.stat

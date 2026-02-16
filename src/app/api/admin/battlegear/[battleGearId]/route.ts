@@ -72,6 +72,10 @@ export async function PATCH(request: Request, context: RouteContext) {
             abilities: rawAbilities.map((ability) => ({
                 description: String(ability.description ?? ""),
                 effectType: ability.effectType as UpdateBattleGearRequestDto["abilities"][number]["effectType"],
+                targetScope: (ability.targetScope ?? "all_creatures") as UpdateBattleGearRequestDto["abilities"][number]["targetScope"],
+                targetTribes: Array.isArray(ability.targetTribes)
+                    ? (ability.targetTribes as UpdateBattleGearRequestDto["abilities"][number]["targetTribes"])
+                    : [],
                 stats: Array.isArray(ability.stats)
                     ? (ability.stats as UpdateBattleGearRequestDto["abilities"][number]["stats"])
                     : ability.stat

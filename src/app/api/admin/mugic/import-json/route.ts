@@ -4,6 +4,7 @@ import {
     MUGIC_ABILITY_TYPES,
     MUGIC_TARGET_SCOPES,
     type CreateMugicRequestDto,
+    type MugicActionType,
     type MugicAbilityDto,
 } from "@/dto/mugic";
 import { CARD_RARITIES, CREATURE_TRIBES, type CardRarity, type CreatureTribe } from "@/dto/creature";
@@ -174,8 +175,8 @@ function normalizeActionType(value: unknown): MugicAbilityDto["actionType"] {
     }
 
     const normalized = value.trim().toLowerCase();
-    return MUGIC_ACTION_TYPES.includes(normalized as MugicAbilityDto["actionType"])
-        ? (normalized as MugicAbilityDto["actionType"])
+    return MUGIC_ACTION_TYPES.includes(normalized as MugicActionType)
+        ? (normalized as MugicActionType)
         : undefined;
 }
 
@@ -228,7 +229,7 @@ function normalizeAbilities(value: unknown): CreateMugicRequestDto["abilities"] 
             }
 
             if (baseAbility.abilityType === "stat_modifier") {
-                if (!baseAbility.effectType || baseAbility.stats.length === 0) {
+                if (!baseAbility.effectType || (baseAbility.stats ?? []).length === 0) {
                     return null;
                 }
             }

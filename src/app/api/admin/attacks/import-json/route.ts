@@ -254,27 +254,28 @@ function normalizeAbilityValue(value: unknown): number {
 
 function normalizeAbilities(value: unknown): AttackAbilityDto[] {
     const rawAbilities = parseJsonArray(value) as SeedAttackAbility[];
+    const normalized: AttackAbilityDto[] = [];
 
-    return rawAbilities
-        .map((ability) => {
-            const description = typeof ability.description === "string" ? ability.description.trim() : "";
+    for (const ability of rawAbilities) {
+        const description = typeof ability.description === "string" ? ability.description.trim() : "";
 
-            if (!description) {
-                return null;
-            }
+        if (!description) {
+            continue;
+        }
 
-            const conditionElement = normalizeElement(ability.condition_element ?? ability.conditionElement);
+        const conditionElement = normalizeElement(ability.condition_element ?? ability.conditionElement);
 
-            return {
-                description,
-                conditionElement: conditionElement ?? undefined,
-                targetScope: normalizeTargetScope(ability.target_scope ?? ability.targetScope),
-                effectType: normalizeEffectType(ability.effect_type ?? ability.effectType),
-                stat: normalizeStat(ability.stat, description),
-                value: normalizeAbilityValue(ability.value),
-            } satisfies AttackAbilityDto;
-        })
-        .filter((ability): ability is AttackAbilityDto => Boolean(ability));
+        normalized.push({
+            description,
+            conditionElement: conditionElement ?? undefined,
+            targetScope: normalizeTargetScope(ability.target_scope ?? ability.targetScope),
+            effectType: normalizeEffectType(ability.effect_type ?? ability.effectType),
+            stat: normalizeStat(ability.stat, description),
+            value: normalizeAbilityValue(ability.value),
+        });
+    }
+
+    return normalized;
 }
 
 function normalizeAttackPayload(item: SeedAttack): CreateAttackRequestDto | null {
