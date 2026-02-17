@@ -52,6 +52,7 @@ export type SupabaseWalletRow = {
 export type SupabaseCreatureRow = {
     id: string;
     name: string;
+    file_name: string | null;
     rarity: CardRarity;
     image_file_id: string | null;
     image_url: string | null;

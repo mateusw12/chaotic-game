@@ -103,6 +103,7 @@ export async function POST(request: Request) {
 
         const creature = await createCreature({
             name: body.name ?? "",
+            fileName: body.fileName ?? null,
             rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             tribe: (body.tribe ?? "") as CreateCreatureRequestDto["tribe"],

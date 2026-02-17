@@ -74,6 +74,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 
         const creature = await updateCreatureById(creatureId, {
             name: body.name ?? "",
+            fileName: body.fileName ?? null,
             rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             tribe: (body.tribe ?? "") as UpdateCreatureRequestDto["tribe"],

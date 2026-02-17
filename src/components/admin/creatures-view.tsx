@@ -224,7 +224,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             const result = await importMutation.mutateAsync();
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
 
-            notification.success({ message: `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).` });
+            notification.success({ title: `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).` });
         } catch (error) {
             notification.error({
                 message: error instanceof Error

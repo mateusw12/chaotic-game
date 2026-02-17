@@ -95,6 +95,7 @@ export const CARD_RARITY_OPTIONS: Array<{
 export type CreatureDto = {
     id: string;
     name: string;
+    fileName: string | null;
     rarity: CardRarity;
     imageFileId: string | null;
     imageUrl: string | null;
@@ -117,6 +118,7 @@ export type CreatureDto = {
 
 export type CreateCreatureRequestDto = {
     name: string;
+    fileName?: string | null;
     rarity: CardRarity;
     imageFileId?: string | null;
     tribe: CreatureTribe;

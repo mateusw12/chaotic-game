@@ -174,6 +174,7 @@ function mapSupabaseCreatureRow(row: SupabaseCreatureRow): CreatureDto {
     return {
         id: row.id,
         name: row.name,
+        fileName: row.file_name,
         rarity: row.rarity,
         imageFileId: row.image_file_id,
         imageUrl: resolvedImageUrl,
@@ -203,7 +204,7 @@ export async function listCreatures(): Promise<CreatureDto[]> {
         const { data, error } = await supabase
             .from(tableName)
             .select(
-                "id,name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_ids,brainwashed_ability_ids,equipment_note,created_at,updated_at",
+                "id,name,file_name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_ids,brainwashed_ability_ids,equipment_note,created_at,updated_at",
             )
             .order("created_at", { ascending: false })
             .returns<BaseCreatureRow[]>();
@@ -215,7 +216,7 @@ export async function listCreatures(): Promise<CreatureDto[]> {
         const { data, error } = await supabase
             .from(tableName)
             .select(
-                "id,name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_id,brainwashed_ability_id,equipment_note,created_at,updated_at",
+                "id,name,file_name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_id,brainwashed_ability_id,equipment_note,created_at,updated_at",
             )
             .order("created_at", { ascending: false })
             .returns<LegacyCreatureRow[]>();
@@ -365,6 +366,7 @@ export async function createCreature(
         .from(tableName)
         .insert({
             name: payload.name.trim(),
+            file_name: payload.fileName?.trim() || null,
             rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             tribe: payload.tribe,
@@ -380,7 +382,7 @@ export async function createCreature(
             equipment_note: payload.equipmentNote?.trim() || null,
         })
         .select(
-            "id,name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_ids,brainwashed_ability_ids,equipment_note,created_at,updated_at",
+            "id,name,file_name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_ids,brainwashed_ability_ids,equipment_note,created_at,updated_at",
         )
         .single<BaseCreatureRow>();
 
@@ -467,6 +469,7 @@ export async function updateCreatureById(
         .from(tableName)
         .update({
             name: payload.name.trim(),
+            file_name: payload.fileName?.trim() || null,
             rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             tribe: payload.tribe,
@@ -483,7 +486,7 @@ export async function updateCreatureById(
         })
         .eq("id", creatureId)
         .select(
-            "id,name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_ids,brainwashed_ability_ids,equipment_note,created_at,updated_at",
+            "id,name,file_name,rarity,image_file_id,image_url,tribe,power,courage,speed,wisdom,mugic,energy,dominant_elements,support_ability_ids,brainwashed_ability_ids,equipment_note,created_at,updated_at",
         )
         .single<BaseCreatureRow>();
 

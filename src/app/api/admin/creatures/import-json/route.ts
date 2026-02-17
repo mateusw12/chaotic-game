@@ -23,6 +23,7 @@ type ImportCreaturesResponseDto = {
 
 type SeedCreature = {
     name?: unknown;
+    fileName?: unknown;
     rarity?: unknown;
     imageFileId?: unknown;
     tribe?: unknown;
@@ -288,6 +289,7 @@ export async function POST() {
 
             const payload = {
                 name,
+                fileName: typeof item.fileName === "string" && item.fileName.trim() ? item.fileName.trim() : null,
                 rarity: rarity as CardRarity,
                 imageFileId,
                 tribe,
