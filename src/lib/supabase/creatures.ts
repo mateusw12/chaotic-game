@@ -536,3 +536,30 @@ export async function deleteCreatureById(creatureId: string): Promise<void> {
         );
     }
 }
+
+export async function updateCreatureImageFileById(
+    creatureId: string,
+    imageFileId: string | null,
+): Promise<void> {
+    const supabase = getSupabaseAdminClient();
+    const tableName = getCreaturesTableName();
+
+    const { error } = await supabase
+        .from(tableName)
+        .update({ image_file_id: imageFileId?.trim() || null })
+        .eq("id", creatureId);
+
+    if (error) {
+        const supabaseError = error as SupabaseApiError;
+
+        if (isMissingTableError(supabaseError)) {
+            throw new Error(
+                `Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de atualizar imagens (veja supabase/schema.sql).`,
+            );
+        }
+
+        throw new Error(
+            `Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`,
+        );
+    }
+}

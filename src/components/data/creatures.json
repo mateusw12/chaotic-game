@@ -387,17 +387,16 @@
     {
         "name": "Krekk",
         "fileName": "30.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "underworld",
-        "courage": 50,
-        "power": 35,
-        "wisdom": 40,
-        "speed": 65,
+        "courage": 65,
+        "power": 55,
+        "wisdom": 30,
+        "speed": 60,
         "mugic": 1,
-        "energy": 40,
+        "energy": 465,
         "dominantElements": [
-            "fire",
-            "air"
+            "earth"
         ],
         "equipmentNote": null,
         "support_ability_ids": [
@@ -467,17 +466,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Ulmar",
+        "name": "Ulmar (Perithon Racer)",
         "fileName": "42.png",
         "rarity": "comum",
         "tribe": "underworld",
-        "courage": 15,
-        "power": 15,
-        "wisdom": 95,
-        "speed": 25,
-        "mugic": 3,
-        "energy": 30,
-        "dominantElements": [],
+        "courage": 40,
+        "power": 30,
+        "wisdom": 70,
+        "speed": 30,
+        "mugic": 1,
+        "energy": 45,
+        "dominantElements": [
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "d01f3609-8b88-1c99-b888-d01f36098b88"
@@ -569,18 +570,18 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Blazier",
+        "name": "Blazier (Citadel Cartographer)",
         "fileName": "7.png",
-        "rarity": "comum",
-        "tribe": "underworld",
-        "courage": 45,
-        "power": 55,
-        "wisdom": 20,
-        "speed": 45,
+        "rarity": "rara",
+        "tribe": "overworld",
+        "courage": 70,
+        "power": 40,
+        "wisdom": 60,
+        "speed": 40,
         "mugic": 1,
         "energy": 40,
         "dominantElements": [
-            "fire"
+            "earth"
         ],
         "equipmentNote": null,
         "support_ability_ids": [
@@ -627,18 +628,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Nauthilax",
+        "name": "Nauthilax (Aquatic Spy)",
         "fileName": "32.png",
         "rarity": "comum",
         "tribe": "underworld",
-        "courage": 40,
-        "power": 45,
-        "wisdom": 15,
+        "courage": 65,
+        "power": 50,
+        "wisdom": 60,
         "speed": 55,
-        "mugic": 1,
-        "energy": 35,
+        "mugic": 2,
+        "energy": 60,
         "dominantElements": [
-            "water"
+            "water",
+            "air"
         ],
         "equipmentNote": null,
         "support_ability_ids": [
@@ -806,7 +808,9 @@
         "speed": 45,
         "mugic": 2,
         "energy": 40,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "63430792-d05d-4e77-9355-b81151b39289"
@@ -822,9 +826,12 @@
         "power": 30,
         "wisdom": 65,
         "speed": 45,
-        "mugic": 0,
+        "mugic": 1,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "water",
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "2c05775b-8ab4-4b02-ac13-f4ae7d2f5963"
@@ -832,17 +839,39 @@
         "brainwashed_ability_ids": []
     },
     {
+        "name": "Vlar",
+        "fileName": "24",
+        "rarity": "super_rara",
+        "tribe": "overworld",
+        "courage": 80,
+        "power": 60,
+        "wisdom": 50,
+        "speed": 60,
+        "mugic": 0,
+        "energy": 60,
+        "dominantElements": [
+            "earth",
+            "fire"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [],
+        "brainwashed_ability_ids": []
+    },
+    {
         "name": "Silchaw",
         "fileName": "21.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "overworld",
         "courage": 80,
         "power": 40,
         "wisdom": 60,
-        "speed": 0,
-        "mugic": 0,
+        "speed": 30,
+        "mugic": 1,
         "energy": 60,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth",
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "71cc1754-0874-420d-8271-f49cee8ba38f"
@@ -850,16 +879,36 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Najarin",
+        "name": "Najarin (High Muge of the Lake)",
         "fileName": "18.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "overworld",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 60,
+        "power": 30,
+        "wisdom": 100,
+        "speed": 30,
         "mugic": 2,
         "energy": 35,
+        "dominantElements": [
+            "water"
+        ],
+        "equipmentNote": null,
+        "support_ability_ids": [
+            "5030b021-f767-4a63-9bfd-de5f13d8eb01"
+        ],
+        "brainwashed_ability_ids": []
+    },
+    {
+        "name": "Najarin (Younger)",
+        "fileName": "19.png",
+        "rarity": "super_rara",
+        "tribe": "overworld",
+        "courage": 60,
+        "power": 30,
+        "wisdom": 90,
+        "speed": 30,
+        "mugic": 2,
+        "energy": 25,
         "dominantElements": [],
         "equipmentNote": null,
         "support_ability_ids": [
@@ -870,7 +919,7 @@
     {
         "name": "Lomma",
         "fileName": "16.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "overworld",
         "courage": 80,
         "power": 45,
@@ -878,7 +927,9 @@
         "speed": 45,
         "mugic": 2,
         "energy": 60,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "14dca3d1-a68d-493d-b02d-fefe784c9fb8"
@@ -886,7 +937,7 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Korg",
+        "name": "rara",
         "fileName": "15.png",
         "rarity": "comum",
         "tribe": "overworld",
@@ -896,7 +947,9 @@
         "speed": 25,
         "mugic": 2,
         "energy": 35,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "800e2e28-0f0d-4296-a416-12d32aa3fd4b"
@@ -906,14 +959,14 @@
     {
         "name": "Porthyn",
         "fileName": "20.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "overworld",
         "courage": 90,
         "power": 50,
         "wisdom": 60,
         "speed": 50,
-        "mugic": 0,
-        "energy": 0,
+        "mugic": 2,
+        "energy": 55,
         "dominantElements": [],
         "equipmentNote": null,
         "support_ability_ids": [
@@ -922,9 +975,9 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Iparu",
+        "name": "Iparu (Metallic Ally)",
         "fileName": "14.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "overworld",
         "courage": 50,
         "power": 50,
@@ -940,7 +993,7 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Donmar",
+        "name": "Donmar (Tablet Translator)",
         "fileName": "9.png",
         "rarity": "comum",
         "tribe": "overworld",
@@ -950,7 +1003,9 @@
         "speed": 30,
         "mugic": 1,
         "energy": 45,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "2918170e-7be9-49c5-aa37-3386bf356077"
@@ -962,13 +1017,15 @@
         "fileName": "12.png",
         "rarity": "comum",
         "tribe": "overworld",
-        "courage": 0,
-        "power": 0,
+        "courage": 60,
+        "power": 50,
         "wisdom": 35,
-        "speed": 0,
+        "speed": 30,
         "mugic": 2,
         "energy": 35,
-        "dominantElements": [],
+        "dominantElements": [
+            "fie"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "1e55dd1d-8d6c-4076-b582-7ffd7a407704"
@@ -978,7 +1035,7 @@
     {
         "name": "Dalgad",
         "fileName": "8.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "overworld",
         "courage": 50,
         "power": 70,
@@ -986,7 +1043,9 @@
         "speed": 40,
         "mugic": 0,
         "energy": 60,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "10be55f0-2adc-46b3-bd91-d6c41e256356"
@@ -1004,7 +1063,9 @@
         "speed": 30,
         "mugic": 1,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "d51890b0-e4ac-42ad-bcdc-e380655bef2c"
@@ -1014,13 +1075,13 @@
     {
         "name": "Eremia",
         "fileName": "10.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "overworld",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
-        "mugic": 0,
+        "courage": 70,
+        "power": 60,
+        "wisdom": 65,
+        "speed": 45,
+        "mugic": 1,
         "energy": 60,
         "dominantElements": [],
         "equipmentNote": null,
@@ -1032,7 +1093,7 @@
     {
         "name": "Illiar",
         "fileName": "13.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "overworld",
         "courage": 70,
         "power": 40,
@@ -1040,7 +1101,10 @@
         "speed": 60,
         "mugic": 2,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "air",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "d528a0a8-5f86-440b-b77a-afcd7627260a"
@@ -1050,15 +1114,18 @@
     {
         "name": "Cromaxx",
         "fileName": "1.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "ancient",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 90,
+        "power": 60,
+        "wisdom": 20,
+        "speed": 50,
         "mugic": 0,
         "energy": 70,
-        "dominantElements": [],
+        "dominantElements": [
+            "water",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "26162935-6eef-45b2-b86c-80a1c20b6a56"
@@ -1068,7 +1135,7 @@
     {
         "name": "Ursis",
         "fileName": "4.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "ancient",
         "courage": 60,
         "power": 85,
@@ -1076,7 +1143,9 @@
         "speed": 45,
         "mugic": 3,
         "energy": 80,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [],
         "brainwashed_ability_ids": []
@@ -1084,15 +1153,17 @@
     {
         "name": "Afjak",
         "fileName": "5.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "overworld",
         "courage": 80,
         "power": 40,
         "wisdom": 65,
         "speed": 30,
-        "mugic": 0,
+        "mugic": 2,
         "energy": 30,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "03bb7b93-82a1-4a64-80a5-57b5ccc1c290"
@@ -1102,15 +1173,17 @@
     {
         "name": "Arrthoa",
         "fileName": "6.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "overworld",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 70,
+        "power": 45,
+        "wisdom": 70,
+        "speed": 60,
         "mugic": 1,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "032aad8c-f859-442b-83bc-a0b626a4f492"
@@ -1120,7 +1193,7 @@
     {
         "name": "Proboscar",
         "fileName": "2.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "ancient",
         "courage": 50,
         "power": 65,
@@ -1138,15 +1211,17 @@
     {
         "name": "Smildon",
         "fileName": "3.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "ancient",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 60,
+        "power": 90,
+        "wisdom": 35,
+        "speed": 60,
         "mugic": 2,
         "energy": 60,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "c0b1debb-86be-43fd-ab91-387119f61e54"
@@ -1156,7 +1231,7 @@
     {
         "name": "Voorx",
         "fileName": "43.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "underworld",
         "courage": 40,
         "power": 70,
@@ -1164,7 +1239,10 @@
         "speed": 30,
         "mugic": 0,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire",
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "fd321190-f525-4f0f-8b37-6b5a2c5bf807"
@@ -1172,9 +1250,9 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Zamool",
+        "name": "Zamool (Lord Van Bloot's Enforcer)",
         "fileName": "44.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "underworld",
         "courage": 75,
         "power": 60,
@@ -1182,7 +1260,9 @@
         "speed": 80,
         "mugic": 1,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "496134a3-b980-4e40-8b10-e4fa1af513d9"
@@ -1190,17 +1270,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Stelgar",
+        "name": "Stelgar (Vicius Mutation)",
         "fileName": "40.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "underworld",
         "courage": 20,
         "power": 20,
         "wisdom": 20,
         "speed": 20,
         "mugic": 0,
-        "energy": 0,
-        "dominantElements": [],
+        "energy": 20,
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "628c48f0-0cc3-4648-b3bc-9b08a469124d"
@@ -1210,15 +1292,18 @@
     {
         "name": "Skorblust",
         "fileName": "38.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "underworld",
         "courage": 60,
-        "power": 0,
-        "wisdom": 0,
+        "power": 80,
+        "wisdom": 20,
         "speed": 30,
         "mugic": 0,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "68206ef2-87e1-4773-9f67-3b973f08c7b3"
@@ -1228,15 +1313,17 @@
     {
         "name": "Toadore",
         "fileName": "41.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "underworld",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
-        "mugic": 1,
-        "energy": 0,
-        "dominantElements": [],
+        "courage": 60,
+        "power": 70,
+        "wisdom": 30,
+        "speed": 35,
+        "mugic": 0,
+        "energy": 50,
+        "dominantElements": [
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "f5e2fd7c-9ce6-41e7-afd2-5e9df3a178be"
@@ -1244,17 +1331,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Slufurah",
+        "name": "Slufurah (Treacherous Translator)",
         "fileName": "39.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "underworld",
         "courage": 40,
         "power": 60,
         "wisdom": 35,
         "speed": 30,
         "mugic": 1,
-        "energy": 0,
-        "dominantElements": [],
+        "energy": 30,
+        "dominantElements": [
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "37fa8846-ae6b-438f-a4ba-116ff5a50cac"
@@ -1262,7 +1351,7 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Seeryn",
+        "name": "Seeryn (Servant of Fire)",
         "fileName": "36.png",
         "rarity": "comum",
         "tribe": "underworld",
@@ -1272,7 +1361,9 @@
         "speed": 45,
         "mugic": 2,
         "energy": 35,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "70d5ca75-f414-4c76-b8dd-098c012f784c"
@@ -1280,9 +1371,9 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Skithia",
+        "name": "Skithia (Gothos Spy)",
         "fileName": "37.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "underworld",
         "courage": 70,
         "power": 75,
@@ -1290,7 +1381,10 @@
         "speed": 70,
         "mugic": 2,
         "energy": 35,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "16907dc8-a89e-4ebe-86bc-848ce1454d3b"
@@ -1298,9 +1392,9 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Rothar",
+        "name": "Rothar (Forceful Negotiator)",
         "fileName": "34.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "underworld",
         "courage": 60,
         "power": 100,
@@ -1308,7 +1402,11 @@
         "speed": 60,
         "mugic": 0,
         "energy": 70,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire",
+            "earth",
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "cacfc169-0e0c-4ce3-9b26-dd81bef80745"
@@ -1324,9 +1422,11 @@
         "power": 70,
         "wisdom": 30,
         "speed": 70,
-        "mugic": 0,
+        "mugic": 1,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "6c4135d9-4faa-4fc7-98b9-31e7dbdd05a3"
@@ -1343,8 +1443,10 @@
         "wisdom": 20,
         "speed": 50,
         "mugic": 1,
-        "energy": 0,
-        "dominantElements": [],
+        "energy": 45,
+        "dominantElements": [
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "9ca0dda9-5437-4fd0-95be-8d70ba8188bc"
@@ -1352,9 +1454,9 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Magmon",
+        "name": "Magmon (Engulfed)",
         "fileName": "31.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "underworld",
         "courage": 30,
         "power": 75,
@@ -1362,7 +1464,9 @@
         "speed": 45,
         "mugic": 0,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "4ee13df5-088e-4e5f-9e10-b2ea15a732e6"
@@ -1370,14 +1474,14 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Kopond",
+        "name": "Kopond (High Muge of the Hearth)",
         "fileName": "29.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "underworld",
         "courage": 30,
         "power": 70,
         "wisdom": 70,
-        "speed": 0,
+        "speed": 40,
         "mugic": 2,
         "energy": 30,
         "dominantElements": [],
@@ -1390,7 +1494,7 @@
     {
         "name": "Kaal",
         "fileName": "25.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "underworld",
         "courage": 60,
         "power": 95,
@@ -1398,7 +1502,9 @@
         "speed": 60,
         "mugic": 1,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "2ca4909c-a50e-4895-befd-9e4ccc9f1d28"
@@ -1408,7 +1514,7 @@
     {
         "name": "Kiru",
         "fileName": "28.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "underworld",
         "courage": 70,
         "power": 90,
@@ -1416,7 +1522,10 @@
         "speed": 75,
         "mugic": 0,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "f0963702-20c1-40a6-905d-53e0a5492e30"
@@ -1426,15 +1535,18 @@
     {
         "name": "Ketacc",
         "fileName": "26.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "underworld",
-        "courage": 70,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
-        "mugic": 1,
+        "courage": 75,
+        "power": 80,
+        "wisdom": 40,
+        "speed": 20,
+        "mugic": 0,
         "energy": 70,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "f730973d-ac3f-4399-9dc1-48f92364fd0b"
@@ -1442,9 +1554,9 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Khybon",
+        "name": "Khybon (Magma dam Overseer)",
         "fileName": "27.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "underworld",
         "courage": 60,
         "power": 60,
@@ -1452,7 +1564,9 @@
         "speed": 30,
         "mugic": 0,
         "energy": 45,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "36b13e62-1822-4afa-ae4e-62a0a376b2e2"
@@ -1462,15 +1576,18 @@
     {
         "name": "Yondaf",
         "fileName": "56.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "danian",
         "courage": 60,
         "power": 35,
         "wisdom": 65,
         "speed": 30,
-        "mugic": 1,
+        "mugic": 2,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth",
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "837a6576-016f-402f-b52a-1d58408bca09"
@@ -1480,7 +1597,7 @@
     {
         "name": "Valban",
         "fileName": "55.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "danian",
         "courage": 75,
         "power": 40,
@@ -1496,9 +1613,9 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Tharc",
+        "name": "Tharc (Tablet Translator)",
         "fileName": "54.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "danian",
         "courage": 70,
         "power": 30,
@@ -1506,7 +1623,9 @@
         "speed": 30,
         "mugic": 1,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "a2ed21ea-3a31-4a5c-a77a-ff2276366539"
@@ -1516,7 +1635,7 @@
     {
         "name": "Tarin",
         "fileName": "53.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "danian",
         "courage": 75,
         "power": 40,
@@ -1524,7 +1643,9 @@
         "speed": 40,
         "mugic": 0,
         "energy": 45,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "1faeb7c8-43ad-4254-b2e7-28e73313e511"
@@ -1534,7 +1655,7 @@
     {
         "name": "Orbaat",
         "fileName": "52.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "danian",
         "courage": 60,
         "power": 35,
@@ -1542,7 +1663,9 @@
         "speed": 25,
         "mugic": 2,
         "energy": 40,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "6f970937-ce7f-46f2-873d-421218d049a9"
@@ -1550,7 +1673,7 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Odu-Bathax",
+        "name": "Odu-Bathax (Reservoir Reclaimer)",
         "fileName": "51.png",
         "rarity": "comum",
         "tribe": "danian",
@@ -1558,9 +1681,11 @@
         "power": 50,
         "wisdom": 30,
         "speed": 30,
-        "mugic": 0,
+        "mugic": 1,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "6f04863c-a2ae-42b4-afce-bcebaaf36330"
@@ -1570,7 +1695,7 @@
     {
         "name": "Makromil",
         "fileName": "50.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "danian",
         "courage": 65,
         "power": 25,
@@ -1578,7 +1703,10 @@
         "speed": 70,
         "mugic": 1,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "air",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "7126e491-ef70-4cb3-b27a-572c17f28944"
@@ -1588,13 +1716,13 @@
     {
         "name": "Ketun",
         "fileName": "49.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "danian",
         "courage": 80,
         "power": 60,
         "wisdom": 80,
         "speed": 80,
-        "mugic": 0,
+        "mugic": 1,
         "energy": 55,
         "dominantElements": [],
         "equipmentNote": null,
@@ -1604,17 +1732,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Hiadrom",
+        "name": "Hiadrom (Rock Ripper)",
         "fileName": "48.png",
         "rarity": "comum",
         "tribe": "danian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 75,
+        "power": 60,
+        "wisdom": 50,
+        "speed": 30,
         "mugic": 0,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "11e065f0-83a6-4101-b2aa-5f9969b5ef84"
@@ -1624,15 +1754,18 @@
     {
         "name": "Ghundac",
         "fileName": "47.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "danian",
         "courage": 80,
         "power": 40,
         "wisdom": 40,
         "speed": 80,
-        "mugic": 3,
+        "mugic": 1,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth",
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "9b4129c8-1009-4fb7-9b79-5a4243ef386c"
@@ -1648,9 +1781,11 @@
         "power": 50,
         "wisdom": 70,
         "speed": 30,
-        "mugic": 1,
+        "mugic": 2,
         "energy": 40,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "a575d9bb-c3fc-4ade-b873-e598fcab90f5"
@@ -1662,13 +1797,15 @@
         "fileName": "45.png",
         "rarity": "comum",
         "tribe": "danian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
-        "mugic": 0,
+        "courage": 60,
+        "power": 40,
+        "wisdom": 80,
+        "speed": 40,
+        "mugic": 2,
         "energy": 40,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "f2e7b474-54ff-4e46-9bec-08f4f790bb8b"
@@ -1676,7 +1813,7 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Zhade",
+        "name": "Zhade (Dig Site Defender)",
         "fileName": "74.png",
         "rarity": "comum",
         "tribe": "mipedian",
@@ -1686,7 +1823,10 @@
         "speed": 95,
         "mugic": 1,
         "energy": 45,
-        "dominantElements": [],
+        "dominantElements": [
+            "air",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "34c5fdd3-f9a1-4b9b-a9a0-45b2c7a5142e"
@@ -1704,7 +1844,9 @@
         "speed": 75,
         "mugic": 1,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "141c2613-78b1-4f04-bb25-31a59c4c516e"
@@ -1712,9 +1854,9 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Taffial",
+        "name": "Taffial (Cothica Hunter)",
         "fileName": "72.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "mipedian",
         "courage": 70,
         "power": 20,
@@ -1722,7 +1864,9 @@
         "speed": 65,
         "mugic": 1,
         "energy": 40,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "6a2f7c3b-09af-470a-93e3-9c27c55de02d"
@@ -1730,17 +1874,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Silv",
+        "name": "Silv 9Servant of Air)",
         "fileName": "71.png",
         "rarity": "comum",
         "tribe": "mipedian",
         "courage": 40,
         "power": 35,
         "wisdom": 30,
-        "speed": 0,
+        "speed": 85,
         "mugic": 2,
         "energy": 40,
-        "dominantElements": [],
+        "dominantElements": [
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "d60986c9-b23e-41e2-baf1-0e95273a53bc"
@@ -1750,7 +1896,7 @@
     {
         "name": "Sepmek",
         "fileName": "70.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "mipedian",
         "courage": 45,
         "power": 25,
@@ -1758,7 +1904,10 @@
         "speed": 85,
         "mugic": 1,
         "energy": 45,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "c528de82-69d0-468f-9c51-b8583d312512"
@@ -1766,7 +1915,7 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Qwun",
+        "name": "Qwun (Solitary Scout)",
         "fileName": "69.png",
         "rarity": "comum",
         "tribe": "mipedian",
@@ -1776,7 +1925,9 @@
         "speed": 90,
         "mugic": 1,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "bcd32476-78cc-4485-910f-ff3c5cd5b450"
@@ -1786,15 +1937,17 @@
     {
         "name": "Ninren",
         "fileName": "68.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "mipedian",
         "courage": 90,
         "power": 90,
         "wisdom": 25,
-        "speed": 0,
+        "speed": 150,
         "mugic": 0,
         "energy": 70,
-        "dominantElements": [],
+        "dominantElements": [
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "16867011-2284-4c93-92ee-fe2df3000bd8"
@@ -1802,17 +1955,20 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Kolmo",
+        "name": "Kolmo (Purified)",
         "fileName": "67.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "mipedian",
         "courage": 70,
         "power": 45,
         "wisdom": 45,
-        "speed": 0,
+        "speed": 95,
         "mugic": 0,
         "energy": 45,
-        "dominantElements": [],
+        "dominantElements": [
+            "air",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "565f8c26-ac19-4174-a1b4-04b41a1164a3"
@@ -1822,15 +1978,17 @@
     {
         "name": "Kojjbel",
         "fileName": "66.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "mipedian",
         "courage": 65,
         "power": 35,
         "wisdom": 35,
         "speed": 85,
-        "mugic": 0,
+        "mugic": 1,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "829f6f6c-1737-45c0-82f4-f0b6577e11af"
@@ -1848,7 +2006,9 @@
         "speed": 90,
         "mugic": 0,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "433f52cb-903d-4f44-9c5e-739a9ded530f"
@@ -1858,15 +2018,18 @@
     {
         "name": "Daxik",
         "fileName": "64.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "mipedian",
         "courage": 90,
         "power": 80,
         "wisdom": 80,
         "speed": 85,
         "mugic": 0,
-        "energy": 0,
-        "dominantElements": [],
+        "energy": 85,
+        "dominantElements": [
+            "air",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "e6b35624-b22c-4c43-97b6-a2b6deaf1d1f"
@@ -1876,7 +2039,7 @@
     {
         "name": "Ifjann",
         "fileName": "63.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "mipedian",
         "courage": 30,
         "power": 30,
@@ -1884,7 +2047,9 @@
         "speed": 70,
         "mugic": 1,
         "energy": 45,
-        "dominantElements": [],
+        "dominantElements": [
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "364a303d-7cdc-4d2f-8d26-42507c0ae30c"
@@ -1892,17 +2057,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Rearim",
+        "name": "Headmaster Ankhyja",
         "fileName": "62.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "mipedian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 55,
+        "power": 75,
+        "wisdom": 45,
+        "speed": 100,
         "mugic": 0,
-        "energy": 0,
-        "dominantElements": [],
+        "energy": 65,
+        "dominantElements": [
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "414cbba1-ed6c-4c99-a713-50603b8053c1"
@@ -1912,7 +2079,7 @@
     {
         "name": "Habekh",
         "fileName": "61.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "mipedian",
         "courage": 45,
         "power": 35,
@@ -1930,7 +2097,7 @@
     {
         "name": "Gintanai",
         "fileName": "60.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "mipedian",
         "courage": 120,
         "power": 120,
@@ -1938,7 +2105,10 @@
         "speed": 120,
         "mugic": 0,
         "energy": 60,
-        "dominantElements": [],
+        "dominantElements": [
+            "air",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "10c12ec1-f394-4b04-bdda-2828a447c307"
@@ -1948,7 +2118,7 @@
     {
         "name": "Fasseph",
         "fileName": "59.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "mipedian",
         "courage": 65,
         "power": 25,
@@ -1956,7 +2126,10 @@
         "speed": 80,
         "mugic": 3,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "air",
+            "earth"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "11c9a5ca-cc39-4997-bfec-e564cae16ff3"
@@ -1964,17 +2137,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Enre-Hep",
+        "name": "Enre-Hep (High Muge of the Desert)",
         "fileName": "58.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "mipedian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 50,
+        "power": 30,
+        "wisdom": 80,
+        "speed": 60,
         "mugic": 2,
         "energy": 30,
-        "dominantElements": [],
+        "dominantElements": [
+            "air"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "bec4aab1-b975-43ec-8ab8-614177c97004"
@@ -1984,13 +2159,13 @@
     {
         "name": "Ajara",
         "fileName": "57.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "mipedian",
         "courage": 40,
         "power": 35,
         "wisdom": 40,
-        "speed": 0,
-        "mugic": 0,
+        "speed": 80,
+        "mugic": 2,
         "energy": 40,
         "dominantElements": [],
         "equipmentNote": null,
@@ -2002,15 +2177,17 @@
     {
         "name": "Thar'lyn",
         "fileName": "83.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "marrillian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 65,
+        "power": 85,
+        "wisdom": 70,
+        "speed": 40,
         "mugic": 0,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "62b56483-49c3-470a-b843-fcdd77fbe286"
@@ -2022,13 +2199,15 @@
         "fileName": "82.png",
         "rarity": "comum",
         "tribe": "marrillian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 50,
+        "power": 45,
+        "wisdom": 60,
+        "speed": 70,
         "mugic": 0,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "3900a4e7-a8e9-4b47-be54-03df66da3392"
@@ -2036,17 +2215,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Rath'tab",
+        "name": "Rath'tab (Mind Scryer)",
         "fileName": "81.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "marrillian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 60,
+        "power": 20,
+        "wisdom": 100,
+        "speed": 40,
         "mugic": 0,
         "energy": 40,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "ff77a87a-e524-4412-bd3a-93ff588c2911"
@@ -2058,13 +2239,15 @@
         "fileName": "80.png",
         "rarity": "comum",
         "tribe": "marrillian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 45,
+        "power": 40,
+        "wisdom": 50,
+        "speed": 35,
         "mugic": 0,
         "energy": 35,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "3654cc63-094f-4b11-873e-8171b88720de"
@@ -2072,17 +2255,19 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Milla'in",
+        "name": "Milla'in (Foothold Commander)",
         "fileName": "79.png",
-        "rarity": "comum",
+        "rarity": "super_rara",
         "tribe": "marrillian",
         "courage": 35,
-        "power": 0,
-        "wisdom": 30,
-        "speed": 0,
+        "power": 85,
+        "wisdom": 65,
+        "speed": 30,
         "mugic": 0,
         "energy": 55,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "11d83813-ab49-4464-8e73-065549660034"
@@ -2094,13 +2279,15 @@
         "fileName": "78.png",
         "rarity": "comum",
         "tribe": "marrillian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 50,
+        "power": 80,
+        "wisdom": 70,
+        "speed": 50,
         "mugic": 0,
         "energy": 40,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "7dd0fb3f-c087-4223-96ab-d24ee22fe04c"
@@ -2110,15 +2297,17 @@
     {
         "name": "Ihun'kalin",
         "fileName": "77.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "marrillian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 45,
+        "power": 45,
+        "wisdom": 75,
+        "speed": 80,
         "mugic": 0,
         "energy": 60,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "e962ae8d-b25f-4660-b0e0-7fea87369e76"
@@ -2126,17 +2315,20 @@
         "brainwashed_ability_ids": []
     },
     {
-        "name": "Fal'makin",
+        "name": "Fal'makin (Azaia Inguisitor)",
         "fileName": "76.png",
-        "rarity": "comum",
+        "rarity": "ultra_rara",
         "tribe": "marrillian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
+        "courage": 40,
+        "power": 55,
+        "wisdom": 90,
+        "speed": 60,
         "mugic": 0,
         "energy": 50,
-        "dominantElements": [],
+        "dominantElements": [
+            "fire",
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "71878710-d6ef-468b-84cc-a7871e9811e8"
@@ -2146,15 +2338,17 @@
     {
         "name": "Ast'imal",
         "fileName": "75.png",
-        "rarity": "comum",
+        "rarity": "rara",
         "tribe": "marrillian",
-        "courage": 0,
-        "power": 0,
-        "wisdom": 0,
-        "speed": 0,
-        "mugic": 3,
+        "courage": 50,
+        "power": 45,
+        "wisdom": 70,
+        "speed": 50,
+        "mugic": 0,
         "energy": 40,
-        "dominantElements": [],
+        "dominantElements": [
+            "water"
+        ],
         "equipmentNote": null,
         "support_ability_ids": [
             "492d1cd8-b1a0-43f4-b39f-3bf001aca9e4"

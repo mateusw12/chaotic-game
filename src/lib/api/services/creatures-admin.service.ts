@@ -11,6 +11,17 @@ type ImportJsonApiResponse = {
     message?: string;
 };
 
+type ImportImagesApiResponse = {
+    success: boolean;
+    uploaded: number;
+    updated: number;
+    skipped: number;
+    matched: number;
+    message?: string;
+    unmatchedFiles?: string[];
+    failedFiles?: Array<{ fileName: string; reason: string }>;
+};
+
 type UploadFileApiResponse = {
     success: boolean;
     file: { imageFileId: string; path: string; publicUrl: string | null } | null;
@@ -53,6 +64,13 @@ export class CreaturesAdminService extends BaseCrudService {
         return ApiClient.post<ImportJsonApiResponse, Record<string, never>>(
             "/admin/creatures/import-json",
             {},
+        );
+    }
+
+    static importImages(formData: FormData) {
+        return ApiClient.postFormData<ImportImagesApiResponse>(
+            "/admin/creatures/import-images",
+            formData,
         );
     }
 }

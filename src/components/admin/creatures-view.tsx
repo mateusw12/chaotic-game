@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { App as AntdApp, Button, Card, Form, Image, Input, InputNumber, Popconfirm, Select, Space, Tag, Typography, Upload } from "antd";
 import type { ColumnsType } from "antd/es/table";
@@ -54,6 +54,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
     const [creatureForm] = Form.useForm<CreatureFormValues>();
     const [editingCreatureId, setEditingCreatureId] = useState<string | null>(null);
     const [deletingCreatureId, setDeletingCreatureId] = useState<string | null>(null);
+    const batchImageInputRef = useRef<HTMLInputElement | null>(null);
 
     const {
         isUploading: isImageUploading,
@@ -121,6 +122,10 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
 
     const deleteMutation = useMutation({
         mutationFn: (id: string) => CreaturesAdminService.remove(id),
+    });
+
+    const importImagesMutation = useMutation({
+        mutationFn: (formData: FormData) => CreaturesAdminService.importImages(formData),
     });
 
     async function onCreateCreature(values: CreatureFormValues) {
@@ -228,6 +233,46 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             });
         }
     }, [importMutation, notification, queryClient]);
+
+    const onImportCreatureImages = useCallback(async (files: File[]) => {
+        if (files.length === 0) {
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            files.forEach((file) => formData.append("files", file));
+
+            const result = await importImagesMutation.mutateAsync(formData);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
+
+            const extraInfo = [
+                result.unmatchedFiles && result.unmatchedFiles.length > 0
+                    ? `Sem match: ${result.unmatchedFiles.length}`
+                    : null,
+                result.failedFiles && result.failedFiles.length > 0
+                    ? `Falhas: ${result.failedFiles.length}`
+                    : null,
+            ].filter(Boolean).join(" | ");
+
+            notification.success({
+                message: `${result.updated} criatura(s) atualizada(s), ${result.uploaded} upload(s), ${result.skipped} ignorada(s).${extraInfo ? ` ${extraInfo}` : ""}`,
+            });
+        } catch (error) {
+            notification.error({
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Erro ao importar imagens de criaturas.",
+            });
+        }
+    }, [importImagesMutation, notification, queryClient]);
+
+    const onBatchImageInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files ?? []);
+        event.currentTarget.value = "";
+        void onImportCreatureImages(files);
+    }, [onImportCreatureImages]);
 
     const columns = useMemo<ColumnsType<CreatureDto>>(
         () => [
@@ -487,6 +532,23 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
 
                             <Button onClick={onImportCreaturesFromJson} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar creatures.json
+                            </Button>
+
+                            <input
+                                ref={batchImageInputRef}
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                style={{ display: "none" }}
+                                onChange={onBatchImageInputChange}
+                            />
+
+                            <Button
+                                onClick={() => batchImageInputRef.current?.click()}
+                                icon={importImagesMutation.isPending ? <LoadingLogo /> : undefined}
+                                disabled={importImagesMutation.isPending}
+                            >
+                                Importar imagens em lote
                             </Button>
 
                             <Button type="primary" htmlType="submit" icon={saveMutation.isPending ? <LoadingLogo /> : undefined} disabled={saveMutation.isPending}>
