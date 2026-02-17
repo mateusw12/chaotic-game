@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
 import {
+    type AbilityBattleRuleDto,
+    isValidAbilityBattleRuleType,
     type DeleteAbilityResponseDto,
     type UpdateAbilityRequestDto,
     type UpdateAbilityResponseDto,
 } from "@/dto/ability";
 import { auth } from "@/lib/auth";
 import { deleteAbilityById, getUserByEmail, updateAbilityById } from "@/lib/supabase";
+import {
+    isValidAbilityCategory,
+    isValidAbilityEffectType,
+    isValidAbilityStat,
+    isValidAbilityTargetScope,
+} from "@/lib/supabase/core";
 
 type RouteContext = {
     params: Promise<{
@@ -35,6 +43,75 @@ async function ensureAdminBySessionEmail(email: string | null | undefined) {
     return { ok: true as const };
 }
 
+function normalizeBattleRules(value: unknown): AbilityBattleRuleDto | null {
+    if (!value) {
+        return null;
+    }
+
+    if (typeof value === "string") {
+        try {
+            const parsed = JSON.parse(value) as unknown;
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                return parsed as AbilityBattleRuleDto;
+            }
+        } catch {
+            return null;
+        }
+
+        return null;
+    }
+
+    if (typeof value === "object" && !Array.isArray(value)) {
+        return value as AbilityBattleRuleDto;
+    }
+
+    return null;
+}
+
+function buildUpdatePayload(body: Partial<UpdateAbilityRequestDto>): UpdateAbilityRequestDto {
+    const name = String(body.name ?? "").trim();
+    if (!name) {
+        throw new Error("Nome da habilidade é obrigatório.");
+    }
+
+    if (!isValidAbilityCategory(String(body.category ?? ""))) {
+        throw new Error("Categoria de habilidade inválida.");
+    }
+
+    if (!isValidAbilityEffectType(String(body.effectType ?? ""))) {
+        throw new Error("Tipo de efeito inválido.");
+    }
+
+    if (!isValidAbilityTargetScope(String(body.targetScope ?? ""))) {
+        throw new Error("Escopo de alvo inválido.");
+    }
+
+    if (!isValidAbilityStat(String(body.stat ?? ""))) {
+        throw new Error("Atributo de habilidade inválido.");
+    }
+
+    const value = Number(body.value ?? 0);
+    if (!Number.isFinite(value) || value < 0) {
+        throw new Error("Valor da habilidade inválido.");
+    }
+
+    const battleRules = normalizeBattleRules(body.battleRules);
+    if (battleRules && !isValidAbilityBattleRuleType(String(battleRules.type ?? ""))) {
+        throw new Error("Tipo de battle_rules inválido.");
+    }
+
+    return {
+        name,
+        category: body.category,
+        effectType: body.effectType,
+        targetScope: body.targetScope,
+        stat: body.stat,
+        value,
+        description: body.description ?? null,
+        battleRules,
+    };
+}
+
 export async function PATCH(request: Request, context: RouteContext) {
     const session = await auth();
 
@@ -56,16 +133,7 @@ export async function PATCH(request: Request, context: RouteContext) {
             .json()
             .catch(() => ({} as Partial<UpdateAbilityRequestDto>));
 
-        const ability = await updateAbilityById(abilityId, {
-            name: body.name ?? "",
-            category: (body.category ?? "") as UpdateAbilityRequestDto["category"],
-            effectType: (body.effectType ?? "") as UpdateAbilityRequestDto["effectType"],
-            targetScope: (body.targetScope ?? "") as UpdateAbilityRequestDto["targetScope"],
-            stat: (body.stat ?? "") as UpdateAbilityRequestDto["stat"],
-            value: Number(body.value ?? 0),
-            description: body.description ?? null,
-            battleRules: body.battleRules ?? null,
-        });
+        const ability = await updateAbilityById(abilityId, buildUpdatePayload(body));
 
         const response: UpdateAbilityResponseDto = {
             success: true,

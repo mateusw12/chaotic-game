@@ -6,6 +6,8 @@ import {
     ABILITY_STATS,
     ABILITY_TARGET_SCOPES,
     type AbilityBattleRuleDto,
+    type AbilityCostDto,
+    type AbilityEffectDto,
     type AbilityCategory,
     type AbilityEffectType,
     type AbilityStat,
@@ -120,8 +122,194 @@ function parseBattleRules(value: unknown): AbilityBattleRuleDto | null {
     return value as AbilityBattleRuleDto;
 }
 
+function normalizeText(value: string): string {
+    return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+}
+
+function extractTrigger(text: string, category: AbilityCategory): AbilityBattleRuleDto["trigger"] {
+    if (text.includes("no inicio do seu turno") || text.includes("no inicio de cada turno")) {
+        return { event: "turn_start", source: "self", oncePerTurn: true };
+    }
+
+    if (text.includes("no final de cada turno")) {
+        return { event: "turn_end", source: "self", oncePerTurn: true };
+    }
+
+    if (text.includes("no inicio do combate")) {
+        return { event: "combat_start", source: "self", oncePerTurn: true };
+    }
+
+    if (text.includes("quando") && text.includes("vence combate")) {
+        return { event: "on_attack_damage_dealt", source: "self" };
+    }
+
+    if (category === "innate" || category === "support") {
+        return { event: "passive_continuous", source: "self" };
+    }
+
+    return { event: "on_activate", source: "self" };
+}
+
+function extractCosts(text: string): AbilityCostDto[] {
+    const costs: AbilityCostDto[] = [];
+
+    const sacrificeStat = text.match(/sacrifique\s+(\d+)\s+de\s+(coragem|poder|sabedoria|velocidade|energia)/i);
+    if (sacrificeStat) {
+        const statMap: Record<string, AbilityStat> = {
+            coragem: "courage",
+            poder: "power",
+            sabedoria: "wisdom",
+            velocidade: "speed",
+            energia: "energy",
+        };
+
+        costs.push({
+            kind: "sacrifice_stat",
+            source: "self",
+            stat: statMap[sacrificeStat[2].toLowerCase()],
+            value: Number(sacrificeStat[1]),
+        });
+    }
+
+    if (text.includes("descarte uma carta mugic") || text.includes("descartar uma carta de mugic")) {
+        costs.push({
+            kind: "discard_card",
+            source: "controller",
+            cardType: "mugic",
+            cardCount: 1,
+        });
+    }
+
+    const payElement = text.match(/gastar\s+(agua|fogo|terra|ar)/i);
+    if (payElement) {
+        const map = {
+            agua: "water",
+            fogo: "fire",
+            terra: "earth",
+            ar: "air",
+        } as const;
+
+        costs.push({
+            kind: "pay_element",
+            source: "self",
+            element: map[payElement[1].toLowerCase() as keyof typeof map],
+            value: 1,
+        });
+    }
+
+    return costs;
+}
+
+function extractEffects(text: string, stat: AbilityStat, value: number, effectType: AbilityEffectType): AbilityEffectDto[] {
+    const effects: AbilityEffectDto[] = [];
+
+    const healMatch = text.match(/cura\s+(\d+)/i);
+    if (healMatch) {
+        effects.push({
+            kind: "heal_damage",
+            target: "target",
+            value: Number(healMatch[1]),
+        });
+    }
+
+    const damageMatch = text.match(/causa\s+(\d+)\s+de\s+dano|causa\s+(\d+)\s+dano/i);
+    if (damageMatch) {
+        effects.push({
+            kind: "deal_damage",
+            target: "target",
+            value: Number(damageMatch[1] ?? damageMatch[2]),
+        });
+    }
+
+    const removeMugicCounter = text.match(/remov[ae]\s+(\d+)\s+contador(?:es)?\s+de\s+mugic/i);
+    if (removeMugicCounter) {
+        effects.push({
+            kind: "remove_mugic_counter",
+            target: "target",
+            value: Number(removeMugicCounter[1]),
+        });
+    }
+
+    const gainStatMatch = text.match(/ganha\s+(\d+)\s+de\s+(coragem|poder|sabedoria|velocidade|energia|mugic)/i);
+    if (gainStatMatch) {
+        const statMap: Record<string, AbilityStat> = {
+            coragem: "courage",
+            poder: "power",
+            sabedoria: "wisdom",
+            velocidade: "speed",
+            energia: "energy",
+            mugic: "mugic",
+        };
+
+        effects.push({
+            kind: "modify_stat",
+            target: "target",
+            stat: statMap[gainStatMatch[2].toLowerCase()],
+            value: Number(gainStatMatch[1]),
+        });
+    }
+
+    const loseStatMatch = text.match(/perde\s+(\d+)\s+de\s+(coragem|poder|sabedoria|velocidade|energia|mugic)/i);
+    if (loseStatMatch) {
+        const statMap: Record<string, AbilityStat> = {
+            coragem: "courage",
+            poder: "power",
+            sabedoria: "wisdom",
+            velocidade: "speed",
+            energia: "energy",
+            mugic: "mugic",
+        };
+
+        effects.push({
+            kind: "modify_stat",
+            target: "target",
+            stat: statMap[loseStatMatch[2].toLowerCase()],
+            value: -Number(loseStatMatch[1]),
+        });
+    }
+
+    if (text.includes("ganha agua")) {
+        effects.push({ kind: "gain_element", target: "target", element: "water", value: 1 });
+    }
+
+    if (text.includes("ganha fogo")) {
+        effects.push({ kind: "gain_element", target: "target", element: "fire", value: 1 });
+    }
+
+    if (text.includes("ganha terra")) {
+        effects.push({ kind: "gain_element", target: "target", element: "earth", value: 1 });
+    }
+
+    if (text.includes("ganha ar")) {
+        effects.push({ kind: "gain_element", target: "target", element: "air", value: 1 });
+    }
+
+    if (text.includes("perde um tipo elemental")) {
+        effects.push({ kind: "lose_element", target: "target", value: 1 });
+    }
+
+    if (effects.length === 0 && stat !== "none" && value > 0) {
+        effects.push({
+            kind: effectType === "decrease" ? "deal_damage" : "modify_stat",
+            target: "target",
+            stat,
+            value: effectType === "decrease" ? value : value,
+        });
+    }
+
+    if (effects.length === 0) {
+        effects.push({ kind: "none", target: "self", value: 0 });
+    }
+
+    return effects;
+}
+
 function inferBattleRules(payload: {
     name: string;
+    category: AbilityCategory;
     effectType: AbilityEffectType;
     targetScope: AbilityTargetScope;
     stat: AbilityStat;
@@ -133,15 +321,22 @@ function inferBattleRules(payload: {
         return payload.seedBattleRules;
     }
 
-    const normalizedName = payload.name.toLowerCase();
-    const normalizedDescription = (payload.description ?? "").toLowerCase();
+    const normalizedName = normalizeText(payload.name);
+    const normalizedDescription = normalizeText(payload.description ?? "");
     const combinedText = `${normalizedName} ${normalizedDescription}`;
+
+    const genericTrigger = extractTrigger(combinedText, payload.category);
+    const genericCosts = extractCosts(combinedText);
+    const genericEffects = extractEffects(combinedText, payload.stat, payload.value, payload.effectType);
 
     if (combinedText.includes("ganha 25 em uma disciplina") && combinedText.includes("perde 10 em outra")) {
         return {
             type: "discipline_tradeoff",
             requiresTarget: true,
             usageLimitPerTurn: null,
+            trigger: genericTrigger,
+            costs: genericCosts,
+            effects: genericEffects,
             chooseIncreaseFrom: [...ABILITY_DISCIPLINE_STATS],
             chooseDecreaseFrom: [...ABILITY_DISCIPLINE_STATS],
             increaseValue: 25,
@@ -155,6 +350,9 @@ function inferBattleRules(payload: {
             type: "discard_mugic_random",
             requiresTarget: true,
             usageLimitPerTurn: 1,
+            trigger: genericTrigger,
+            costs: genericCosts,
+            effects: genericEffects,
             ownMugicCardsToDiscard: 1,
             targetMugicCardsRandomDiscard: 1,
             notes: "O controlador paga o custo descartando Mugic e o oponente descarta aleatoriamente.",
@@ -166,6 +364,9 @@ function inferBattleRules(payload: {
             type: "intercept_range",
             requiresTarget: false,
             usageLimitPerTurn: null,
+            trigger: genericTrigger,
+            costs: genericCosts,
+            effects: genericEffects,
             notes: "Permite interceptar ataques de criaturas com Range como se tivesse Defender adjacente.",
         };
     }
@@ -175,7 +376,43 @@ function inferBattleRules(payload: {
             type: "remove_mugic_counter",
             requiresTarget: true,
             usageLimitPerTurn: null,
+            actionType: "remove_mugic_counter",
+            trigger: genericTrigger,
+            costs: genericCosts,
+            effects: [
+                {
+                    kind: "remove_mugic_counter",
+                    target: "target",
+                    value: 1,
+                },
+            ],
             notes: "Remove Mugic Counter da criatura alvo.",
+        };
+    }
+
+    if (combinedText.includes("sacrifique 20 de coragem") && combinedText.includes("cura 20")) {
+        return {
+            type: "action_resolution",
+            requiresTarget: true,
+            usageLimitPerTurn: null,
+            actionType: "heal_damage",
+            trigger: genericTrigger,
+            costs: [
+                {
+                    kind: "sacrifice_stat",
+                    source: "self",
+                    stat: "courage",
+                    value: 20,
+                },
+            ],
+            effects: [
+                {
+                    kind: "heal_damage",
+                    target: "target",
+                    value: 20,
+                },
+            ],
+            notes: "Pague 20 de Coragem para curar 20 de dano da criatura alvo.",
         };
     }
 
@@ -184,6 +421,10 @@ function inferBattleRules(payload: {
             type: "move_bonus",
             requiresTarget: false,
             usageLimitPerTurn: null,
+            actionType: "move_creature",
+            trigger: genericTrigger,
+            costs: genericCosts,
+            effects: genericEffects,
             moveBonusCells: payload.value,
             notes: "Concede movimento adicional no tabuleiro.",
         };
@@ -194,6 +435,9 @@ function inferBattleRules(payload: {
             type: "generic_special",
             requiresTarget: payload.stat !== "none",
             usageLimitPerTurn: null,
+            trigger: genericTrigger,
+            costs: genericCosts,
+            effects: genericEffects,
             notes: payload.description,
         };
     }
@@ -202,6 +446,10 @@ function inferBattleRules(payload: {
         type: "stat_modifier",
         requiresTarget: payload.targetScope !== "self",
         usageLimitPerTurn: null,
+        actionType: payload.effectType === "decrease" ? "deal_damage" : "heal_damage",
+        trigger: genericTrigger,
+        costs: genericCosts,
+        effects: genericEffects,
         notes: null,
     };
 }
@@ -279,6 +527,7 @@ export async function POST() {
 
             payload.battleRules = inferBattleRules({
                 name: payload.name,
+                category: payload.category,
                 effectType: payload.effectType,
                 targetScope: payload.targetScope,
                 stat: payload.stat,

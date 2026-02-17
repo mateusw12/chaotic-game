@@ -1,4 +1,33 @@
-import { ABILITY_CATEGORIES, ABILITY_EFFECT_TYPES, ABILITY_STATS, ABILITY_TARGET_SCOPES, type AbilityCategory, type AbilityEffectType, type AbilityStat, type AbilityTargetScope } from "@/dto/ability";
+import {
+    ABILITY_COMPARE_OPERATORS,
+    ABILITY_CONDITION_KINDS,
+    ABILITY_COST_KINDS,
+    ABILITY_EFFECT_KINDS,
+    ABILITY_TRIGGER_EVENTS,
+    ABILITY_ZONE_TYPES,
+    ABILITY_ACTION_TYPES,
+    ABILITY_BATTLE_RULE_TYPES,
+    ABILITY_BOARD_ACTION_TYPES,
+    ABILITY_CARD_TYPES,
+    ABILITY_CATEGORIES,
+    ABILITY_EFFECT_TYPES,
+    ABILITY_STATS,
+    ABILITY_TARGET_SCOPES,
+    type AbilityActionType,
+    type AbilityBattleRuleType,
+    type AbilityBoardActionType,
+    type AbilityCardType,
+    type AbilityCategory,
+    type AbilityCompareOperator,
+    type AbilityConditionKind,
+    type AbilityCostKind,
+    type AbilityEffectType,
+    type AbilityEffectKind,
+    type AbilityStat,
+    type AbilityTargetScope,
+    type AbilityTriggerEvent,
+    type AbilityZoneType,
+} from "@/dto/ability";
 import { CREATURE_ELEMENTS, CREATURE_TRIBES, type CreatureElement, type CreatureTribe } from "@/dto/creature";
 import {
     LOCATION_BATTLE_RULE_TYPES,
@@ -100,6 +129,46 @@ export function isValidAbilityStat(value: string): value is AbilityStat {
 
 export function isValidAbilityTargetScope(value: string): value is AbilityTargetScope {
     return ABILITY_TARGET_SCOPES.includes(value as AbilityTargetScope);
+}
+
+export function isValidAbilityBattleRuleType(value: string): value is AbilityBattleRuleType {
+    return ABILITY_BATTLE_RULE_TYPES.includes(value as AbilityBattleRuleType);
+}
+
+export function isValidAbilityActionType(value: string): value is AbilityActionType {
+    return ABILITY_ACTION_TYPES.includes(value as AbilityActionType);
+}
+
+export function isValidAbilityBoardActionType(value: string): value is AbilityBoardActionType {
+    return ABILITY_BOARD_ACTION_TYPES.includes(value as AbilityBoardActionType);
+}
+
+export function isValidAbilityCardType(value: string): value is AbilityCardType {
+    return ABILITY_CARD_TYPES.includes(value as AbilityCardType);
+}
+
+export function isValidAbilityTriggerEvent(value: string): value is AbilityTriggerEvent {
+    return ABILITY_TRIGGER_EVENTS.includes(value as AbilityTriggerEvent);
+}
+
+export function isValidAbilityCostKind(value: string): value is AbilityCostKind {
+    return ABILITY_COST_KINDS.includes(value as AbilityCostKind);
+}
+
+export function isValidAbilityConditionKind(value: string): value is AbilityConditionKind {
+    return ABILITY_CONDITION_KINDS.includes(value as AbilityConditionKind);
+}
+
+export function isValidAbilityEffectKind(value: string): value is AbilityEffectKind {
+    return ABILITY_EFFECT_KINDS.includes(value as AbilityEffectKind);
+}
+
+export function isValidAbilityCompareOperator(value: string): value is AbilityCompareOperator {
+    return ABILITY_COMPARE_OPERATORS.includes(value as AbilityCompareOperator);
+}
+
+export function isValidAbilityZoneType(value: string): value is AbilityZoneType {
+    return ABILITY_ZONE_TYPES.includes(value as AbilityZoneType);
 }
 
 export function isValidLocationEffectType(value: string): value is LocationEffectType {

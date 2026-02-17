@@ -12,6 +12,7 @@ import {
     Popconfirm,
     Select,
     Space,
+    Switch,
     Tag,
     Typography,
 } from "antd";
@@ -19,10 +20,18 @@ import type { ColumnsType } from "antd/es/table";
 import { ArrowLeftOutlined, SettingOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import {
+    ABILITY_ACTION_TYPE_OPTIONS,
+    ABILITY_BATTLE_RULE_TYPE_OPTIONS,
+    ABILITY_BOARD_ACTION_TYPE_OPTIONS,
+    ABILITY_CARD_TYPE_OPTIONS,
     ABILITY_CATEGORY_OPTIONS,
     ABILITY_EFFECT_TYPE_OPTIONS,
     ABILITY_STAT_OPTIONS,
     ABILITY_TARGET_SCOPE_OPTIONS,
+    type AbilityActionType,
+    type AbilityBattleRuleType,
+    type AbilityBoardActionType,
+    type AbilityCardType,
     type AbilityCategory,
     type AbilityBattleRuleDto,
     type AbilityDto,
@@ -31,6 +40,7 @@ import {
     type AbilityTargetScope,
     type CreateAbilityRequestDto,
 } from "@/dto/ability";
+import { CREATURE_TRIBE_OPTIONS, type CreatureTribe } from "@/dto/creature";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { LoadingLogo } from "@/components/shared/loading-logo";
 import { AbilitiesAdminService } from "@/lib/api/service";
@@ -49,6 +59,20 @@ type AbilityFormValues = {
     stat: AbilityStat;
     value: number;
     description?: string;
+    battleRuleType?: AbilityBattleRuleType;
+    requiresTarget?: boolean;
+    usageLimitPerTurn?: number | null;
+    targetTribes?: CreatureTribe[];
+    stats?: AbilityStat[];
+    cardTypes?: AbilityCardType[];
+    actionType?: AbilityActionType;
+    boardActionType?: AbilityBoardActionType;
+    moveBonusCells?: number;
+    movementMinCells?: number;
+    movementMaxCells?: number;
+    battleRuleNotes?: string;
+    actionPayloadJson?: string;
+    payloadJson?: string;
     battleRulesJson?: string;
 };
 
@@ -64,6 +88,100 @@ function parseBattleRulesJson(value: string | undefined): AbilityBattleRuleDto |
     }
 
     return parsed as AbilityBattleRuleDto;
+}
+
+function stringifyJsonOrEmpty(value: unknown): string {
+    if (!value || (typeof value === "object" && Object.keys(value as Record<string, unknown>).length === 0)) {
+        return "";
+    }
+
+    try {
+        return JSON.stringify(value, null, 2);
+    } catch {
+        return "";
+    }
+}
+
+function parseOptionalJsonObject(value?: string): Record<string, unknown> | undefined {
+    if (!value?.trim()) {
+        return undefined;
+    }
+
+    const parsed = JSON.parse(value) as unknown;
+
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+        throw new Error("O payload deve ser um objeto JSON válido.");
+    }
+
+    return parsed as Record<string, unknown>;
+}
+
+function buildBattleRulesFromForm(values: AbilityFormValues): AbilityBattleRuleDto | null {
+    const directBattleRule = parseBattleRulesJson(values.battleRulesJson);
+    if (directBattleRule) {
+        return directBattleRule;
+    }
+
+    if (!values.battleRuleType) {
+        return null;
+    }
+
+    return {
+        type: values.battleRuleType,
+        requiresTarget: values.requiresTarget ?? false,
+        usageLimitPerTurn: values.usageLimitPerTurn ?? null,
+        targetTribes: values.targetTribes?.length ? values.targetTribes : undefined,
+        stats: values.stats?.length ? values.stats : undefined,
+        cardTypes: values.cardTypes?.length ? values.cardTypes : undefined,
+        actionType: values.actionType,
+        boardActionType: values.boardActionType,
+        moveBonusCells: values.moveBonusCells,
+        movementMinCells: values.movementMinCells,
+        movementMaxCells: values.movementMaxCells,
+        notes: values.battleRuleNotes?.trim() || null,
+        actionPayload: parseOptionalJsonObject(values.actionPayloadJson) ?? null,
+        payload: parseOptionalJsonObject(values.payloadJson) ?? null,
+    };
+}
+
+function mapBattleRuleToForm(rule: AbilityBattleRuleDto | null): Partial<AbilityFormValues> {
+    if (!rule) {
+        return {
+            battleRuleType: undefined,
+            requiresTarget: false,
+            usageLimitPerTurn: null,
+            targetTribes: [],
+            stats: [],
+            cardTypes: [],
+            actionType: undefined,
+            boardActionType: undefined,
+            moveBonusCells: undefined,
+            movementMinCells: undefined,
+            movementMaxCells: undefined,
+            battleRuleNotes: "",
+            actionPayloadJson: "",
+            payloadJson: "",
+            battleRulesJson: "",
+        };
+    }
+
+    return {
+        battleRuleType: rule.type,
+        requiresTarget: rule.requiresTarget,
+        usageLimitPerTurn: rule.usageLimitPerTurn,
+        targetTribes: rule.targetTribes ?? [],
+        stats: rule.stats ?? [],
+        cardTypes: rule.cardTypes ?? [],
+        actionType: rule.actionType,
+        boardActionType: rule.boardActionType,
+        moveBonusCells: rule.moveBonusCells,
+        movementMinCells: rule.movementMinCells,
+        movementMaxCells: rule.movementMaxCells,
+        battleRuleNotes: rule.notes ?? "",
+        actionPayloadJson: stringifyJsonOrEmpty(rule.actionPayload),
+        payloadJson: stringifyJsonOrEmpty(rule.payload),
+        battleRulesJson: JSON.stringify(rule, null, 2),
+    };
 }
 
 const { Title, Text } = Typography;
@@ -104,7 +222,7 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                 stat: values.stat,
                 value: values.value,
                 description: values.description ?? null,
-                battleRules: parseBattleRulesJson(values.battleRulesJson),
+                battleRules: buildBattleRulesFromForm(values),
             };
 
             const isEditing = Boolean(editingAbilityId);
@@ -137,9 +255,7 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
             stat: ability.stat,
             value: ability.value,
             description: ability.description ?? undefined,
-            battleRulesJson: ability.battleRules
-                ? JSON.stringify(ability.battleRules, null, 2)
-                : undefined,
+            ...mapBattleRuleToForm(ability.battleRules),
         });
     }, [form]);
 
@@ -290,6 +406,14 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                         initialValues={{
                             value: 0,
                             targetScope: "all_creatures",
+                            requiresTarget: false,
+                            usageLimitPerTurn: null,
+                            targetTribes: [],
+                            stats: [],
+                            cardTypes: [],
+                            battleRuleNotes: "",
+                            actionPayloadJson: "",
+                            payloadJson: "",
                         }}
                     >
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
@@ -347,10 +471,116 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                                 <Input.TextArea rows={2} placeholder="Descrição opcional da habilidade" />
                             </Form.Item>
 
+                            <Card size="small" title="Configuração de regra de batalha">
+                                <Space orientation="vertical" size={12} style={{ width: "100%" }}>
+                                    <Space wrap size={12}>
+                                        <Form.Item label="Tipo da regra" name="battleRuleType">
+                                            <Select
+                                                allowClear
+                                                style={{ width: 260 }}
+                                                options={ABILITY_BATTLE_RULE_TYPE_OPTIONS}
+                                                placeholder="Selecione o tipo"
+                                            />
+                                        </Form.Item>
+
+                                        <Form.Item label="Tipo de ação" name="actionType">
+                                            <Select
+                                                allowClear
+                                                style={{ width: 240 }}
+                                                options={ABILITY_ACTION_TYPE_OPTIONS}
+                                                placeholder="Opcional"
+                                            />
+                                        </Form.Item>
+
+                                        <Form.Item label="Ação de tabuleiro" name="boardActionType">
+                                            <Select
+                                                allowClear
+                                                style={{ width: 240 }}
+                                                options={ABILITY_BOARD_ACTION_TYPE_OPTIONS}
+                                                placeholder="Opcional"
+                                            />
+                                        </Form.Item>
+                                    </Space>
+
+                                    <Space wrap size={12}>
+                                        <Form.Item label="Exige alvo" name="requiresTarget" valuePropName="checked">
+                                            <Switch />
+                                        </Form.Item>
+
+                                        <Form.Item label="Limite por turno" name="usageLimitPerTurn">
+                                            <InputNumber min={0} style={{ width: 160 }} placeholder="Opcional" />
+                                        </Form.Item>
+
+                                        <Form.Item label="Bônus de movimento" name="moveBonusCells">
+                                            <InputNumber min={0} style={{ width: 180 }} placeholder="Células" />
+                                        </Form.Item>
+
+                                        <Form.Item label="Movimento mínimo" name="movementMinCells">
+                                            <InputNumber min={0} style={{ width: 180 }} placeholder="Células" />
+                                        </Form.Item>
+
+                                        <Form.Item label="Movimento máximo" name="movementMaxCells">
+                                            <InputNumber min={0} style={{ width: 180 }} placeholder="Células" />
+                                        </Form.Item>
+                                    </Space>
+
+                                    <Space wrap size={12}>
+                                        <Form.Item label="Tribos alvo" name="targetTribes" style={{ minWidth: 280 }}>
+                                            <Select
+                                                mode="multiple"
+                                                allowClear
+                                                options={CREATURE_TRIBE_OPTIONS}
+                                                placeholder="Opcional"
+                                            />
+                                        </Form.Item>
+
+                                        <Form.Item label="Atributos" name="stats" style={{ minWidth: 280 }}>
+                                            <Select
+                                                mode="multiple"
+                                                allowClear
+                                                options={ABILITY_STAT_OPTIONS}
+                                                placeholder="Opcional"
+                                            />
+                                        </Form.Item>
+
+                                        <Form.Item label="Tipos de carta" name="cardTypes" style={{ minWidth: 280 }}>
+                                            <Select
+                                                mode="multiple"
+                                                allowClear
+                                                options={ABILITY_CARD_TYPE_OPTIONS}
+                                                placeholder="Opcional"
+                                            />
+                                        </Form.Item>
+                                    </Space>
+
+                                    <Form.Item label="Notas da regra" name="battleRuleNotes">
+                                        <Input.TextArea rows={2} placeholder="Notas opcionais da validação" />
+                                    </Form.Item>
+
+                                    <Space wrap size={12} style={{ width: "100%" }}>
+                                        <Form.Item
+                                            label="Payload da ação (JSON)"
+                                            name="actionPayloadJson"
+                                            style={{ minWidth: 420, flex: 1 }}
+                                        >
+                                            <Input.TextArea rows={4} placeholder='{"delta":{"power":10}}' />
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            label="Payload geral (JSON)"
+                                            name="payloadJson"
+                                            style={{ minWidth: 420, flex: 1 }}
+                                        >
+                                            <Input.TextArea rows={4} placeholder='{"key":"value"}' />
+                                        </Form.Item>
+                                    </Space>
+                                </Space>
+                            </Card>
+
                             <Form.Item
                                 label="Regras de batalha (JSON)"
                                 name="battleRulesJson"
-                                extra="Opcional. Use para comportamentos especiais (ex.: discipline_tradeoff, discard_mugic_random)."
+                                extra="Opcional avançado. Se preenchido, este JSON será usado em vez dos campos estruturados acima."
                             >
                                 <Input.TextArea rows={6} placeholder='{"type":"discipline_tradeoff","requiresTarget":true}' />
                             </Form.Item>

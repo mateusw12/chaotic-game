@@ -1,3 +1,6 @@
+import type { CreatureElement, CreatureTribe } from "@/dto/creature";
+import { LOCATION_CARD_TYPES, type LocationCardType } from "@/dto/location";
+
 export const ABILITY_CATEGORIES = ["support", "brainwashed", "activated", "innate"] as const;
 
 export type AbilityCategory = (typeof ABILITY_CATEGORIES)[number];
@@ -41,15 +44,170 @@ export const ABILITY_BATTLE_RULE_TYPES = [
     "remove_mugic_counter",
     "move_bonus",
     "intercept_range",
+    "board_movement",
+    "action_resolution",
     "generic_special",
 ] as const;
 
 export type AbilityBattleRuleType = (typeof ABILITY_BATTLE_RULE_TYPES)[number];
 
+export const ABILITY_ACTION_TYPES = [
+    "none",
+    "move_creature",
+    "relocate_creature",
+    "swap_creatures",
+    "gain_element",
+    "lose_element",
+    "modify_stats_map",
+    "apply_status_effect",
+    "discard_cards",
+    "draw_cards",
+    "remove_mugic_counter",
+    "add_mugic_counter",
+    "heal_damage",
+    "deal_damage",
+    "move_card_between_zones",
+] as const;
+
+export type AbilityActionType = (typeof ABILITY_ACTION_TYPES)[number];
+
+export const ABILITY_BOARD_ACTION_TYPES = [
+    "move",
+    "relocate",
+    "swap",
+    "intercept",
+] as const;
+
+export type AbilityBoardActionType = (typeof ABILITY_BOARD_ACTION_TYPES)[number];
+
+export const ABILITY_CARD_TYPES = LOCATION_CARD_TYPES;
+
+export type AbilityCardType = LocationCardType;
+
+export const ABILITY_TRIGGER_EVENTS = [
+    "on_activate",
+    "turn_start",
+    "turn_end",
+    "combat_start",
+    "combat_end",
+    "on_attack_damage_dealt",
+    "on_attack_damage_taken",
+    "on_mugic_played",
+    "passive_continuous",
+] as const;
+
+export type AbilityTriggerEvent = (typeof ABILITY_TRIGGER_EVENTS)[number];
+
+export const ABILITY_COST_KINDS = [
+    "none",
+    "sacrifice_stat",
+    "discard_card",
+    "pay_element",
+    "sacrifice_self",
+    "remove_mugic_counter",
+] as const;
+
+export type AbilityCostKind = (typeof ABILITY_COST_KINDS)[number];
+
+export const ABILITY_CONDITION_KINDS = [
+    "none",
+    "stat_compare",
+    "all_controlled_creatures_stat_compare",
+    "target_has_zero_any_discipline",
+    "has_element",
+    "zone_card_count_compare",
+] as const;
+
+export type AbilityConditionKind = (typeof ABILITY_CONDITION_KINDS)[number];
+
+export const ABILITY_EFFECT_KINDS = [
+    "none",
+    "modify_stat",
+    "heal_damage",
+    "deal_damage",
+    "remove_mugic_counter",
+    "add_mugic_counter",
+    "gain_element",
+    "lose_element",
+    "move_card_between_zones",
+    "draw_cards",
+    "discard_cards",
+    "swap_creatures",
+    "relocate_creature",
+] as const;
+
+export type AbilityEffectKind = (typeof ABILITY_EFFECT_KINDS)[number];
+
+export const ABILITY_COMPARE_OPERATORS = ["==", "!=", ">", ">=", "<", "<="] as const;
+
+export type AbilityCompareOperator = (typeof ABILITY_COMPARE_OPERATORS)[number];
+
+export const ABILITY_ZONE_TYPES = [
+    "deck",
+    "hand",
+    "discard_general",
+    "discard_mugic",
+    "battlefield",
+] as const;
+
+export type AbilityZoneType = (typeof ABILITY_ZONE_TYPES)[number];
+
+export type AbilityTriggerDto = {
+    event: AbilityTriggerEvent;
+    source?: "self" | "controller" | "target" | "opponent";
+    oncePerTurn?: boolean;
+};
+
+export type AbilityCostDto = {
+    kind: AbilityCostKind;
+    source?: "self" | "controller" | "target";
+    stat?: AbilityStat;
+    value?: number;
+    element?: CreatureElement;
+    cardType?: AbilityCardType;
+    cardCount?: number;
+    notes?: string | null;
+};
+
+export type AbilityConditionDto = {
+    kind: AbilityConditionKind;
+    scope?: "self" | "target" | "controller" | "opponent" | "all_controlled_creatures";
+    stat?: AbilityStat;
+    operator?: AbilityCompareOperator;
+    value?: number;
+    element?: CreatureElement;
+    zone?: AbilityZoneType;
+    cardType?: AbilityCardType;
+};
+
+export type AbilityEffectDto = {
+    kind: AbilityEffectKind;
+    target?: "self" | "target" | "controller" | "opponent" | "all_controlled_creatures";
+    stat?: AbilityStat;
+    value?: number;
+    element?: CreatureElement;
+    fromZone?: AbilityZoneType;
+    toZone?: AbilityZoneType;
+    cardType?: AbilityCardType;
+    cardCount?: number;
+    payload?: Record<string, unknown> | null;
+};
+
 export type AbilityBattleRuleDto = {
     type: AbilityBattleRuleType;
     requiresTarget: boolean;
     usageLimitPerTurn: number | null;
+    targetTribes?: CreatureTribe[];
+    stats?: AbilityStat[];
+    cardTypes?: AbilityCardType[];
+    actionType?: AbilityActionType;
+    boardActionType?: AbilityBoardActionType;
+    trigger?: AbilityTriggerDto;
+    costs?: AbilityCostDto[];
+    conditions?: AbilityConditionDto[];
+    effects?: AbilityEffectDto[];
+    actionPayload?: Record<string, unknown> | null;
+    payload?: Record<string, unknown> | null;
     chooseIncreaseFrom?: AbilityDisciplineStat[];
     chooseDecreaseFrom?: AbilityDisciplineStat[];
     increaseValue?: number;
@@ -57,6 +215,8 @@ export type AbilityBattleRuleDto = {
     ownMugicCardsToDiscard?: number;
     targetMugicCardsRandomDiscard?: number;
     moveBonusCells?: number;
+    movementMinCells?: number;
+    movementMaxCells?: number;
     notes?: string | null;
 };
 
@@ -160,6 +320,58 @@ export const ABILITY_STAT_OPTIONS: Array<{
         { value: "none", label: "Nenhum" },
     ];
 
+export const ABILITY_BATTLE_RULE_TYPE_OPTIONS: Array<{
+    value: AbilityBattleRuleType;
+    label: string;
+}> = [
+        { value: "stat_modifier", label: "Modificador de atributo" },
+        { value: "discipline_tradeoff", label: "Troca de disciplinas" },
+        { value: "discard_mugic_random", label: "Descarte de Mugic aleatório" },
+        { value: "remove_mugic_counter", label: "Remover contador de Mugic" },
+        { value: "move_bonus", label: "Bônus de movimento" },
+        { value: "intercept_range", label: "Interceptar alcance" },
+        { value: "board_movement", label: "Ação de movimento no tabuleiro" },
+        { value: "action_resolution", label: "Resolução de ação" },
+        { value: "generic_special", label: "Especial genérico" },
+    ];
+
+export const ABILITY_ACTION_TYPE_OPTIONS: Array<{
+    value: AbilityActionType;
+    label: string;
+}> = [
+        { value: "none", label: "Nenhuma" },
+        { value: "move_creature", label: "Mover criatura" },
+        { value: "relocate_creature", label: "Realocar criatura" },
+        { value: "swap_creatures", label: "Trocar criaturas" },
+        { value: "gain_element", label: "Ganhar elemento" },
+        { value: "lose_element", label: "Perder elemento" },
+        { value: "modify_stats_map", label: "Modificar atributos" },
+        { value: "apply_status_effect", label: "Aplicar status" },
+        { value: "discard_cards", label: "Descartar cartas" },
+        { value: "draw_cards", label: "Comprar cartas" },
+    ];
+
+export const ABILITY_BOARD_ACTION_TYPE_OPTIONS: Array<{
+    value: AbilityBoardActionType;
+    label: string;
+}> = [
+        { value: "move", label: "Mover" },
+        { value: "relocate", label: "Realocar" },
+        { value: "swap", label: "Trocar" },
+        { value: "intercept", label: "Interceptar" },
+    ];
+
+export const ABILITY_CARD_TYPE_OPTIONS: Array<{
+    value: AbilityCardType;
+    label: string;
+}> = [
+        { value: "creature", label: "Criatura" },
+        { value: "equipment", label: "Equipamento" },
+        { value: "attack", label: "Ataque" },
+        { value: "mugic", label: "Mugic" },
+        { value: "location", label: "Local" },
+    ];
+
 export type AbilityDto = {
     id: string;
     name: string;
@@ -209,3 +421,43 @@ export type DeleteAbilityResponseDto = {
     success: boolean;
     message?: string;
 };
+
+export function isValidAbilityBattleRuleType(value: string): value is AbilityBattleRuleType {
+    return ABILITY_BATTLE_RULE_TYPES.includes(value as AbilityBattleRuleType);
+}
+
+export function isValidAbilityActionType(value: string): value is AbilityActionType {
+    return ABILITY_ACTION_TYPES.includes(value as AbilityActionType);
+}
+
+export function isValidAbilityBoardActionType(value: string): value is AbilityBoardActionType {
+    return ABILITY_BOARD_ACTION_TYPES.includes(value as AbilityBoardActionType);
+}
+
+export function isValidAbilityCardType(value: string): value is AbilityCardType {
+    return ABILITY_CARD_TYPES.includes(value as AbilityCardType);
+}
+
+export function isValidAbilityTriggerEvent(value: string): value is AbilityTriggerEvent {
+    return ABILITY_TRIGGER_EVENTS.includes(value as AbilityTriggerEvent);
+}
+
+export function isValidAbilityCostKind(value: string): value is AbilityCostKind {
+    return ABILITY_COST_KINDS.includes(value as AbilityCostKind);
+}
+
+export function isValidAbilityConditionKind(value: string): value is AbilityConditionKind {
+    return ABILITY_CONDITION_KINDS.includes(value as AbilityConditionKind);
+}
+
+export function isValidAbilityEffectKind(value: string): value is AbilityEffectKind {
+    return ABILITY_EFFECT_KINDS.includes(value as AbilityEffectKind);
+}
+
+export function isValidAbilityCompareOperator(value: string): value is AbilityCompareOperator {
+    return ABILITY_COMPARE_OPERATORS.includes(value as AbilityCompareOperator);
+}
+
+export function isValidAbilityZoneType(value: string): value is AbilityZoneType {
+    return ABILITY_ZONE_TYPES.includes(value as AbilityZoneType);
+}

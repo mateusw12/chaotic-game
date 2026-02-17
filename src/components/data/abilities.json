@@ -6,10 +6,28 @@
     "effect_type": "decrease",
     "stat": "energy",
     "value": 10,
-    "description": "Causa 10 de dano a uma Criatura alvo no seu lado do Tabuleiro de Batalha.",
+    "description": "Causa 10 de dano uma uma Criatura alvo no seu lado do Tabuleiro de Batalha.",
     "created_at": "2026-02-15 08:42:00.000000+00",
     "updated_at": "2026-02-15 08:42:00.000000+00",
-    "target_scope": "same_side"
+    "target_scope": "same_side",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "Causa 10 de dano uma uma Criatura alvo no seu lado do Tabuleiro de Batalha."
+    }
   },
   {
     "id": "f56b9342-9a32-5e22-a342-0a329a325e22",
@@ -21,7 +39,26 @@
     "description": "Se você não controlar outras Criaturas, Frafdo ganha 45 de Energia.",
     "created_at": "2026-02-15 08:42:00.000000+00",
     "updated_at": "2026-02-15 08:42:00.000000+00",
-    "target_scope": "self"
+    "target_scope": "self",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "self",
+          "stat": "energy",
+          "value": 45
+        }
+      ],
+      "notes": "Se você não controlar outras Criaturas, Frafdo ganha 45 de Energia."
+    }
   },
   {
     "id": "a12c4710-1b21-6f33-b121-1b21a12c4710",
@@ -33,7 +70,25 @@
     "description": "Cura 10 de dano da Criatura alvo.",
     "created_at": "2026-02-15 08:42:00.000000+00",
     "updated_at": "2026-02-15 08:42:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "Cura 10 de dano da Criatura alvo."
+    }
   },
   {
     "id": "b23d5821-2c32-7g44-c232-2c32b23d5821",
@@ -45,7 +100,31 @@
     "description": "Cura 10 de dano da Criatura alvo e ela perde 10 de Sabedoria.",
     "created_at": "2026-02-15 08:42:00.000000+00",
     "updated_at": "2026-02-15 08:42:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 10
+        },
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "wisdom",
+          "value": -10
+        }
+      ],
+      "notes": "Cura 10 de dano da Criatura alvo e ela perde 10 de Sabedoria."
+    }
   },
   {
     "id": "c34e6932-1a11-4b22-a111-c34e69321a11",
@@ -56,7 +135,26 @@
     "value": 30,
     "description": "Criatura alvo ganha 30 em todas as Disciplinas.",
     "created_at": "2026-02-15 09:00:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "all",
+          "value": 30
+        }
+      ],
+      "notes": "Criatura alvo ganha 30 em todas as Disciplinas."
+    }
   },
   {
     "id": "d45f7043-2b22-5c33-b222-d45f70432b22",
@@ -67,7 +165,26 @@
     "value": 5,
     "description": null,
     "created_at": "2026-02-15 09:00:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "all",
+          "value": 5
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "id": "e56g8154-3c33-6d44-c333-e56g81543c33",
@@ -76,9 +193,28 @@
     "effect_type": "increase",
     "stat": "mugic",
     "value": 1,
-    "description": "Quando um Muge ou Elementalista que você controla vence um combate, ele ganha 1 Mugic Counter.",
+    "description": "Quando um Muge ou Elementalista que você controla vence um combate, ele ganha 1 contador de Mugic.",
     "created_at": "2026-02-15 09:00:00.000000+00",
-    "target_scope": "same_side"
+    "target_scope": "same_side",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "mugic",
+          "value": 1
+        }
+      ],
+      "notes": "Quando um Muge ou Elementalista que você controla vence um combate, ele ganha 1 contador de Mugic."
+    }
   },
   {
     "id": "f67h9265-4d44-7e55-d444-f67h92654d44",
@@ -89,7 +225,26 @@
     "value": 5,
     "description": "Água 5",
     "created_at": "2026-02-15 09:00:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 5
+        }
+      ],
+      "notes": "Água 5"
+    }
   },
   {
     "id": "g78i0376-5e55-8f66-e555-g78i03765e55",
@@ -100,7 +255,26 @@
     "value": 25,
     "description": "Criatura alvo ganha 25 em uma Disciplina de sua escolha.",
     "created_at": "2026-02-15 09:15:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "all",
+          "value": 25
+        }
+      ],
+      "notes": "Criatura alvo ganha 25 em uma Disciplina de sua escolha."
+    }
   },
   {
     "id": "h89j1487-6f66-9g77-f666-h89j14876f66",
@@ -111,7 +285,25 @@
     "value": 0,
     "description": "Tangath Toborn ganha ou perde Coragem, Poder, Sabedoria e Velocidade para tornar suas Disciplinas iguais às suas Disciplinas Escaneadas.",
     "created_at": "2026-02-15 09:15:00.000000+00",
-    "target_scope": "self"
+    "target_scope": "self",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Tangath Toborn ganha ou perde Coragem, Poder, Sabedoria e Velocidade para tornar suas Disciplinas iguais às suas Disciplinas Escaneadas."
+    }
   },
   {
     "id": "i90k2598-7g77-0h88-g777-i90k25987g77",
@@ -122,7 +314,25 @@
     "value": 10,
     "description": "Cura 10 de dano da Criatura engajada alvo.",
     "created_at": "2026-02-15 09:15:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "Cura 10 de dano da Criatura engajada alvo."
+    }
   },
   {
     "id": "j01l3609-8h88-1i99-h888-j01l36098h88",
@@ -131,9 +341,27 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Realoca uma Criatura oponente não engajada alvo para um espaço desocupado adjacente a ela.",
+    "description": "Realoca uma Criatura oponente não engajada alvo para um espaço desocupado adjacente uma ela.",
     "created_at": "2026-02-15 09:15:00.000000+00",
-    "target_scope": "opposing_creatures"
+    "target_scope": "opposing_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Realoca uma Criatura oponente não engajada alvo para um espaço desocupado adjacente uma ela."
+    }
   },
   {
     "id": "k12m4710-9i99-2j00-i999-k12m47109i99",
@@ -144,7 +372,26 @@
     "value": 35,
     "description": "Criatura alvo ganha 35 de Sabedoria.",
     "created_at": "2026-02-15 09:15:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "wisdom",
+          "value": 35
+        }
+      ],
+      "notes": "Criatura alvo ganha 35 de Sabedoria."
+    }
   },
   {
     "id": "l23n5821-0j00-3k11-j000-l23n58210j00",
@@ -155,7 +402,26 @@
     "value": 5,
     "description": "Fogo 5",
     "created_at": "2026-02-15 09:30:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 5
+        }
+      ],
+      "notes": "Fogo 5"
+    }
   },
   {
     "id": "m34o6932-1k11-4l22-k111-m34o69321k11",
@@ -166,7 +432,26 @@
     "value": 5,
     "description": "Água 5",
     "created_at": "2026-02-15 09:30:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 5
+        }
+      ],
+      "notes": "Água 5"
+    }
   },
   {
     "id": "n45p7043-2l22-5m33-l222-n45p70432l22",
@@ -177,7 +462,25 @@
     "value": 15,
     "description": "Cura 15 de dano da Criatura engajada alvo.",
     "created_at": "2026-02-15 09:30:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 15
+        }
+      ],
+      "notes": "Cura 15 de dano da Criatura engajada alvo."
+    }
   },
   {
     "id": "o56q8154-3m33-6n44-m333-o56q81543m33",
@@ -188,7 +491,25 @@
     "value": 10,
     "description": "Cura 10 de dano da Criatura alvo. Se estiver no seu lado do Tabuleiro, ela ganha 10 em todas as Disciplinas.",
     "created_at": "2026-02-15 09:30:00.000000+00",
-    "target_scope": "same_side"
+    "target_scope": "same_side",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "Cura 10 de dano da Criatura alvo. Se estiver no seu lado do Tabuleiro, ela ganha 10 em todas as Disciplinas."
+    }
   },
   {
     "id": "p67r9265-4n44-7o55-n444-p67r92654n44",
@@ -199,7 +520,26 @@
     "value": 10,
     "description": "Reduz todas as Disciplinas em 10.",
     "created_at": "2026-02-15 09:45:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "stat": "all",
+          "value": 10
+        }
+      ],
+      "notes": "Reduz todas as Disciplinas em 10."
+    }
   },
   {
     "id": "q78s0376-5o55-8p66-o555-q78s03765o55",
@@ -210,7 +550,26 @@
     "value": 15,
     "description": "Criatura alvo ganha 15 de Poder.",
     "created_at": "2026-02-15 09:45:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "power",
+          "value": 15
+        }
+      ],
+      "notes": "Criatura alvo ganha 15 de Poder."
+    }
   },
   {
     "id": "r89t1487-6p66-9q77-p666-r89t14876p66",
@@ -221,7 +580,31 @@
     "value": 10,
     "description": "Causa 5 de dano à Criatura alvo e ela perde 10 de Poder.",
     "created_at": "2026-02-15 09:45:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 5
+        },
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "power",
+          "value": -10
+        }
+      ],
+      "notes": "Causa 5 de dano à Criatura alvo e ela perde 10 de Poder."
+    }
   },
   {
     "id": "s90u2598-7q77-0r88-q777-s90u25987q77",
@@ -232,7 +615,26 @@
     "value": 10,
     "description": "Fogo 10",
     "created_at": "2026-02-15 10:10:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 10
+        }
+      ],
+      "notes": "Fogo 10"
+    }
   },
   {
     "id": "t01v3609-8r88-1s99-r888-t01v36098r88",
@@ -243,7 +645,26 @@
     "value": 10,
     "description": "Intimidação: Coragem 10",
     "created_at": "2026-02-15 10:10:00.000000+00",
-    "target_scope": "opposing_creatures"
+    "target_scope": "opposing_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "stat": "courage",
+          "value": 10
+        }
+      ],
+      "notes": "Intimidação: Coragem 10"
+    }
   },
   {
     "id": "u12w4710-9s99-2t00-s999-u12w47109s99",
@@ -254,7 +675,25 @@
     "value": 10,
     "description": "Causa 10 de dano de Fogo à Criatura alvo.",
     "created_at": "2026-02-15 10:10:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "Causa 10 de dano de Fogo à Criatura alvo."
+    }
   },
   {
     "id": "v23x5821-0t00-3u11-t000-v23x58210t00",
@@ -265,7 +704,26 @@
     "value": 10,
     "description": null,
     "created_at": "2026-02-15 10:10:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "speed",
+          "value": 10
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "id": "w34y6932-1u11-4v22-u111-w34y69321u11",
@@ -276,7 +734,26 @@
     "value": 5,
     "description": "Ar 5",
     "created_at": "2026-02-15 11:15:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 5
+        }
+      ],
+      "notes": "Ar 5"
+    }
   },
   {
     "id": "x45z7043-2v22-5w33-v222-x45z70432v22",
@@ -287,7 +764,26 @@
     "value": 10,
     "description": "Criatura alvo ganha 10 de Sabedoria.",
     "created_at": "2026-02-15 11:15:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "wisdom",
+          "value": 10
+        }
+      ],
+      "notes": "Criatura alvo ganha 10 de Sabedoria."
+    }
   },
   {
     "id": "y56a8154-3w33-6x44-w333-y56a81543w33",
@@ -298,7 +794,26 @@
     "value": 10,
     "description": "Intimidação: Sabedoria 10",
     "created_at": "2026-02-15 11:15:00.000000+00",
-    "target_scope": "opposing_creatures"
+    "target_scope": "opposing_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "stat": "wisdom",
+          "value": 10
+        }
+      ],
+      "notes": "Intimidação: Sabedoria 10"
+    }
   },
   {
     "id": "z67b9265-4x44-7y55-x444-z67b92654x44",
@@ -307,7 +822,25 @@
     "effect_type": "special",
     "stat": "mugic",
     "value": 0,
-    "description": "Remova 1 Mugic Counter da Criatura alvo.",
+    "description": "Remova 1 contador de Mugic da Criatura alvo.",
+    "battle_rules": {
+      "type": "remove_mugic_counter",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "remove_mugic_counter",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "remove_mugic_counter",
+          "target": "target",
+          "value": 1
+        }
+      ],
+      "notes": "Remove 1 contador de Mugic da criatura alvo."
+    },
     "created_at": "2026-02-15 11:15:00.000000+00",
     "target_scope": "all_creatures"
   },
@@ -320,7 +853,26 @@
     "value": 10,
     "description": "Ar 10",
     "created_at": "2026-02-15 12:00:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 10
+        }
+      ],
+      "notes": "Ar 10"
+    }
   },
   {
     "id": "b89d1487-6z66-9a77-z666-b89d14876z66",
@@ -329,20 +881,66 @@
     "effect_type": "increase",
     "stat": "energy",
     "value": 20,
-    "description": "Sacrifique 20 de Coragem: Cure 20 de dano da Criatura alvo.",
+    "description": "Sacrifique 20 de Coragem: cura 20 de dano da Criatura alvo.",
+    "battle_rules": {
+      "type": "action_resolution",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "sacrifice_stat",
+          "source": "self",
+          "stat": "courage",
+          "value": 20
+        }
+      ],
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 20
+        }
+      ],
+      "notes": "Pague 20 de Coragem da criatura que ativa para curar 20 de dano da criatura alvo."
+    },
     "created_at": "2026-02-15 12:00:00.000000+00",
     "target_scope": "all_creatures"
   },
   {
     "id": "c90e2598-7a77-0b88-a777-c90e25987a77",
-    "name": "Swift 1",
+    "name": "Ágil 1",
     "category": "innate",
     "effect_type": "special",
     "stat": "speed",
     "value": 1,
     "description": "Pode se mover um espaço adicional no Tabuleiro.",
     "created_at": "2026-02-15 12:00:00.000000+00",
-    "target_scope": "self"
+    "target_scope": "self",
+    "battle_rules": {
+      "type": "move_bonus",
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "actionType": "move_creature",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "self",
+          "stat": "speed",
+          "value": 1
+        }
+      ],
+      "notes": "Pode se mover um espaço adicional no Tabuleiro.",
+      "moveBonusCells": 1
+    }
   },
   {
     "id": "d01f3609-8b88-1c99-b888-d01f36098b88",
@@ -353,7 +951,25 @@
     "value": 10,
     "description": "Causa 10 de dano de Fogo à Criatura alvo.",
     "created_at": "2026-02-15 12:00:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "Causa 10 de dano de Fogo à Criatura alvo."
+    }
   },
   {
     "id": "e12g4710-9c99-2d00-c999-e12g47109c99",
@@ -364,7 +980,26 @@
     "value": 10,
     "description": "Ar 10",
     "created_at": "2026-02-15 13:00:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 10
+        }
+      ],
+      "notes": "Ar 10"
+    }
   },
   {
     "id": "f23h5821-0d00-3e11-d000-f23h58210d00",
@@ -375,7 +1010,26 @@
     "value": 10,
     "description": "Terra 10",
     "created_at": "2026-02-15 13:00:00.000000+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 10
+        }
+      ],
+      "notes": "Terra 10"
+    }
   },
   {
     "id": "g34i6932-1e11-4f22-e111-g34i69321e11",
@@ -384,9 +1038,27 @@
     "effect_type": "decrease",
     "stat": "energy",
     "value": 20,
-    "description": "Sacrifique um Elemento: Cure 20 de dano da Criatura alvo.",
+    "description": "Sacrifique um Elemento: cura 20 de dano da Criatura alvo.",
     "created_at": "2026-02-15 13:00:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 20
+        }
+      ],
+      "notes": "Sacrifique um Elemento: cura 20 de dano da Criatura alvo."
+    }
   },
   {
     "id": "h45j7043-2f22-5g33-f222-h45j70432f22",
@@ -397,7 +1069,26 @@
     "value": 10,
     "description": "Intimidação: Poder 10",
     "created_at": "2026-02-15 13:00:00.000000+00",
-    "target_scope": "opposing_creatures"
+    "target_scope": "opposing_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "stat": "power",
+          "value": 10
+        }
+      ],
+      "notes": "Intimidação: Poder 10"
+    }
   },
   {
     "id": "p12q3456-7r88-9s99-t000-u111v222w333",
@@ -408,7 +1099,26 @@
     "value": 10,
     "description": "Intimidação: Velocidade 10",
     "created_at": "2026-02-15 14:30:00+00",
-    "target_scope": "opposing_creatures"
+    "target_scope": "opposing_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "stat": "speed",
+          "value": 10
+        }
+      ],
+      "notes": "Intimidação: Velocidade 10"
+    }
   },
   {
     "id": "q23r4567-8s99-0t00-u111-v222w333x444",
@@ -419,7 +1129,26 @@
     "value": 10,
     "description": null,
     "created_at": "2026-02-15 14:30:00+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "courage",
+          "value": 10
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "id": "r34s5678-9t00-1u11-v222-w333x444y555",
@@ -430,7 +1159,26 @@
     "value": 10,
     "description": "Seus ataques causam 10 de dano adicional.",
     "created_at": "2026-02-15 14:30:00+00",
-    "target_scope": "self"
+    "target_scope": "self",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "self",
+          "stat": "energy",
+          "value": 10
+        }
+      ],
+      "notes": "Seus ataques causam 10 de dano adicional."
+    }
   },
   {
     "id": "s45t6789-0u11-2v22-w333-x444y555z666",
@@ -441,7 +1189,26 @@
     "value": 5,
     "description": "Poder 5",
     "created_at": "2026-02-15 14:40:00+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "power",
+          "value": 5
+        }
+      ],
+      "notes": "Poder 5"
+    }
   },
   {
     "id": "t56u7890-1v22-3w33-x444-y555z666a777",
@@ -452,7 +1219,26 @@
     "value": 5,
     "description": "Fogo 5, Ar 5",
     "created_at": "2026-02-15 14:40:00+00",
-    "target_scope": "same_tribe"
+    "target_scope": "same_tribe",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 5
+        }
+      ],
+      "notes": "Fogo 5, Ar 5"
+    }
   },
   {
     "id": "7a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d",
@@ -508,14 +1294,33 @@
   },
   {
     "id": "9c3d4e5f-6a7b-8c9d-0e1f-2a3b4c5d6e7f",
-    "name": "Air 5 (Ooloo)",
+    "name": "Ar 5 (Ooloo)",
     "category": "support",
     "effect_type": "increase",
     "stat": "energy",
     "value": 5,
     "description": "Ar 5",
     "created_at": "2026-02-15 12:45:00.000000+00",
-    "target_scope": "self"
+    "target_scope": "self",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "self",
+          "stat": "energy",
+          "value": 5
+        }
+      ],
+      "notes": "Ar 5"
+    }
   },
   {
     "id": "a4d5e6f7-a8b9-c0d1-e2f3-a4b5c6d7e8f9",
@@ -526,7 +1331,26 @@
     "value": 5,
     "description": "Imprudência 5",
     "created_at": "2026-02-15 12:45:00.000000+00",
-    "target_scope": "self"
+    "target_scope": "self",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "self",
+          "stat": "energy",
+          "value": 5
+        }
+      ],
+      "notes": "Imprudência 5"
+    }
   },
   {
     "id": "b5e6f7a8-b9c0-d1e2-f3a4-b5c6d7e8f9a0",
@@ -537,7 +1361,26 @@
     "value": 5,
     "description": "Superar Poder 5",
     "created_at": "2026-02-15 12:45:00.000000+00",
-    "target_scope": "self"
+    "target_scope": "self",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "self",
+          "stat": "power",
+          "value": 5
+        }
+      ],
+      "notes": "Superar Poder 5"
+    }
   },
   {
     "id": "c6f7a8b9-c0d1-e2f3-a4b5-c6d7e8f9a0b1",
@@ -548,27 +1391,66 @@
     "value": 5,
     "description": "Exaurir Todas as Disciplinas 5",
     "created_at": "2026-02-15 12:45:00.000000+00",
-    "target_scope": "all_creatures"
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "stat_modifier",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "deal_damage",
+      "trigger": {
+        "event": "on_activate",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "stat": "all",
+          "value": 5
+        }
+      ],
+      "notes": "Exaurir Todas as Disciplinas 5"
+    }
   },
   {
     "id": "d7a8b9c0-d1e2-f3a4-b5c6-d7e8f9a0b1c2",
-    "name": "Swift 3",
+    "name": "Ágil 3",
     "category": "innate",
     "effect_type": "special",
     "stat": "speed",
     "value": 3,
     "description": "Pode se mover três espaços adicionais no Tabuleiro.",
     "created_at": "2026-02-15 12:45:00.000000+00",
-    "target_scope": "self"
+    "target_scope": "self",
+    "battle_rules": {
+      "type": "move_bonus",
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "actionType": "move_creature",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "self",
+          "stat": "speed",
+          "value": 3
+        }
+      ],
+      "notes": "Pode se mover três espaços adicionais no Tabuleiro.",
+      "moveBonusCells": 3
+    }
   },
   {
     "id": "e8b9c0d1-e2f3-a4b5-c6d7-e8f9a0b1c2d3",
-    "name": "Interceptação de Range (Brainwashed)",
+    "name": "Interceptação de Alcance (Brainwashed)",
     "category": "brainwashed",
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Se uma Criatura que você controla for atacada por uma Criatura com Range, Rarran pode interceptar como se tivesse Defender e estivesse adjacente.",
+    "description": "Se uma Criatura que você controla para atacada por uma Criatura com Alcance, Rarran pode interceptar como se tivesse Defensor e estivesse adjacente.",
     "battle_rules": {
       "type": "intercept_range",
       "requiresTarget": false,
@@ -577,5 +1459,2509 @@
     },
     "created_at": "2026-02-15 12:45:00.000000+00",
     "target_scope": "same_side"
+  },
+  {
+    "id": "63430792-d05d-4e77-9355-b81151b39289",
+    "name": "Habilidade de Unda",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": ": Criatura alvo ganha Água.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "gain_element",
+          "target": "target",
+          "element": "water",
+          "value": 1
+        }
+      ],
+      "notes": ": Criatura alvo ganha Água."
+    }
+  },
+  {
+    "id": "2c05775b-8ab4-4b02-ac13-f4ae7d2f5963",
+    "name": "Habilidade de Somnort",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Defensor: Água",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Defensor: Água"
+    }
+  },
+  {
+    "id": "71cc1754-0874-420d-8271-f49cee8ba38f",
+    "name": "Habilidade de Silchaw",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "No início do combate, se a Iniciativa do Local ativo for um Tipo Elemental, sua Criatura engajada ganha esse Tipo Elemental.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "combat_start",
+        "source": "self",
+        "oncePerTurn": true
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "No início do combate, se a Iniciativa do Local ativo for um Tipo Elemental, sua Criatura engajada ganha esse Tipo Elemental."
+    }
+  },
+  {
+    "id": "5030b021-f767-4a63-9bfd-de5f13d8eb01",
+    "name": "Habilidade de Najarin",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Najarin pays 1 less ☐ para jogar Cartas de Mugic com mínimo de 1.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Najarin pays 1 less ☐ para jogar Cartas de Mugic com mínimo de 1."
+    }
+  },
+  {
+    "id": "14dca3d1-a68d-493d-b02d-fefe784c9fb8",
+    "name": "Habilidade de Lomma",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Defensor. 00: alvo Elemental ataque causa 0 dano para Lomma.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 0
+        }
+      ],
+      "notes": "Defensor. 00: alvo Elemental ataque causa 0 dano para Lomma."
+    }
+  },
+  {
+    "id": "800e2e28-0f0d-4296-a416-12d32aa3fd4b",
+    "name": "Habilidade de Korg",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "○: cura 10 dano para Criatura alvo para cada Criatura seu oponente controla em seu lado do Tabuleiro de Batalha.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "○: cura 10 dano para Criatura alvo para cada Criatura seu oponente controla em seu lado do Tabuleiro de Batalha."
+    }
+  },
+  {
+    "id": "7cc0ee4a-2f99-46ba-bc67-f815167652a0",
+    "name": "Habilidade de Porthyn",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "0: Todo dano que não seja de ataque essa iria ser causado para Criatura adjacente alvo é causado para Porthyn em vez disso.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "0: Todo dano que não seja de ataque essa iria ser causado para Criatura adjacente alvo é causado para Porthyn em vez disso."
+    }
+  },
+  {
+    "id": "cadce363-8631-4abd-96c0-f2376e25a572",
+    "name": "Habilidade de Iparu",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "No início de cada turno, Iparu se torna uma cópia da Criatura oponente alvo. (Iparu ganha todas as características escaneadas dessa carta, incluindo Disciplinas, Tipos Elementais, Energia e habilidades).",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "turn_start",
+        "source": "self",
+        "oncePerTurn": true
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "No início de cada turno, Iparu se torna uma cópia da Criatura oponente alvo. (Iparu ganha todas as características escaneadas dessa carta, incluindo Disciplinas, Tipos Elementais, Energia e habilidades)."
+    }
+  },
+  {
+    "id": "2918170e-7be9-49c5-aa37-3386bf356077",
+    "name": "Habilidade de Donmar",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Água: cura 10 dano para Criatura alvo.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "water",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "Gastar Água: cura 10 dano para Criatura alvo."
+    }
+  },
+  {
+    "id": "1e55dd1d-8d6c-4076-b582-7ffd7a407704",
+    "name": "Habilidade de Hune Canin",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar ♦ Fogo: Criatura alvo ganha ou perde todas Disciplinas so eles se tornar seus escaneadas values.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar ♦ Fogo: Criatura alvo ganha ou perde todas Disciplinas so eles se tornar seus escaneadas values."
+    }
+  },
+  {
+    "id": "10be55f0-2adc-46b3-bd91-d6c41e256356",
+    "name": "Habilidade de Dalgad",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Dalgad causa + 5 dano com Elemental ataques.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Dalgad causa + 5 dano com Elemental ataques."
+    }
+  },
+  {
+    "id": "d51890b0-e4ac-42ad-bcdc-e380655bef2c",
+    "name": "Habilidade de Herken",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": ": cura 10 dano para Criatura alvo. Se essa Criatura tem Água, cura 20 dano em vez disso.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "heal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": ": cura 10 dano para Criatura alvo. Se essa Criatura tem Água, cura 20 dano em vez disso."
+    }
+  },
+  {
+    "id": "3e235f22-41ce-4212-a415-86445cfc0f36",
+    "name": "Habilidade de Eremia",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Quando outra Criatura você controla perde um Tipo Elemental, Eremia ganha essa Tipo Elemental.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "lose_element",
+          "target": "target",
+          "value": 1
+        }
+      ],
+      "notes": "Quando outra Criatura você controla perde um Tipo Elemental, Eremia ganha essa Tipo Elemental."
+    }
+  },
+  {
+    "id": "d528a0a8-5f86-440b-b77a-afcd7627260a",
+    "name": "Habilidade de Illiar",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "ataques com uma Custo de Construção 2 jogados contra Illiar Causa 0 dano.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 0
+        }
+      ],
+      "notes": "ataques com uma Custo de Construção 2 jogados contra Illiar Causa 0 dano."
+    }
+  },
+  {
+    "id": "2658e464-c4c9-4346-a894-28a6d9c176be",
+    "name": "Habilidade de Blazier",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar 🚫 Terra: Olhe o carta do topo de seu deck de Locais. Você pode coloque essa carta em o fundo de essa deck.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar 🚫 Terra: Olhe o carta do topo de seu deck de Locais. Você pode coloque essa carta em o fundo de essa deck."
+    }
+  },
+  {
+    "id": "26162935-6eef-45b2-b86c-80a1c20b6a56",
+    "name": "Habilidade de Cromaxx",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "O dano causado a Cromaxx por Mugic é reduzido a 0. A Energia de Cromaxx não pode ser reduzida por Mugic.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "O dano causado a Cromaxx por Mugic é reduzido a 0. A Energia de Cromaxx não pode ser reduzida por Mugic."
+    }
+  },
+  {
+    "id": "03bb7b93-82a1-4a64-80a5-57b5ccc1c290",
+    "name": "Habilidade de Afjak",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "sacrifique Afjak: Put ☐ em Criatura alvo você controla.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "sacrifique Afjak: Put ☐ em Criatura alvo você controla."
+    }
+  },
+  {
+    "id": "032aad8c-f859-442b-83bc-a0b626a4f492",
+    "name": "Habilidade de Arrthoa",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "suas outras Criaturas com Água succeed em todas Disciplina checks em ataques eles jogar.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "suas outras Criaturas com Água succeed em todas Disciplina checks em ataques eles jogar."
+    }
+  },
+  {
+    "id": "1a21aa43-dd9b-4a8f-8edf-0b26a3b02d12",
+    "name": "Habilidade de Proboscar",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Proboscar pode move para qualquer unoccupied space as Se ela eram adjacent. Se Proboscar iria move para um Criatura oponente's space ela relocates essa Criatura oponente para Proboscar's space em vez disso.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Proboscar pode move para qualquer unoccupied space as Se ela eram adjacent. Se Proboscar iria move para um Criatura oponente's space ela relocates essa Criatura oponente para Proboscar's space em vez disso."
+    }
+  },
+  {
+    "id": "c0b1debb-86be-43fd-ab91-387119f61e54",
+    "name": "Habilidade de Smildon",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Defensor: Terra.: o Local ativo perde todas abilities.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Defensor: Terra.: o Local ativo perde todas abilities."
+    }
+  },
+  {
+    "id": "fd321190-f525-4f0f-8b37-6b5a2c5bf807",
+    "name": "Habilidade de Voorx",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Quando Voorx se torna engajada, seu oponente pode sacrifique uma Equipamento de Batalha. Se eles do not, Voorx ganha \" Fogo 5\" e \" Água 5\".",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Quando Voorx se torna engajada, seu oponente pode sacrifique uma Equipamento de Batalha. Se eles do not, Voorx ganha \" Fogo 5\" e \" Água 5\"."
+    }
+  },
+  {
+    "id": "496134a3-b980-4e40-8b10-e4fa1af513d9",
+    "name": "Habilidade de Zamool",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Enquanto Zamool é engajada, Criaturas oponentes não podem jogar Mugic or abilities.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Enquanto Zamool é engajada, Criaturas oponentes não podem jogar Mugic or abilities."
+    }
+  },
+  {
+    "id": "97bd476e-aac9-443c-b00b-74e065d31737",
+    "name": "Habilidade de Ulmar",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Fogo: Causa 10 dano para Criatura alvo.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "fire",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "Gastar Fogo: Causa 10 dano para Criatura alvo."
+    }
+  },
+  {
+    "id": "628c48f0-0cc3-4648-b3bc-9b08a469124d",
+    "name": "Habilidade de Stelgar",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "No final de cada turno, coloque um contador de Crescimento em Stelgar. Stelgar ganha 10 de Energia e 10 em todas as Disciplinas para cada contador de Crescimento nele.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "turn_end",
+        "source": "self",
+        "oncePerTurn": true
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 10
+        }
+      ],
+      "notes": "No final de cada turno, coloque um contador de Crescimento em Stelgar. Stelgar ganha 10 de Energia e 10 em todas as Disciplinas para cada contador de Crescimento nele."
+    }
+  },
+  {
+    "id": "68206ef2-87e1-4773-9f67-3b973f08c7b3",
+    "name": "Habilidade de Skorblust",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Quando Skorblust recebe dano de uma Fogo or Terra ataque Causa 5 dano para Criatura engajada oponente.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 5
+        }
+      ],
+      "notes": "Quando Skorblust recebe dano de uma Fogo or Terra ataque Causa 5 dano para Criatura engajada oponente."
+    }
+  },
+  {
+    "id": "f5e2fd7c-9ce6-41e7-afd2-5e9df3a178be",
+    "name": "Habilidade de Toadore",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Fogo Enquanto engajada: Destrua todas Equipamento de Batalha em Criaturas engajadas.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "fire",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar Fogo Enquanto engajada: Destrua todas Equipamento de Batalha em Criaturas engajadas."
+    }
+  },
+  {
+    "id": "37fa8846-ae6b-438f-a4ba-116ff5a50cac",
+    "name": "Habilidade de Slufurah",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "No início do combate, sacrifique um Equipamento de Batalha equipado na sua Criatura engajada. Se você fizer isso, essa Criatura ganha Fogo e Fogo 5.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "combat_start",
+        "source": "self",
+        "oncePerTurn": true
+      },
+      "effects": [
+        {
+          "kind": "gain_element",
+          "target": "target",
+          "element": "fire",
+          "value": 1
+        }
+      ],
+      "notes": "No início do combate, sacrifique um Equipamento de Batalha equipado na sua Criatura engajada. Se você fizer isso, essa Criatura ganha Fogo e Fogo 5."
+    }
+  },
+  {
+    "id": "70d5ca75-f414-4c76-b8dd-098c012f784c",
+    "name": "Habilidade de Seeryn",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "-: Criatura alvo ganha - Fogo.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "-: Criatura alvo ganha - Fogo."
+    }
+  },
+  {
+    "id": "16907dc8-a89e-4ebe-86bc-848ce1454d3b",
+    "name": "Habilidade de Skithia",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "- o controlador de Criatura engajada alvo revela seus ataque mão. Causa 5 dano para essa Criatura engajada para cada Tipo Elemental either de those revealed Cartas de Ataque têm.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 5
+        }
+      ],
+      "notes": "- o controlador de Criatura engajada alvo revela seus ataque mão. Causa 5 dano para essa Criatura engajada para cada Tipo Elemental either de those revealed Cartas de Ataque têm."
+    }
+  },
+  {
+    "id": "cacfc169-0e0c-4ce3-9b26-dd81bef80745",
+    "name": "Habilidade de Rothar",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Rothar deve se mover para um espaço adjacente ocupado, se possível.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Rothar deve se mover para um espaço adjacente ocupado, se possível."
+    }
+  },
+  {
+    "id": "6c4135d9-4faa-4fc7-98b9-31e7dbdd05a3",
+    "name": "Habilidade de Savitsa",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar ☐ Fogo Enquanto engajada: Ambos os jogadores descartar two Cartas de Ataque e comprar two Cartas de Ataque.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar ☐ Fogo Enquanto engajada: Ambos os jogadores descartar two Cartas de Ataque e comprar two Cartas de Ataque."
+    }
+  },
+  {
+    "id": "9ca0dda9-5437-4fd0-95be-8d70ba8188bc",
+    "name": "Habilidade de Piddan",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "①: Criatura alvo causa + 10 dano com seu próximo ataque. Se essa Criatura tem Fogo, ela also ganha \" Fogo 5\".",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "①: Criatura alvo causa + 10 dano com seu próximo ataque. Se essa Criatura tem Fogo, ela also ganha \" Fogo 5\"."
+    }
+  },
+  {
+    "id": "4ee13df5-088e-4e5f-9e10-b2ea15a732e6",
+    "name": "Habilidade de Magmon",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "suas outras Criaturas com Fogo têm \"Imprudência 5\" e \" Fogo 5\".",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "suas outras Criaturas com Fogo têm \"Imprudência 5\" e \" Fogo 5\"."
+    }
+  },
+  {
+    "id": "c95a6f36-9895-487c-92bb-5d7d7c28d266",
+    "name": "Habilidade de Kopond",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Mugic jogados por Kopond essa causa dano causa + 10 dano.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Mugic jogados por Kopond essa causa dano causa + 10 dano."
+    }
+  },
+  {
+    "id": "146aa3a8-5f6b-4314-9c29-110eb5e5fac1",
+    "name": "Habilidade de Nauthilax",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Imprudência 5",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Imprudência 5"
+    }
+  },
+  {
+    "id": "75e0714d-e58d-4d68-9c0f-22a06f9b4739",
+    "name": "Habilidade de Krekk",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "No início do combate, se a Iniciativa do Local ativo for uma Disciplina, Criaturas engajadas com menos de 60 nessa Disciplina perdem 10 de Energia.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "combat_start",
+        "source": "self",
+        "oncePerTurn": true
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "No início do combate, se a Iniciativa do Local ativo for uma Disciplina, Criaturas engajadas com menos de 60 nessa Disciplina perdem 10 de Energia."
+    }
+  },
+  {
+    "id": "2ca4909c-a50e-4895-befd-9e4ccc9f1d28",
+    "name": "Habilidade de Kaal",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Fogo 5. ○: Causa 5 dano para Criatura alvo para cada Criatura você controla em seu oponente's lado do Tabuleiro de Batalha.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 5
+        }
+      ],
+      "notes": "Fogo 5. ○: Causa 5 dano para Criatura alvo para cada Criatura você controla em seu oponente's lado do Tabuleiro de Batalha."
+    }
+  },
+  {
+    "id": "f0963702-20c1-40a6-905d-53e0a5492e30",
+    "name": "Habilidade de Kiru",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Quando Kiru vence combate coloque uma contador de Liderançuma em ela. outras Criaturas você controla têm um adicional 10 Energia para cada contador de Liderançuma em Kiru.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_attack_damage_dealt",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Quando Kiru vence combate coloque uma contador de Liderançuma em ela. outras Criaturas você controla têm um adicional 10 Energia para cada contador de Liderançuma em Kiru."
+    }
+  },
+  {
+    "id": "f730973d-ac3f-4399-9dc1-48f92364fd0b",
+    "name": "Habilidade de Ketacc",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Intimidate: Energia 10. Imprudência 10",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Intimidate: Energia 10. Imprudência 10"
+    }
+  },
+  {
+    "id": "36b13e62-1822-4afa-ae4e-62a0a376b2e2",
+    "name": "Habilidade de Khybon",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Fogo: Put uma contador de Magma em Khybon. Remove 5 contadores de Magma de Khybon: Causa 40 dano para todas Criaturas engajadas.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "fire",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 40
+        }
+      ],
+      "notes": "Gastar Fogo: Put uma contador de Magma em Khybon. Remove 5 contadores de Magma de Khybon: Causa 40 dano para todas Criaturas engajadas."
+    }
+  },
+  {
+    "id": "837a6576-016f-402f-b52a-1d58408bca09",
+    "name": "Habilidade de Yondaf",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "No início de cada turno, se Yondaf não estiver Infectada, infecte-a. Desinfecte 3 Criaturas: cause 10 de dano à Criatura alvo.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "turn_start",
+        "source": "self",
+        "oncePerTurn": true
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "No início de cada turno, se Yondaf não estiver Infectada, infecte-a. Desinfecte 3 Criaturas: cause 10 de dano à Criatura alvo."
+    }
+  },
+  {
+    "id": "7b3c21d3-7b91-4cd3-bdb6-8dfedc077c93",
+    "name": "Habilidade de Valban",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "No início do combate, Valban ganha um Tipo Elemental que as Criaturas infectadas tenham.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "combat_start",
+        "source": "self",
+        "oncePerTurn": true
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "No início do combate, Valban ganha um Tipo Elemental que as Criaturas infectadas tenham."
+    }
+  },
+  {
+    "id": "a2ed21ea-3a31-4a5c-a77a-ff2276366539",
+    "name": "Habilidade de Tharc",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "☐: Criatura alvo ganha 50 ☑ Courage. Se essa Criatura tem ☐ Terra, ela ganha um adicional 50 ☑ Courage.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "☐: Criatura alvo ganha 50 ☑ Courage. Se essa Criatura tem ☐ Terra, ela ganha um adicional 50 ☑ Courage."
+    }
+  },
+  {
+    "id": "1faeb7c8-43ad-4254-b2e7-28e73313e511",
+    "name": "Habilidade de Tarin",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "suas outras Criaturas com Terra têm um adicional 10 Energia.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "suas outras Criaturas com Terra têm um adicional 10 Energia."
+    }
+  },
+  {
+    "id": "6f970937-ce7f-46f2-873d-421218d049a9",
+    "name": "Habilidade de Orbaat",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Enquanto Orbaat estiver na sua pilha de descarte, se você for revelar um novo Local ativo, em vez disso olhe as duas cartas do topo do seu deck de Locais e escolha uma. Ela se torna o novo Local ativo.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Enquanto Orbaat estiver na sua pilha de descarte, se você for revelar um novo Local ativo, em vez disso olhe as duas cartas do topo do seu deck de Locais e escolha uma. Ela se torna o novo Local ativo."
+    }
+  },
+  {
+    "id": "6f04863c-a2ae-42b4-afce-bcebaaf36330",
+    "name": "Habilidade de Odu-Bathax",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Terra 5. Gastar Terra: Odu-Bathax ganha \"Superar Coragem 5\".",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "earth",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Terra 5. Gastar Terra: Odu-Bathax ganha \"Superar Coragem 5\"."
+    }
+  },
+  {
+    "id": "7126e491-ef70-4cb3-b27a-572c17f28944",
+    "name": "Habilidade de Makromil",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Makromil ganha 5 de Energia adicional para cada outro Danian que você controla. Makromil também ganha 5 de Energia adicional para cada outra Criatura Past que você controla.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "modify_stat",
+          "target": "target",
+          "stat": "energy",
+          "value": 5
+        }
+      ],
+      "notes": "Makromil ganha 5 de Energia adicional para cada outro Danian que você controla. Makromil também ganha 5 de Energia adicional para cada outra Criatura Past que você controla."
+    }
+  },
+  {
+    "id": "19f4c296-9b23-48a2-a0e4-9d3e1baca206",
+    "name": "Habilidade de Ketun",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Elemental ataques Causa 5 less dano para Ketun.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Elemental ataques Causa 5 less dano para Ketun."
+    }
+  },
+  {
+    "id": "11e065f0-83a6-4101-b2aa-5f9969b5ef84",
+    "name": "Habilidade de Hiadrom",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Terra: Hiadrom ganha 20 Energia.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "earth",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar Terra: Hiadrom ganha 20 Energia."
+    }
+  },
+  {
+    "id": "9b4129c8-1009-4fb7-9b79-5a4243ef386c",
+    "name": "Habilidade de Ghundac",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Hive: Ghundac ganha \"Alcance\" e \"Ágil 3\".",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "move_bonus",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "move_creature",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Hive: Ghundac ganha \"Alcance\" e \"Ágil 3\"."
+    }
+  },
+  {
+    "id": "a575d9bb-c3fc-4ade-b873-e598fcab90f5",
+    "name": "Habilidade de Gareep",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "①: Activate Hive. o primeiro vez uma Criatura você controla vai para a pilha de descarte cada turno, Gareep ganha ①.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "①: Activate Hive. o primeiro vez uma Criatura você controla vai para a pilha de descarte cada turno, Gareep ganha ①."
+    }
+  },
+  {
+    "id": "f2e7b474-54ff-4e46-9bec-08f4f790bb8b",
+    "name": "Habilidade de Ambolx",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Água: Infecte Criatura alvo.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "water",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar Água: Infecte Criatura alvo."
+    }
+  },
+  {
+    "id": "34c5fdd3-f9a1-4b9b-a9a0-45b2c7a5142e",
+    "name": "Habilidade de Zhade",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Invisibilidade: Ataque 15",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Invisibilidade: Ataque 15"
+    }
+  },
+  {
+    "id": "141c2613-78b1-4f04-bb25-31a59c4c516e",
+    "name": "Habilidade de Ylinné",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": ": Criatura alvo ganha \"Invisibilidade: Ataque 10.\" Se essa Criatura tem Ar, ela also ganha \"Invisibilidade: Surpresa.\"",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": ": Criatura alvo ganha \"Invisibilidade: Ataque 10.\" Se essa Criatura tem Ar, ela also ganha \"Invisibilidade: Surpresa.\""
+    }
+  },
+  {
+    "id": "6a2f7c3b-09af-470a-93e3-9c27c55de02d",
+    "name": "Habilidade de Taffial",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Terra: descartar um Carta de Ataque. Se você do, retornar um Carta de Ataque com Custo de Construção menor ou igual pro descartada Carta de Ataque para seu mão.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "earth",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar Terra: descartar um Carta de Ataque. Se você do, retornar um Carta de Ataque com Custo de Construção menor ou igual pro descartada Carta de Ataque para seu mão."
+    }
+  },
+  {
+    "id": "d60986c9-b23e-41e2-baf1-0e95273a53bc",
+    "name": "Habilidade de Silv",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": ": Criatura alvo ganha Ar.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "gain_element",
+          "target": "target",
+          "element": "air",
+          "value": 1
+        }
+      ],
+      "notes": ": Criatura alvo ganha Ar."
+    }
+  },
+  {
+    "id": "c528de82-69d0-468f-9c51-b8583d312512",
+    "name": "Habilidade de Sepmek",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "No início do seu turno, vire para cima todos os Equipamentos de Batalha equipados em Sepmek.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "turn_start",
+        "source": "self",
+        "oncePerTurn": true
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "No início do seu turno, vire para cima todos os Equipamentos de Batalha equipados em Sepmek."
+    }
+  },
+  {
+    "id": "bcd32476-78cc-4485-910f-ff3c5cd5b450",
+    "name": "Habilidade de Qwun",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Expand ☐ Ar Enquanto engajada: Flip Criatura engajada oponente's Equipamento de Batalha virada para baixo.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Expand ☐ Ar Enquanto engajada: Flip Criatura engajada oponente's Equipamento de Batalha virada para baixo."
+    }
+  },
+  {
+    "id": "16867011-2284-4c93-92ee-fe2df3000bd8",
+    "name": "Habilidade de Ninren",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Alcance. Ágil 1. Imprudência 25.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "move_bonus",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "move_creature",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Alcance. Ágil 1. Imprudência 25."
+    }
+  },
+  {
+    "id": "565f8c26-ac19-4174-a1b4-04b41a1164a3",
+    "name": "Habilidade de Kolmo",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Alcance. Ágil 1. Kolmo ganha \"Invisibilidade: Ataque 10\" para cada Tipo Elemental o Criatura engajada oponente tem.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "move_bonus",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "move_creature",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Alcance. Ágil 1. Kolmo ganha \"Invisibilidade: Ataque 10\" para cada Tipo Elemental o Criatura engajada oponente tem."
+    }
+  },
+  {
+    "id": "829f6f6c-1737-45c0-82f4-f0b6577e11af",
+    "name": "Habilidade de Kojjbel",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Terra Enquanto engajada: ataque alvo causa 15 dano.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "earth",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 15
+        }
+      ],
+      "notes": "Gastar Terra Enquanto engajada: ataque alvo causa 15 dano."
+    }
+  },
+  {
+    "id": "433f52cb-903d-4f44-9c5e-739a9ded530f",
+    "name": "Habilidade de Khenti",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Invisibilidade: Ataque 10. Gastar Ar: Khenti ganha \"Alcance\" e \"Ágil 1\".",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "move_bonus",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "move_creature",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "air",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Invisibilidade: Ataque 10. Gastar Ar: Khenti ganha \"Alcance\" e \"Ágil 1\"."
+    }
+  },
+  {
+    "id": "e6b35624-b22c-4c43-97b6-a2b6deaf1d1f",
+    "name": "Habilidade de Daxik",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "outras Criaturas você controla têm 10 less Energia.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "outras Criaturas você controla têm 10 less Energia."
+    }
+  },
+  {
+    "id": "364a303d-7cdc-4d2f-8d26-42507c0ae30c",
+    "name": "Habilidade de Ifjann",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Ar: Criatura adjacente alvo ganha \"Inalvejável\".",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "air",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar Ar: Criatura adjacente alvo ganha \"Inalvejável\"."
+    }
+  },
+  {
+    "id": "414cbba1-ed6c-4c99-a713-50603b8053c1",
+    "name": "Habilidade de Rearim",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "suas outras Criaturas com Ar não podem ser targeted por oponentes Mugic or abilities.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "suas outras Criaturas com Ar não podem ser targeted por oponentes Mugic or abilities."
+    }
+  },
+  {
+    "id": "167da6b2-3079-4a33-928a-59d2d09eb9b3",
+    "name": "Habilidade de Habekh",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Reduza Imprudência dano para Warbeasts você controla por 10 para cada Tipo Elemental essa Warbeast tem.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Reduza Imprudência dano para Warbeasts você controla por 10 para cada Tipo Elemental essa Warbeast tem."
+    }
+  },
+  {
+    "id": "10c12ec1-f394-4b04-bdda-2828a447c307",
+    "name": "Habilidade de Gintanai",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Única, Leal. ☐ Ar 10. ☑ Terra 10. Quando Gintanai vence combate, sacrifique outra Criatura. Se você não podem, Destrua Gintanai.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_attack_damage_dealt",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Única, Leal. ☐ Ar 10. ☑ Terra 10. Quando Gintanai vence combate, sacrifique outra Criatura. Se você não podem, Destrua Gintanai."
+    }
+  },
+  {
+    "id": "11c9a5ca-cc39-4997-bfec-e564cae16ff3",
+    "name": "Habilidade de Fasseph",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Quando uma Equipamento de Batalha equipada para uma Criatura engajada com Fasseph é virada virada para cima or virada para baixo, Causa 10 dano para essa Criatura.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "deal_damage",
+          "target": "target",
+          "value": 10
+        }
+      ],
+      "notes": "Quando uma Equipamento de Batalha equipada para uma Criatura engajada com Fasseph é virada virada para cima or virada para baixo, Causa 10 dano para essa Criatura."
+    }
+  },
+  {
+    "id": "bec4aab1-b975-43ec-8ab8-614177c97004",
+    "name": "Habilidade de Enre-Hep",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Única, Leal: copie a Mugic alvo jogada por uma Criatura que você controla. Você pode escolher novo(s) alvo(s) para a cópia.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Única, Leal: copie a Mugic alvo jogada por uma Criatura que você controla. Você pode escolher novo(s) alvo(s) para a cópia."
+    }
+  },
+  {
+    "id": "7544c72a-03d7-4951-b657-8324a955f23a",
+    "name": "Habilidade de Ajara",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Única. Criaturas Past que você controla causam 5 de dano de ataque adicional a Criaturas com menos contadores de Mugic do que essa Criatura Past.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Única. Criaturas Past que você controla causam 5 de dano de ataque adicional a Criaturas com menos contadores de Mugic do que essa Criatura Past."
+    }
+  },
+  {
+    "id": "62b56483-49c3-470a-b843-fcdd77fbe286",
+    "name": "Habilidade de Thar'lyn",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Água enquanto engajada: da próxima vez que Thar'lyn causar dano de ataque, a Criatura engajada oponente perde X em todas as Disciplinas, onde X é o dano causado.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "water",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar Água enquanto engajada: da próxima vez que Thar'lyn causar dano de ataque, a Criatura engajada oponente perde X em todas as Disciplinas, onde X é o dano causado."
+    }
+  },
+  {
+    "id": "3900a4e7-a8e9-4b47-be54-03df66da3392",
+    "name": "Habilidade de Son'las",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Quando Son'las se torna engajada, a Criatura engajada oponente perde Invisibilidade e o seu oponente revela a mão de ataques.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Quando Son'las se torna engajada, a Criatura engajada oponente perde Invisibilidade e o seu oponente revela a mão de ataques."
+    }
+  },
+  {
+    "id": "ff77a87a-e524-4412-bd3a-93ff588c2911",
+    "name": "Habilidade de Rath'tab",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Única, Leal - M'arrillians ou Lacaios. Descarte uma Carta de Mugic: Criatura alvo com 0 em qualquer Disciplina perde um Tipo Elemental à sua escolha.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "lose_element",
+          "target": "target",
+          "value": 1
+        }
+      ],
+      "notes": "Única, Leal - M'arrillians ou Lacaios. Descarte uma Carta de Mugic: Criatura alvo com 0 em qualquer Disciplina perde um Tipo Elemental à sua escolha."
+    }
+  },
+  {
+    "id": "3654cc63-094f-4b11-873e-8171b88720de",
+    "name": "Habilidade de Mock'adyn",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Água: Mock'adyn ganha",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "water",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar Água: Mock'adyn ganha"
+    }
+  },
+  {
+    "id": "11d83813-ab49-4464-8e73-065549660034",
+    "name": "Habilidade de Milla'in",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Única, Leal - M'arrillians ou Lacaios. No início do seu turno, se todas as Criaturas que você controla não tiverem contadores de Mugic, retorne uma Carta de Mugic alvo da sua pilha de descarte geral para sua mão.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "turn_start",
+        "source": "self",
+        "oncePerTurn": true
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Única, Leal - M'arrillians ou Lacaios. No início do seu turno, se todas as Criaturas que você controla não tiverem contadores de Mugic, retorne uma Carta de Mugic alvo da sua pilha de descarte geral para sua mão."
+    }
+  },
+  {
+    "id": "7dd0fb3f-c087-4223-96ab-d24ee22fe04c",
+    "name": "Habilidade de Klik'ssi",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Enquanto Klik'ssi estiver equipada com um Fragmento, ela tem \"Água 5\".",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Enquanto Klik'ssi estiver equipada com um Fragmento, ela tem \"Água 5\"."
+    }
+  },
+  {
+    "id": "e962ae8d-b25f-4660-b0e0-7fea87369e76",
+    "name": "Habilidade de Ihun'kalin",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Única, Leal - M'arrillians ou Lacaios. descartar uma Carta de Mugic: Ihun'kalin causa 10 adicional dano com seu próximo ataque.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "discard_card",
+          "source": "controller",
+          "cardType": "mugic",
+          "cardCount": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Única, Leal - M'arrillians ou Lacaios. descartar uma Carta de Mugic: Ihun'kalin causa 10 adicional dano com seu próximo ataque."
+    }
+  },
+  {
+    "id": "71878710-d6ef-468b-84cc-a7871e9811e8",
+    "name": "Habilidade de Fal'makin",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Única, Leal - M'arrillians ou Lacaios. Quando Fal'makin causa dano de ataque, Fal'makin pode imediatamente jogar uma Carta de Mugic de custo 2 or less sem pagando seu Mugic custo.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "on_attack_damage_dealt",
+        "source": "self"
+      },
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Única, Leal - M'arrillians ou Lacaios. Quando Fal'makin causa dano de ataque, Fal'makin pode imediatamente jogar uma Carta de Mugic de custo 2 or less sem pagando seu Mugic custo."
+    }
+  },
+  {
+    "id": "492d1cd8-b1a0-43f4-b39f-3bf001aca9e4",
+    "name": "Habilidade de Ast'imal",
+    "category": "support",
+    "effect_type": "special",
+    "stat": "none",
+    "value": 0,
+    "description": "Gastar Água: alvo unengaged Criatura's controlador swaps ela com outra unengaged Criatura he or she controla.",
+    "created_at": "2026-02-16T23:54:47.863Z",
+    "updated_at": "2026-02-16T23:54:47.863Z",
+    "target_scope": "all_creatures",
+    "battle_rules": {
+      "type": "generic_special",
+      "requiresTarget": true,
+      "usageLimitPerTurn": null,
+      "actionType": "heal_damage",
+      "trigger": {
+        "event": "passive_continuous",
+        "source": "self"
+      },
+      "costs": [
+        {
+          "kind": "pay_element",
+          "source": "self",
+          "element": "water",
+          "value": 1
+        }
+      ],
+      "effects": [
+        {
+          "kind": "none",
+          "target": "self",
+          "value": 0
+        }
+      ],
+      "notes": "Gastar Água: alvo unengaged Criatura's controlador swaps ela com outra unengaged Criatura he or she controla."
+    }
   }
 ]

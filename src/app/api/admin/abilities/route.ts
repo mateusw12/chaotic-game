@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
 import {
+    type AbilityBattleRuleDto,
+    isValidAbilityBattleRuleType,
     type CreateAbilityRequestDto,
     type CreateAbilityResponseDto,
     type ListAbilitiesResponseDto,
 } from "@/dto/ability";
 import { auth } from "@/lib/auth";
 import { createAbility, getUserByEmail, listAbilities } from "@/lib/supabase";
+import {
+    isValidAbilityCategory,
+    isValidAbilityEffectType,
+    isValidAbilityStat,
+    isValidAbilityTargetScope,
+} from "@/lib/supabase/core";
 
 async function ensureAdminBySessionEmail(email: string | null | undefined) {
     if (!email) {
@@ -27,6 +35,75 @@ async function ensureAdminBySessionEmail(email: string | null | undefined) {
     }
 
     return { ok: true as const };
+}
+
+function normalizeBattleRules(value: unknown): AbilityBattleRuleDto | null {
+    if (!value) {
+        return null;
+    }
+
+    if (typeof value === "string") {
+        try {
+            const parsed = JSON.parse(value) as unknown;
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                return parsed as AbilityBattleRuleDto;
+            }
+        } catch {
+            return null;
+        }
+
+        return null;
+    }
+
+    if (typeof value === "object" && !Array.isArray(value)) {
+        return value as AbilityBattleRuleDto;
+    }
+
+    return null;
+}
+
+function buildCreatePayload(body: Partial<CreateAbilityRequestDto>): CreateAbilityRequestDto {
+    const name = String(body.name ?? "").trim();
+    if (!name) {
+        throw new Error("Nome da habilidade é obrigatório.");
+    }
+
+    if (!isValidAbilityCategory(String(body.category ?? ""))) {
+        throw new Error("Categoria de habilidade inválida.");
+    }
+
+    if (!isValidAbilityEffectType(String(body.effectType ?? ""))) {
+        throw new Error("Tipo de efeito inválido.");
+    }
+
+    if (!isValidAbilityTargetScope(String(body.targetScope ?? ""))) {
+        throw new Error("Escopo de alvo inválido.");
+    }
+
+    if (!isValidAbilityStat(String(body.stat ?? ""))) {
+        throw new Error("Atributo de habilidade inválido.");
+    }
+
+    const value = Number(body.value ?? 0);
+    if (!Number.isFinite(value) || value < 0) {
+        throw new Error("Valor da habilidade inválido.");
+    }
+
+    const battleRules = normalizeBattleRules(body.battleRules);
+    if (battleRules && !isValidAbilityBattleRuleType(String(battleRules.type ?? ""))) {
+        throw new Error("Tipo de battle_rules inválido.");
+    }
+
+    return {
+        name,
+        category: body.category,
+        effectType: body.effectType,
+        targetScope: body.targetScope,
+        stat: body.stat,
+        value,
+        description: body.description ?? null,
+        battleRules,
+    };
 }
 
 export async function GET() {
@@ -85,16 +162,7 @@ export async function POST(request: Request) {
             .json()
             .catch(() => ({} as Partial<CreateAbilityRequestDto>));
 
-        const ability = await createAbility({
-            name: body.name ?? "",
-            category: (body.category ?? "") as CreateAbilityRequestDto["category"],
-            effectType: (body.effectType ?? "") as CreateAbilityRequestDto["effectType"],
-            targetScope: (body.targetScope ?? "") as CreateAbilityRequestDto["targetScope"],
-            stat: (body.stat ?? "") as CreateAbilityRequestDto["stat"],
-            value: Number(body.value ?? 0),
-            description: body.description ?? null,
-            battleRules: body.battleRules ?? null,
-        });
+        const ability = await createAbility(buildCreatePayload(body));
 
         const response: CreateAbilityResponseDto = {
             success: true,
