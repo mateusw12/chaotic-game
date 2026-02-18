@@ -25,22 +25,33 @@ import {
     ABILITY_BOARD_ACTION_TYPE_OPTIONS,
     ABILITY_CARD_TYPE_OPTIONS,
     ABILITY_CATEGORY_OPTIONS,
+    ABILITY_COST_KIND_OPTIONS,
     ABILITY_EFFECT_TYPE_OPTIONS,
+    ABILITY_EFFECT_KIND_OPTIONS,
+    ABILITY_EFFECT_TARGET_OPTIONS,
     ABILITY_STAT_OPTIONS,
     ABILITY_TARGET_SCOPE_OPTIONS,
+    ABILITY_TRIGGER_EVENT_OPTIONS,
+    ABILITY_TRIGGER_SOURCE_OPTIONS,
     type AbilityActionType,
     type AbilityBattleRuleType,
     type AbilityBoardActionType,
     type AbilityCardType,
     type AbilityCategory,
     type AbilityBattleRuleDto,
+    type AbilityCostKind,
+    type AbilityCostSource,
     type AbilityDto,
+    type AbilityEffectKind,
+    type AbilityEffectTarget,
     type AbilityEffectType,
     type AbilityStat,
     type AbilityTargetScope,
+    type AbilityTriggerEvent,
+    type AbilityTriggerSource,
     type CreateAbilityRequestDto,
 } from "@/dto/ability";
-import { CREATURE_TRIBE_OPTIONS, type CreatureTribe } from "@/dto/creature";
+import { CREATURE_ELEMENT_OPTIONS, CREATURE_TRIBE_OPTIONS, type CreatureElement, type CreatureTribe } from "@/dto/creature";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { LoadingLogo } from "@/components/shared/loading-logo";
 import { AbilitiesAdminService } from "@/lib/api/service";
@@ -67,64 +78,69 @@ type AbilityFormValues = {
     cardTypes?: AbilityCardType[];
     actionType?: AbilityActionType;
     boardActionType?: AbilityBoardActionType;
+    triggerEvent?: AbilityTriggerEvent;
+    triggerSource?: AbilityTriggerSource;
+    triggerOncePerTurn?: boolean;
+    costKind?: AbilityCostKind;
+    costSource?: AbilityCostSource;
+    costStat?: AbilityStat;
+    costValue?: number;
+    costElement?: CreatureElement;
+    costCardType?: AbilityCardType;
+    costCardCount?: number;
+    effectKind?: AbilityEffectKind;
+    effectTarget?: AbilityEffectTarget;
+    effectStat?: AbilityStat;
+    effectValue?: number;
+    effectElement?: CreatureElement;
+    effectCardType?: AbilityCardType;
+    effectCardCount?: number;
     moveBonusCells?: number;
     movementMinCells?: number;
     movementMaxCells?: number;
     battleRuleNotes?: string;
-    actionPayloadJson?: string;
-    payloadJson?: string;
-    battleRulesJson?: string;
 };
 
-function parseBattleRulesJson(value: string | undefined): AbilityBattleRuleDto | null {
-    if (!value?.trim()) {
-        return null;
-    }
-
-    const parsed = JSON.parse(value) as unknown;
-
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-        throw new Error("battleRules precisa ser um objeto JSON válido.");
-    }
-
-    return parsed as AbilityBattleRuleDto;
-}
-
-function stringifyJsonOrEmpty(value: unknown): string {
-    if (!value || (typeof value === "object" && Object.keys(value as Record<string, unknown>).length === 0)) {
-        return "";
-    }
-
-    try {
-        return JSON.stringify(value, null, 2);
-    } catch {
-        return "";
-    }
-}
-
-function parseOptionalJsonObject(value?: string): Record<string, unknown> | undefined {
-    if (!value?.trim()) {
-        return undefined;
-    }
-
-    const parsed = JSON.parse(value) as unknown;
-
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-        throw new Error("O payload deve ser um objeto JSON válido.");
-    }
-
-    return parsed as Record<string, unknown>;
-}
-
 function buildBattleRulesFromForm(values: AbilityFormValues): AbilityBattleRuleDto | null {
-    const directBattleRule = parseBattleRulesJson(values.battleRulesJson);
-    if (directBattleRule) {
-        return directBattleRule;
-    }
-
     if (!values.battleRuleType) {
         return null;
     }
+
+    const trigger = values.triggerEvent
+        ? {
+            event: values.triggerEvent,
+            source: values.triggerSource,
+            oncePerTurn: values.triggerOncePerTurn,
+        }
+        : undefined;
+
+    const costs = values.costKind
+        ? [
+            {
+                kind: values.costKind,
+                source: values.costSource,
+                stat: values.costStat,
+                value: values.costValue,
+                element: values.costElement,
+                cardType: values.costCardType,
+                cardCount: values.costCardCount,
+            },
+        ]
+        : undefined;
+
+    const effects = values.effectKind
+        ? [
+            {
+                kind: values.effectKind,
+                target: values.effectTarget,
+                stat: values.effectStat,
+                value: values.effectValue,
+                element: values.effectElement,
+                cardType: values.effectCardType,
+                cardCount: values.effectCardCount,
+            },
+        ]
+        : undefined;
 
     return {
         type: values.battleRuleType,
@@ -135,12 +151,13 @@ function buildBattleRulesFromForm(values: AbilityFormValues): AbilityBattleRuleD
         cardTypes: values.cardTypes?.length ? values.cardTypes : undefined,
         actionType: values.actionType,
         boardActionType: values.boardActionType,
+        trigger,
+        costs,
+        effects,
         moveBonusCells: values.moveBonusCells,
         movementMinCells: values.movementMinCells,
         movementMaxCells: values.movementMaxCells,
         notes: values.battleRuleNotes?.trim() || null,
-        actionPayload: parseOptionalJsonObject(values.actionPayloadJson) ?? null,
-        payload: parseOptionalJsonObject(values.payloadJson) ?? null,
     };
 }
 
@@ -159,11 +176,28 @@ function mapBattleRuleToForm(rule: AbilityBattleRuleDto | null): Partial<Ability
             movementMinCells: undefined,
             movementMaxCells: undefined,
             battleRuleNotes: "",
-            actionPayloadJson: "",
-            payloadJson: "",
-            battleRulesJson: "",
+            triggerEvent: undefined,
+            triggerSource: undefined,
+            triggerOncePerTurn: false,
+            costKind: undefined,
+            costSource: undefined,
+            costStat: undefined,
+            costValue: undefined,
+            costElement: undefined,
+            costCardType: undefined,
+            costCardCount: undefined,
+            effectKind: undefined,
+            effectTarget: undefined,
+            effectStat: undefined,
+            effectValue: undefined,
+            effectElement: undefined,
+            effectCardType: undefined,
+            effectCardCount: undefined,
         };
     }
+
+    const firstCost = rule.costs?.[0];
+    const firstEffect = rule.effects?.[0];
 
     return {
         battleRuleType: rule.type,
@@ -178,9 +212,23 @@ function mapBattleRuleToForm(rule: AbilityBattleRuleDto | null): Partial<Ability
         movementMinCells: rule.movementMinCells,
         movementMaxCells: rule.movementMaxCells,
         battleRuleNotes: rule.notes ?? "",
-        actionPayloadJson: stringifyJsonOrEmpty(rule.actionPayload),
-        payloadJson: stringifyJsonOrEmpty(rule.payload),
-        battleRulesJson: JSON.stringify(rule, null, 2),
+        triggerEvent: rule.trigger?.event,
+        triggerSource: rule.trigger?.source,
+        triggerOncePerTurn: rule.trigger?.oncePerTurn ?? false,
+        costKind: firstCost?.kind,
+        costSource: firstCost?.source,
+        costStat: firstCost?.stat,
+        costValue: firstCost?.value,
+        costElement: firstCost?.element,
+        costCardType: firstCost?.cardType,
+        costCardCount: firstCost?.cardCount,
+        effectKind: firstEffect?.kind,
+        effectTarget: firstEffect?.target,
+        effectStat: firstEffect?.stat,
+        effectValue: firstEffect?.value,
+        effectElement: firstEffect?.element,
+        effectCardType: firstEffect?.cardType,
+        effectCardCount: firstEffect?.cardCount,
     };
 }
 
@@ -407,13 +455,12 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                             value: 0,
                             targetScope: "all_creatures",
                             requiresTarget: false,
+                            triggerOncePerTurn: false,
                             usageLimitPerTurn: null,
                             targetTribes: [],
                             stats: [],
                             cardTypes: [],
                             battleRuleNotes: "",
-                            actionPayloadJson: "",
-                            payloadJson: "",
                         }}
                     >
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
@@ -500,6 +547,24 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                                                 placeholder="Opcional"
                                             />
                                         </Form.Item>
+
+                                        <Form.Item label="Evento de gatilho" name="triggerEvent">
+                                            <Select
+                                                allowClear
+                                                style={{ width: 240 }}
+                                                options={ABILITY_TRIGGER_EVENT_OPTIONS}
+                                                placeholder="Opcional"
+                                            />
+                                        </Form.Item>
+
+                                        <Form.Item label="Fonte do gatilho" name="triggerSource">
+                                            <Select
+                                                allowClear
+                                                style={{ width: 220 }}
+                                                options={ABILITY_TRIGGER_SOURCE_OPTIONS}
+                                                placeholder="Opcional"
+                                            />
+                                        </Form.Item>
                                     </Space>
 
                                     <Space wrap size={12}>
@@ -521,6 +586,10 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
 
                                         <Form.Item label="Movimento máximo" name="movementMaxCells">
                                             <InputNumber min={0} style={{ width: 180 }} placeholder="Células" />
+                                        </Form.Item>
+
+                                        <Form.Item label="Uma vez por turno" name="triggerOncePerTurn" valuePropName="checked">
+                                            <Switch />
                                         </Form.Item>
                                     </Space>
 
@@ -557,33 +626,67 @@ export function AbilitiesView({ abilities }: AbilitiesViewProps) {
                                         <Input.TextArea rows={2} placeholder="Notas opcionais da validação" />
                                     </Form.Item>
 
-                                    <Space wrap size={12} style={{ width: "100%" }}>
-                                        <Form.Item
-                                            label="Payload da ação (JSON)"
-                                            name="actionPayloadJson"
-                                            style={{ minWidth: 420, flex: 1 }}
-                                        >
-                                            <Input.TextArea rows={4} placeholder='{"delta":{"power":10}}' />
+                                    <Text strong>Custo (opcional)</Text>
+                                    <Space wrap size={12}>
+                                        <Form.Item label="Tipo de custo" name="costKind">
+                                            <Select
+                                                allowClear
+                                                style={{ width: 220 }}
+                                                options={ABILITY_COST_KIND_OPTIONS}
+                                                placeholder="Opcional"
+                                            />
                                         </Form.Item>
+                                        <Form.Item label="Fonte do custo" name="costSource">
+                                            <Select
+                                                allowClear
+                                                style={{ width: 220 }}
+                                                options={ABILITY_TRIGGER_SOURCE_OPTIONS.filter((item) => item.value !== "opponent")}
+                                                placeholder="Opcional"
+                                            />
+                                        </Form.Item>
+                                        <Form.Item label="Atributo do custo" name="costStat">
+                                            <Select allowClear style={{ width: 200 }} options={ABILITY_STAT_OPTIONS} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Valor do custo" name="costValue">
+                                            <InputNumber min={0} style={{ width: 150 }} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Elemento do custo" name="costElement">
+                                            <Select allowClear style={{ width: 180 }} options={CREATURE_ELEMENT_OPTIONS} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Tipo de carta" name="costCardType">
+                                            <Select allowClear style={{ width: 180 }} options={ABILITY_CARD_TYPE_OPTIONS} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Qtd. cartas" name="costCardCount">
+                                            <InputNumber min={0} style={{ width: 140 }} placeholder="Opcional" />
+                                        </Form.Item>
+                                    </Space>
 
-                                        <Form.Item
-                                            label="Payload geral (JSON)"
-                                            name="payloadJson"
-                                            style={{ minWidth: 420, flex: 1 }}
-                                        >
-                                            <Input.TextArea rows={4} placeholder='{"key":"value"}' />
+                                    <Text strong>Efeito (opcional)</Text>
+                                    <Space wrap size={12}>
+                                        <Form.Item label="Tipo de efeito" name="effectKind">
+                                            <Select allowClear style={{ width: 220 }} options={ABILITY_EFFECT_KIND_OPTIONS} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Alvo do efeito" name="effectTarget">
+                                            <Select allowClear style={{ width: 220 }} options={ABILITY_EFFECT_TARGET_OPTIONS} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Atributo do efeito" name="effectStat">
+                                            <Select allowClear style={{ width: 200 }} options={ABILITY_STAT_OPTIONS} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Valor do efeito" name="effectValue">
+                                            <InputNumber style={{ width: 150 }} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Elemento do efeito" name="effectElement">
+                                            <Select allowClear style={{ width: 180 }} options={CREATURE_ELEMENT_OPTIONS} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Tipo de carta" name="effectCardType">
+                                            <Select allowClear style={{ width: 180 }} options={ABILITY_CARD_TYPE_OPTIONS} placeholder="Opcional" />
+                                        </Form.Item>
+                                        <Form.Item label="Qtd. cartas" name="effectCardCount">
+                                            <InputNumber min={0} style={{ width: 140 }} placeholder="Opcional" />
                                         </Form.Item>
                                     </Space>
                                 </Space>
                             </Card>
-
-                            <Form.Item
-                                label="Regras de batalha (JSON)"
-                                name="battleRulesJson"
-                                extra="Opcional avançado. Se preenchido, este JSON será usado em vez dos campos estruturados acima."
-                            >
-                                <Input.TextArea rows={6} placeholder='{"type":"discipline_tradeoff","requiresTarget":true}' />
-                            </Form.Item>
 
                             <Button onClick={onImportAbilitiesFromJson} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar abilities.json

@@ -98,6 +98,10 @@ export const ABILITY_TRIGGER_EVENTS = [
 
 export type AbilityTriggerEvent = (typeof ABILITY_TRIGGER_EVENTS)[number];
 
+export const ABILITY_TRIGGER_SOURCES = ["self", "controller", "target", "opponent"] as const;
+
+export type AbilityTriggerSource = (typeof ABILITY_TRIGGER_SOURCES)[number];
+
 export const ABILITY_COST_KINDS = [
     "none",
     "sacrifice_stat",
@@ -108,6 +112,10 @@ export const ABILITY_COST_KINDS = [
 ] as const;
 
 export type AbilityCostKind = (typeof ABILITY_COST_KINDS)[number];
+
+export const ABILITY_COST_SOURCES = ["self", "controller", "target"] as const;
+
+export type AbilityCostSource = (typeof ABILITY_COST_SOURCES)[number];
 
 export const ABILITY_CONDITION_KINDS = [
     "none",
@@ -152,15 +160,40 @@ export const ABILITY_ZONE_TYPES = [
 
 export type AbilityZoneType = (typeof ABILITY_ZONE_TYPES)[number];
 
+export const ABILITY_EFFECT_TARGETS = [
+    "self",
+    "target",
+    "controller",
+    "opponent",
+    "all_controlled_creatures",
+] as const;
+
+export type AbilityEffectTarget = (typeof ABILITY_EFFECT_TARGETS)[number];
+
+export type AbilityPayloadPrimitive = string | number | boolean | null;
+
+export type AbilityPayloadValue =
+    | AbilityPayloadPrimitive
+    | AbilityPayloadObject
+    | AbilityPayloadValue[];
+
+export type AbilityPayloadObject = {
+    [key: string]: AbilityPayloadValue | undefined;
+};
+
+export type AbilityActionPayloadDto = AbilityPayloadObject;
+
+export type AbilityGenericPayloadDto = AbilityPayloadObject;
+
 export type AbilityTriggerDto = {
     event: AbilityTriggerEvent;
-    source?: "self" | "controller" | "target" | "opponent";
+    source?: AbilityTriggerSource;
     oncePerTurn?: boolean;
 };
 
 export type AbilityCostDto = {
     kind: AbilityCostKind;
-    source?: "self" | "controller" | "target";
+    source?: AbilityCostSource;
     stat?: AbilityStat;
     value?: number;
     element?: CreatureElement;
@@ -182,7 +215,7 @@ export type AbilityConditionDto = {
 
 export type AbilityEffectDto = {
     kind: AbilityEffectKind;
-    target?: "self" | "target" | "controller" | "opponent" | "all_controlled_creatures";
+    target?: AbilityEffectTarget;
     stat?: AbilityStat;
     value?: number;
     element?: CreatureElement;
@@ -190,7 +223,7 @@ export type AbilityEffectDto = {
     toZone?: AbilityZoneType;
     cardType?: AbilityCardType;
     cardCount?: number;
-    payload?: Record<string, unknown> | null;
+    payload?: AbilityGenericPayloadDto | null;
 };
 
 export type AbilityBattleRuleDto = {
@@ -206,8 +239,8 @@ export type AbilityBattleRuleDto = {
     costs?: AbilityCostDto[];
     conditions?: AbilityConditionDto[];
     effects?: AbilityEffectDto[];
-    actionPayload?: Record<string, unknown> | null;
-    payload?: Record<string, unknown> | null;
+    actionPayload?: AbilityActionPayloadDto | null;
+    payload?: AbilityGenericPayloadDto | null;
     chooseIncreaseFrom?: AbilityDisciplineStat[];
     chooseDecreaseFrom?: AbilityDisciplineStat[];
     increaseValue?: number;
@@ -371,6 +404,58 @@ export const ABILITY_CARD_TYPE_OPTIONS: Array<{
         { value: "mugic", label: "Mugic" },
         { value: "location", label: "Local" },
     ];
+
+export const ABILITY_TRIGGER_EVENT_OPTIONS: Array<{ value: AbilityTriggerEvent; label: string }> = [
+    { value: "on_activate", label: "Ao ativar" },
+    { value: "turn_start", label: "Início do turno" },
+    { value: "turn_end", label: "Fim do turno" },
+    { value: "combat_start", label: "Início do combate" },
+    { value: "combat_end", label: "Fim do combate" },
+    { value: "on_attack_damage_dealt", label: "Ao causar dano de ataque" },
+    { value: "on_attack_damage_taken", label: "Ao receber dano de ataque" },
+    { value: "on_mugic_played", label: "Ao jogar Mugic" },
+    { value: "passive_continuous", label: "Passivo contínuo" },
+];
+
+export const ABILITY_TRIGGER_SOURCE_OPTIONS: Array<{ value: AbilityTriggerSource; label: string }> = [
+    { value: "self", label: "Própria criatura" },
+    { value: "controller", label: "Controlador" },
+    { value: "target", label: "Alvo" },
+    { value: "opponent", label: "Oponente" },
+];
+
+export const ABILITY_COST_KIND_OPTIONS: Array<{ value: AbilityCostKind; label: string }> = [
+    { value: "none", label: "Nenhum" },
+    { value: "sacrifice_stat", label: "Sacrificar atributo" },
+    { value: "discard_card", label: "Descartar carta" },
+    { value: "pay_element", label: "Pagar elemento" },
+    { value: "sacrifice_self", label: "Sacrificar a própria criatura" },
+    { value: "remove_mugic_counter", label: "Remover contador de Mugic" },
+];
+
+export const ABILITY_EFFECT_KIND_OPTIONS: Array<{ value: AbilityEffectKind; label: string }> = [
+    { value: "none", label: "Nenhum" },
+    { value: "modify_stat", label: "Modificar atributo" },
+    { value: "heal_damage", label: "Curar dano" },
+    { value: "deal_damage", label: "Causar dano" },
+    { value: "remove_mugic_counter", label: "Remover contador de Mugic" },
+    { value: "add_mugic_counter", label: "Adicionar contador de Mugic" },
+    { value: "gain_element", label: "Ganhar elemento" },
+    { value: "lose_element", label: "Perder elemento" },
+    { value: "move_card_between_zones", label: "Mover carta entre zonas" },
+    { value: "draw_cards", label: "Comprar cartas" },
+    { value: "discard_cards", label: "Descartar cartas" },
+    { value: "swap_creatures", label: "Trocar criaturas" },
+    { value: "relocate_creature", label: "Realocar criatura" },
+];
+
+export const ABILITY_EFFECT_TARGET_OPTIONS: Array<{ value: AbilityEffectTarget; label: string }> = [
+    { value: "self", label: "Própria criatura" },
+    { value: "target", label: "Alvo" },
+    { value: "controller", label: "Controlador" },
+    { value: "opponent", label: "Oponente" },
+    { value: "all_controlled_creatures", label: "Todas as criaturas controladas" },
+];
 
 export type AbilityDto = {
     id: string;

@@ -2,8 +2,11 @@ import {
     ABILITY_COMPARE_OPERATORS,
     ABILITY_CONDITION_KINDS,
     ABILITY_COST_KINDS,
+    ABILITY_COST_SOURCES,
     ABILITY_EFFECT_KINDS,
+    ABILITY_EFFECT_TARGETS,
     ABILITY_TRIGGER_EVENTS,
+    ABILITY_TRIGGER_SOURCES,
     ABILITY_ZONE_TYPES,
     ABILITY_ACTION_TYPES,
     ABILITY_BATTLE_RULE_TYPES,
@@ -21,11 +24,14 @@ import {
     type AbilityCompareOperator,
     type AbilityConditionKind,
     type AbilityCostKind,
+    type AbilityCostSource,
     type AbilityEffectType,
     type AbilityEffectKind,
+    type AbilityEffectTarget,
     type AbilityStat,
     type AbilityTargetScope,
     type AbilityTriggerEvent,
+    type AbilityTriggerSource,
     type AbilityZoneType,
 } from "@/dto/ability";
 import { CREATURE_ELEMENTS, CREATURE_TRIBES, type CreatureElement, type CreatureTribe } from "@/dto/creature";
@@ -155,6 +161,10 @@ export function isValidAbilityCostKind(value: string): value is AbilityCostKind 
     return ABILITY_COST_KINDS.includes(value as AbilityCostKind);
 }
 
+export function isValidAbilityCostSource(value: string): value is AbilityCostSource {
+    return ABILITY_COST_SOURCES.includes(value as AbilityCostSource);
+}
+
 export function isValidAbilityConditionKind(value: string): value is AbilityConditionKind {
     return ABILITY_CONDITION_KINDS.includes(value as AbilityConditionKind);
 }
@@ -163,12 +173,20 @@ export function isValidAbilityEffectKind(value: string): value is AbilityEffectK
     return ABILITY_EFFECT_KINDS.includes(value as AbilityEffectKind);
 }
 
+export function isValidAbilityEffectTarget(value: string): value is AbilityEffectTarget {
+    return ABILITY_EFFECT_TARGETS.includes(value as AbilityEffectTarget);
+}
+
 export function isValidAbilityCompareOperator(value: string): value is AbilityCompareOperator {
     return ABILITY_COMPARE_OPERATORS.includes(value as AbilityCompareOperator);
 }
 
 export function isValidAbilityZoneType(value: string): value is AbilityZoneType {
     return ABILITY_ZONE_TYPES.includes(value as AbilityZoneType);
+}
+
+export function isValidAbilityTriggerSource(value: string): value is AbilityTriggerSource {
+    return ABILITY_TRIGGER_SOURCES.includes(value as AbilityTriggerSource);
 }
 
 export function isValidLocationEffectType(value: string): value is LocationEffectType {

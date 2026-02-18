@@ -19,8 +19,11 @@ import {
     isValidAbilityCompareOperator,
     isValidAbilityConditionKind,
     isValidAbilityCostKind,
+    isValidAbilityCostSource,
     isValidAbilityEffectKind,
+    isValidAbilityEffectTarget,
     isValidAbilityTriggerEvent,
+    isValidAbilityTriggerSource,
     isValidAbilityZoneType,
     isMissingTableError,
     isValidAbilityCategory,
@@ -98,7 +101,7 @@ function validateAbilityBattleRules(rules: AbilityBattleRuleDto | null | undefin
 
         if (
             rules.trigger.source
-            && !["self", "controller", "target", "opponent"].includes(rules.trigger.source)
+            && !isValidAbilityTriggerSource(rules.trigger.source)
         ) {
             throw new Error("trigger.source inválido.");
         }
@@ -116,7 +119,7 @@ function validateAbilityBattleRules(rules: AbilityBattleRuleDto | null | undefin
             throw new Error(`costs[${index}].kind inválido.`);
         }
 
-        if (cost.source && !["self", "controller", "target"].includes(cost.source)) {
+        if (cost.source && !isValidAbilityCostSource(cost.source)) {
             throw new Error(`costs[${index}].source inválido.`);
         }
 
@@ -185,7 +188,7 @@ function validateAbilityBattleRules(rules: AbilityBattleRuleDto | null | undefin
 
         if (
             effect.target
-            && !["self", "target", "controller", "opponent", "all_controlled_creatures"].includes(effect.target)
+            && !isValidAbilityEffectTarget(effect.target)
         ) {
             throw new Error(`effects[${index}].target inválido.`);
         }
