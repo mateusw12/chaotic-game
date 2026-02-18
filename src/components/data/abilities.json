@@ -92,7 +92,7 @@
   },
   {
     "id": "b23d5821-2c32-7g44-c232-2c32b23d5821",
-    "name": "Drenar Sabedoria (Brainwashed)",
+    "name": "Drenar Sabedoria (Controlada Mentalmente)",
     "category": "brainwashed",
     "effect_type": "decrease",
     "stat": "wisdom",
@@ -336,7 +336,7 @@
   },
   {
     "id": "j01l3609-8h88-1i99-h888-j01l36098h88",
-    "name": "Relocação Tática (Brainwashed)",
+    "name": "Relocação Tática (Controlada Mentalmente)",
     "category": "brainwashed",
     "effect_type": "special",
     "stat": "none",
@@ -425,7 +425,7 @@
   },
   {
     "id": "m34o6932-1k11-4l22-k111-m34o69321k11",
-    "name": "Água 5 (Brainwashed)",
+    "name": "Água 5 (Controlada Mentalmente)",
     "category": "brainwashed",
     "effect_type": "increase",
     "stat": "energy",
@@ -484,7 +484,7 @@
   },
   {
     "id": "o56q8154-3m33-6n44-m333-o56q81543m33",
-    "name": "Bênção de Recuperação (Brainwashed)",
+    "name": "Bênção de Recuperação (Controlada Mentalmente)",
     "category": "brainwashed",
     "effect_type": "increase",
     "stat": "all",
@@ -573,7 +573,7 @@
   },
   {
     "id": "r89t1487-6p66-9q77-p666-r89t14876p66",
-    "name": "Dreno de Poder (Brainwashed)",
+    "name": "Dreno de Poder (Controlada Mentalmente)",
     "category": "brainwashed",
     "effect_type": "decrease",
     "stat": "power",
@@ -1275,7 +1275,7 @@
   },
   {
     "id": "8b2c3d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6e",
-    "name": "Descarte de Mugic (Brainwashed)",
+    "name": "Descarte de Mugic (Controlada Mentalmente)",
     "category": "brainwashed",
     "effect_type": "special",
     "stat": "mugic",
@@ -1445,7 +1445,7 @@
   },
   {
     "id": "e8b9c0d1-e2f3-a4b5-c6d7-e8f9a0b1c2d3",
-    "name": "Interceptação de Alcance (Brainwashed)",
+    "name": "Interceptação de Alcance (Controlada Mentalmente)",
     "category": "brainwashed",
     "effect_type": "special",
     "stat": "none",
@@ -1559,7 +1559,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Najarin pays 1 less ☐ para jogar Cartas de Mugic com mínimo de 1.",
+    "description": "Najarin paga 1 ☐ a menos para jogar Cartas de Mugic, com mínimo de 1.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -1748,7 +1748,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Gastar ♦ Fogo: Criatura alvo ganha ou perde todas Disciplinas so eles se tornar seus escaneadas values.",
+    "description": "Gastar ♦ Fogo: a Criatura alvo ganha ou perde todas as Disciplinas até que elas se tornem iguais aos seus valores escaneados.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -1898,7 +1898,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Gastar 🚫 Terra: Olhe o carta do topo de seu deck de Locais. Você pode coloque essa carta em o fundo de essa deck.",
+    "description": "Gastar 🚫 Terra: olhe a carta do topo do seu deck de Locais. Você pode colocar essa carta no fundo desse deck.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -1958,7 +1958,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "sacrifique Afjak: Put ☐ em Criatura alvo você controla.",
+    "description": "Sacrifique Afjak: coloque ☐ na Criatura alvo que você controla.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -1988,7 +1988,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "suas outras Criaturas com Água succeed em todas Disciplina checks em ataques eles jogar.",
+    "description": "Suas outras Criaturas com Água têm sucesso em todos os testes de Disciplina dos ataques que jogam.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2018,7 +2018,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Proboscar pode move para qualquer unoccupied space as Se ela eram adjacent. Se Proboscar iria move para um Criatura oponente's space ela relocates essa Criatura oponente para Proboscar's space em vez disso.",
+    "description": "Proboscar pode se mover para qualquer espaço desocupado como se fosse adjacente. Se Proboscar fosse se mover para o espaço de uma Criatura oponente, ela realoca essa Criatura oponente para o espaço de Proboscar em vez disso.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2048,7 +2048,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Defensor: Terra.: o Local ativo perde todas abilities.",
+    "description": "Defensor: Terra. O Local ativo perde todas as habilidades.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2078,7 +2078,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Quando Voorx se torna engajada, seu oponente pode sacrifique uma Equipamento de Batalha. Se eles do not, Voorx ganha \" Fogo 5\" e \" Água 5\".",
+    "description": "Quando Voorx se torna engajada, seu oponente pode sacrificar um Equipamento de Batalha. Se ele não fizer isso, Voorx ganha \"Fogo 5\" e \"Água 5\".",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2108,7 +2108,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Enquanto Zamool é engajada, Criaturas oponentes não podem jogar Mugic or abilities.",
+    "description": "Enquanto Zamool está engajada, Criaturas oponentes não podem jogar Mugic ou habilidades.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2208,7 +2208,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Quando Skorblust recebe dano de uma Fogo or Terra ataque Causa 5 dano para Criatura engajada oponente.",
+    "description": "Quando Skorblust recebe dano de um ataque de Fogo ou Terra, causa 5 de dano à Criatura engajada oponente.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2338,7 +2338,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "- o controlador de Criatura engajada alvo revela seus ataque mão. Causa 5 dano para essa Criatura engajada para cada Tipo Elemental either de those revealed Cartas de Ataque têm.",
+    "description": "O controlador da Criatura engajada alvo revela sua mão de ataques. Cause 5 de dano a essa Criatura engajada para cada Tipo Elemental que qualquer uma das Cartas de Ataque reveladas tiver.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2358,7 +2358,7 @@
           "value": 5
         }
       ],
-      "notes": "- o controlador de Criatura engajada alvo revela seus ataque mão. Causa 5 dano para essa Criatura engajada para cada Tipo Elemental either de those revealed Cartas de Ataque têm."
+      "notes": "O controlador da Criatura engajada alvo revela sua mão de ataques. Cause 5 de dano a essa Criatura engajada para cada Tipo Elemental que qualquer uma das Cartas de Ataque reveladas tiver."
     }
   },
   {
@@ -2398,7 +2398,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Gastar ☐ Fogo Enquanto engajada: Ambos os jogadores descartar two Cartas de Ataque e comprar two Cartas de Ataque.",
+    "description": "Gastar ☐ Fogo enquanto engajada: ambos os jogadores descartam duas Cartas de Ataque e compram duas Cartas de Ataque.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2428,7 +2428,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "①: Criatura alvo causa + 10 dano com seu próximo ataque. Se essa Criatura tem Fogo, ela also ganha \" Fogo 5\".",
+    "description": "①: Criatura alvo causa +10 de dano com seu próximo ataque. Se essa Criatura tem Fogo, ela também ganha \"Fogo 5\".",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2639,7 +2639,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Intimidate: Energia 10. Imprudência 10",
+    "description": "Intimidação: Energia 10. Imprudência 10",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2669,7 +2669,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Gastar Fogo: Put uma contador de Magma em Khybon. Remove 5 contadores de Magma de Khybon: Causa 40 dano para todas Criaturas engajadas.",
+    "description": "Gastar Fogo: coloque um contador de Magma em Khybon. Remova 5 contadores de Magma de Khybon: cause 40 de dano a todas as Criaturas engajadas.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2769,7 +2769,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "☐: Criatura alvo ganha 50 ☑ Courage. Se essa Criatura tem ☐ Terra, ela ganha um adicional 50 ☑ Courage.",
+    "description": "☐: Criatura alvo ganha 50 ☑ Coragem. Se essa Criatura tem ☐ Terra, ela ganha 50 ☑ Coragem adicionais.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2829,7 +2829,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Enquanto Orbaat estiver na sua pilha de descarte, se você for revelar um novo Local ativo, em vez disso olhe as duas cartas do topo do seu deck de Locais e escolha uma. Ela se torna o novo Local ativo.",
+    "description": "Enquanto Orbaat estiver na sua pilha de descarte, se você for revelar um novo Local ativo, em vez disso olhe as duas cartas do topo do seu baralho de Locais e escolha uma. Ela se torna o novo Local ativo.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2928,7 +2928,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Elemental ataques Causa 5 less dano para Ketun.",
+    "description": "Ataques Elementais causam 5 de dano a menos para Ketun.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -2996,7 +2996,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Hive: Ghundac ganha \"Alcance\" e \"Ágil 3\".",
+    "description": "Colmeia: Ghundac ganha \"Alcance\" e \"Ágil 3\".",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3016,7 +3016,7 @@
           "value": 0
         }
       ],
-      "notes": "Hive: Ghundac ganha \"Alcance\" e \"Ágil 3\"."
+      "notes": "Colmeia: Ghundac ganha \"Alcance\" e \"Ágil 3\"."
     }
   },
   {
@@ -3026,7 +3026,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "①: Activate Hive. o primeiro vez uma Criatura você controla vai para a pilha de descarte cada turno, Gareep ganha ①.",
+    "description": "①: Ative Colmeia. Na primeira vez em cada turno que uma Criatura que você controla for para a pilha de descarte, Gareep ganha ①.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3046,7 +3046,7 @@
           "value": 0
         }
       ],
-      "notes": "①: Activate Hive. o primeiro vez uma Criatura você controla vai para a pilha de descarte cada turno, Gareep ganha ①."
+      "notes": "①: Ative Colmeia. Na primeira vez em cada turno que uma Criatura que você controla for para a pilha de descarte, Gareep ganha ①."
     }
   },
   {
@@ -3124,7 +3124,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": ": Criatura alvo ganha \"Invisibilidade: Ataque 10.\" Se essa Criatura tem Ar, ela also ganha \"Invisibilidade: Surpresa.\"",
+    "description": ": Criatura alvo ganha \"Invisibilidade: Ataque 10.\" Se essa Criatura tem Ar, ela também ganha \"Invisibilidade: Surpresa.\"",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3254,7 +3254,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Expand ☐ Ar Enquanto engajada: Flip Criatura engajada oponente's Equipamento de Batalha virada para baixo.",
+    "description": "Gastar ☐ Ar enquanto engajada: vire para baixo o Equipamento de Batalha da Criatura engajada oponente.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3420,7 +3420,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "outras Criaturas você controla têm 10 less Energia.",
+    "description": "Outras Criaturas que você controla têm 10 de Energia a menos.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3488,7 +3488,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "suas outras Criaturas com Ar não podem ser targeted por oponentes Mugic or abilities.",
+    "description": "Suas outras Criaturas com Ar não podem ser alvo de Mugic ou habilidades de oponentes.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3518,7 +3518,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Reduza Imprudência dano para Warbeasts você controla por 10 para cada Tipo Elemental essa Warbeast tem.",
+    "description": "Reduza o dano de Imprudência das Feras de Guerra que você controla em 10 para cada Tipo Elemental que essa Fera de Guerra tiver.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3568,7 +3568,7 @@
           "value": 0
         }
       ],
-      "notes": "Única, Leal. ☐ Ar 10. ☑ Terra 10. Quando Gintanai vence combate, sacrifique outra Criatura. Se você não podem, Destrua Gintanai."
+      "notes": "Única, Leal. Ar 10. Terra 10. Quando Gintanai vence combate, sacrifique outra Criatura. Se você não podem, Destrua Gintanai."
     }
   },
   {
@@ -3578,7 +3578,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Quando uma Equipamento de Batalha equipada para uma Criatura engajada com Fasseph é virada virada para cima or virada para baixo, Causa 10 dano para essa Criatura.",
+    "description": "Quando um Equipamento de Batalha equipado em uma Criatura engajada com Fasseph é virado para cima ou para baixo, cause 10 de dano a essa Criatura.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3903,7 +3903,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Única, Leal - M'arrillians ou Lacaios. Quando Fal'makin causa dano de ataque, Fal'makin pode imediatamente jogar uma Carta de Mugic de custo 2 or less sem pagando seu Mugic custo.",
+    "description": "Única, Leal - M'arrillians ou Lacaios. Quando Fal'makin causa dano de ataque, Fal'makin pode imediatamente jogar uma Carta de Mugic de custo 2 ou menos sem pagar seu custo de Mugic.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3933,7 +3933,7 @@
     "effect_type": "special",
     "stat": "none",
     "value": 0,
-    "description": "Gastar Água: alvo unengaged Criatura's controlador swaps ela com outra unengaged Criatura he or she controla.",
+    "description": "Gastar Água: o controlador da Criatura alvo não engajada troca essa Criatura por outra Criatura não engajada que ele controla.",
     "created_at": "2026-02-16T23:54:47.863Z",
     "updated_at": "2026-02-16T23:54:47.863Z",
     "target_scope": "all_creatures",
@@ -3961,7 +3961,7 @@
           "value": 0
         }
       ],
-      "notes": "Gastar Água: alvo unengaged Criatura's controlador swaps ela com outra unengaged Criatura he or she controla."
+      "notes": "Gastar Água: o controlador da Criatura alvo não engajada troca essa Criatura por outra Criatura não engajada que ele controla."
     }
   }
 ]
