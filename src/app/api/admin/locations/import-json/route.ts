@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import {
+    LOCATION_INITIATIVE_ELEMENTS,
     LOCATION_BATTLE_RULE_TYPES,
     LOCATION_CARD_TYPES,
     LOCATION_EFFECT_TYPES,
@@ -7,12 +8,13 @@ import {
     LOCATION_TARGET_SCOPES,
     type CreateLocationRequestDto,
     type LocationBattleRuleDto,
+    type LocationInitiativeElement,
     type LocationCardType,
     type LocationEffectType,
     type LocationStat,
     type LocationTargetScope,
 } from "@/dto/location";
-import { CARD_RARITIES, CREATURE_ELEMENTS, CREATURE_TRIBES, type CardRarity, type CreatureElement, type CreatureTribe } from "@/dto/creature";
+import { CARD_RARITIES, CREATURE_TRIBES, type CardRarity, type CreatureTribe } from "@/dto/creature";
 import locationsSeed from "@/components/data/locations.json";
 import { auth } from "@/lib/auth";
 import {
@@ -133,8 +135,8 @@ function normalizeRarity(value: unknown): CardRarity {
     return "comum";
 }
 
-function normalizeInitiativeElements(value: unknown): CreatureElement[] {
-    const elements = parseStringArray(value, CREATURE_ELEMENTS);
+function normalizeInitiativeElements(value: unknown): LocationInitiativeElement[] {
+    const elements = parseStringArray(value, LOCATION_INITIATIVE_ELEMENTS);
 
     if (elements.length > 0) {
         return elements;

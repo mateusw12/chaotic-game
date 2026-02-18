@@ -7,7 +7,7 @@ import type {
     AbilityTargetScope,
 } from "@/dto/ability";
 import type { CardRarity, CreatureElement, CreatureTribe } from "@/dto/creature";
-import type { LocationAbilityDto } from "@/dto/location";
+import type { LocationAbilityDto, LocationInitiativeElement } from "@/dto/location";
 import type { AttackAbilityDto, AttackElementValueDto } from "@/dto/attack";
 import type { ProgressionEventSource, UserCardType } from "@/dto/progression";
 import type { TournamentFormat, TournamentLocationMode, TournamentScheduleType } from "@/dto/tournament";
@@ -94,7 +94,7 @@ export type SupabaseLocationRow = {
     rarity: CardRarity;
     image_file_id: string | null;
     image_url: string | null;
-    initiative_elements: CreatureElement[];
+    initiative_elements: LocationInitiativeElement[];
     tribes: CreatureTribe[];
     abilities: LocationAbilityDto[];
     created_at: string;

@@ -8,13 +8,13 @@ import {
     type LocationTargetScope,
     type UpdateLocationRequestDto,
 } from "@/dto/location";
-import { isValidCardRarity, type CreatureTribe } from "@/dto/creature";
+import { isValidCardRarity, type CreatureElement, type CreatureTribe } from "@/dto/creature";
 import { getLocationImagePublicUrl, getSupabaseAdminClient } from "./storage";
 import {
     getLocationsTableName,
     isValidLocationBattleRuleType,
     isMissingTableError,
-    isValidElement,
+    isValidLocationInitiativeElement,
     isValidLocationCardType,
     isValidLocationEffectType,
     isValidLocationStat,
@@ -22,6 +22,52 @@ import {
     isValidTribe,
 } from "./core";
 import type { SupabaseApiError, SupabaseLocationRow } from "./types";
+
+const DB_ALLOWED_INITIATIVE_ELEMENTS = new Set<CreatureElement>([
+    "fire",
+    "water",
+    "earth",
+    "air",
+]);
+
+const INITIATIVE_ALIAS_TO_ELEMENT: Record<string, CreatureElement> = {
+    power: "fire",
+    courage: "earth",
+    speed: "air",
+    wisdom: "water",
+    overworld: "air",
+    underworld: "fire",
+    mipedian: "air",
+    marrillian: "water",
+    danian: "earth",
+    ancient: "earth",
+    past: "fire",
+    elementalist: "water",
+    build_cost: "earth",
+    mugic_counters: "water",
+    number_of_elements: "air",
+    fewest_elements: "air",
+};
+
+function normalizeInitiativeForDb(values: string[]): CreatureElement[] {
+    const normalized = values
+        .map((value) => value.trim().toLowerCase())
+        .map((value) => {
+            if (DB_ALLOWED_INITIATIVE_ELEMENTS.has(value as CreatureElement)) {
+                return value as CreatureElement;
+            }
+
+            return INITIATIVE_ALIAS_TO_ELEMENT[value] ?? "air";
+        });
+
+    const unique = [...new Set(normalized)];
+
+    if (unique.length > 0) {
+        return unique;
+    }
+
+    return ["air"];
+}
 
 type LegacyLocationAbility = {
     description: string;
@@ -93,7 +139,7 @@ function validateLocationPayload(payload: CreateLocationRequestDto | UpdateLocat
         throw new Error("Selecione ao menos 1 elemento de initiative.");
     }
 
-    const invalidInitiative = payload.initiativeElements.find((item) => !isValidElement(item));
+    const invalidInitiative = payload.initiativeElements.find((item) => !isValidLocationInitiativeElement(item));
 
     if (invalidInitiative) {
         throw new Error("Elemento de initiative inválido.");
@@ -216,7 +262,7 @@ export async function createLocation(payload: CreateLocationRequestDto): Promise
             file_name: payload.fileName?.trim() || null,
             rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
-            initiative_elements: payload.initiativeElements,
+            initiative_elements: normalizeInitiativeForDb(payload.initiativeElements),
             tribes: payload.tribes ?? [],
             abilities: normalizedAbilities,
         })
@@ -257,7 +303,7 @@ export async function updateLocationById(
             file_name: payload.fileName?.trim() || null,
             rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
-            initiative_elements: payload.initiativeElements,
+            initiative_elements: normalizeInitiativeForDb(payload.initiativeElements),
             tribes: payload.tribes ?? [],
             abilities: normalizedAbilities,
         })

@@ -36,11 +36,13 @@ import {
 } from "@/dto/ability";
 import { CREATURE_ELEMENTS, CREATURE_TRIBES, type CreatureElement, type CreatureTribe } from "@/dto/creature";
 import {
+    LOCATION_INITIATIVE_ELEMENTS,
     LOCATION_BATTLE_RULE_TYPES,
     LOCATION_CARD_TYPES,
     LOCATION_EFFECT_TYPES,
     LOCATION_STATS,
     LOCATION_TARGET_SCOPES,
+    type LocationInitiativeElement,
     type LocationBattleRuleType,
     type LocationCardType,
     type LocationEffectType,
@@ -191,6 +193,10 @@ export function isValidAbilityTriggerSource(value: string): value is AbilityTrig
 
 export function isValidLocationEffectType(value: string): value is LocationEffectType {
     return LOCATION_EFFECT_TYPES.includes(value as LocationEffectType);
+}
+
+export function isValidLocationInitiativeElement(value: string): value is LocationInitiativeElement {
+    return LOCATION_INITIATIVE_ELEMENTS.includes(value as LocationInitiativeElement);
 }
 
 export function isValidLocationStat(value: string): value is LocationStat {

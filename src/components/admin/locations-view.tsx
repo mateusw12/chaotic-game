@@ -13,6 +13,7 @@ import {
     Popconfirm,
     Select,
     Space,
+    Switch,
     Tag,
     Typography,
     Upload,
@@ -29,13 +30,17 @@ import {
     type CreatureTribe,
 } from "@/dto/creature";
 import {
+    LOCATION_INITIATIVE_ELEMENT_OPTIONS,
+    LOCATION_BATTLE_ACTIONS,
+    LOCATION_BATTLE_TRIGGER_EVENTS,
+    LOCATION_BATTLE_TARGET_PLAYERS,
     LOCATION_BATTLE_RULE_TYPES,
     LOCATION_CARD_TYPE_OPTIONS,
     LOCATION_EFFECT_TYPE_OPTIONS,
+    type LocationInitiativeElement,
     LOCATION_STAT_OPTIONS,
     LOCATION_TARGET_SCOPE_OPTIONS,
     type CreateLocationRequestDto,
-    type LocationBattleRuleDto,
     type LocationCardType,
     type LocationDto,
     type LocationEffectType,
@@ -62,32 +67,162 @@ type LocationAbilityFormValues = {
     stats: LocationStat[];
     cardTypes: LocationCardType[];
     value: number;
-    battleRulesJson?: string;
+    battleRuleType?: string;
+    battleRuleRequiresTarget?: boolean;
+    battleRuleUsageLimitPerTurn?: number | null;
+    battleRuleNotes?: string;
+    battleRuleTrigger?: string;
+    battleRuleTargetPlayer?: string;
+    battleRuleAction?: string;
+    battleRuleStat?: LocationStat;
+    battleRuleKeyword?: string;
+    battleRuleCondition?: string;
+    battleRuleElement?: CreatureElement;
+    battleRuleAmount?: number;
+    battleRuleIncludesMinion?: boolean;
+    battleRuleRequiresEmptySpace?: boolean;
 };
 
 type LocationFormValues = {
     name: string;
     rarity: CardRarity;
     imageFileId?: string;
-    initiativeElements: CreatureElement[];
+    initiativeElements: LocationInitiativeElement[];
     tribes: CreatureTribe[];
     abilities: LocationAbilityFormValues[];
 };
 
 const { Title, Text } = Typography;
 
-function parseBattleRulesJson(value: string | undefined): LocationBattleRuleDto | null {
-    if (!value?.trim()) {
-        return null;
+const BATTLE_RULE_TYPES_REQUIRING_AMOUNT = new Set<string>([
+    "damage_on_activation",
+    "lose_energy_on_element_loss",
+    "gain_energy_on_element_gain",
+    "gain_energy_per_element",
+    "gain_mugic_counter_most_elements",
+    "heal_on_elemental_attack",
+    "damage_reduction_first_attack",
+    "damage_reduction_lowest_power",
+    "damage_reduction_shared_element",
+    "stat_modifier",
+    "stat_modifier_for_tribe",
+    "stat_modifier_if_element",
+    "stat_modifier_mirage",
+    "minion_activated_ability_cost_increase",
+    "discard_attack_cards_from_deck",
+    "remove_mugic_counter_on_activate",
+]);
+
+const BATTLE_RULE_TYPES_REQUIRING_TRIGGER = new Set<string>([
+    "damage_on_activation",
+    "lose_energy_on_element_loss",
+    "gain_energy_on_element_gain",
+    "gain_energy_per_element",
+    "gain_mugic_counter_most_elements",
+    "gain_mugic_on_attack_reveal",
+    "heal_on_elemental_attack",
+    "move_mugic_counter_highest_wisdom",
+    "sacrifice_battlegear_on_activate",
+    "remove_mugic_counter_on_activate",
+    "reveal_new_active_location",
+    "relocate_to_empty_space_on_action_step",
+    "return_chieftain_from_discard",
+    "mugic_name_lock_this_turn",
+    "discard_attack_cards_from_deck",
+    "draw_then_discard_attack_cards",
+]);
+
+const BATTLE_RULE_TYPES_REQUIRING_ELEMENT = new Set<string>([
+    "gain_element",
+    "gain_element_and_keyword",
+    "stat_modifier_if_element",
+    "prevent_mugic_usage_without_element",
+    "prevent_battlegear_flip_without_element",
+]);
+
+function buildBattleRulesFromForm(ability: LocationAbilityFormValues): CreateLocationRequestDto["abilities"][number]["battleRules"] {
+    const type = (ability.battleRuleType?.trim() || "stat_modifier") as CreateLocationRequestDto["abilities"][number]["battleRules"] extends { type: infer T } ? T : never;
+
+    const payload: Record<string, unknown> = {};
+
+    if (ability.battleRuleTrigger) {
+        payload.trigger = ability.battleRuleTrigger;
     }
 
-    const parsed = JSON.parse(value) as unknown;
-
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-        throw new Error("battleRules precisa ser um objeto JSON válido.");
+    if (ability.battleRuleTargetPlayer) {
+        payload.targetPlayer = ability.battleRuleTargetPlayer;
     }
 
-    return parsed as LocationBattleRuleDto;
+    if (ability.battleRuleAction) {
+        payload.action = ability.battleRuleAction;
+    }
+
+    if (ability.battleRuleStat) {
+        payload.stat = ability.battleRuleStat;
+    }
+
+    if (ability.battleRuleKeyword?.trim()) {
+        payload.keyword = ability.battleRuleKeyword.trim();
+    }
+
+    if (ability.battleRuleCondition?.trim()) {
+        payload.condition = ability.battleRuleCondition.trim();
+    }
+
+    if (ability.battleRuleElement) {
+        payload.element = ability.battleRuleElement;
+    }
+
+    if (typeof ability.battleRuleAmount === "number") {
+        payload.amount = ability.battleRuleAmount;
+    }
+
+    if (ability.battleRuleIncludesMinion) {
+        payload.includesMinion = true;
+    }
+
+    if (ability.battleRuleRequiresEmptySpace) {
+        payload.requiresEmptySpace = true;
+    }
+
+    return {
+        type,
+        requiresTarget: ability.battleRuleRequiresTarget ?? ability.targetScope !== "none",
+        usageLimitPerTurn: ability.battleRuleUsageLimitPerTurn ?? null,
+        notes: ability.battleRuleNotes?.trim() || null,
+        payload: Object.keys(payload).length > 0 ? payload : null,
+    };
+}
+
+function mapBattleRulesToForm(ability: LocationDto["abilities"][number]): LocationAbilityFormValues {
+    const rule = ability.battleRules;
+    const payload = (rule?.payload && typeof rule.payload === "object" && !Array.isArray(rule.payload))
+        ? rule.payload as Record<string, unknown>
+        : null;
+
+    return {
+        description: ability.description,
+        effectType: ability.effectType,
+        targetScope: ability.targetScope,
+        targetTribes: ability.targetTribes,
+        stats: ability.stats,
+        cardTypes: ability.cardTypes,
+        value: ability.value,
+        battleRuleType: rule?.type ?? "stat_modifier",
+        battleRuleRequiresTarget: rule?.requiresTarget ?? ability.targetScope !== "none",
+        battleRuleUsageLimitPerTurn: rule?.usageLimitPerTurn ?? null,
+        battleRuleNotes: rule?.notes ?? "",
+        battleRuleTrigger: typeof payload?.trigger === "string" ? payload.trigger : undefined,
+        battleRuleTargetPlayer: typeof payload?.targetPlayer === "string" ? payload.targetPlayer : undefined,
+        battleRuleAction: typeof payload?.action === "string" ? payload.action : undefined,
+        battleRuleStat: typeof payload?.stat === "string" ? payload.stat as LocationStat : undefined,
+        battleRuleKeyword: typeof payload?.keyword === "string" ? payload.keyword : undefined,
+        battleRuleCondition: typeof payload?.condition === "string" ? payload.condition : undefined,
+        battleRuleElement: typeof payload?.element === "string" ? payload.element as CreatureElement : undefined,
+        battleRuleAmount: typeof payload?.amount === "number" ? payload.amount : undefined,
+        battleRuleIncludesMinion: payload?.includesMinion === true,
+        battleRuleRequiresEmptySpace: payload?.requiresEmptySpace === true,
+    };
 }
 
 export function LocationsView({ locations }: LocationsViewProps) {
@@ -168,7 +303,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                     stats: ability.stats,
                     cardTypes: ability.cardTypes,
                     value: ability.value,
-                    battleRules: parseBattleRulesJson(ability.battleRulesJson),
+                    battleRules: buildBattleRulesFromForm(ability),
                 })),
             };
 
@@ -203,12 +338,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
             imageFileId: location.imageFileId ?? undefined,
             initiativeElements: location.initiativeElements,
             tribes: location.tribes,
-            abilities: location.abilities.map((ability) => ({
-                ...ability,
-                battleRulesJson: ability.battleRules
-                    ? JSON.stringify(ability.battleRules, null, 2)
-                    : undefined,
-            })),
+            abilities: location.abilities.map((ability) => mapBattleRulesToForm(ability)),
         });
 
         setExistingImage({
@@ -322,7 +452,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                 render: (_, row) => (
                     <Space wrap>
                         {row.initiativeElements.map((element) => {
-                            const option = CREATURE_ELEMENT_OPTIONS.find((item) => item.value === element);
+                            const option = LOCATION_INITIATIVE_ELEMENT_OPTIONS.find((item) => item.value === element);
                             return (
                                 <Tag key={`${row.id}-${element}`} color="blue">
                                     {option?.label ?? element}
@@ -459,7 +589,21 @@ export function LocationsView({ locations }: LocationsViewProps) {
                             rarity: "comum",
                             initiativeElements: [],
                             tribes: [],
-                            abilities: [{ description: "", effectType: "increase", targetScope: "all_creatures", targetTribes: [], stats: ["speed"], cardTypes: [], value: 0 }],
+                            abilities: [{
+                                description: "",
+                                effectType: "increase",
+                                targetScope: "all_creatures",
+                                targetTribes: [],
+                                stats: ["speed"],
+                                cardTypes: [],
+                                value: 0,
+                                battleRuleType: "stat_modifier",
+                                battleRuleRequiresTarget: true,
+                                battleRuleUsageLimitPerTurn: null,
+                                battleRuleNotes: "",
+                                battleRuleIncludesMinion: false,
+                                battleRuleRequiresEmptySpace: false,
+                            }],
                         }}
                     >
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
@@ -513,7 +657,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                             >
                                 <Select
                                     mode="multiple"
-                                    options={CREATURE_ELEMENT_OPTIONS.map((item) => ({
+                                    options={LOCATION_INITIATIVE_ELEMENT_OPTIONS.map((item) => ({
                                         value: item.value,
                                         label: item.label,
                                     }))}
@@ -582,6 +726,24 @@ export function LocationsView({ locations }: LocationsViewProps) {
                                                         <Form.Item
                                                             label="Tribos alvo (opcional)"
                                                             name={[field.name, "targetTribes"]}
+                                                            dependencies={[["abilities", field.name, "targetScope"]]}
+                                                            rules={[
+                                                                ({ getFieldValue }) => ({
+                                                                    validator(_, value) {
+                                                                        const targetScope = getFieldValue(["abilities", field.name, "targetScope"]);
+
+                                                                        if (targetScope !== "specific_tribes") {
+                                                                            return Promise.resolve();
+                                                                        }
+
+                                                                        if (Array.isArray(value) && value.length > 0) {
+                                                                            return Promise.resolve();
+                                                                        }
+
+                                                                        return Promise.reject(new Error("Selecione ao menos 1 tribo para escopo de tribos específicas."));
+                                                                    },
+                                                                }),
+                                                            ]}
                                                         >
                                                             <Select
                                                                 mode="multiple"
@@ -637,18 +799,213 @@ export function LocationsView({ locations }: LocationsViewProps) {
                                                         Remover habilidade
                                                     </Button>
 
-                                                    <Form.Item
-                                                        label="Regras de batalha (JSON opcional)"
-                                                        name={[field.name, "battleRulesJson"]}
-                                                        tooltip={`Tipos: ${LOCATION_BATTLE_RULE_TYPES.join(", ")}`}
-                                                    >
-                                                        <Input.TextArea rows={4} placeholder='{"type":"stat_modifier","requiresTarget":true,"usageLimitPerTurn":null}' />
-                                                    </Form.Item>
+                                                    <Card size="small" title="Regras de batalha">
+                                                        <Space wrap size={12}>
+                                                            <Form.Item
+                                                                label="Tipo da regra"
+                                                                name={[field.name, "battleRuleType"]}
+                                                                rules={[{ required: true, message: "Selecione o tipo da regra." }]}
+                                                            >
+                                                                <Select
+                                                                    style={{ width: 260 }}
+                                                                    options={LOCATION_BATTLE_RULE_TYPES.map((type) => ({ value: type, label: type }))}
+                                                                    placeholder="Selecione"
+                                                                />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Exige alvo"
+                                                                name={[field.name, "battleRuleRequiresTarget"]}
+                                                                valuePropName="checked"
+                                                            >
+                                                                <Switch />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Limite por turno"
+                                                                name={[field.name, "battleRuleUsageLimitPerTurn"]}
+                                                            >
+                                                                <InputNumber min={0} style={{ width: 160 }} placeholder="Opcional" />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Gatilho"
+                                                                name={[field.name, "battleRuleTrigger"]}
+                                                                dependencies={[["abilities", field.name, "battleRuleType"]]}
+                                                                rules={[
+                                                                    ({ getFieldValue }) => ({
+                                                                        validator(_, value) {
+                                                                            const battleRuleType = getFieldValue(["abilities", field.name, "battleRuleType"]);
+
+                                                                            if (!BATTLE_RULE_TYPES_REQUIRING_TRIGGER.has(String(battleRuleType ?? ""))) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            if (typeof value === "string" && value.trim().length > 0) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            return Promise.reject(new Error("Selecione o gatilho para esse tipo de regra."));
+                                                                        },
+                                                                    }),
+                                                                ]}
+                                                            >
+                                                                <Select
+                                                                    allowClear
+                                                                    style={{ width: 220 }}
+                                                                    options={LOCATION_BATTLE_TRIGGER_EVENTS.map((value) => ({ value, label: value }))}
+                                                                    placeholder="Opcional"
+                                                                />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Jogador alvo"
+                                                                name={[field.name, "battleRuleTargetPlayer"]}
+                                                            >
+                                                                <Select
+                                                                    allowClear
+                                                                    style={{ width: 220 }}
+                                                                    options={LOCATION_BATTLE_TARGET_PLAYERS.map((value) => ({ value, label: value }))}
+                                                                    placeholder="Opcional"
+                                                                />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Ação"
+                                                                name={[field.name, "battleRuleAction"]}
+                                                            >
+                                                                <Select
+                                                                    allowClear
+                                                                    style={{ width: 220 }}
+                                                                    options={LOCATION_BATTLE_ACTIONS.map((value) => ({ value, label: value }))}
+                                                                    placeholder="Opcional"
+                                                                />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Atributo da regra"
+                                                                name={[field.name, "battleRuleStat"]}
+                                                            >
+                                                                <Select
+                                                                    allowClear
+                                                                    style={{ width: 200 }}
+                                                                    options={LOCATION_STAT_OPTIONS.map((item) => ({ value: item.value, label: item.label }))}
+                                                                    placeholder="Opcional"
+                                                                />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Keyword"
+                                                                name={[field.name, "battleRuleKeyword"]}
+                                                            >
+                                                                <Input style={{ width: 220 }} placeholder="Opcional" />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Condição"
+                                                                name={[field.name, "battleRuleCondition"]}
+                                                            >
+                                                                <Input style={{ width: 220 }} placeholder="Opcional" />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Elemento"
+                                                                name={[field.name, "battleRuleElement"]}
+                                                                dependencies={[["abilities", field.name, "battleRuleType"]]}
+                                                                rules={[
+                                                                    ({ getFieldValue }) => ({
+                                                                        validator(_, value) {
+                                                                            const battleRuleType = getFieldValue(["abilities", field.name, "battleRuleType"]);
+
+                                                                            if (!BATTLE_RULE_TYPES_REQUIRING_ELEMENT.has(String(battleRuleType ?? ""))) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            if (typeof value === "string" && value.trim().length > 0) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            return Promise.reject(new Error("Selecione o elemento para esse tipo de regra."));
+                                                                        },
+                                                                    }),
+                                                                ]}
+                                                            >
+                                                                <Select
+                                                                    allowClear
+                                                                    style={{ width: 180 }}
+                                                                    options={CREATURE_ELEMENT_OPTIONS.map((item) => ({ value: item.value, label: item.label }))}
+                                                                    placeholder="Opcional"
+                                                                />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Quantidade"
+                                                                name={[field.name, "battleRuleAmount"]}
+                                                                dependencies={[["abilities", field.name, "battleRuleType"]]}
+                                                                rules={[
+                                                                    ({ getFieldValue }) => ({
+                                                                        validator(_, value) {
+                                                                            const battleRuleType = getFieldValue(["abilities", field.name, "battleRuleType"]);
+
+                                                                            if (!BATTLE_RULE_TYPES_REQUIRING_AMOUNT.has(String(battleRuleType ?? ""))) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            if (typeof value === "number" && Number.isFinite(value) && value >= 0) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            return Promise.reject(new Error("Informe a quantidade (mínimo 0) para esse tipo de regra."));
+                                                                        },
+                                                                    }),
+                                                                ]}
+                                                            >
+                                                                <InputNumber min={0} style={{ width: 150 }} placeholder="Opcional" />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Inclui Minion"
+                                                                name={[field.name, "battleRuleIncludesMinion"]}
+                                                                valuePropName="checked"
+                                                            >
+                                                                <Switch />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Requer espaço vazio"
+                                                                name={[field.name, "battleRuleRequiresEmptySpace"]}
+                                                                valuePropName="checked"
+                                                            >
+                                                                <Switch />
+                                                            </Form.Item>
+                                                        </Space>
+
+                                                        <Form.Item
+                                                            label="Notas da regra"
+                                                            name={[field.name, "battleRuleNotes"]}
+                                                        >
+                                                            <Input.TextArea rows={2} placeholder="Opcional" />
+                                                        </Form.Item>
+                                                    </Card>
                                                 </Space>
                                             </Card>
                                         ))}
 
-                                        <Button onClick={() => add({ description: "", effectType: "increase", targetScope: "all_creatures", targetTribes: [], stats: ["speed"], cardTypes: [], value: 0 })}>
+                                        <Button onClick={() => add({
+                                            description: "",
+                                            effectType: "increase",
+                                            targetScope: "all_creatures",
+                                            targetTribes: [],
+                                            stats: ["speed"],
+                                            cardTypes: [],
+                                            value: 0,
+                                            battleRuleType: "stat_modifier",
+                                            battleRuleRequiresTarget: true,
+                                            battleRuleUsageLimitPerTurn: null,
+                                            battleRuleNotes: "",
+                                            battleRuleIncludesMinion: false,
+                                            battleRuleRequiresEmptySpace: false,
+                                        })}>
                                             Adicionar habilidade
                                         </Button>
                                     </Space>

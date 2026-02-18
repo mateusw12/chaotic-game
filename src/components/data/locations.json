@@ -4,11 +4,57 @@
         "name": "Borda Quebrada",
         "image_file_id": "locations/2026/891dee80-b60a-49fd-9df9-39e728217de8-197.png",
         "image_url": null,
-        "initiative_elements": "[\"air\"]",
-        "abilities": "[{\"effectType\": \"increase\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"speed\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aumenta velocidade das criaturas em 5.\", \"payload\": null}, \"description\": \"Aumenta a velocidade das criaturas em 5\"}, {\"effectType\": \"decrease\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"wisdom\"], \"value\": 5, \"cardTypes\": [\"attack\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Reduz dano de ataques de Sabedoria em 5.\", \"payload\": {\"appliesTo\": \"attack_damage\", \"attackStat\": \"wisdom\"}}, \"description\": \"O dano causado por ataques de sabedoria é reduzido em 5\"}]",
+        "initiative_elements": [
+            "air"
+        ],
+        "abilities": [
+            {
+                "effectType": "increase",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "speed"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aumenta velocidade das criaturas em 5.",
+                    "payload": null
+                },
+                "description": "Aumenta a velocidade das criaturas em 5"
+            },
+            {
+                "effectType": "decrease",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "wisdom"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "attack"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Reduz dano de ataques de Sabedoria em 5.",
+                    "payload": {
+                        "appliesTo": "attack_damage",
+                        "attackStat": "wisdom"
+                    }
+                },
+                "description": "O dano causado por ataques de sabedoria é reduzido em 5"
+            }
+        ],
         "created_at": "2026-02-14 16:30:57.472189+00",
         "updated_at": "2026-02-14 16:30:57.472189+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
@@ -16,11 +62,56 @@
         "name": "Toca dos Lutadores",
         "image_file_id": "",
         "image_url": null,
-        "initiative_elements": "[\"speed\"]",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"attack\"], \"battleRules\": {\"type\": \"shuffle_attack_discard_into_deck\", \"requiresTarget\": false, \"usageLimitPerTurn\": 1, \"notes\": \"Embaralha descarte de ataques no baralho de ataques.\", \"payload\": null}, \"description\": \"Quando este se torna o Local ativo, cada jogador embaralha sua pilha de descarte de ataques e seu Baralho de Ataques juntos\"}, {\"effectType\": \"increase\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"all\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Superar todas as disciplinas +5.\", \"payload\": {\"keyword\": \"outperform\"}}, \"description\": \"Todas as Criaturas ganham Superar todas as Disciplinas 5\"}]",
+        "initiative_elements": [
+            "speed"
+        ],
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "attack"
+                ],
+                "battleRules": {
+                    "type": "shuffle_attack_discard_into_deck",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Embaralha descarte de ataques no baralho de ataques.",
+                    "payload": null
+                },
+                "description": "Quando este se torna o Local ativo, cada jogador embaralha sua pilha de descarte de ataques e seu Baralho de Ataques juntos"
+            },
+            {
+                "effectType": "increase",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "all"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Superar todas as disciplinas +5.",
+                    "payload": {
+                        "keyword": "outperform"
+                    }
+                },
+                "description": "Todas as Criaturas ganham Superar todas as Disciplinas 5"
+            }
+        ],
         "created_at": "2026-02-15 11:16:57+00",
         "updated_at": "2026-02-15 11:16:57+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "incomum"
     },
     {
@@ -28,11 +119,35 @@
         "name": "Arsenal de Bodal",
         "image_file_id": "",
         "image_url": null,
-        "initiative_elements": "[\"wisdom\"]",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"equipment\", \"creature\"], \"battleRules\": {\"type\": \"return_battlegear_from_discard\", \"requiresTarget\": false, \"usageLimitPerTurn\": 1, \"notes\": \"Retorna battlegear da pilha e equipa criatura não equipada.\", \"payload\": null}, \"description\": \"Quando este se torna o Local ativo, cada jogador pode retornar um Battlegear de sua pilha de descarte para o jogo e equipá-lo em uma Criatura não equipada que aquele jogador controla\"}]",
+        "initiative_elements": [
+            "wisdom"
+        ],
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "equipment",
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "return_battlegear_from_discard",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Retorna battlegear da pilha e equipa criatura não equipada.",
+                    "payload": null
+                },
+                "description": "Quando este se torna o Local ativo, cada jogador pode retornar um Battlegear de sua pilha de descarte para o jogo e equipá-lo em uma Criatura não equipada que aquele jogador controla"
+            }
+        ],
         "created_at": "2026-02-15 11:16:57+00",
         "updated_at": "2026-02-15 11:16:57+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "ultra raro"
     },
     {
@@ -40,11 +155,82 @@
         "name": "Cabana de Gambreor",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"power\"]",
-        "abilities": "[{\"effectType\": \"gain\", \"targetScope\": \"own_creatures\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Concede À Prova de Fogo 5 para suas criaturas.\", \"payload\": {\"keyword\": \"fireproof\", \"amount\": 5}}, \"description\": \"Criaturas que você controla ganham À Prova de Fogo 5\"}, {\"effectType\": \"decrease\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"all\"], \"value\": 10, \"cardTypes\": [\"mugic\", \"ability\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Reduções por Mugic/habilidade são reduzidas em 10.\", \"payload\": {\"appliesTo\": \"discipline_reduction\"}}, \"description\": \"Se um Mugic ou habilidade reduziria a Disciplina de uma Criatura, aquele Mugic ou habilidade reduz a Disciplina em 10 a menos\"}, {\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"location\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Único\", \"payload\": {\"unique\": true}}, \"description\": \"Único\"}]",
+        "initiative_elements": [
+            "power"
+        ],
+        "abilities": [
+            {
+                "effectType": "gain",
+                "targetScope": "own_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Concede À Prova de Fogo 5 para suas criaturas.",
+                    "payload": {
+                        "keyword": "fireproof",
+                        "amount": 5
+                    }
+                },
+                "description": "Criaturas que você controla ganham À Prova de Fogo 5"
+            },
+            {
+                "effectType": "decrease",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "all"
+                ],
+                "value": 10,
+                "cardTypes": [
+                    "mugic",
+                    "ability"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Reduções por Mugic/habilidade são reduzidas em 10.",
+                    "payload": {
+                        "appliesTo": "discipline_reduction"
+                    }
+                },
+                "description": "Se um Mugic ou habilidade reduziria a Disciplina de uma Criatura, aquele Mugic ou habilidade reduz a Disciplina em 10 a menos"
+            },
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "location"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Único",
+                    "payload": {
+                        "unique": true
+                    }
+                },
+                "description": "Único"
+            }
+        ],
         "created_at": "2026-02-15 11:25:00+00",
         "updated_at": "2026-02-15 11:25:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super raro"
     },
     {
@@ -52,11 +238,34 @@
         "name": "Câmara das Ondas",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"wisdom\"]",
-        "abilities": "[{\"effectType\": \"decrease\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"all\"], \"value\": 10, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Reduz 10 em todas as disciplinas.\", \"payload\": null}, \"description\": \"Criaturas perdem 10 em todas as Disciplinas\"}]",
+        "initiative_elements": [
+            "wisdom"
+        ],
+        "abilities": [
+            {
+                "effectType": "decrease",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "all"
+                ],
+                "value": 10,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Reduz 10 em todas as disciplinas.",
+                    "payload": null
+                },
+                "description": "Criaturas perdem 10 em todas as Disciplinas"
+            }
+        ],
         "created_at": "2026-02-15 11:25:00+00",
         "updated_at": "2026-02-15 11:25:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
@@ -64,11 +273,60 @@
         "name": "Gongo de Alcance Mortal",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"fire\"]",
-        "abilities": "[{\"effectType\": \"increase\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"all\"], \"value\": 15, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Chefes recebem +15 em todas disciplinas.\", \"payload\": {\"condition\": \"is_chieftain\"}}, \"description\": \"Chefes ganham 15 em todas as Disciplinas\"}, {\"effectType\": \"gain\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Chefes ganham Água 5.\", \"payload\": {\"condition\": \"is_chieftain\", \"keyword\": \"water\", \"amount\": 5}}, \"description\": \"Chefes ganham Água 5\"}]",
+        "initiative_elements": [
+            "fire"
+        ],
+        "abilities": [
+            {
+                "effectType": "increase",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "all"
+                ],
+                "value": 15,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Chefes recebem +15 em todas disciplinas.",
+                    "payload": {
+                        "condition": "is_chieftain"
+                    }
+                },
+                "description": "Chefes ganham 15 em todas as Disciplinas"
+            },
+            {
+                "effectType": "gain",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Chefes ganham Água 5.",
+                    "payload": {
+                        "condition": "is_chieftain",
+                        "keyword": "water",
+                        "amount": 5
+                    }
+                },
+                "description": "Chefes ganham Água 5"
+            }
+        ],
         "created_at": "2026-02-15 11:25:00+00",
         "updated_at": "2026-02-15 11:25:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super raro"
     },
     {
@@ -76,11 +334,59 @@
         "name": "Galeria da Colmeia",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"earth\"]",
-        "abilities": "[{\"effectType\": \"increase\", \"targetScope\": \"engaged_creatures\", \"targetTribes\": [], \"stats\": [\"courage\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Criaturas engajadas ganham Superar Coragem 5.\", \"payload\": {\"keyword\": \"outperform\"}}, \"description\": \"Criaturas Engajadas ganham Superar Coragem 5\"}, {\"effectType\": \"decrease\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"power\"], \"value\": 5, \"cardTypes\": [\"attack\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Reduz dano de ataques de Poder em 5.\", \"payload\": {\"appliesTo\": \"attack_damage\", \"attackStat\": \"power\"}}, \"description\": \"Dano causado por ataques de Poder é reduzido em 5\"}]",
+        "initiative_elements": [
+            "earth"
+        ],
+        "abilities": [
+            {
+                "effectType": "increase",
+                "targetScope": "engaged_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "courage"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Criaturas engajadas ganham Superar Coragem 5.",
+                    "payload": {
+                        "keyword": "outperform"
+                    }
+                },
+                "description": "Criaturas Engajadas ganham Superar Coragem 5"
+            },
+            {
+                "effectType": "decrease",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "power"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "attack"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Reduz dano de ataques de Poder em 5.",
+                    "payload": {
+                        "appliesTo": "attack_damage",
+                        "attackStat": "power"
+                    }
+                },
+                "description": "Dano causado por ataques de Poder é reduzido em 5"
+            }
+        ],
         "created_at": "2026-02-15 11:30:00+00",
         "updated_at": "2026-02-15 11:30:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
@@ -88,11 +394,35 @@
         "name": "Noite no Pântano Sombrio",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"mipedian\"]",
-        "abilities": "[{\"effectType\": \"negate\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"mugic\", \"ability\"], \"battleRules\": {\"type\": \"cannot_relocate_creatures\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Mugic/habilidades de realocação não têm efeito.\", \"payload\": null}, \"description\": \"Mugic e habilidades que realocam uma Criatura não têm efeito\"}]",
+        "initiative_elements": [
+            "mipedian"
+        ],
+        "abilities": [
+            {
+                "effectType": "negate",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "mugic",
+                    "ability"
+                ],
+                "battleRules": {
+                    "type": "cannot_relocate_creatures",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Mugic/habilidades de realocação não têm efeito.",
+                    "payload": null
+                },
+                "description": "Mugic e habilidades que realocam uma Criatura não têm efeito"
+            }
+        ],
         "created_at": "2026-02-15 11:30:00+00",
         "updated_at": "2026-02-15 11:30:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "incomum"
     },
     {
@@ -100,11 +430,37 @@
         "name": "Salão da Fadiga",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"speed\"]",
-        "abilities": "[{\"effectType\": \"decrease\", \"targetScope\": \"engaged_creatures\", \"targetTribes\": [], \"stats\": [\"power\", \"speed\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Criaturas engajadas recebem Exaustão Poder e Velocidade 5.\", \"payload\": {\"keyword\": \"exhaust\"}}, \"description\": \"Criaturas Engajadas ganham Exaustão Poder 5 e Exaustão Velocidade 5\"}]",
+        "initiative_elements": [
+            "speed"
+        ],
+        "abilities": [
+            {
+                "effectType": "decrease",
+                "targetScope": "engaged_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "power",
+                    "speed"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Criaturas engajadas recebem Exaustão Poder e Velocidade 5.",
+                    "payload": {
+                        "keyword": "exhaust"
+                    }
+                },
+                "description": "Criaturas Engajadas ganham Exaustão Poder 5 e Exaustão Velocidade 5"
+            }
+        ],
         "created_at": "2026-02-15 11:30:00+00",
         "updated_at": "2026-02-15 11:30:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "incomum"
     },
     {
@@ -112,11 +468,79 @@
         "name": "O Coração da Selva",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"overworld\"]",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"engaged_creatures\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"mugic\", \"ability\"], \"battleRules\": {\"type\": \"shared_engaged_effect\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Alterações de disciplina em uma criatura engajada afetam as duas.\", \"payload\": null}, \"description\": \"Mugic e habilidades que alteram as Disciplinas de uma criatura engajada afetam ambas as Criaturas engajadas\"}, {\"effectType\": \"increase\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"all\"], \"value\": 10, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Miragem: criaturas neste espaço ganham +10 em todas disciplinas.\", \"payload\": {\"mirage\": true}}, \"description\": \"Miragem: Criaturas neste espaço ganham 10 em todas as Disciplinas\"}, {\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"location\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Único\", \"payload\": {\"unique\": true}}, \"description\": \"Único\"}]",
+        "initiative_elements": [
+            "overworld"
+        ],
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "engaged_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "mugic",
+                    "ability"
+                ],
+                "battleRules": {
+                    "type": "shared_engaged_effect",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Alterações de disciplina em uma criatura engajada afetam as duas.",
+                    "payload": null
+                },
+                "description": "Mugic e habilidades que alteram as Disciplinas de uma criatura engajada afetam ambas as Criaturas engajadas"
+            },
+            {
+                "effectType": "increase",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "all"
+                ],
+                "value": 10,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Miragem: criaturas neste espaço ganham +10 em todas disciplinas.",
+                    "payload": {
+                        "mirage": true
+                    }
+                },
+                "description": "Miragem: Criaturas neste espaço ganham 10 em todas as Disciplinas"
+            },
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "location"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Único",
+                    "payload": {
+                        "unique": true
+                    }
+                },
+                "description": "Único"
+            }
+        ],
         "created_at": "2026-02-15 11:30:00+00",
         "updated_at": "2026-02-15 11:30:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super raro"
     },
     {
@@ -124,11 +548,40 @@
         "name": "O Infectório",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"courage\"]",
-        "abilities": "[{\"effectType\": \"damage\", \"targetScope\": \"engaged_creatures\", \"targetTribes\": [], \"stats\": [\"energy\"], \"value\": 15, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"damage_on_activation\", \"requiresTarget\": true, \"usageLimitPerTurn\": 1, \"notes\": \"Aplica em criaturas engajadas infectadas que não sejam Danian.\", \"payload\": {\"trigger\": \"on_combat_start\", \"excludeTribe\": \"danian\", \"requiresInfected\": true}}, \"description\": \"No início do combate, cause 15 de dano a Criaturas não-Danian engajadas e infectadas\"}]",
+        "initiative_elements": [
+            "courage"
+        ],
+        "abilities": [
+            {
+                "effectType": "damage",
+                "targetScope": "engaged_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "energy"
+                ],
+                "value": 15,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "damage_on_activation",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Aplica em criaturas engajadas infectadas que não sejam Danian.",
+                    "payload": {
+                        "trigger": "on_combat_start",
+                        "excludeTribe": "danian",
+                        "requiresInfected": true
+                    }
+                },
+                "description": "No início do combate, cause 15 de dano a Criaturas não-Danian engajadas e infectadas"
+            }
+        ],
         "created_at": "2026-02-15 11:35:00+00",
         "updated_at": "2026-02-15 11:35:00+00",
-        "tribes": "[\"danian\"]",
+        "tribes": [
+            "danian"
+        ],
         "rarity": "comum"
     },
     {
@@ -136,11 +589,56 @@
         "name": "Posto Avançado Ijahni",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"air\"]",
-        "abilities": "[{\"effectType\": \"decrease\", \"targetScope\": \"own_creatures\", \"targetTribes\": [], \"stats\": [\"energy\"], \"value\": 10, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Suas criaturas perdem 10 de energia.\", \"payload\": null}, \"description\": \"Suas Criaturas perdem 10 de Energia\"}, {\"effectType\": \"special\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"movement_lock_unless_pay_mugic\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Miragem de travamento de movimento com custo de 1 Mugic.\", \"payload\": {\"mugicCost\": 1}}, \"description\": \"Miragem: Criaturas não podem se mover para fora deste espaço a menos que seu controlador pague 1 Mugic de qualquer Criatura que controla\"}]",
+        "initiative_elements": [
+            "air"
+        ],
+        "abilities": [
+            {
+                "effectType": "decrease",
+                "targetScope": "own_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "energy"
+                ],
+                "value": 10,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Suas criaturas perdem 10 de energia.",
+                    "payload": null
+                },
+                "description": "Suas Criaturas perdem 10 de Energia"
+            },
+            {
+                "effectType": "special",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "movement_lock_unless_pay_mugic",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Miragem de travamento de movimento com custo de 1 Mugic.",
+                    "payload": {
+                        "mugicCost": 1
+                    }
+                },
+                "description": "Miragem: Criaturas não podem se mover para fora deste espaço a menos que seu controlador pague 1 Mugic de qualquer Criatura que controla"
+            }
+        ],
         "created_at": "2026-02-15 11:35:00+00",
         "updated_at": "2026-02-15 11:35:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super raro"
     },
     {
@@ -148,11 +646,61 @@
         "name": "Lago Ilusionário",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"water\"]",
-        "abilities": "[{\"effectType\": \"lose_element\", \"targetScope\": \"engaged_creatures\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Remove o elemento Água de criaturas engajadas.\", \"payload\": {\"element\": \"water\", \"cannotGainBack\": true}}, \"description\": \"Criaturas engajadas perdem o tipo Elemental Água e não podem ganhá-lo\"}, {\"effectType\": \"lose_element\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Miragem: remove o elemento Água de criaturas neste espaço.\", \"payload\": {\"element\": \"water\", \"cannotGainBack\": true, \"mirage\": true}}, \"description\": \"Miragem: Criaturas perdem o tipo Elemental Água e não podem ganhá-lo\"}]",
+        "initiative_elements": [
+            "water"
+        ],
+        "abilities": [
+            {
+                "effectType": "lose_element",
+                "targetScope": "engaged_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Remove o elemento Água de criaturas engajadas.",
+                    "payload": {
+                        "element": "water",
+                        "cannotGainBack": true
+                    }
+                },
+                "description": "Criaturas engajadas perdem o tipo Elemental Água e não podem ganhá-lo"
+            },
+            {
+                "effectType": "lose_element",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Miragem: remove o elemento Água de criaturas neste espaço.",
+                    "payload": {
+                        "element": "water",
+                        "cannotGainBack": true,
+                        "mirage": true
+                    }
+                },
+                "description": "Miragem: Criaturas perdem o tipo Elemental Água e não podem ganhá-lo"
+            }
+        ],
         "created_at": "2026-02-15 11:35:00+00",
         "updated_at": "2026-02-15 11:35:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super raro"
     },
     {
@@ -160,11 +708,88 @@
         "name": "Muralhas Imaginárias",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"danian\"]",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"mugic\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": false, \"usageLimitPerTurn\": 1, \"notes\": \"Oponente pode retornar 1 carta de Mugic da pilha de descarte para a mão.\", \"payload\": {\"trigger\": \"on_location_activate\", \"targetPlayer\": \"opponent\", \"action\": \"return_mugic_from_discard\", \"amount\": 1}}, \"description\": \"Quando este se torna o Local ativo, seu oponente pode retornar uma carta de Mugic da pilha de descarte para a mão dele\"}, {\"effectType\": \"decrease\", \"targetScope\": \"specific_tribes\", \"targetTribes\": [\"marrillian\"], \"stats\": [\"none\"], \"value\": 10, \"cardTypes\": [\"attack\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aplica também em criaturas Minion.\", \"payload\": {\"includesMinion\": true, \"appliesTo\": \"attack_damage_received\"}}, \"description\": \"Ataques causam 10 a menos de dano a Criaturas M'arrillian e Minion\"}, {\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"location\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Único\", \"payload\": {\"unique\": true}}, \"description\": \"Único\"}]",
+        "initiative_elements": [
+            "danian"
+        ],
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "mugic"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Oponente pode retornar 1 carta de Mugic da pilha de descarte para a mão.",
+                    "payload": {
+                        "trigger": "on_location_activate",
+                        "targetPlayer": "opponent",
+                        "action": "return_mugic_from_discard",
+                        "amount": 1
+                    }
+                },
+                "description": "Quando este se torna o Local ativo, seu oponente pode retornar uma carta de Mugic da pilha de descarte para a mão dele"
+            },
+            {
+                "effectType": "decrease",
+                "targetScope": "specific_tribes",
+                "targetTribes": [
+                    "marrillian"
+                ],
+                "stats": [
+                    "none"
+                ],
+                "value": 10,
+                "cardTypes": [
+                    "attack"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aplica também em criaturas Minion.",
+                    "payload": {
+                        "includesMinion": true,
+                        "appliesTo": "attack_damage_received"
+                    }
+                },
+                "description": "Ataques causam 10 a menos de dano a Criaturas M'arrillian e Minion"
+            },
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "location"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Único",
+                    "payload": {
+                        "unique": true
+                    }
+                },
+                "description": "Único"
+            }
+        ],
         "created_at": "2026-02-15 11:35:00+00",
         "updated_at": "2026-02-15 11:35:00+00",
-        "tribes": "[\"danian\"]",
+        "tribes": [
+            "danian"
+        ],
         "rarity": "comum"
     },
     {
@@ -172,11 +797,38 @@
         "name": "Pilar de Jade",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"power\"]",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"location\"], \"battleRules\": {\"type\": \"jade_pillar_counter_damage\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Gerencia marcadores de Jade e causa 50 de dano ao final.\", \"payload\": {\"initialCounters\": 10, \"damagePerCounterSpent\": 5, \"finalDamage\": 50}}, \"description\": \"Quando o Pilar de Jade se torna o Local ativo, coloque 10 marcadores de Jade sobre ele. Remova um marcador de Jade do Pilar de Jade para cada 5 de dano de ataque causado. Quando o último marcador for removido, o Pilar de Jade causa 50 de dano à Criatura que jogou o último ataque\"}]",
+        "initiative_elements": [
+            "power"
+        ],
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "location"
+                ],
+                "battleRules": {
+                    "type": "jade_pillar_counter_damage",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Gerencia marcadores de Jade e causa 50 de dano ao final.",
+                    "payload": {
+                        "initialCounters": 10,
+                        "damagePerCounterSpent": 5,
+                        "finalDamage": 50
+                    }
+                },
+                "description": "Quando o Pilar de Jade se torna o Local ativo, coloque 10 marcadores de Jade sobre ele. Remova um marcador de Jade do Pilar de Jade para cada 5 de dano de ataque causado. Quando o último marcador for removido, o Pilar de Jade causa 50 de dano à Criatura que jogou o último ataque"
+            }
+        ],
         "created_at": "2026-02-15 11:40:00+00",
         "updated_at": "2026-02-15 11:40:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "ultra raro"
     },
     {
@@ -184,11 +836,61 @@
         "name": "Lagoa de Lava",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"power\"]",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"mugic\"], \"battleRules\": {\"type\": \"mugic_name_lock_this_turn\", \"requiresTarget\": false, \"usageLimitPerTurn\": 1, \"notes\": \"Revela Mugic aleatória e bloqueia nomes iguais neste turno.\", \"payload\": {\"trigger\": \"on_location_activate\"}}, \"description\": \"Quando este se torna o Local ativo, cada jogador revela uma carta de Mugic aleatória de sua mão. Cartas com o mesmo nome das cartas reveladas não podem ser jogadas neste turno\"}, {\"effectType\": \"decrease\", \"targetScope\": \"specific_tribes\", \"targetTribes\": [\"marrillian\"], \"stats\": [\"none\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aplica também em criaturas Minion.\", \"payload\": {\"includesMinion\": true, \"appliesTo\": \"mugic_and_ability_damage_received\"}}, \"description\": \"Criaturas M'arrillian e Minion recebem 5 a menos de dano de Mugic e habilidades\"}]",
+        "initiative_elements": [
+            "power"
+        ],
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "mugic"
+                ],
+                "battleRules": {
+                    "type": "mugic_name_lock_this_turn",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Revela Mugic aleatória e bloqueia nomes iguais neste turno.",
+                    "payload": {
+                        "trigger": "on_location_activate"
+                    }
+                },
+                "description": "Quando este se torna o Local ativo, cada jogador revela uma carta de Mugic aleatória de sua mão. Cartas com o mesmo nome das cartas reveladas não podem ser jogadas neste turno"
+            },
+            {
+                "effectType": "decrease",
+                "targetScope": "specific_tribes",
+                "targetTribes": [
+                    "marrillian"
+                ],
+                "stats": [
+                    "none"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aplica também em criaturas Minion.",
+                    "payload": {
+                        "includesMinion": true,
+                        "appliesTo": "mugic_and_ability_damage_received"
+                    }
+                },
+                "description": "Criaturas M'arrillian e Minion recebem 5 a menos de dano de Mugic e habilidades"
+            }
+        ],
         "created_at": "2026-02-15 11:40:00+00",
         "updated_at": "2026-02-15 11:40:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
@@ -196,11 +898,38 @@
         "name": "Torre de Catapulta de Mommark",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"speed\"]",
-        "abilities": "[{\"effectType\": \"gain\", \"targetScope\": \"own_creatures\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 1, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": true, \"usageLimitPerTurn\": 1, \"notes\": \"Concede Ligeiro 1 para suas criaturas quando o local ativa.\", \"payload\": {\"trigger\": \"on_location_activate\", \"keyword\": \"swift\", \"amount\": 1}}, \"description\": \"Quando este se torna o Local ativo, Criaturas que você controla ganham Ligeiro 1\"}]",
+        "initiative_elements": [
+            "speed"
+        ],
+        "abilities": [
+            {
+                "effectType": "gain",
+                "targetScope": "own_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 1,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Concede Ligeiro 1 para suas criaturas quando o local ativa.",
+                    "payload": {
+                        "trigger": "on_location_activate",
+                        "keyword": "swift",
+                        "amount": 1
+                    }
+                },
+                "description": "Quando este se torna o Local ativo, Criaturas que você controla ganham Ligeiro 1"
+            }
+        ],
         "created_at": "2026-02-15 11:40:00+00",
         "updated_at": "2026-02-15 11:40:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
@@ -208,11 +937,63 @@
         "name": "Reservatório do Pilar do Monte",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"courage\"]",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"return_chieftain_from_discard\", \"requiresTarget\": false, \"usageLimitPerTurn\": 1, \"notes\": \"Cada jogador pode retornar um Chieftain da pilha de descarte.\", \"payload\": {\"trigger\": \"on_location_activate\", \"requiresEmptySpace\": true}}, \"description\": \"Quando este se torna o Local ativo, cada jogador pode retornar um Chieftain de sua pilha de descarte para jogar em um espaço desocupado em seu lado do Tabuleiro sem contadores de Mugic\"}, {\"effectType\": \"gain\", \"targetScope\": \"specific_tribes\", \"targetTribes\": [\"marrillian\"], \"stats\": [\"none\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aplica também em criaturas Minion.\", \"payload\": {\"includesMinion\": true, \"keyword\": \"water\", \"amount\": 5}}, \"description\": \"Criaturas M'arrillian e Minion ganham Água 5\"}]",
+        "initiative_elements": [
+            "courage"
+        ],
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "return_chieftain_from_discard",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Cada jogador pode retornar um Chieftain da pilha de descarte.",
+                    "payload": {
+                        "trigger": "on_location_activate",
+                        "requiresEmptySpace": true
+                    }
+                },
+                "description": "Quando este se torna o Local ativo, cada jogador pode retornar um Chieftain de sua pilha de descarte para jogar em um espaço desocupado em seu lado do Tabuleiro sem contadores de Mugic"
+            },
+            {
+                "effectType": "gain",
+                "targetScope": "specific_tribes",
+                "targetTribes": [
+                    "marrillian"
+                ],
+                "stats": [
+                    "none"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aplica também em criaturas Minion.",
+                    "payload": {
+                        "includesMinion": true,
+                        "keyword": "water",
+                        "amount": 5
+                    }
+                },
+                "description": "Criaturas M'arrillian e Minion ganham Água 5"
+            }
+        ],
         "created_at": "2026-02-15 11:40:00+00",
         "updated_at": "2026-02-15 11:40:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
@@ -220,11 +1001,37 @@
         "name": "Porta das Minas Profundas",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"speed\"]",
-        "abilities": "[{\"effectType\": \"gain\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"energy\"], \"value\": 10, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aplica apenas em criaturas com ataques de Água.\", \"payload\": {\"condition\": \"has_attack_element\", \"element\": \"water\"}}, \"description\": \"Criaturas com Ataques de Água ganham 10 de Energia\"}]",
+        "initiative_elements": [
+            "speed"
+        ],
+        "abilities": [
+            {
+                "effectType": "gain",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "energy"
+                ],
+                "value": 10,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aplica apenas em criaturas com ataques de Água.",
+                    "payload": {
+                        "condition": "has_attack_element",
+                        "element": "water"
+                    }
+                },
+                "description": "Criaturas com Ataques de Água ganham 10 de Energia"
+            }
+        ],
         "created_at": "2026-02-15 12:10:00+00",
         "updated_at": "2026-02-15 12:10:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super raro"
     },
     {
@@ -232,11 +1039,59 @@
         "name": "Biblioteca do Outro Mundo",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"water\"]",
-        "abilities": "[{\"effectType\": \"increase\", \"targetScope\": \"engaged_creatures\", \"targetTribes\": [], \"stats\": [\"wisdom\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Criaturas engajadas ganham Superar Sabedoria 5.\", \"payload\": {\"keyword\": \"outperform\"}}, \"description\": \"Criaturas engajadas ganham Superar Sabedoria 5\"}, {\"effectType\": \"decrease\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"courage\"], \"value\": 5, \"cardTypes\": [\"attack\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Reduz em 5 dano de ataques de Coragem.\", \"payload\": {\"appliesTo\": \"attack_damage\", \"attackStat\": \"courage\"}}, \"description\": \"O dano causado por Ataques de Coragem é reduzido em 5\"}]",
+        "initiative_elements": [
+            "water"
+        ],
+        "abilities": [
+            {
+                "effectType": "increase",
+                "targetScope": "engaged_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "wisdom"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Criaturas engajadas ganham Superar Sabedoria 5.",
+                    "payload": {
+                        "keyword": "outperform"
+                    }
+                },
+                "description": "Criaturas engajadas ganham Superar Sabedoria 5"
+            },
+            {
+                "effectType": "decrease",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "courage"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "attack"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Reduz em 5 dano de ataques de Coragem.",
+                    "payload": {
+                        "appliesTo": "attack_damage",
+                        "attackStat": "courage"
+                    }
+                },
+                "description": "O dano causado por Ataques de Coragem é reduzido em 5"
+            }
+        ],
         "created_at": "2026-02-15 12:10:00+00",
         "updated_at": "2026-02-15 12:10:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "incomum"
     },
     {
@@ -244,11 +1099,37 @@
         "name": "Os Fossos",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"power\"]",
-        "abilities": "[{\"effectType\": \"increase\", \"targetScope\": \"all_creatures\", \"targetTribes\": [], \"stats\": [\"power\"], \"value\": 10, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aplica apenas em criaturas com ataques de Fogo.\", \"payload\": {\"condition\": \"has_attack_element\", \"element\": \"fire\"}}, \"description\": \"Criaturas com Ataques de Fogo ganham 10 de Poder\"}]",
+        "initiative_elements": [
+            "power"
+        ],
+        "abilities": [
+            {
+                "effectType": "increase",
+                "targetScope": "all_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "power"
+                ],
+                "value": 10,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aplica apenas em criaturas com ataques de Fogo.",
+                    "payload": {
+                        "condition": "has_attack_element",
+                        "element": "fire"
+                    }
+                },
+                "description": "Criaturas com Ataques de Fogo ganham 10 de Poder"
+            }
+        ],
         "created_at": "2026-02-15 12:10:00+00",
         "updated_at": "2026-02-15 12:10:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "incomum"
     },
     {
@@ -256,54 +1137,341 @@
         "name": "Câmara de Loucura de Psykdoom",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"wisdom\"]",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"attack\"], \"battleRules\": {\"type\": \"discard_attack_cards_from_deck\", \"requiresTarget\": false, \"usageLimitPerTurn\": 1, \"notes\": \"Cada jogador descarta 2 cartas de seu baralho de ataques.\", \"payload\": {\"amount\": 2}}, \"description\": \"Quando esta se torna o Local ativo, cada jogador descarta 2 cartas de seu Baralho de Ataques\"}]",
+        "initiative_elements": [
+            "wisdom"
+        ],
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "attack"
+                ],
+                "battleRules": {
+                    "type": "discard_attack_cards_from_deck",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Cada jogador descarta 2 cartas de seu baralho de ataques.",
+                    "payload": {
+                        "amount": 2
+                    }
+                },
+                "description": "Quando esta se torna o Local ativo, cada jogador descarta 2 cartas de seu Baralho de Ataques"
+            }
+        ],
         "created_at": "2026-02-15 12:10:00+00",
         "updated_at": "2026-02-15 12:10:00+00",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
         "id": "c3d4e5f6-g7h8-4i9j-0k1l-2m3n4o5p6q7r",
         "name": "Rao'Pa Sahkk, Base de Operações de Ihun'kalin",
-        "initiative_elements": "[\"speed\"]",
+        "initiative_elements": [
+            "speed"
+        ],
         "rarity": "rara",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"equipment\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": false, \"usageLimitPerTurn\": 1, \"notes\": \"Cada jogador sacrifica um Battlegear quando o local se torna ativo.\", \"payload\": {\"trigger\": \"on_location_activate\", \"action\": \"sacrifice_battlegear\"}}, \"description\": \"Quando este se torna o Local ativo, cada jogador sacrifica um Battlegear.\"}, {\"effectType\": \"increase\", \"targetScope\": \"specific_tribes\", \"targetTribes\": [\"marrillian\"], \"stats\": [\"energy\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aplica também em criaturas Minion.\", \"payload\": {\"includesMinion\": true, \"trigger\": \"on_win_challenge\"}}, \"description\": \"Quando uma Criatura M'arrillian ou Minion vence um Desafio, essa Criatura ganha 5 de Energia.\"}]"
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "equipment"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Cada jogador sacrifica um Battlegear quando o local se torna ativo.",
+                    "payload": {
+                        "trigger": "on_location_activate",
+                        "action": "sacrifice_battlegear"
+                    }
+                },
+                "description": "Quando este se torna o Local ativo, cada jogador sacrifica um Battlegear."
+            },
+            {
+                "effectType": "increase",
+                "targetScope": "specific_tribes",
+                "targetTribes": [
+                    "marrillian"
+                ],
+                "stats": [
+                    "energy"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aplica também em criaturas Minion.",
+                    "payload": {
+                        "includesMinion": true,
+                        "trigger": "on_win_challenge"
+                    }
+                },
+                "description": "Quando uma Criatura M'arrillian ou Minion vence um Desafio, essa Criatura ganha 5 de Energia."
+            }
+        ],
+        "tribes": []
     },
     {
         "id": "d4e5f6g7-h8i9-4j0k-1l2m-3n4o5p6q7r8s",
         "name": "Terras do Rio, Base de Operações de Erak'tabb",
-        "initiative_elements": "[\"wisdom\"]",
+        "initiative_elements": [
+            "wisdom"
+        ],
         "rarity": "rara",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": true, \"usageLimitPerTurn\": 1, \"notes\": \"Cada jogador remove um contador de Mugic de uma criatura que controla.\", \"payload\": {\"trigger\": \"on_location_activate\", \"action\": \"remove_mugic_counter\", \"amount\": 1}}, \"description\": \"Quando este se torna o Local ativo, cada jogador remove um contador de Mugic de uma Criatura que controla.\"}, {\"effectType\": \"decrease\", \"targetScope\": \"specific_tribes\", \"targetTribes\": [\"marrillian\"], \"stats\": [\"none\"], \"value\": 5, \"cardTypes\": [\"attack\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aplica também em criaturas Minion.\", \"payload\": {\"includesMinion\": true, \"appliesTo\": \"attack_damage_received\"}}, \"description\": \"Criaturas M'arrillian e Minion recebem 5 a menos de dano de Cartas de Ataque.\"}]"
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Cada jogador remove um contador de Mugic de uma criatura que controla.",
+                    "payload": {
+                        "trigger": "on_location_activate",
+                        "action": "remove_mugic_counter",
+                        "amount": 1
+                    }
+                },
+                "description": "Quando este se torna o Local ativo, cada jogador remove um contador de Mugic de uma Criatura que controla."
+            },
+            {
+                "effectType": "decrease",
+                "targetScope": "specific_tribes",
+                "targetTribes": [
+                    "marrillian"
+                ],
+                "stats": [
+                    "none"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "attack"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aplica também em criaturas Minion.",
+                    "payload": {
+                        "includesMinion": true,
+                        "appliesTo": "attack_damage_received"
+                    }
+                },
+                "description": "Criaturas M'arrillian e Minion recebem 5 a menos de dano de Cartas de Ataque."
+            }
+        ],
+        "tribes": []
     },
     {
         "id": "e5f6g7h8-i9j0-4k1l-2m3n-4o5p6q7r8s9t",
         "name": "Campos de Tempestade (Stormgrounds)",
-        "initiative_elements": "[\"courage\"]",
+        "initiative_elements": [
+            "courage"
+        ],
         "rarity": "incomum",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [\"marrillian\"], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"minion_activated_ability_cost_increase\", \"requiresTarget\": false, \"usageLimitPerTurn\": null, \"notes\": \"Habilidades ativadas de Minion custam 1 Mugic adicional.\", \"payload\": {\"costIncrease\": 1, \"includesMinion\": true}}, \"description\": \"Habilidades ativadas de Criaturas Minion custam um contador de Mugic adicional para serem jogadas.\"}]"
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [
+                    "marrillian"
+                ],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "minion_activated_ability_cost_increase",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": null,
+                    "notes": "Habilidades ativadas de Minion custam 1 Mugic adicional.",
+                    "payload": {
+                        "costIncrease": 1,
+                        "includesMinion": true
+                    }
+                },
+                "description": "Habilidades ativadas de Criaturas Minion custam um contador de Mugic adicional para serem jogadas."
+            }
+        ],
+        "tribes": []
     },
     {
         "id": "f6g7h8i9-j0k1-4l2m-3n4o-5p6q7r8s9t0u",
         "name": "Caverna de Projeção de Ulmar",
-        "initiative_elements": "[\"water\"]",
+        "initiative_elements": [
+            "water"
+        ],
         "rarity": "super rara",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"location\"], \"battleRules\": {\"type\": \"reveal_new_active_location\", \"requiresTarget\": false, \"usageLimitPerTurn\": 1, \"notes\": \"Quando o local ativa, o oponente revela um novo local ativo.\", \"payload\": {\"trigger\": \"on_location_activate\", \"targetPlayer\": \"opponent\"}}, \"description\": \"Quando a Caverna de Projeção de Ulmar se torna o Local ativo, seu oponente revela um novo Local ativo.\"}, {\"effectType\": \"special\", \"targetScope\": \"own_creatures\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"relocate_to_empty_space_on_action_step\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Miragem de realocação no início da etapa de ação.\", \"payload\": {\"trigger\": \"on_action_step_start\", \"requiresEmptySpace\": true}}, \"description\": \"Miragem: No início da Etapa de Ação de cada jogador, se este espaço estiver desocupado, aquele jogador pode realocar uma de suas Criaturas para este espaço.\"}]"
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "location"
+                ],
+                "battleRules": {
+                    "type": "reveal_new_active_location",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Quando o local ativa, o oponente revela um novo local ativo.",
+                    "payload": {
+                        "trigger": "on_location_activate",
+                        "targetPlayer": "opponent"
+                    }
+                },
+                "description": "Quando a Caverna de Projeção de Ulmar se torna o Local ativo, seu oponente revela um novo Local ativo."
+            },
+            {
+                "effectType": "special",
+                "targetScope": "own_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "relocate_to_empty_space_on_action_step",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Miragem de realocação no início da etapa de ação.",
+                    "payload": {
+                        "trigger": "on_action_step_start",
+                        "requiresEmptySpace": true
+                    }
+                },
+                "description": "Miragem: No início da Etapa de Ação de cada jogador, se este espaço estiver desocupado, aquele jogador pode realocar uma de suas Criaturas para este espaço."
+            }
+        ],
+        "tribes": []
     },
     {
         "id": "g7h8i9j0-k1l2-4m3n-5o6p-7q8r9s0t1u2v",
         "name": "Banquete de Van Bloot",
-        "initiative_elements": "[\"underworld\"]",
+        "initiative_elements": [
+            "underworld"
+        ],
         "rarity": "super rara",
-        "abilities": "[{\"effectType\": \"increase\", \"targetScope\": \"specific_tribes\", \"targetTribes\": [\"marrillian\"], \"stats\": [\"energy\"], \"value\": 5, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"stat_modifier\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aplica também em criaturas Minion.\", \"payload\": {\"includesMinion\": true}}, \"description\": \"Criaturas M'arrillian e Minion ganham 5 de Energia.\"}, {\"effectType\": \"increase\", \"targetScope\": \"own_creatures\", \"targetTribes\": [], \"stats\": [\"all\"], \"value\": 20, \"cardTypes\": [\"creature\"], \"battleRules\": {\"type\": \"generic_special\", \"requiresTarget\": true, \"usageLimitPerTurn\": null, \"notes\": \"Aplica quando sua criatura engajada perde a iniciativa.\", \"payload\": {\"trigger\": \"on_lose_initiative\", \"condition\": \"engaged\"}}, \"description\": \"Quando sua Criatura engajada perde a Iniciativa, ela ganha 20 em todas as Disciplinas.\"}]"
+        "abilities": [
+            {
+                "effectType": "increase",
+                "targetScope": "specific_tribes",
+                "targetTribes": [
+                    "marrillian"
+                ],
+                "stats": [
+                    "energy"
+                ],
+                "value": 5,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "stat_modifier",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aplica também em criaturas Minion.",
+                    "payload": {
+                        "includesMinion": true
+                    }
+                },
+                "description": "Criaturas M'arrillian e Minion ganham 5 de Energia."
+            },
+            {
+                "effectType": "increase",
+                "targetScope": "own_creatures",
+                "targetTribes": [],
+                "stats": [
+                    "all"
+                ],
+                "value": 20,
+                "cardTypes": [
+                    "creature"
+                ],
+                "battleRules": {
+                    "type": "generic_special",
+                    "requiresTarget": true,
+                    "usageLimitPerTurn": null,
+                    "notes": "Aplica quando sua criatura engajada perde a iniciativa.",
+                    "payload": {
+                        "trigger": "on_lose_initiative",
+                        "condition": "engaged"
+                    }
+                },
+                "description": "Quando sua Criatura engajada perde a Iniciativa, ela ganha 20 em todas as Disciplinas."
+            }
+        ],
+        "tribes": []
     },
     {
         "id": "h8i9j0k1-l2m3-4n5o-6p7q-8r9s0t1u2v3w",
         "name": "Refeitório de Vidav",
-        "initiative_elements": "[\"wisdom\"]",
+        "initiative_elements": [
+            "wisdom"
+        ],
         "rarity": "incomum",
-        "abilities": "[{\"effectType\": \"special\", \"targetScope\": \"none\", \"targetTribes\": [], \"stats\": [\"none\"], \"value\": 0, \"cardTypes\": [\"attack\"], \"battleRules\": {\"type\": \"draw_then_discard_attack_cards\", \"requiresTarget\": false, \"usageLimitPerTurn\": 1, \"notes\": \"Cada jogador compra 2 cartas de ataque e depois descarta 2.\", \"payload\": {\"draw\": 2, \"discard\": 2}}, \"description\": \"Quando este se torna o Local ativo, cada jogador compra duas Cartas de Ataque, depois descarta duas Cartas de Ataque.\"}]"
+        "abilities": [
+            {
+                "effectType": "special",
+                "targetScope": "none",
+                "targetTribes": [],
+                "stats": [
+                    "none"
+                ],
+                "value": 0,
+                "cardTypes": [
+                    "attack"
+                ],
+                "battleRules": {
+                    "type": "draw_then_discard_attack_cards",
+                    "requiresTarget": false,
+                    "usageLimitPerTurn": 1,
+                    "notes": "Cada jogador compra 2 cartas de ataque e depois descarta 2.",
+                    "payload": {
+                        "draw": 2,
+                        "discard": 2
+                    }
+                },
+                "description": "Quando este se torna o Local ativo, cada jogador compra duas Cartas de Ataque, depois descarta duas Cartas de Ataque."
+            }
+        ],
+        "tribes": []
     },
     {
         "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
@@ -311,11 +1479,29 @@
         "name": "O Swartbron",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"fire\"]",
-        "abilities": "[{\"description\":\"A Criatura engajada com a menor ☑ Coragem falha em todos os testes de ataques e jogadas.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"fail_checks_lowest_courage\",\"notes\":\"Criatura engajada com menor Coragem falha em todos os testes.\",\"payload\":{\"trigger\":\"on_combat\",\"stat\":\"courage\",\"condition\":\"lowest\"}},\"targetScope\":\"engaged_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "fire"
+        ],
+        "abilities": [
+            {
+                "description": "A Criatura engajada com a menor ☑ Coragem falha em todos os testes de ataques e jogadas.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "fail_checks_lowest_courage",
+                    "notes": "Criatura engajada com menor Coragem falha em todos os testes.",
+                    "payload": {
+                        "trigger": "on_combat",
+                        "stat": "courage",
+                        "condition": "lowest"
+                    }
+                },
+                "targetScope": "engaged_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:00.000000Z",
         "updated_at": "2026-02-16T10:00:00.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "rara"
     },
     {
@@ -324,11 +1510,29 @@
         "name": "A Monção Persistente do Túnel Storw",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"water\"]",
-        "abilities": "[{\"description\":\"A Criatura engajada com a menor ☑ Velocidade joga ataques aleatórios.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"attack_randomly_lowest_speed\",\"notes\":\"Criatura engajada com menor Velocidade ataca aleatoriamente.\",\"payload\":{\"trigger\":\"on_combat\",\"stat\":\"speed\",\"condition\":\"lowest\"}},\"targetScope\":\"engaged_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "water"
+        ],
+        "abilities": [
+            {
+                "description": "A Criatura engajada com a menor ☑ Velocidade joga ataques aleatórios.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "attack_randomly_lowest_speed",
+                    "notes": "Criatura engajada com menor Velocidade ataca aleatoriamente.",
+                    "payload": {
+                        "trigger": "on_combat",
+                        "stat": "speed",
+                        "condition": "lowest"
+                    }
+                },
+                "targetScope": "engaged_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:01.000000Z",
         "updated_at": "2026-02-16T10:00:01.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "rara"
     },
     {
@@ -337,11 +1541,31 @@
         "name": "A Passagem do Submundo",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"underworld\"]",
-        "abilities": "[{\"description\":\"A primeira vez que uma Criatura perder um Tipo Elemental neste turno, ela perde 10 de Energia.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"lose_energy_on_element_loss\",\"notes\":\"Perde energia ao perder um tipo elemental.\",\"payload\":{\"trigger\":\"on_element_loss\",\"amount\":10},\"usageLimitPerTurn\":1},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "underworld"
+        ],
+        "abilities": [
+            {
+                "description": "A primeira vez que uma Criatura perder um Tipo Elemental neste turno, ela perde 10 de Energia.",
+                "effectType": "damage",
+                "battleRules": {
+                    "type": "lose_energy_on_element_loss",
+                    "notes": "Perde energia ao perder um tipo elemental.",
+                    "payload": {
+                        "trigger": "on_element_loss",
+                        "amount": 10
+                    },
+                    "usageLimitPerTurn": 1
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:02.000000Z",
         "updated_at": "2026-02-16T10:00:02.000000Z",
-        "tribes": "[\"underworld\"]",
+        "tribes": [
+            "underworld"
+        ],
         "rarity": "rara"
     },
     {
@@ -350,11 +1574,31 @@
         "name": "A Passagem do Mundo Superior",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"overworld\"]",
-        "abilities": "[{\"description\":\"A primeira vez que uma Criatura ganhar um Tipo Elemental neste turno, ela ganha 10 de Energia.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_energy_on_element_gain\",\"notes\":\"Ganha energia ao ganhar um tipo elemental.\",\"payload\":{\"trigger\":\"on_element_gain\",\"amount\":10},\"usageLimitPerTurn\":1},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "overworld"
+        ],
+        "abilities": [
+            {
+                "description": "A primeira vez que uma Criatura ganhar um Tipo Elemental neste turno, ela ganha 10 de Energia.",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "gain_energy_on_element_gain",
+                    "notes": "Ganha energia ao ganhar um tipo elemental.",
+                    "payload": {
+                        "trigger": "on_element_gain",
+                        "amount": 10
+                    },
+                    "usageLimitPerTurn": 1
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:03.000000Z",
         "updated_at": "2026-02-16T10:00:03.000000Z",
-        "tribes": "[\"overworld\"]",
+        "tribes": [
+            "overworld"
+        ],
         "rarity": "rara"
     },
     {
@@ -363,11 +1607,28 @@
         "name": "O Jardim",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"speed\"]",
-        "abilities": "[{\"description\":\"No início do combate, todas as Criaturas ganham ☑ Água.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_element\",\"notes\":\"Todas as criaturas ganham Água no início do combate.\",\"payload\":{\"trigger\":\"on_combat_start\",\"keyword\":\"water\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "speed"
+        ],
+        "abilities": [
+            {
+                "description": "No início do combate, todas as Criaturas ganham ☑ Água.",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "gain_element",
+                    "notes": "Todas as criaturas ganham Água no início do combate.",
+                    "payload": {
+                        "trigger": "on_combat_start",
+                        "keyword": "water"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:04.000000Z",
         "updated_at": "2026-02-16T10:00:04.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
@@ -376,11 +1637,31 @@
         "name": "A Barragem de Magma",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"air\"]",
-        "abilities": "[{\"description\":\"Criaturas sem ☐ Fogo têm \\\"Temeridade 5\\\".\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_keyword_if_condition\",\"notes\":\"Ganha Recklessness se não tiver Fogo.\",\"payload\":{\"trigger\":\"passive\",\"keyword\":\"recklessness\",\"amount\":5,\"condition\":\"without_element\",\"condition_element\":\"fire\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "air"
+        ],
+        "abilities": [
+            {
+                "description": "Criaturas sem ☐ Fogo têm \"Temeridade 5\".",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "gain_keyword_if_condition",
+                    "notes": "Ganha Recklessness se não tiver Fogo.",
+                    "payload": {
+                        "trigger": "passive",
+                        "keyword": "recklessness",
+                        "amount": 5,
+                        "condition": "without_element",
+                        "condition_element": "fire"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:05.000000Z",
         "updated_at": "2026-02-16T10:00:05.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "rara"
     },
     {
@@ -389,11 +1670,28 @@
         "name": "Torres Estelares de Kehn-Sep",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"wisdom\"]",
-        "abilities": "[{\"description\":\"No início do combate, o controlador da Criatura engajada com a maior ☐ Sabedoria pode remover ☐ de uma Criatura que controla. Se fizer isso, pode colocar ☐ em uma Criatura que controla.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"move_mugic_counter_highest_wisdom\",\"notes\":\"Move um contador de Mugic no início do combate.\",\"payload\":{\"trigger\":\"on_combat_start\",\"condition\":\"highest_wisdom\"}},\"targetScope\":\"own_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "wisdom"
+        ],
+        "abilities": [
+            {
+                "description": "No início do combate, o controlador da Criatura engajada com a maior ☐ Sabedoria pode remover ☐ de uma Criatura que controla. Se fizer isso, pode colocar ☐ em uma Criatura que controla.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "move_mugic_counter_highest_wisdom",
+                    "notes": "Move um contador de Mugic no início do combate.",
+                    "payload": {
+                        "trigger": "on_combat_start",
+                        "condition": "highest_wisdom"
+                    }
+                },
+                "targetScope": "own_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:06.000000Z",
         "updated_at": "2026-02-16T10:00:06.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super_rara"
     },
     {
@@ -402,11 +1700,29 @@
         "name": "Santuário da Tábua",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"speed\"]",
-        "abilities": "[{\"description\":\"No início do combate, a Criatura engajada com a maior quantidade de Tipos Elementais ganha ☐.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_mugic_counter_most_elements\",\"notes\":\"Ganha contador de Mugic se tiver mais elementos.\",\"payload\":{\"trigger\":\"on_combat_start\",\"amount\":1,\"condition\":\"most_elements\"}},\"targetScope\":\"engaged_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "speed"
+        ],
+        "abilities": [
+            {
+                "description": "No início do combate, a Criatura engajada com a maior quantidade de Tipos Elementais ganha ☐.",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "gain_mugic_counter_most_elements",
+                    "notes": "Ganha contador de Mugic se tiver mais elementos.",
+                    "payload": {
+                        "trigger": "on_combat_start",
+                        "amount": 1,
+                        "condition": "most_elements"
+                    }
+                },
+                "targetScope": "engaged_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:07.000000Z",
         "updated_at": "2026-02-16T10:00:07.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "rara"
     },
     {
@@ -415,11 +1731,27 @@
         "name": "O Heptágono Dourado",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"power\"]",
-        "abilities": "[{\"description\":\"Criaturas podem jogar Mugic de qualquer Tribo ou afiliação.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"ignore_mugic_tribe_restriction\",\"notes\":\"Permite usar Mugic de qualquer tribo.\",\"payload\":{\"trigger\":\"passive\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "power"
+        ],
+        "abilities": [
+            {
+                "description": "Criaturas podem jogar Mugic de qualquer Tribo ou afiliação.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "ignore_mugic_tribe_restriction",
+                    "notes": "Permite usar Mugic de qualquer tribo.",
+                    "payload": {
+                        "trigger": "passive"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:08.000000Z",
         "updated_at": "2026-02-16T10:00:08.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super_rara"
     },
     {
@@ -428,11 +1760,28 @@
         "name": "Os Penhascos",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"power\"]",
-        "abilities": "[{\"description\":\"No início do combate, todas as Criaturas ganham Terra.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_element\",\"notes\":\"Todas as criaturas ganham Terra no início do combate.\",\"payload\":{\"trigger\":\"on_combat_start\",\"keyword\":\"earth\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "power"
+        ],
+        "abilities": [
+            {
+                "description": "No início do combate, todas as Criaturas ganham Terra.",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "gain_element",
+                    "notes": "Todas as criaturas ganham Terra no início do combate.",
+                    "payload": {
+                        "trigger": "on_combat_start",
+                        "keyword": "earth"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:09.000000Z",
         "updated_at": "2026-02-16T10:00:09.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
@@ -441,11 +1790,31 @@
         "name": "Cânion do Rio Rochoso",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"courage\"]",
-        "abilities": "[{\"description\":\"Criaturas com Terra têm 10 de Energia adicional.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"stat_modifier_if_element\",\"notes\":\"Ganha 10 de energia se tiver Terra.\",\"payload\":{\"trigger\":\"passive\",\"stat\":\"energy\",\"amount\":10,\"condition\":\"has_element\",\"condition_element\":\"earth\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "courage"
+        ],
+        "abilities": [
+            {
+                "description": "Criaturas com Terra têm 10 de Energia adicional.",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "stat_modifier_if_element",
+                    "notes": "Ganha 10 de energia se tiver Terra.",
+                    "payload": {
+                        "trigger": "passive",
+                        "stat": "energy",
+                        "amount": 10,
+                        "condition": "has_element",
+                        "condition_element": "earth"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:10.000000Z",
         "updated_at": "2026-02-16T10:00:10.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "comum"
     },
     {
@@ -454,11 +1823,44 @@
         "name": "Abismo de Prexxor, A Praga",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"power\"]",
-        "abilities": "[{\"description\":\"Criaturas que não são Caretaker não podem ser curadas nem ganhar Energia.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"prevent_heal_and_energy_gain\",\"notes\":\"Não-Caretakers não podem ser curados ou ganhar energia.\",\"payload\":{\"trigger\":\"passive\",\"condition\":\"is_not_subtype\",\"condition_subtype\":\"caretaker\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]},{\"description\":\"Miragem: Criaturas neste espaço têm 20 de Energia a menos.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_modifier_mirage\",\"notes\":\"Miragem: -20 de energia para criaturas no espaço.\",\"payload\":{\"trigger\":\"passive\",\"stat\":\"energy\",\"amount\":-20}},\"targetScope\":\"creatures_in_location\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "power"
+        ],
+        "abilities": [
+            {
+                "description": "Criaturas que não são Caretaker não podem ser curadas nem ganhar Energia.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "prevent_heal_and_energy_gain",
+                    "notes": "Não-Caretakers não podem ser curados ou ganhar energia.",
+                    "payload": {
+                        "trigger": "passive",
+                        "condition": "is_not_subtype",
+                        "condition_subtype": "caretaker"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            },
+            {
+                "description": "Miragem: Criaturas neste espaço têm 20 de Energia a menos.",
+                "effectType": "damage",
+                "battleRules": {
+                    "type": "stat_modifier_mirage",
+                    "notes": "Miragem: -20 de energia para criaturas no espaço.",
+                    "payload": {
+                        "trigger": "passive",
+                        "stat": "energy",
+                        "amount": -20
+                    }
+                },
+                "targetScope": "creatures_in_location",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:11.000000Z",
         "updated_at": "2026-02-16T10:00:11.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super_rara"
     },
     {
@@ -467,11 +1869,28 @@
         "name": "Terras do Rio, Ermos Abandonados",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"fewest_elements\"]",
-        "abilities": "[{\"description\":\"Quando Riverlands se torna o Local ativo, cada jogador embaralha sua mão de Ataques no Baralho de Ataques e compra duas Cartas de Ataque.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"shuffle_hand_and_draw\",\"notes\":\"Embaralha a mão de ataque e compra duas cartas.\",\"payload\":{\"trigger\":\"on_location_activate\",\"draw_count\":2}},\"targetScope\":\"all_players\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "fewest_elements"
+        ],
+        "abilities": [
+            {
+                "description": "Quando Riverlands se torna o Local ativo, cada jogador embaralha sua mão de Ataques no Baralho de Ataques e compra duas Cartas de Ataque.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "shuffle_hand_and_draw",
+                    "notes": "Embaralha a mão de ataque e compra duas cartas.",
+                    "payload": {
+                        "trigger": "on_location_activate",
+                        "draw_count": 2
+                    }
+                },
+                "targetScope": "all_players",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:12.000000Z",
         "updated_at": "2026-02-16T10:00:12.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "rara"
     },
     {
@@ -480,11 +1899,29 @@
         "name": "Rao'Pa Sahkk, Cerimônia da Condensação",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"earth\"]",
-        "abilities": "[{\"description\":\"Criaturas sem Água não podem gastar contadores de Mugic para jogar Mugic ou habilidades.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"prevent_mugic_usage_without_element\",\"notes\":\"Impede o uso de contadores de Mugic sem Água.\",\"payload\":{\"trigger\":\"passive\",\"condition\":\"without_element\",\"condition_element\":\"water\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "earth"
+        ],
+        "abilities": [
+            {
+                "description": "Criaturas sem Água não podem gastar contadores de Mugic para jogar Mugic ou habilidades.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "prevent_mugic_usage_without_element",
+                    "notes": "Impede o uso de contadores de Mugic sem Água.",
+                    "payload": {
+                        "trigger": "passive",
+                        "condition": "without_element",
+                        "condition_element": "water"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:13.000000Z",
         "updated_at": "2026-02-16T10:00:13.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "rara"
     },
     {
@@ -493,11 +1930,29 @@
         "name": "Reservatório do Pilar do Monte, Libertado",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"danian\"]",
-        "abilities": "[{\"description\":\"Quando Mount Pillar Reservoir for revelado, cada jogador infecta uma Criatura não infectada que controla.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"infect_creature_on_reveal\",\"notes\":\"Infecta uma criatura de cada jogador ao revelar o local.\",\"payload\":{\"trigger\":\"on_location_reveal\"}},\"targetScope\":\"all_players\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "danian"
+        ],
+        "abilities": [
+            {
+                "description": "Quando Mount Pillar Reservoir for revelado, cada jogador infecta uma Criatura não infectada que controla.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "infect_creature_on_reveal",
+                    "notes": "Infecta uma criatura de cada jogador ao revelar o local.",
+                    "payload": {
+                        "trigger": "on_location_reveal"
+                    }
+                },
+                "targetScope": "all_players",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:14.000000Z",
         "updated_at": "2026-02-16T10:00:14.000000Z",
-        "tribes": "[\"danian\"]",
+        "tribes": [
+            "danian"
+        ],
         "rarity": "rara"
     },
     {
@@ -506,11 +1961,40 @@
         "name": "Trópicos de Mipedim",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"courage\"]",
-        "abilities": "[{\"description\":\"Mipedians ganham ☑ Água e ☑ Água 5.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_element_and_keyword\",\"notes\":\"Mipedians ganham Água e Água 5.\",\"payload\":{\"trigger\":\"passive\",\"elements\":[\"water\"],\"keywords\":[{\"name\":\"water\",\"value\":5}]}},\"targetScope\":\"specific_tribes\",\"targetTribes\":[\"mipedian\"]}]",
+        "initiative_elements": [
+            "courage"
+        ],
+        "abilities": [
+            {
+                "description": "Mipedians ganham ☑ Água e ☑ Água 5.",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "gain_element_and_keyword",
+                    "notes": "Mipedians ganham Água e Água 5.",
+                    "payload": {
+                        "trigger": "passive",
+                        "elements": [
+                            "water"
+                        ],
+                        "keywords": [
+                            {
+                                "name": "water",
+                                "value": 5
+                            }
+                        ]
+                    }
+                },
+                "targetScope": "specific_tribes",
+                "targetTribes": [
+                    "mipedian"
+                ]
+            }
+        ],
         "created_at": "2026-02-16T10:00:15.000000Z",
         "updated_at": "2026-02-16T10:00:15.000000Z",
-        "tribes": "[\"mipedian\"]",
+        "tribes": [
+            "mipedian"
+        ],
         "rarity": "rara"
     },
     {
@@ -519,11 +2003,29 @@
         "name": "Abismo de Prexxor",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"past\"]",
-        "abilities": "[{\"description\":\"No início do turno, escolha uma Criatura que seu oponente controla e ele escolhe uma Criatura que você controla. Realoque sua Criatura para o espaço da Criatura escolhida e inicie combate. Isso não conta para o seu limite de combates do turno.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"force_combat_at_turn_start\",\"notes\":\"Força um combate no início do turno.\",\"payload\":{\"trigger\":\"on_turn_start\"}},\"targetScope\":\"all_players\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "past"
+        ],
+        "abilities": [
+            {
+                "description": "No início do turno, escolha uma Criatura que seu oponente controla e ele escolhe uma Criatura que você controla. Realoque sua Criatura para o espaço da Criatura escolhida e inicie combate. Isso não conta para o seu limite de combates do turno.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "force_combat_at_turn_start",
+                    "notes": "Força um combate no início do turno.",
+                    "payload": {
+                        "trigger": "on_turn_start"
+                    }
+                },
+                "targetScope": "all_players",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:16.000000Z",
         "updated_at": "2026-02-16T10:00:16.000000Z",
-        "tribes": "[\"past\"]",
+        "tribes": [
+            "past"
+        ],
         "rarity": "super_rara"
     },
     {
@@ -532,11 +2034,31 @@
         "name": "Vale de Mipedim",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"water\"]",
-        "abilities": "[{\"description\":\"Criaturas sem ☐ Ar não viram seus Battlegear para cima no início do combate.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"prevent_battlegear_flip_without_element\",\"notes\":\"Impede o flip do Battlegear sem Ar.\",\"payload\":{\"trigger\":\"on_combat_start\",\"condition\":\"without_element\",\"condition_element\":\"air\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "water"
+        ],
+        "abilities": [
+            {
+                "description": "Criaturas sem ☐ Ar não viram seus Battlegear para cima no início do combate.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "prevent_battlegear_flip_without_element",
+                    "notes": "Impede o flip do Battlegear sem Ar.",
+                    "payload": {
+                        "trigger": "on_combat_start",
+                        "condition": "without_element",
+                        "condition_element": "air"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:17.000000Z",
         "updated_at": "2026-02-16T10:00:17.000000Z",
-        "tribes": "[\"mipedian\"]",
+        "tribes": [
+            "mipedian"
+        ],
         "rarity": "rara"
     },
     {
@@ -545,11 +2067,29 @@
         "name": "Castelo de Najarin",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"mugic_counters\"]",
-        "abilities": "[{\"description\":\"Quando Najarin's Castle se torna o Local ativo, cada jogador pode descartar uma Carta de Mugic. Se fizer isso, pode retornar uma Carta de Mugic de sua pilha de descarte geral para a mão.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"recycle_mugic_card\",\"notes\":\"Recicla uma carta de Mugic ao ativar o local.\",\"payload\":{\"trigger\":\"on_location_activate\"}},\"targetScope\":\"all_players\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "mugic_counters"
+        ],
+        "abilities": [
+            {
+                "description": "Quando Najarin's Castle se torna o Local ativo, cada jogador pode descartar uma Carta de Mugic. Se fizer isso, pode retornar uma Carta de Mugic de sua pilha de descarte geral para a mão.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "recycle_mugic_card",
+                    "notes": "Recicla uma carta de Mugic ao ativar o local.",
+                    "payload": {
+                        "trigger": "on_location_activate"
+                    }
+                },
+                "targetScope": "all_players",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:18.000000Z",
         "updated_at": "2026-02-16T10:00:18.000000Z",
-        "tribes": "[\"overworld\"]",
+        "tribes": [
+            "overworld"
+        ],
         "rarity": "super_rara"
     },
     {
@@ -558,11 +2098,27 @@
         "name": "Lago Ken-I-Po, Local de Ritual",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"number_of_elements\"]",
-        "abilities": "[{\"description\":\"Criaturas não podem ganhar nem perder Tipos Elementais. (Criaturas não podem pagar custos que exijam perder um Tipo Elemental)\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"prevent_elemental_type_change\",\"notes\":\"Impede ganho ou perda de tipos elementais.\",\"payload\":{\"trigger\":\"passive\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "number_of_elements"
+        ],
+        "abilities": [
+            {
+                "description": "Criaturas não podem ganhar nem perder Tipos Elementais. (Criaturas não podem pagar custos que exijam perder um Tipo Elemental)",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "prevent_elemental_type_change",
+                    "notes": "Impede ganho ou perda de tipos elementais.",
+                    "payload": {
+                        "trigger": "passive"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:19.000000Z",
         "updated_at": "2026-02-16T10:00:19.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super_rara"
     },
     {
@@ -571,11 +2127,29 @@
         "name": "Kaizerh, Cidade dos Mipedianos",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"number_of_elements\"]",
-        "abilities": "[{\"description\":\"Criaturas recebem 5 a menos de dano de ataques que compartilham um Tipo Elemental com elas.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"damage_reduction_shared_element\",\"notes\":\"Reduz o dano de ataques com elemento em comum.\",\"payload\":{\"trigger\":\"on_damage_calculation\",\"amount\":-5,\"condition\":\"shared_element\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "number_of_elements"
+        ],
+        "abilities": [
+            {
+                "description": "Criaturas recebem 5 a menos de dano de ataques que compartilham um Tipo Elemental com elas.",
+                "effectType": "damage",
+                "battleRules": {
+                    "type": "damage_reduction_shared_element",
+                    "notes": "Reduz o dano de ataques com elemento em comum.",
+                    "payload": {
+                        "trigger": "on_damage_calculation",
+                        "amount": -5,
+                        "condition": "shared_element"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:20.000000Z",
         "updated_at": "2026-02-16T10:00:20.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "rara"
     },
     {
@@ -584,11 +2158,33 @@
         "name": "Vila Kiru",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"power\"]",
-        "abilities": "[{\"description\":\"Criaturas da tribo Past têm 10 de Energia adicional.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"stat_modifier_for_tribe\",\"notes\":\"Criaturas 'Past' ganham 10 de energia.\",\"payload\":{\"trigger\":\"passive\",\"stat\":\"energy\",\"amount\":10}},\"targetScope\":\"specific_tribes\",\"targetTribes\":[\"past\"]}]",
+        "initiative_elements": [
+            "power"
+        ],
+        "abilities": [
+            {
+                "description": "Criaturas da tribo Past têm 10 de Energia adicional.",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "stat_modifier_for_tribe",
+                    "notes": "Criaturas 'Past' ganham 10 de energia.",
+                    "payload": {
+                        "trigger": "passive",
+                        "stat": "energy",
+                        "amount": 10
+                    }
+                },
+                "targetScope": "specific_tribes",
+                "targetTribes": [
+                    "past"
+                ]
+            }
+        ],
         "created_at": "2026-02-16T10:00:21.000000Z",
         "updated_at": "2026-02-16T10:00:21.000000Z",
-        "tribes": "[\"overworld\"]",
+        "tribes": [
+            "overworld"
+        ],
         "rarity": "comum"
     },
     {
@@ -597,11 +2193,28 @@
         "name": "Gigantemporis, Câmara do Oraklon",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"water\"]",
-        "abilities": "[{\"description\":\"Battlegear ganha \\\"Não-Alvejável\\\".\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_keyword_battlegear\",\"notes\":\"Battlegear ganha 'Untargetable'.\",\"payload\":{\"trigger\":\"passive\",\"keyword\":\"untargetable\"}},\"targetScope\":\"all_battlegear\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "water"
+        ],
+        "abilities": [
+            {
+                "description": "Battlegear ganha \"Não-Alvejável\".",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "gain_keyword_battlegear",
+                    "notes": "Battlegear ganha 'Untargetable'.",
+                    "payload": {
+                        "trigger": "passive",
+                        "keyword": "untargetable"
+                    }
+                },
+                "targetScope": "all_battlegear",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:22.000000Z",
         "updated_at": "2026-02-16T10:00:22.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super_rara"
     },
     {
@@ -610,11 +2223,28 @@
         "name": "Floresta de Graalorn",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"wisdom\"]",
-        "abilities": "[{\"description\":\"Quando uma Criatura joga um ataque Elemental, cure 5 de dano dessa Criatura.\",\"effectType\":\"heal\",\"battleRules\":{\"type\":\"heal_on_elemental_attack\",\"notes\":\"Cura 5 de dano ao usar um ataque elemental.\",\"payload\":{\"trigger\":\"on_elemental_attack_play\",\"amount\":5}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "wisdom"
+        ],
+        "abilities": [
+            {
+                "description": "Quando uma Criatura joga um ataque Elemental, cure 5 de dano dessa Criatura.",
+                "effectType": "heal",
+                "battleRules": {
+                    "type": "heal_on_elemental_attack",
+                    "notes": "Cura 5 de dano ao usar um ataque elemental.",
+                    "payload": {
+                        "trigger": "on_elemental_attack_play",
+                        "amount": 5
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:23.000000Z",
         "updated_at": "2026-02-16T10:00:23.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "rara"
     },
     {
@@ -623,11 +2253,30 @@
         "name": "Banquete de Herken",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"wisdom\"]",
-        "abilities": "[{\"description\":\"O primeiro ataque que cada Criatura joga neste combate é reduzido em 20 de dano.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"damage_reduction_first_attack\",\"notes\":\"Reduz o dano do primeiro ataque em 20.\",\"payload\":{\"trigger\":\"on_first_attack\",\"amount\":-20}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "wisdom"
+        ],
+        "abilities": [
+            {
+                "description": "O primeiro ataque que cada Criatura joga neste combate é reduzido em 20 de dano.",
+                "effectType": "damage",
+                "battleRules": {
+                    "type": "damage_reduction_first_attack",
+                    "notes": "Reduz o dano do primeiro ataque em 20.",
+                    "payload": {
+                        "trigger": "on_first_attack",
+                        "amount": -20
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:24.000000Z",
         "updated_at": "2026-02-16T10:00:24.000000Z",
-        "tribes": "[\"overworld\"]",
+        "tribes": [
+            "overworld"
+        ],
         "rarity": "rara"
     },
     {
@@ -636,11 +2285,42 @@
         "name": "Limiar de Dranakis",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"speed\"]",
-        "abilities": "[{\"description\":\"Todas as Criaturas são consideradas Criaturas da tribo Past.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"set_tribe_to_past\",\"notes\":\"Todas as criaturas são consideradas da tribo Past.\",\"payload\":{\"trigger\":\"passive\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]},{\"description\":\"Criaturas não têm Tribos. (Criaturas sem Tribo só podem conjurar Mugic Genérica)\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"remove_all_tribes\",\"notes\":\"Criaturas não têm tribo.\",\"payload\":{\"trigger\":\"passive\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "speed"
+        ],
+        "abilities": [
+            {
+                "description": "Todas as Criaturas são consideradas Criaturas da tribo Past.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "set_tribe_to_past",
+                    "notes": "Todas as criaturas são consideradas da tribo Past.",
+                    "payload": {
+                        "trigger": "passive"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            },
+            {
+                "description": "Criaturas não têm Tribos. (Criaturas sem Tribo só podem conjurar Mugic Genérica)",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "remove_all_tribes",
+                    "notes": "Criaturas não têm tribo.",
+                    "payload": {
+                        "trigger": "passive"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:25.000000Z",
         "updated_at": "2026-02-16T10:00:25.000000Z",
-        "tribes": "[\"past\"]",
+        "tribes": [
+            "past"
+        ],
         "rarity": "super_rara"
     },
     {
@@ -649,11 +2329,28 @@
         "name": "Elmantiir",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"elementalist\"]",
-        "abilities": "[{\"description\":\"No início do combate, Criaturas engajadas ganham 5 de Energia para cada Tipo Elemental que tiverem.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_energy_per_element\",\"notes\":\"Ganha 5 de energia por tipo elemental no início do combate.\",\"payload\":{\"trigger\":\"on_combat_start\",\"amount_per_element\":5}},\"targetScope\":\"engaged_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "elementalist"
+        ],
+        "abilities": [
+            {
+                "description": "No início do combate, Criaturas engajadas ganham 5 de Energia para cada Tipo Elemental que tiverem.",
+                "effectType": "gain",
+                "battleRules": {
+                    "type": "gain_energy_per_element",
+                    "notes": "Ganha 5 de energia por tipo elemental no início do combate.",
+                    "payload": {
+                        "trigger": "on_combat_start",
+                        "amount_per_element": 5
+                    }
+                },
+                "targetScope": "engaged_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:26.000000Z",
         "updated_at": "2026-02-16T10:00:26.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "rara"
     },
     {
@@ -662,11 +2359,29 @@
         "name": "Cidade de Kehn-Sep, Sítio de Escavação de Tábuas",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"build_cost\"]",
-        "abilities": "[{\"description\":\"No início do combate, cada jogador revela as 2 cartas do topo do seu Baralho de Ataques. Qualquer jogador que revelar custo de construção total 3 ou mais em ataques coloca ☐ em sua Criatura engajada. Coloque as cartas reveladas no fundo do Baralho de Ataques em qualquer ordem.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"gain_mugic_on_attack_reveal\",\"notes\":\"Ganha contador de Mugic com base no custo de construção das cartas de ataque reveladas.\",\"payload\":{\"trigger\":\"on_combat_start\",\"reveal_count\":2,\"build_cost_threshold\":3}},\"targetScope\":\"all_players\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "build_cost"
+        ],
+        "abilities": [
+            {
+                "description": "No início do combate, cada jogador revela as 2 cartas do topo do seu Baralho de Ataques. Qualquer jogador que revelar custo de construção total 3 ou mais em ataques coloca ☐ em sua Criatura engajada. Coloque as cartas reveladas no fundo do Baralho de Ataques em qualquer ordem.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "gain_mugic_on_attack_reveal",
+                    "notes": "Ganha contador de Mugic com base no custo de construção das cartas de ataque reveladas.",
+                    "payload": {
+                        "trigger": "on_combat_start",
+                        "reveal_count": 2,
+                        "build_cost_threshold": 3
+                    }
+                },
+                "targetScope": "all_players",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:27.000000Z",
         "updated_at": "2026-02-16T10:00:27.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super_rara"
     },
     {
@@ -675,11 +2390,31 @@
         "name": "Castelo Rathwag",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"earth\"]",
-        "abilities": "[{\"description\":\"A Criatura engajada com o menor Poder causa 5 a menos de dano com ataques.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"damage_reduction_lowest_power\",\"notes\":\"Criatura engajada com menor Poder causa 5 a menos de dano.\",\"payload\":{\"trigger\":\"on_damage_calculation\",\"amount\":-5,\"condition\":\"lowest_power\"}},\"targetScope\":\"engaged_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "earth"
+        ],
+        "abilities": [
+            {
+                "description": "A Criatura engajada com o menor Poder causa 5 a menos de dano com ataques.",
+                "effectType": "damage",
+                "battleRules": {
+                    "type": "damage_reduction_lowest_power",
+                    "notes": "Criatura engajada com menor Poder causa 5 a menos de dano.",
+                    "payload": {
+                        "trigger": "on_damage_calculation",
+                        "amount": -5,
+                        "condition": "lowest_power"
+                    }
+                },
+                "targetScope": "engaged_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:28.000000Z",
         "updated_at": "2026-02-16T10:00:28.000000Z",
-        "tribes": "[\"underworld\"]",
+        "tribes": [
+            "underworld"
+        ],
         "rarity": "rara"
     },
     {
@@ -688,11 +2423,29 @@
         "name": "Câmara de Clarividência Mental de A'zaja",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"marrillian\"]",
-        "abilities": "[{\"description\":\"Quando A'zaja Mindscrying Chamber for revelado, as Criaturas perdem todos os Tipos Elementais.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"lose_all_elements_on_reveal\",\"notes\":\"Criaturas perdem todos os tipos elementais ao revelar o local.\",\"payload\":{\"trigger\":\"on_location_reveal\"}},\"targetScope\":\"all_creatures\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "marrillian"
+        ],
+        "abilities": [
+            {
+                "description": "Quando A'zaja Mindscrying Chamber for revelado, as Criaturas perdem todos os Tipos Elementais.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "lose_all_elements_on_reveal",
+                    "notes": "Criaturas perdem todos os tipos elementais ao revelar o local.",
+                    "payload": {
+                        "trigger": "on_location_reveal"
+                    }
+                },
+                "targetScope": "all_creatures",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:29.000000Z",
         "updated_at": "2026-02-16T10:00:29.000000Z",
-        "tribes": "[\"marrillian\"]",
+        "tribes": [
+            "marrillian"
+        ],
         "rarity": "super_rara"
     },
     {
@@ -701,11 +2454,28 @@
         "name": "Castelo Mommark",
         "image_file_id": null,
         "image_url": null,
-        "initiative_elements": "[\"fire\"]",
-        "abilities": "[{\"description\":\"Quando Castle Mommark se torna o Local ativo, cada jogador pode sacrificar uma Criatura que controla. Se fizer isso, pode retornar outra Criatura da sua pilha de descarte geral para qualquer espaço desocupado do seu lado do Tabuleiro de Batalha.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"sacrifice_to_revive_creature\",\"notes\":\"Sacrifica uma criatura para reviver outra da pilha de descarte.\",\"payload\":{\"trigger\":\"on_location_activate\",\"requiresEmptySpace\":true}},\"targetScope\":\"all_players\",\"targetTribes\":[]}]",
+        "initiative_elements": [
+            "fire"
+        ],
+        "abilities": [
+            {
+                "description": "Quando Castle Mommark se torna o Local ativo, cada jogador pode sacrificar uma Criatura que controla. Se fizer isso, pode retornar outra Criatura da sua pilha de descarte geral para qualquer espaço desocupado do seu lado do Tabuleiro de Batalha.",
+                "effectType": "special",
+                "battleRules": {
+                    "type": "sacrifice_to_revive_creature",
+                    "notes": "Sacrifica uma criatura para reviver outra da pilha de descarte.",
+                    "payload": {
+                        "trigger": "on_location_activate",
+                        "requiresEmptySpace": true
+                    }
+                },
+                "targetScope": "all_players",
+                "targetTribes": []
+            }
+        ],
         "created_at": "2026-02-16T10:00:30.000000Z",
         "updated_at": "2026-02-16T10:00:30.000000Z",
-        "tribes": "[]",
+        "tribes": [],
         "rarity": "super_rara"
     }
 ]
