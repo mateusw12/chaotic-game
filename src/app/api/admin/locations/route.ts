@@ -94,6 +94,7 @@ export async function POST(request: Request) {
 
         const location = await createLocation({
             name: body.name ?? "",
+            fileName: body.fileName ?? null,
             rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             initiativeElements: Array.isArray(body.initiativeElements)

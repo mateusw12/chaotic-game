@@ -141,6 +141,7 @@ export type LocationAbilityDto = {
 export type LocationDto = {
     id: string;
     name: string;
+    fileName: string | null;
     rarity: CardRarity;
     imageFileId: string | null;
     imageUrl: string | null;
@@ -153,6 +154,7 @@ export type LocationDto = {
 
 export type CreateLocationRequestDto = {
     name: string;
+    fileName?: string | null;
     rarity: CardRarity;
     imageFileId?: string | null;
     initiativeElements: CreatureElement[];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
@@ -97,6 +97,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
     const [form] = Form.useForm<LocationFormValues>();
     const [editingLocationId, setEditingLocationId] = useState<string | null>(null);
     const [deletingLocationId, setDeletingLocationId] = useState<string | null>(null);
+    const batchImageInputRef = useRef<HTMLInputElement | null>(null);
 
     const {
         isUploading: isImageUploading,
@@ -147,6 +148,10 @@ export function LocationsView({ locations }: LocationsViewProps) {
         mutationFn: (id: string) => LocationsAdminService.remove(id),
     });
 
+    const importImagesMutation = useMutation({
+        mutationFn: (formData: FormData) => LocationsAdminService.importImages(formData),
+    });
+
     async function onSubmit(values: LocationFormValues) {
         try {
             const payload: CreateLocationRequestDto = {
@@ -186,7 +191,7 @@ export function LocationsView({ locations }: LocationsViewProps) {
                 },
             );
         } catch (error) {
-            notification.error({ message: error instanceof Error ? error.message : "Erro ao salvar local." });
+            notification.error({ title: error instanceof Error ? error.message : "Erro ao salvar local." });
         }
     }
 
@@ -243,15 +248,55 @@ export function LocationsView({ locations }: LocationsViewProps) {
             const result = await importMutation.mutateAsync();
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
 
-            notification.success({ message: `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).` });
+            notification.success({ title: `${result.fileName}: ${result.imported} importada(s), ${result.updated} atualizada(s), ${result.skipped} ignorada(s).` });
         } catch (error) {
             notification.error({
-                message: error instanceof Error
+                title: error instanceof Error
                     ? error.message
                     : "Erro ao importar locais do JSON.",
             });
         }
     }, [importMutation, notification, queryClient]);
+
+    const onImportLocationImages = useCallback(async (files: File[]) => {
+        if (files.length === 0) {
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            files.forEach((file) => formData.append("files", file));
+
+            const result = await importImagesMutation.mutateAsync(formData);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
+
+            const extraInfo = [
+                result.unmatchedFiles && result.unmatchedFiles.length > 0
+                    ? `Sem match: ${result.unmatchedFiles.length}`
+                    : null,
+                result.failedFiles && result.failedFiles.length > 0
+                    ? `Falhas: ${result.failedFiles.length}`
+                    : null,
+            ].filter(Boolean).join(" | ");
+
+            notification.success({
+                title: `${result.updated} local(is) atualizado(s), ${result.uploaded} upload(s), ${result.skipped} ignorado(s).${extraInfo ? ` ${extraInfo}` : ""}`,
+            });
+        } catch (error) {
+            notification.error({
+                title:
+                    error instanceof Error
+                        ? error.message
+                        : "Erro ao importar imagens de locais.",
+            });
+        }
+    }, [importImagesMutation, notification, queryClient]);
+
+    const onBatchImageInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files ?? []);
+        event.currentTarget.value = "";
+        void onImportLocationImages(files);
+    }, [onImportLocationImages]);
 
     const columns = useMemo<ColumnsType<LocationDto>>(
         () => [
@@ -382,6 +427,21 @@ export function LocationsView({ locations }: LocationsViewProps) {
                         <Space>
                             <Button onClick={() => void onImportLocationsFromJson()} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar locations.json
+                            </Button>
+                            <input
+                                ref={batchImageInputRef}
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                style={{ display: "none" }}
+                                onChange={onBatchImageInputChange}
+                            />
+                            <Button
+                                onClick={() => batchImageInputRef.current?.click()}
+                                icon={importImagesMutation.isPending ? <LoadingLogo /> : undefined}
+                                disabled={importImagesMutation.isPending}
+                            >
+                                Importar imagens em lote
                             </Button>
                             <Link href="/">
                                 <Button icon={<ArrowLeftOutlined />}>Voltar</Button>

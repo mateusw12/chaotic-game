@@ -49,7 +49,9 @@ type SeedLocationAbility = {
 };
 
 type SeedLocation = {
-    name?: unknown;
+    name?: string;
+    fileName?: string;
+    file_name?: unknown;
     rarity?: unknown;
     image_file_id?: unknown;
     imageFileId?: unknown;
@@ -454,6 +456,10 @@ function normalizeLocationAbility(item: SeedLocationAbility): CreateLocationRequ
     const normalizedTargetScope = normalizeTargetScope(targetScopeRaw);
     const inferredTargetScope: LocationTargetScope =
         inferredTargetTribes.length > 0 ? "specific_tribes" : normalizedTargetScope;
+    const targetScope: LocationTargetScope =
+        inferredTargetScope === "specific_tribes" && inferredTargetTribes.length === 0
+            ? "all_creatures"
+            : inferredTargetScope;
 
     const stats = normalizeLocationStats(item.stats ?? (item.stat !== undefined ? [item.stat] : []), effectType);
 
@@ -462,7 +468,7 @@ function normalizeLocationAbility(item: SeedLocationAbility): CreateLocationRequ
         ?? inferBattleRules(description)
         ?? {
             type: "stat_modifier",
-            requiresTarget: inferredTargetScope !== "none",
+            requiresTarget: targetScope !== "none",
             usageLimitPerTurn: null,
             notes: null,
             payload: null,
@@ -471,7 +477,7 @@ function normalizeLocationAbility(item: SeedLocationAbility): CreateLocationRequ
     return {
         description,
         effectType,
-        targetScope: inferredTargetTribes.length > 0 ? "specific_tribes" : inferredTargetScope,
+        targetScope,
         targetTribes: inferredTargetTribes,
         stats,
         cardTypes: normalizeLocationCardTypes(item.card_types ?? item.cardTypes ?? []),
@@ -498,9 +504,12 @@ function normalizeLocationPayload(item: SeedLocation): CreateLocationRequestDto 
 
     const imageFileIdRaw = item.image_file_id ?? item.imageFileId;
     const imageFileId = typeof imageFileIdRaw === "string" ? imageFileIdRaw.trim() : "";
+    const fileNameRaw = item.fileName ?? item.file_name;
+    const fileName = typeof fileNameRaw === "string" ? fileNameRaw.trim() : "";
 
     return {
         name,
+        fileName: fileName || null,
         rarity: normalizeRarity(item.rarity),
         imageFileId: imageFileId || null,
         initiativeElements: normalizeInitiativeElements(item.initiative_elements ?? item.initiativeElements),

@@ -11,6 +11,17 @@ type ImportJsonApiResponse = {
     message?: string;
 };
 
+type ImportImagesApiResponse = {
+    success: boolean;
+    uploaded: number;
+    updated: number;
+    skipped: number;
+    matched: number;
+    message?: string;
+    unmatchedFiles?: string[];
+    failedFiles?: Array<{ fileName: string; reason: string }>;
+};
+
 type UploadFileApiResponse = {
     success: boolean;
     file: { imageFileId: string; path: string; publicUrl: string | null } | null;
@@ -54,5 +65,12 @@ export class LocationsAdminService extends BaseCrudService {
 
     static uploadImage(formData: FormData) {
         return ApiClient.postFormData<UploadFileApiResponse>("/admin/uploads/locations", formData);
+    }
+
+    static importImages(formData: FormData) {
+        return ApiClient.postFormData<ImportImagesApiResponse>(
+            "/admin/locations/import-images",
+            formData,
+        );
     }
 }

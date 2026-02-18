@@ -68,6 +68,7 @@ function mapSupabaseLocationRow(row: SupabaseLocationRow): LocationDto {
     return {
         id: row.id,
         name: row.name,
+        fileName: row.file_name,
         rarity: row.rarity,
         imageFileId: row.image_file_id,
         imageUrl: resolvedImageUrl,
@@ -180,7 +181,7 @@ export async function listLocations(): Promise<LocationDto[]> {
 
     const { data, error } = await supabase
         .from(tableName)
-        .select("id,name,rarity,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
+        .select("id,name,file_name,rarity,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
         .order("created_at", { ascending: false })
         .returns<SupabaseLocationRow[]>();
 
@@ -212,13 +213,14 @@ export async function createLocation(payload: CreateLocationRequestDto): Promise
         .from(tableName)
         .insert({
             name: payload.name.trim(),
+            file_name: payload.fileName?.trim() || null,
             rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             initiative_elements: payload.initiativeElements,
             tribes: payload.tribes ?? [],
             abilities: normalizedAbilities,
         })
-        .select("id,name,rarity,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
+        .select("id,name,file_name,rarity,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
         .single<SupabaseLocationRow>();
 
     if (error) {
@@ -252,6 +254,7 @@ export async function updateLocationById(
         .from(tableName)
         .update({
             name: payload.name.trim(),
+            file_name: payload.fileName?.trim() || null,
             rarity: payload.rarity,
             image_file_id: payload.imageFileId?.trim() || null,
             initiative_elements: payload.initiativeElements,
@@ -259,7 +262,7 @@ export async function updateLocationById(
             abilities: normalizedAbilities,
         })
         .eq("id", locationId)
-        .select("id,name,rarity,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
+        .select("id,name,file_name,rarity,image_file_id,image_url,initiative_elements,tribes,abilities,created_at,updated_at")
         .single<SupabaseLocationRow>();
 
     if (error) {
@@ -291,6 +294,33 @@ export async function deleteLocationById(locationId: string): Promise<void> {
         if (isMissingTableError(supabaseError)) {
             throw new Error(
                 `Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de remover locais (veja supabase/schema.sql).`,
+            );
+        }
+
+        throw new Error(
+            `Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`,
+        );
+    }
+}
+
+export async function updateLocationImageFileById(
+    locationId: string,
+    imageFileId: string | null,
+): Promise<void> {
+    const supabase = getSupabaseAdminClient();
+    const tableName = getLocationsTableName();
+
+    const { error } = await supabase
+        .from(tableName)
+        .update({ image_file_id: imageFileId?.trim() || null })
+        .eq("id", locationId);
+
+    if (error) {
+        const supabaseError = error as SupabaseApiError;
+
+        if (isMissingTableError(supabaseError)) {
+            throw new Error(
+                `Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de atualizar imagens (veja supabase/schema.sql).`,
             );
         }
 
