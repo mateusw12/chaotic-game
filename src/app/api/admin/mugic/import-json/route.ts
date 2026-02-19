@@ -173,15 +173,15 @@ function normalizeStats(value: unknown): LocationStat[] {
         .filter((item): item is LocationStat => validStats.has(item));
 }
 
-function normalizeEffectType(value: unknown): LocationEffectType | undefined {
+function normalizeEffectType(value: unknown): LocationEffectType | null {
     if (typeof value !== "string") {
-        return undefined;
+        return null;
     }
 
     const normalized = value.trim().toLowerCase();
     return LOCATION_EFFECT_TYPES.includes(normalized as LocationEffectType)
         ? (normalized as LocationEffectType)
-        : undefined;
+        : null;
 }
 
 function normalizeTargetScope(value: unknown): MugicAbilityDto["targetScope"] {
@@ -217,13 +217,13 @@ function normalizeAbilityType(value: unknown): MugicAbilityDto["abilityType"] {
 
 function normalizeActionType(value: unknown): MugicAbilityDto["actionType"] {
     if (typeof value !== "string") {
-        return undefined;
+        return null;
     }
 
     const normalized = value.trim().toLowerCase();
     return MUGIC_ACTION_TYPES.includes(normalized as MugicActionType)
         ? (normalized as MugicActionType)
-        : undefined;
+        : null;
 }
 
 function inferLegacyActionType(effectType: string | undefined, battleRuleType: string | undefined): MugicActionType {
@@ -292,14 +292,13 @@ function normalizeAbilities(value: unknown): CreateMugicRequestDto["abilities"] 
             const normalizedStats = normalizeStats(ability.stats);
             const actionType = normalizeActionType(ability.action_type ?? ability.actionType);
 
-            const isLegacyBattleRulesFormat = Boolean(
-                legacyBattleRules
+            const isLegacyBattleRulesFormat =
+                legacyBattleRules !== null
                 && typeof ability.abilityType !== "string"
                 && typeof ability.actionType !== "string"
-                && typeof ability.action_type !== "string",
-            );
+                && typeof ability.action_type !== "string";
 
-            if (isLegacyBattleRulesFormat) {
+            if (isLegacyBattleRulesFormat && legacyBattleRules) {
                 const legacyBattleRuleType = typeof legacyBattleRules.type === "string"
                     ? legacyBattleRules.type.trim()
                     : undefined;
@@ -320,6 +319,9 @@ function normalizeAbilities(value: unknown): CreateMugicRequestDto["abilities"] 
                         legacyEffectType: rawEffectType ?? null,
                         legacyBattleRules,
                     },
+                    effectType: null,
+                    stats: [],
+                    value: 0
                 } satisfies CreateMugicRequestDto["abilities"][number];
             }
 
