@@ -13,9 +13,9 @@ import {
 import {
     getTournamentCoverImagePublicUrl,
     getSupabaseAdminClient,
-} from "./storage";
-import { getTournamentsTableName, isMissingTableError } from "./core";
-import type { SupabaseApiError, SupabaseTournamentRow } from "./types";
+} from "../storage";
+import { getTournamentsTableName, isMissingTableError } from "../core";
+import type { SupabaseApiError, SupabaseTournamentRow } from "../types";
 
 function isIsoDate(value: string): boolean {
     return !Number.isNaN(Date.parse(value));

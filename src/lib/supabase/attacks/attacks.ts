@@ -12,9 +12,9 @@ import {
 } from "@/dto/attack";
 import { isValidCardRarity } from "@/dto/creature";
 import type { LocationEffectType, LocationStat } from "@/dto/location";
-import { getAttackImagePublicUrl, getSupabaseAdminClient } from "./storage";
-import { getAttacksTableName, isMissingTableError } from "./core";
-import type { SupabaseApiError, SupabaseAttackRow } from "./types";
+import { getAttackImagePublicUrl, getSupabaseAdminClient } from "../storage";
+import { getAttacksTableName, isMissingTableError } from "../core";
+import type { SupabaseApiError, SupabaseAttackRow } from "../types";
 
 function isMissingFileNameColumnError(error: SupabaseApiError): boolean {
     const normalizedMessage = error.message.toLowerCase();

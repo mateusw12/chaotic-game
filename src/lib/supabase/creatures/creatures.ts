@@ -4,20 +4,20 @@ import {
     type CreatureDto,
     type UpdateCreatureRequestDto,
 } from "@/dto/creature";
-import { getCreatureImagePublicUrl, getSupabaseAdminClient } from "./storage";
+import { getCreatureImagePublicUrl, getSupabaseAdminClient } from "../storage";
 import {
     getCreaturesTableName,
     getAbilitiesTableName,
     isMissingTableError,
     isValidElement,
     isValidTribe,
-} from "./core";
-import { getAbilityById } from "./abilities";
+} from "../core";
+import { getAbilityById } from "../abilities";
 import type {
     SupabaseApiError,
     SupabaseAbilityRow,
     SupabaseCreatureRow,
-} from "./types";
+} from "../types";
 
 type BaseCreatureRow = Omit<
     SupabaseCreatureRow,

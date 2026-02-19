@@ -9,7 +9,7 @@ import {
     type UpdateLocationRequestDto,
 } from "@/dto/location";
 import { isValidCardRarity, type CreatureElement, type CreatureTribe } from "@/dto/creature";
-import { getLocationImagePublicUrl, getSupabaseAdminClient } from "./storage";
+import { getLocationImagePublicUrl, getSupabaseAdminClient } from "../storage";
 import {
     getLocationsTableName,
     isValidLocationBattleRuleType,
@@ -20,8 +20,8 @@ import {
     isValidLocationStat,
     isValidLocationTargetScope,
     isValidTribe,
-} from "./core";
-import type { SupabaseApiError, SupabaseLocationRow } from "./types";
+} from "../core";
+import type { SupabaseApiError, SupabaseLocationRow } from "../types";
 
 const DB_ALLOWED_INITIATIVE_ELEMENTS = new Set<CreatureElement>([
     "fire",

@@ -20,7 +20,7 @@ import {
     getUserProgressionTableName,
     getWalletsTableName,
     isMissingTableError,
-} from "./core";
+} from "../core";
 import {
     getAttackImagePublicUrl,
     getBattlegearImagePublicUrl,
@@ -28,13 +28,13 @@ import {
     getLocationImagePublicUrl,
     getMugicImagePublicUrl,
     getSupabaseAdminClient,
-} from "./storage";
+} from "../storage";
 import type {
     SupabaseApiError,
     SupabaseProgressionEventRow,
     SupabaseUserCardRow,
     SupabaseUserProgressionRow,
-} from "./types";
+} from "../types";
 
 const BATTLE_VICTORY_XP = 20;
 const DAILY_LOGIN_XP = 5;

@@ -5,16 +5,16 @@ import type {
     UserPermissionDto,
     UserRole,
 } from "@/dto/user";
-import { getSupabaseAdminClient } from "./storage";
+import { getSupabaseAdminClient } from "../storage";
 import {
     getUsersTableName,
     isMissingTableError,
-} from "./core";
+} from "../core";
 import type {
     SupabaseApiError,
     SupabasePermissionUserRow,
     SupabaseUserRow,
-} from "./types";
+} from "../types";
 
 function mapSupabaseUserRow(row: SupabaseUserRow): SavedUserDto {
     return {

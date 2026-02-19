@@ -9,7 +9,7 @@ import {
     type CreateAbilityRequestDto,
     type UpdateAbilityRequestDto,
 } from "@/dto/ability";
-import { getSupabaseAdminClient } from "./storage";
+import { getSupabaseAdminClient } from "../storage";
 import {
     getAbilitiesTableName,
     isValidAbilityActionType,
@@ -32,8 +32,8 @@ import {
     isValidAbilityTargetScope,
     isValidElement,
     isValidTribe,
-} from "./core";
-import type { SupabaseAbilityRow, SupabaseApiError } from "./types";
+} from "../core";
+import type { SupabaseAbilityRow, SupabaseApiError } from "../types";
 
 function mapSupabaseAbilityRow(row: SupabaseAbilityRow): AbilityDto {
     return {

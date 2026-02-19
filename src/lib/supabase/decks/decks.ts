@@ -17,7 +17,7 @@ import {
     getUserDeckCardsTableName,
     getUserDecksTableName,
     isMissingTableError,
-} from "./core";
+} from "../core";
 import {
     getAttackImagePublicUrl,
     getBattlegearImagePublicUrl,
@@ -25,14 +25,14 @@ import {
     getLocationImagePublicUrl,
     getMugicImagePublicUrl,
     getSupabaseAdminClient,
-} from "./storage";
+} from "../storage";
 import type {
     SupabaseApiError,
     SupabaseUserCardRow,
     SupabaseUserDeckCardRow,
     SupabaseUserDeckRow,
-} from "./types";
-import { getCardSellValue } from "./progression";
+} from "../types";
+import { getCardSellValue } from "../progression";
 
 const CARD_FALLBACK_IMAGE = "/assets/card/verso.png";
 

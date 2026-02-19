@@ -16,9 +16,9 @@ import {
 } from "@/dto/mugic";
 import { type CreatureTribe, isValidCardRarity } from "@/dto/creature";
 import type { LocationCardType, LocationEffectType, LocationStat } from "@/dto/location";
-import { getMugicImagePublicUrl, getSupabaseAdminClient } from "./storage";
-import { getMugicTableName, isMissingTableError, isValidTribe } from "./core";
-import type { SupabaseApiError, SupabaseMugicRow } from "./types";
+import { getMugicImagePublicUrl, getSupabaseAdminClient } from "../storage";
+import { getMugicTableName, isMissingTableError, isValidTribe } from "../core";
+import type { SupabaseApiError, SupabaseMugicRow } from "../types";
 
 function isMissingFileNameColumnError(error: SupabaseApiError): boolean {
     const normalizedMessage = error.message.toLowerCase();

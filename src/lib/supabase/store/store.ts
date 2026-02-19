@@ -18,7 +18,7 @@ import {
     getProgressionEventsTableName,
     getStorePacksTableName,
     getUserCardsTableName,
-} from "./core";
+} from "../core";
 import {
     getAttackImagePublicUrl,
     getBattlegearImagePublicUrl,
@@ -27,9 +27,9 @@ import {
     getMugicImagePublicUrl,
     getStorePackImagePublicUrl,
     getSupabaseAdminClient,
-} from "./storage";
-import { applyProgressionEvent, discardUserCardByReference, getCardSellValue, registerCardAward } from "./progression";
-import { ensureUserWalletInSupabase } from "./wallets";
+} from "../storage";
+import { applyProgressionEvent, discardUserCardByReference, getCardSellValue, registerCardAward } from "../progression";
+import { ensureUserWalletInSupabase } from "../wallets";
 import type { ProgressionEventSource, UserCardType, UserProgressionDto } from "@/dto/progression";
 
 const RARITY_ORDER: CardRarity[] = ["comum", "incomum", "rara", "super_rara", "ultra_rara"];

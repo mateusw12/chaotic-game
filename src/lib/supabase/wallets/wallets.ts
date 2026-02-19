@@ -1,15 +1,15 @@
 import { type AdminUserWalletDto, type UserDashboardDto, type UserWalletDto } from "@/dto/wallet";
 import type { UserRole } from "@/dto/user";
-import { getSupabaseAdminClient } from "./storage";
+import { getSupabaseAdminClient } from "../storage";
 import {
     getUserProgressionTableName,
     getUsersTableName,
     getWalletsTableName,
     isMissingTableError,
-} from "./core";
-import type { SupabaseApiError, SupabaseWalletRow } from "./types";
-import { ensureUserProgressionInSupabase } from "./progression";
-import { listUsersWithRoles } from "./users";
+} from "../core";
+import type { SupabaseApiError, SupabaseWalletRow } from "../types";
+import { ensureUserProgressionInSupabase } from "../progression";
+import { listUsersWithRoles } from "../users";
 
 function mapSupabaseWalletRow(row: SupabaseWalletRow): UserWalletDto {
     return {
