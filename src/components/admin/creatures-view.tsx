@@ -128,6 +128,23 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
         mutationFn: (formData: FormData) => CreaturesAdminService.importImages(formData),
     });
 
+    const syncImagesMutation = useMutation({
+        mutationFn: async () => {
+            const response = await fetch("/api/admin/creatures/sync-images", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Falha ao sincronizar imagens");
+            }
+
+            return response.json();
+        },
+    });
+
     async function onCreateCreature(values: CreatureFormValues) {
         const payload: CreateCreatureRequestDto = {
             name: values.name,
@@ -274,6 +291,55 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
         void onImportCreatureImages(files);
     }, [onImportCreatureImages]);
 
+    const onSyncCreatureImages = useCallback(async () => {
+        try {
+            const result = await syncImagesMutation.mutateAsync();
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.creatures });
+
+            if (result.success) {
+                const messageParts: string[] = [];
+
+                if (result.processed) {
+                    messageParts.push(`${result.processed} processadas`);
+                }
+                if (result.renamed && result.renamed > 0) {
+                    messageParts.push(`${result.renamed} renomeadas`);
+                }
+                if (result.updated && result.updated > 0) {
+                    messageParts.push(`${result.updated} UUIDs salvos`);
+                }
+                if (result.fileNameUpdated && result.fileNameUpdated > 0) {
+                    messageParts.push(`${result.fileNameUpdated} fileName sincronizados`);
+                }
+                if (result.totalImages) {
+                    messageParts.push(`${result.totalImages} imagens no storage`);
+                }
+
+                notification.success({
+                    message: "Sincronização concluída",
+                    description: messageParts.join(", "),
+                });
+
+                if (result.errors && result.errors.length > 0) {
+                    console.warn("Erros durante a sincronização:", result.errors);
+                    notification.warning({
+                        message: `${result.errors.length} erro(s) encontrado(s)`,
+                        description: "Verifique o console para mais detalhes.",
+                    });
+                }
+            } else {
+                notification.error({
+                    message: "Erro na sincronização",
+                    description: result.message ?? "Erro desconhecido",
+                });
+            }
+        } catch (error) {
+            notification.error({
+                message: error instanceof Error ? error.message : "Erro ao sincronizar imagens do storage.",
+            });
+        }
+    }, [syncImagesMutation, notification, queryClient]);
+
     const columns = useMemo<ColumnsType<CreatureDto>>(
         () => [
             {
@@ -385,6 +451,9 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             <Space orientation="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
                 <Card style={{ borderRadius: 16 }}>
                     <Space style={{ width: "100%", justifyContent: "space-between" }}>
+
+
+
                         <Space>
                             <BookOutlined />
                             <Title level={3} style={{ margin: 0 }}>
@@ -392,6 +461,17 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                             </Title>
                         </Space>
 
+
+                        <Space>
+
+                            <Button
+                                onClick={onSyncCreatureImages}
+                                icon={syncImagesMutation.isPending ? <LoadingLogo /> : undefined}
+                                disabled={syncImagesMutation.isPending}
+                            >
+                                Sincronizar imagens do storage
+                            </Button>
+                        </Space>
                         <Link href="/">
                             <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
                         </Link>
@@ -525,6 +605,9 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                                     showSearch
                                 />
                             </Form.Item>
+
+
+
 
                             <Form.Item label="Equipamentos (anotação temporária)" name="equipmentNote">
                                 <Input.TextArea rows={2} placeholder="Ex.: Em breve terá cadastro próprio" />
