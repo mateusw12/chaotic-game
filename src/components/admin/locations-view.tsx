@@ -287,6 +287,21 @@ export function LocationsView({ locations }: LocationsViewProps) {
     mutationFn: (formData: FormData) => LocationsAdminService.importImages(formData),
   });
 
+  const syncImagesMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch("/api/admin/locations/sync-images", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha ao sincronizar imagens");
+      }
+
+      return response.json();
+    },
+  });
+
   async function onSubmit(values: LocationFormValues) {
     try {
       const payload: CreateLocationRequestDto = {
@@ -572,6 +587,21 @@ export function LocationsView({ locations }: LocationsViewProps) {
                 disabled={importImagesMutation.isPending}
               >
                 Importar imagens em lote
+              </Button>
+              <Button
+                onClick={async () => {
+                  try {
+                    const result = await syncImagesMutation.mutateAsync();
+                    await queryClient.invalidateQueries({ queryKey: adminQueryKeys.locations });
+                    notification.success({ message: `Sincronização: ${result.processed} processadas, ${result.renamed} renomeadas` });
+                  } catch (err) {
+                    notification.error({ message: err instanceof Error ? err.message : "Erro ao sincronizar imagens" });
+                  }
+                }}
+                icon={syncImagesMutation.isPending ? <LoadingLogo /> : undefined}
+                disabled={syncImagesMutation.isPending}
+              >
+                Sincronizar imagens
               </Button>
               <Link href="/">
                 <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
