@@ -309,6 +309,7 @@ function normalizeAbilities(value: unknown): CreateBattleGearRequestDto["abiliti
 
 function normalizePayload(item: SeedBattleGear): CreateBattleGearRequestDto | null {
     const name = typeof item.name === "string" ? item.name.trim() : "";
+    const rawFileName = item.file_name ?? item.fileName;
 
     if (!name) {
         return null;
@@ -316,10 +317,7 @@ function normalizePayload(item: SeedBattleGear): CreateBattleGearRequestDto | nu
 
     return {
         name,
-        fileName:
-            typeof (item.file_name ?? item.fileName) === "string"
-                ? (item.file_name ?? item.fileName as string).trim() || null
-                : null,
+        fileName: typeof rawFileName === "string" ? rawFileName.trim() || null : null,
         rarity: normalizeRarity(item.rarity),
         imageFileId: null,
         allowedTribes: normalizeTribes(item.allowed_tribes ?? item.allowedTribes),
