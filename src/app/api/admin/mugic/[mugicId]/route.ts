@@ -65,6 +65,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 
         const mugic = await updateMugicById(mugicId, {
             name: body.name ?? "",
+            fileName: typeof body.fileName === "string" ? body.fileName : body.fileName ?? undefined,
             rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             tribes: Array.isArray(body.tribes) ? body.tribes : [],

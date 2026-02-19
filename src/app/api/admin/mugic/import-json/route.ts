@@ -33,17 +33,28 @@ type SeedMugicAbility = {
     abilityType?: unknown;
     description?: unknown;
     effectType?: unknown;
+    effect_type?: unknown;
     stats?: unknown;
+    stat?: unknown;
     cardTypes?: unknown;
+    card_types?: unknown;
     targetScope?: unknown;
+    target_scope?: unknown;
     targetTribes?: unknown;
+    target_tribes?: unknown;
     value?: unknown;
     actionType?: unknown;
+    action_type?: unknown;
     actionPayload?: unknown;
+    action_payload?: unknown;
+    battleRules?: unknown;
+    battle_rules?: unknown;
 };
 
 type SeedMugic = {
     name?: unknown;
+    file_name?: unknown;
+    fileName?: unknown;
     rarity?: unknown;
     image_file_id?: unknown;
     imageFileId?: unknown;
@@ -75,6 +86,32 @@ function parseJsonArray(value: unknown): unknown[] {
     }
 
     return [];
+}
+
+function parseJsonObject(value: unknown): Record<string, unknown> | null {
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+        return value as Record<string, unknown>;
+    }
+
+    if (typeof value === "string") {
+        const trimmed = value.trim();
+
+        if (!trimmed) {
+            return null;
+        }
+
+        try {
+            const parsed = JSON.parse(trimmed) as unknown;
+
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                return parsed as Record<string, unknown>;
+            }
+        } catch {
+            return null;
+        }
+    }
+
+    return null;
 }
 
 function normalizeRarity(value: unknown): CardRarity {
@@ -153,6 +190,15 @@ function normalizeTargetScope(value: unknown): MugicAbilityDto["targetScope"] {
     }
 
     const normalized = value.trim().toLowerCase();
+
+    if (["caster", "self"].includes(normalized)) {
+        return "self";
+    }
+
+    if (normalized.includes("target") || normalized.includes("enemy") || normalized.includes("opponent") || normalized.includes("engaged")) {
+        return "enemy";
+    }
+
     return MUGIC_TARGET_SCOPES.includes(normalized as MugicAbilityDto["targetScope"])
         ? (normalized as MugicAbilityDto["targetScope"])
         : "self";
@@ -180,6 +226,44 @@ function normalizeActionType(value: unknown): MugicAbilityDto["actionType"] {
         : undefined;
 }
 
+function inferLegacyActionType(effectType: string | undefined, battleRuleType: string | undefined): MugicActionType {
+    const byBattleRuleType: Record<string, MugicActionType> = {
+        reduce_stats: "modify_stats_map",
+        heal_caster: "heal_target",
+        heal_and_gain_mugic_counter_if_element: "heal_target",
+        copy_heal_or_energy_gain: "heal_target",
+        negate_mugic_unless_cost: "cancel_target_mugic",
+        relocate_own_creature: "return_target_card_to_hand",
+        reduce_attack_damage_per_element: "reduce_chosen_discipline",
+        gain_element_or_keyword: "grant_element_attack_bonus",
+        gain_keywords_with_elemental_bonus: "grant_element_attack_bonus",
+        deal_damage_with_elemental_bonus: "banish_mugic_card_from_discard_then_deal_damage",
+        deal_damage_per_element: "banish_mugic_card_from_discard_then_deal_damage",
+    };
+
+    if (battleRuleType && byBattleRuleType[battleRuleType]) {
+        return byBattleRuleType[battleRuleType];
+    }
+
+    if (effectType === "heal") {
+        return "heal_target";
+    }
+
+    if (effectType === "damage") {
+        return "banish_mugic_card_from_discard_then_deal_damage";
+    }
+
+    if (effectType === "negate" || effectType === "protection") {
+        return "cancel_target_mugic";
+    }
+
+    if (effectType === "gain") {
+        return "grant_mugic_counter";
+    }
+
+    return "cancel_target_activated_ability";
+}
+
 function normalizeAbilityValue(value: unknown): number {
     const parsed = typeof value === "number" ? value : Number(value ?? 0);
 
@@ -201,26 +285,61 @@ function normalizeAbilities(value: unknown): CreateMugicRequestDto["abilities"] 
                 return null;
             }
 
+            const legacyBattleRules = parseJsonObject(ability.battle_rules ?? ability.battleRules);
+            const rawEffectType = ability.effect_type ?? ability.effectType;
+            const normalizedEffectType = normalizeEffectType(rawEffectType);
             const abilityType = normalizeAbilityType(ability.abilityType);
             const normalizedStats = normalizeStats(ability.stats);
-            const effectType = normalizeEffectType(ability.effectType);
-            const actionType = normalizeActionType(ability.actionType);
+            const actionType = normalizeActionType(ability.action_type ?? ability.actionType);
+
+            const isLegacyBattleRulesFormat = Boolean(
+                legacyBattleRules
+                && typeof ability.abilityType !== "string"
+                && typeof ability.actionType !== "string"
+                && typeof ability.action_type !== "string",
+            );
+
+            if (isLegacyBattleRulesFormat) {
+                const legacyBattleRuleType = typeof legacyBattleRules.type === "string"
+                    ? legacyBattleRules.type.trim()
+                    : undefined;
+
+                const inferredActionType = inferLegacyActionType(
+                    typeof rawEffectType === "string" ? rawEffectType.trim().toLowerCase() : undefined,
+                    legacyBattleRuleType,
+                );
+
+                return {
+                    abilityType: "action",
+                    description,
+                    cardTypes: normalizeCardTypes(ability.card_types ?? ability.cardTypes ?? ["creature"]),
+                    targetScope: normalizeTargetScope(ability.target_scope ?? ability.targetScope),
+                    targetTribes: normalizeTribes(ability.target_tribes ?? ability.targetTribes),
+                    actionType: inferredActionType,
+                    actionPayload: {
+                        legacyEffectType: rawEffectType ?? null,
+                        legacyBattleRules,
+                    },
+                } satisfies CreateMugicRequestDto["abilities"][number];
+            }
 
             const baseAbility: CreateMugicRequestDto["abilities"][number] = {
                 abilityType,
                 description,
-                effectType,
-                stats: normalizedStats,
-                cardTypes: normalizeCardTypes(ability.cardTypes),
-                targetScope: normalizeTargetScope(ability.targetScope),
-                targetTribes: normalizeTribes(ability.targetTribes),
+                effectType: normalizedEffectType,
+                stats: normalizedStats.length > 0
+                    ? normalizedStats
+                    : normalizeStats(ability.stat !== undefined ? [ability.stat] : []),
+                cardTypes: normalizeCardTypes(ability.card_types ?? ability.cardTypes),
+                targetScope: normalizeTargetScope(ability.target_scope ?? ability.targetScope),
+                targetTribes: normalizeTribes(ability.target_tribes ?? ability.targetTribes),
                 value: normalizeAbilityValue(ability.value),
                 actionType,
                 actionPayload:
-                    ability.actionPayload
-                        && typeof ability.actionPayload === "object"
-                        && !Array.isArray(ability.actionPayload)
-                        ? (ability.actionPayload as Record<string, unknown>)
+                    (ability.action_payload ?? ability.actionPayload)
+                        && typeof (ability.action_payload ?? ability.actionPayload) === "object"
+                        && !Array.isArray(ability.action_payload ?? ability.actionPayload)
+                        ? ((ability.action_payload ?? ability.actionPayload) as Record<string, unknown>)
                         : null,
             };
 
@@ -248,9 +367,12 @@ function normalizePayload(item: SeedMugic): CreateMugicRequestDto | null {
 
     const imageFileIdRaw = item.image_file_id ?? item.imageFileId;
     const imageFileId = typeof imageFileIdRaw === "string" ? imageFileIdRaw.trim() : "";
+    const fileNameRaw = item.file_name ?? item.fileName;
+    const fileName = typeof fileNameRaw === "string" ? fileNameRaw.trim() : "";
 
     return {
         name,
+        fileName: fileName || null,
         rarity: normalizeRarity(item.rarity),
         imageFileId: imageFileId || null,
         tribes: normalizeTribes(item.tribes),

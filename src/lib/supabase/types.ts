@@ -10,6 +10,7 @@ import type { CardRarity, CreatureElement, CreatureTribe } from "@/dto/creature"
 import type { LocationAbilityDto, LocationInitiativeElement } from "@/dto/location";
 import type { BattleGearAbilityDto } from "@/dto/battlegear";
 import type { AttackAbilityDto, AttackElementValueDto } from "@/dto/attack";
+import type { MugicAbilityDto } from "@/dto/mugic";
 import type { ProgressionEventSource, UserCardType } from "@/dto/progression";
 import type { TournamentFormat, TournamentLocationMode, TournamentScheduleType } from "@/dto/tournament";
 
@@ -119,12 +120,13 @@ export type SupabaseBattleGearRow = {
 export type SupabaseMugicRow = {
     id: string;
     name: string;
+    file_name?: string | null;
     rarity: CardRarity;
     image_file_id: string | null;
     image_url: string | null;
     tribes: CreatureTribe[];
     cost: number;
-    abilities: unknown[];
+    abilities: MugicAbilityDto[];
     created_at: string;
     updated_at: string;
 };

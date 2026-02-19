@@ -129,19 +129,20 @@ export const MUGIC_CARD_TYPE_OPTIONS: Array<{
 export type MugicAbilityDto = {
     abilityType: MugicAbilityType;
     description: string;
-    effectType?: LocationEffectType;
-    stats?: LocationStat[];
+    effectType: LocationEffectType | null;
+    stats: LocationStat[];
     cardTypes: LocationCardType[];
     targetScope: MugicTargetScope;
     targetTribes: CreatureTribe[];
-    value?: number;
-    actionType?: MugicActionType;
-    actionPayload?: MugicStatusEffectActionPayload | Record<string, unknown> | null;
+    value: number;
+    actionType: MugicActionType | null;
+    actionPayload: MugicStatusEffectActionPayload | Record<string, unknown> | null;
 };
 
 export type MugicDto = {
     id: string;
     name: string;
+    fileName: string | null;
     rarity: CardRarity;
     imageFileId: string | null;
     imageUrl: string | null;
@@ -154,6 +155,7 @@ export type MugicDto = {
 
 export type CreateMugicRequestDto = {
     name: string;
+    fileName?: string | null;
     rarity: CardRarity;
     imageFileId?: string | null;
     tribes?: CreatureTribe[];

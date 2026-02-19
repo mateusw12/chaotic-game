@@ -94,6 +94,7 @@ export async function POST(request: Request) {
 
         const mugic = await createMugic({
             name: body.name ?? "",
+            fileName: typeof body.fileName === "string" ? body.fileName : body.fileName ?? undefined,
             rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             tribes: Array.isArray(body.tribes) ? body.tribes : [],

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
@@ -76,6 +76,7 @@ export function MugicView({ mugics }: MugicViewProps) {
     const [form] = Form.useForm<MugicFormValues>();
     const [editingId, setEditingId] = useState<string | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
+    const batchImageInputRef = useRef<HTMLInputElement | null>(null);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
@@ -93,6 +94,10 @@ export function MugicView({ mugics }: MugicViewProps) {
 
     const importMutation = useMutation({
         mutationFn: () => MugicAdminService.importFromJson(),
+    });
+
+    const importImagesMutation = useMutation({
+        mutationFn: (formData: FormData) => MugicAdminService.importImages(formData),
     });
 
     const deleteMutation = useMutation({
@@ -246,6 +251,46 @@ export function MugicView({ mugics }: MugicViewProps) {
         }
     }, [importMutation, notification, queryClient]);
 
+    const onImportMugicImages = useCallback(async (files: File[]) => {
+        if (files.length === 0) {
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            files.forEach((file) => formData.append("files", file));
+
+            const result = await importImagesMutation.mutateAsync(formData);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.mugic });
+
+            const extraInfo = [
+                result.unmatchedFiles && result.unmatchedFiles.length > 0
+                    ? `Sem match: ${result.unmatchedFiles.length}`
+                    : null,
+                result.failedFiles && result.failedFiles.length > 0
+                    ? `Falhas: ${result.failedFiles.length}`
+                    : null,
+            ].filter(Boolean).join(" | ");
+
+            notification.success({
+                message: `${result.updated} mugic(s) atualizado(s), ${result.uploaded} upload(s), ${result.skipped} ignorado(s).${extraInfo ? ` ${extraInfo}` : ""}`,
+            });
+        } catch (error) {
+            notification.error({
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Erro ao importar imagens de mugics.",
+            });
+        }
+    }, [importImagesMutation, notification, queryClient]);
+
+    const onBatchImageInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files ?? []);
+        event.currentTarget.value = "";
+        void onImportMugicImages(files);
+    }, [onImportMugicImages]);
+
     const columns = useMemo<ColumnsType<MugicDto>>(
         () => [
             {
@@ -382,6 +427,21 @@ export function MugicView({ mugics }: MugicViewProps) {
                         <Space>
                             <Button onClick={() => void onImportMugicFromJson()} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar mugic.json
+                            </Button>
+                            <input
+                                ref={batchImageInputRef}
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                style={{ display: "none" }}
+                                onChange={onBatchImageInputChange}
+                            />
+                            <Button
+                                onClick={() => batchImageInputRef.current?.click()}
+                                icon={importImagesMutation.isPending ? <LoadingLogo /> : undefined}
+                                disabled={importImagesMutation.isPending}
+                            >
+                                Importar imagens em lote
                             </Button>
                             <Link href="/">
                                 <Button icon={<ArrowLeftOutlined />}>Voltar</Button>

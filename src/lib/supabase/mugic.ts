@@ -1,4 +1,5 @@
 import {
+    type MugicAbilityDto,
     type MugicAbilityType,
     type MugicActionType,
     type MugicStatusEffectActionPayload,
@@ -19,18 +20,23 @@ import { getMugicImagePublicUrl, getSupabaseAdminClient } from "./storage";
 import { getMugicTableName, isMissingTableError, isValidTribe } from "./core";
 import type { SupabaseApiError, SupabaseMugicRow } from "./types";
 
-type LegacyMugicAbility = {
+function isMissingFileNameColumnError(error: SupabaseApiError): boolean {
+    const normalizedMessage = error.message.toLowerCase();
+
+    return (
+        (error.code === "42703" || error.code === "PGRST204")
+        && (normalizedMessage.includes("file_name") || normalizedMessage.includes("'file_name'"))
+    );
+}
+
+type RawMugicAbility = Partial<MugicAbilityDto> & {
     abilityType?: MugicAbilityType;
-    description: string;
-    effectType?: LocationEffectType;
-    value?: number;
+    actionType?: MugicActionType | null;
+    effectType?: LocationEffectType | null;
     targetScope?: MugicTargetScope;
     stats?: LocationStat[];
-    stat?: LocationStat;
     cardTypes?: LocationCardType[];
     targetTribes?: CreatureTribe[];
-    actionType?: MugicActionType;
-    actionPayload?: Record<string, unknown> | null;
 };
 
 function isValidStatusEffectActionPayload(payload: unknown): payload is MugicStatusEffectActionPayload {
@@ -67,25 +73,23 @@ function isValidStatusEffectActionPayload(payload: unknown): payload is MugicSta
     return true;
 }
 
-function normalizeAbilities(abilities: LegacyMugicAbility[]): CreateMugicRequestDto["abilities"] {
+function normalizeAbilities(abilities: Array<RawMugicAbility | MugicAbilityDto>): MugicAbilityDto[] {
     return abilities.map((ability) => {
-        const abilityType = ability.abilityType ?? "stat_modifier";
+        const abilityType = ability.abilityType ?? "action";
+        const actionType = abilityType === "action" ? (ability.actionType ?? null) : null;
+        const actionPayload = abilityType === "action" ? (ability.actionPayload ?? null) : null;
 
         return {
             abilityType,
-            description: ability.description,
-            effectType: ability.effectType,
-            stats: Array.isArray(ability.stats)
-                ? ability.stats
-                : ability.stat
-                    ? [ability.stat]
-                    : [],
+            description: ability.description ?? "",
+            effectType: ability.effectType ?? null,
+            stats: Array.isArray(ability.stats) ? ability.stats : [],
             cardTypes: Array.isArray(ability.cardTypes) ? ability.cardTypes : [],
             targetScope: ability.targetScope ?? "self",
             targetTribes: Array.isArray(ability.targetTribes) ? ability.targetTribes : [],
-            value: ability.value,
-            actionType: ability.actionType,
-            actionPayload: ability.actionPayload ?? null,
+            value: typeof ability.value === "number" ? ability.value : 0,
+            actionType,
+            actionPayload,
         };
     });
 }
@@ -94,12 +98,13 @@ function mapRow(row: SupabaseMugicRow): MugicDto {
     return {
         id: row.id,
         name: row.name,
+        fileName: row.file_name ?? null,
         rarity: row.rarity,
         imageFileId: row.image_file_id,
         imageUrl: row.image_file_id ? getMugicImagePublicUrl(row.image_file_id) : row.image_url,
         tribes: row.tribes,
         cost: row.cost,
-        abilities: normalizeAbilities(row.abilities as unknown as LegacyMugicAbility[]),
+        abilities: normalizeAbilities(row.abilities as RawMugicAbility[]),
         createdAt: row.created_at,
         updatedAt: row.updated_at,
     };
@@ -206,14 +211,36 @@ export async function listMugics(): Promise<MugicDto[]> {
     const supabase = getSupabaseAdminClient();
     const tableName = getMugicTableName();
 
+    const withFileNameSelect = "id,name,file_name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at";
+    const fallbackSelect = "id,name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at";
+
     const { data, error } = await supabase
         .from(tableName)
-        .select("id,name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at")
+        .select(withFileNameSelect)
         .order("created_at", { ascending: false })
         .returns<SupabaseMugicRow[]>();
 
     if (error) {
         const supabaseError = error as SupabaseApiError;
+
+        if (isMissingFileNameColumnError(supabaseError)) {
+            const fallback = await supabase
+                .from(tableName)
+                .select(fallbackSelect)
+                .order("created_at", { ascending: false })
+                .returns<SupabaseMugicRow[]>();
+
+            if (fallback.error) {
+                const fallbackError = fallback.error as SupabaseApiError;
+                if (isMissingTableError(fallbackError)) {
+                    throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de cadastrar mugics (veja supabase/schema.sql).`);
+                }
+                throw new Error(`Erro Supabase [${fallbackError.code ?? "UNKNOWN"}]: ${fallbackError.message}`);
+            }
+
+            return (fallback.data ?? []).map(mapRow);
+        }
+
         if (isMissingTableError(supabaseError)) {
             throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de cadastrar mugics (veja supabase/schema.sql).`);
         }
@@ -234,21 +261,48 @@ export async function createMugic(payload: CreateMugicRequestDto): Promise<Mugic
     const supabase = getSupabaseAdminClient();
     const tableName = getMugicTableName();
 
+    const insertPayload = {
+        name: normalizedPayload.name.trim(),
+        file_name: normalizedPayload.fileName?.trim() || null,
+        rarity: normalizedPayload.rarity,
+        image_file_id: normalizedPayload.imageFileId?.trim() || null,
+        tribes: normalizedPayload.tribes,
+        cost: Number(normalizedPayload.cost),
+        abilities: normalizeAbilities(normalizedPayload.abilities),
+    };
+
+    const withFileNameSelect = "id,name,file_name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at";
+    const fallbackSelect = "id,name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at";
+
     const { data, error } = await supabase
         .from(tableName)
-        .insert({
-            name: normalizedPayload.name.trim(),
-            rarity: normalizedPayload.rarity,
-            image_file_id: normalizedPayload.imageFileId?.trim() || null,
-            tribes: normalizedPayload.tribes,
-            cost: Number(normalizedPayload.cost),
-            abilities: normalizeAbilities(normalizedPayload.abilities as LegacyMugicAbility[]),
-        })
-        .select("id,name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at")
+        .insert(insertPayload)
+        .select(withFileNameSelect)
         .single<SupabaseMugicRow>();
 
     if (error) {
         const supabaseError = error as SupabaseApiError;
+
+        if (isMissingFileNameColumnError(supabaseError)) {
+            const { file_name: _ignored, ...fallbackInsertPayload } = insertPayload;
+
+            const fallback = await supabase
+                .from(tableName)
+                .insert(fallbackInsertPayload)
+                .select(fallbackSelect)
+                .single<SupabaseMugicRow>();
+
+            if (fallback.error) {
+                const fallbackError = fallback.error as SupabaseApiError;
+                if (isMissingTableError(fallbackError)) {
+                    throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de cadastrar mugics (veja supabase/schema.sql).`);
+                }
+                throw new Error(`Erro Supabase [${fallbackError.code ?? "UNKNOWN"}]: ${fallbackError.message}`);
+            }
+
+            return mapRow(fallback.data);
+        }
+
         if (isMissingTableError(supabaseError)) {
             throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de cadastrar mugics (veja supabase/schema.sql).`);
         }
@@ -269,22 +323,52 @@ export async function updateMugicById(mugicId: string, payload: UpdateMugicReque
     const supabase = getSupabaseAdminClient();
     const tableName = getMugicTableName();
 
+    const fileName = normalizedPayload.fileName;
+    const updatePayload = {
+        name: normalizedPayload.name.trim(),
+        ...(fileName !== undefined ? { file_name: fileName?.trim() || null } : {}),
+        rarity: normalizedPayload.rarity,
+        image_file_id: normalizedPayload.imageFileId?.trim() || null,
+        tribes: normalizedPayload.tribes,
+        cost: Number(normalizedPayload.cost),
+        abilities: normalizeAbilities(normalizedPayload.abilities),
+    };
+
+    const withFileNameSelect = "id,name,file_name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at";
+    const fallbackSelect = "id,name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at";
+
     const { data, error } = await supabase
         .from(tableName)
-        .update({
-            name: normalizedPayload.name.trim(),
-            rarity: normalizedPayload.rarity,
-            image_file_id: normalizedPayload.imageFileId?.trim() || null,
-            tribes: normalizedPayload.tribes,
-            cost: Number(normalizedPayload.cost),
-            abilities: normalizeAbilities(normalizedPayload.abilities as LegacyMugicAbility[]),
-        })
+        .update(updatePayload)
         .eq("id", mugicId)
-        .select("id,name,rarity,image_file_id,image_url,tribes,cost,abilities,created_at,updated_at")
+        .select(withFileNameSelect)
         .single<SupabaseMugicRow>();
 
     if (error) {
         const supabaseError = error as SupabaseApiError;
+
+        if (isMissingFileNameColumnError(supabaseError)) {
+            const fallbackUpdatePayload = { ...updatePayload } as Record<string, unknown>;
+            delete fallbackUpdatePayload.file_name;
+
+            const fallback = await supabase
+                .from(tableName)
+                .update(fallbackUpdatePayload)
+                .eq("id", mugicId)
+                .select(fallbackSelect)
+                .single<SupabaseMugicRow>();
+
+            if (fallback.error) {
+                const fallbackError = fallback.error as SupabaseApiError;
+                if (isMissingTableError(fallbackError)) {
+                    throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de editar mugics (veja supabase/schema.sql).`);
+                }
+                throw new Error(`Erro Supabase [${fallbackError.code ?? "UNKNOWN"}]: ${fallbackError.message}`);
+            }
+
+            return mapRow(fallback.data);
+        }
+
         if (isMissingTableError(supabaseError)) {
             throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de editar mugics (veja supabase/schema.sql).`);
         }
@@ -304,6 +388,27 @@ export async function deleteMugicById(mugicId: string): Promise<void> {
         const supabaseError = error as SupabaseApiError;
         if (isMissingTableError(supabaseError)) {
             throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de remover mugics (veja supabase/schema.sql).`);
+        }
+        throw new Error(`Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`);
+    }
+}
+
+export async function updateMugicImageFileById(
+    mugicId: string,
+    imageFileId: string | null,
+): Promise<void> {
+    const supabase = getSupabaseAdminClient();
+    const tableName = getMugicTableName();
+
+    const { error } = await supabase
+        .from(tableName)
+        .update({ image_file_id: imageFileId?.trim() || null })
+        .eq("id", mugicId);
+
+    if (error) {
+        const supabaseError = error as SupabaseApiError;
+        if (isMissingTableError(supabaseError)) {
+            throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de atualizar imagens (veja supabase/schema.sql).`);
         }
         throw new Error(`Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`);
     }

@@ -1,606 +1,922 @@
 [
     {
-        "id": "1820dacb-cd1b-4c12-a381-b7dddb77403d",
-        "name": "Surpresa Riffs",
-        "rarity": "comum",
-        "image_file_id": "mugic/2026/f52b006a-d4a4-4c1a-b310-5299f7132b23-173.png",
+        "id": "52b360c5-ca7f-4c31-a6b4-4cbf0fd2f3db",
+        "file_name": "164.png",
+        "name": "Diminuendo",
+        "image_file_id": null,
         "image_url": null,
-        "tribes": [],
         "cost": 1,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Vire de cabeça para baixo (flip) um Equipamento de Batalha alvo",
+                "description": "Criatura alvo perde 5 de Energia e 5 em todas as Disciplinas.",
                 "effectType": null,
                 "stats": [],
                 "cardTypes": [
-                    "equipment"
+                    "creature"
                 ],
                 "targetScope": "enemy",
                 "value": 0,
-                "actionType": "flip_target_battlegear",
-                "actionPayload": null,
+                "actionType": "modify_stats_map",
+                "actionPayload": {
+                    "legacyEffectType": "stat_modifier",
+                    "legacyBattleRules": {
+                        "type": "reduce_stats",
+                        "notes": "Reduz a Energia e todas as Disciplinas do alvo.",
+                        "payload": {
+                            "energy_amount": -5,
+                            "discipline_amount": -5
+                        }
+                    }
+                },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-14 17:34:12.054312+00",
-        "updated_at": "2026-02-14 17:34:12.054312+00"
+        "created_at": "2026-02-16T14:00:00.000000Z",
+        "updated_at": "2026-02-16T14:00:00.000000Z",
+        "tribe": "generic",
+        "rarity": "comum"
     },
     {
-        "id": "227e03dd-bf58-428d-bb15-5e63f6208401",
-        "name": "Destruição Tonal",
-        "rarity": "comum",
+        "id": "0128cbed-f41f-4a2e-a79c-e8c34f377ab2",
+        "file_name": "165.png",
+        "name": "Discordância das Chamas",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [],
-        "cost": 0,
+        "cost": 1,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Seu oponente revela X cartas de Mugic da mão dele(a) e você escolhe uma delas. Seu oponente descarta a carta escolhida.",
+                "description": "Criatura alvo ganha Fogo. Se essa Criatura já tiver Fogo, ela ganha 'Fogo 5' em vez disso.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
+                "cardTypes": [
+                    "creature"
+                ],
                 "targetScope": "enemy",
                 "value": 0,
-                "actionType": "discard_opponent_mugic_from_hand",
+                "actionType": "grant_element_attack_bonus",
                 "actionPayload": {
-                    "revealCount": "X",
-                    "chooseCount": 1,
-                    "sourceZone": "hand",
-                    "cardType": "mugic"
-                },
-                "targetTribes": []
-            }
-        ],
-        "created_at": "2026-02-15T18:15:37.081Z",
-        "updated_at": "2026-02-15T18:15:37.084Z"
-    },
-    {
-        "id": "2b8cc558-556a-4042-bc29-e5d302c22325",
-        "name": "Dissonância de Vontade",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "tribes": [
-            "overworld"
-        ],
-        "cost": 1,
-        "abilities": [
-            {
-                "abilityType": "action",
-                "description": "Negue a habilidade ativada de uma Criatura alvo. (Habilidades ativadas são aquelas com um custo).",
-                "effectType": null,
-                "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
-                "value": 0,
-                "actionType": "cancel_target_activated_ability",
-                "actionPayload": {
-                    "targetType": "creature",
-                    "requireActivatedAbility": true
-                },
-                "targetTribes": []
-            }
-        ],
-        "created_at": "2026-02-15T18:15:37.084Z",
-        "updated_at": "2026-02-15T18:15:37.084Z"
-    },
-    {
-        "id": "4023a82e-bb21-4aff-8ea0-260920f331ae",
-        "name": "Fanfarra Extasiante",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "tribes": [
-            "overworld"
-        ],
-        "cost": 1,
-        "abilities": [
-            {
-                "abilityType": "action",
-                "description": "Criatura alvo ganha 20 de Sabedoria, 15 de Coragem, 10 de Velocidade e 5 de Poder.",
-                "effectType": null,
-                "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
-                "value": 0,
-                "actionType": "modify_stats_map",
-                "actionPayload": {
-                    "effectType": "increase",
-                    "valuesByStat": {
-                        "wisdom": 20,
-                        "courage": 15,
-                        "speed": 10,
-                        "power": 5
+                    "legacyEffectType": "gain",
+                    "legacyBattleRules": {
+                        "type": "gain_element_or_keyword",
+                        "notes": "Alvo ganha Fogo ou Fogo 5 se já tiver Fogo.",
+                        "payload": {
+                            "element": "fire",
+                            "keyword": "fire",
+                            "amount": 5
+                        }
                     }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.084Z",
-        "updated_at": "2026-02-15T18:15:37.084Z"
+        "created_at": "2026-02-16T14:00:01.000000Z",
+        "updated_at": "2026-02-16T14:00:01.000000Z",
+        "tribe": "generic",
+        "rarity": "comum"
     },
     {
-        "id": "52f7fa57-52bc-42a6-886a-badc050033f7",
-        "name": "Serenata de Empoderamento",
-        "rarity": "comum",
+        "id": "22ac235c-5162-4ad5-bd68-eff3db3f5135",
+        "file_name": "166.png",
+        "name": "Harmônicos da Água",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [
-            "overworld"
-        ],
         "cost": 1,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Criatura alvo ganha 10 de Energia e 10 de Sabedoria.",
+                "description": "Criatura alvo ganha Água. Se essa Criatura já tiver Água, ela ganha 'Água 5' em vez disso.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
                 "value": 0,
-                "actionType": "modify_stats_map",
+                "actionType": "grant_element_attack_bonus",
                 "actionPayload": {
-                    "effectType": "increase",
-                    "valuesByStat": {
-                        "energy": 10,
-                        "wisdom": 10
+                    "legacyEffectType": "gain",
+                    "legacyBattleRules": {
+                        "type": "gain_element_or_keyword",
+                        "notes": "Alvo ganha Água ou Água 5 se já tiver Água.",
+                        "payload": {
+                            "element": "water",
+                            "keyword": "water",
+                            "amount": 5
+                        }
                     }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.084Z",
-        "updated_at": "2026-02-15T18:15:37.084Z"
+        "created_at": "2026-02-16T14:00:02.000000Z",
+        "updated_at": "2026-02-16T14:00:02.000000Z",
+        "tribe": "generic",
+        "rarity": "comum"
     },
     {
-        "id": "f2a1fbdc-e8b4-48e3-b66b-782473b7ce67",
-        "name": "Melodia dos Milagres",
-        "rarity": "comum",
+        "id": "52b499a0-39f7-44a5-a073-ab21f17e6136",
+        "file_name": "167.png",
+        "name": "Uivo do Vento",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [
-            "overworld"
-        ],
-        "cost": 2,
+        "cost": 1,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Cure 15 de dano da Criatura alvo. Se sua Criatura engajada venceu um Desafio de Sabedoria neste turno, o custo de Melodia dos Milagres é 1.",
+                "description": "Criatura alvo ganha Ar. Se essa Criatura já tiver Ar, ela ganha 'Ar 5' em vez disso.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "grant_element_attack_bonus",
+                "actionPayload": {
+                    "legacyEffectType": "gain",
+                    "legacyBattleRules": {
+                        "type": "gain_element_or_keyword",
+                        "notes": "Alvo ganha Ar ou Ar 5 se já tiver Ar.",
+                        "payload": {
+                            "element": "air",
+                            "keyword": "air",
+                            "amount": 5
+                        }
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:03.000000Z",
+        "updated_at": "2026-02-16T14:00:03.000000Z",
+        "tribe": "generic",
+        "rarity": "comum"
+    },
+    {
+        "id": "8c4bee83-bcd5-49e6-9455-df31ee97798d",
+        "file_name": "168.png",
+        "name": "Canção de Batalha Enxameante",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Se o conjurador estiver engajado, a Criatura engajada oponente e o conjurador ganham Energia igual à menor Disciplina de cada um.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "grant_mugic_counter",
+                "actionPayload": {
+                    "legacyEffectType": "gain",
+                    "legacyBattleRules": {
+                        "type": "gain_energy_equal_to_lowest_discipline",
+                        "notes": "Conjurador e oponente engajado ganham energia igual à sua menor disciplina.",
+                        "payload": {}
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:04.000000Z",
+        "updated_at": "2026-02-16T14:00:04.000000Z",
+        "tribe": "danian",
+        "rarity": "rara"
+    },
+    {
+        "id": "c84199ed-ad80-48cf-a9ee-cefdc9f6b34c",
+        "file_name": "169.png",
+        "name": "Canção de Batalha da Renovação",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "O conjurador cura 25 de dano.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
                 "targetScope": "self",
                 "value": 0,
                 "actionType": "heal_target",
                 "actionPayload": {
-                    "healAmount": 15,
-                    "conditionalCostReduction": {
-                        "reducedCost": 1,
-                        "condition": "won_wisdom_challenge_this_turn"
+                    "legacyEffectType": "heal",
+                    "legacyBattleRules": {
+                        "type": "heal_caster",
+                        "notes": "Cura 25 de dano no conjurador.",
+                        "payload": {
+                            "amount": 25
+                        }
                     }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.084Z",
-        "updated_at": "2026-02-15T18:15:37.084Z"
+        "created_at": "2026-02-16T14:00:05.000000Z",
+        "updated_at": "2026-02-16T14:00:05.000000Z",
+        "tribe": "generic",
+        "rarity": "rara"
     },
     {
-        "id": "8169fec5-6667-4714-9d04-707ec228d0d3",
-        "name": "Obra Ímpar",
-        "rarity": "comum",
+        "id": "eae160e7-6d80-4f53-a431-bc4ac56acf00",
+        "file_name": "170.png",
+        "name": "Fuga Fluida",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [
-            "overworld"
-        ],
-        "cost": 2,
+        "cost": 1,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Criatura alvo ganha 15 de Energia e 15 em todas as Disciplinas.",
+                "description": "Cure 25 de dano da Criatura alvo. Se o conjurador deste Mugic tiver Água, essa Criatura ganha um contador de Mugic.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
                 "value": 0,
-                "actionType": "modify_stats_map",
+                "actionType": "heal_target",
                 "actionPayload": {
-                    "effectType": "increase",
-                    "valuesByStat": {
-                        "energy": 15,
-                        "power": 15,
-                        "courage": 15,
-                        "speed": 15,
-                        "wisdom": 15,
-                        "mugic": 15
+                    "legacyEffectType": "heal",
+                    "legacyBattleRules": {
+                        "type": "heal_and_gain_mugic_counter_if_element",
+                        "notes": "Cura 25 e dá um contador de Mugic se o conjurador tiver Água.",
+                        "payload": {
+                            "amount": 25,
+                            "element": "water"
+                        }
                     }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.084Z",
-        "updated_at": "2026-02-15T18:15:37.084Z"
+        "created_at": "2026-02-16T14:00:06.000000Z",
+        "updated_at": "2026-02-16T14:00:06.000000Z",
+        "tribe": "overworld",
+        "rarity": "rara"
     },
     {
-        "id": "70a702e1-39c9-4fa7-bb4d-1d70b5328a00",
-        "name": "Fluidmorpher's Fanfare",
-        "rarity": "super_rara",
+        "id": "01fabf05-fe16-4c59-9dcc-a2ec5e29b616",
+        "file_name": "171.png",
+        "name": "Interlúdio da Interrupção",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [],
-        "cost": 2,
+        "cost": 1,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Criatura alvo ganha um contador de Mugic e 'Elemento Água 5'.",
+                "description": "Negue o Mugic alvo, a menos que a Criatura conjuradora desse Mugic pague um contador de Mugic adicional.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "cancel_target_mugic",
+                "actionPayload": {
+                    "legacyEffectType": "negate",
+                    "legacyBattleRules": {
+                        "type": "negate_mugic_unless_cost",
+                        "notes": "Nega uma Mugic a menos que o conjurador pague um custo adicional.",
+                        "payload": {
+                            "additional_cost": 1
+                        }
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:07.000000Z",
+        "updated_at": "2026-02-16T14:00:07.000000Z",
+        "tribe": "overworld",
+        "rarity": "super_rara"
+    },
+    {
+        "id": "16358907-80f2-4395-bbe5-c28128e88313",
+        "file_name": "172.png",
+        "name": "Vínculo de Sintonia Elemental",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo ganha todos os seus Tipos Elementais Escaneados.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
                 "value": 0,
                 "actionType": "grant_mugic_counter",
                 "actionPayload": {
-                    "amount": 1,
-                    "extraEffect": {
-                        "type": "grant_element_attack_bonus",
-                        "element": "water",
-                        "value": 5
+                    "legacyEffectType": "gain",
+                    "legacyBattleRules": {
+                        "type": "regain_scanned_elements",
+                        "notes": "O alvo recupera todos os seus tipos elementais escaneados.",
+                        "payload": {}
                     }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.084Z",
-        "updated_at": "2026-02-15T18:15:37.084Z"
+        "created_at": "2026-02-16T14:00:08.000000Z",
+        "updated_at": "2026-02-16T14:00:08.000000Z",
+        "tribe": "generic",
+        "rarity": "rara"
     },
     {
-        "id": "0b764a1d-fce2-4506-afd7-535058747a73",
-        "name": "Melody of Mirrored Actions",
-        "rarity": "comum",
+        "id": "d1160865-4420-4dbd-a746-76f61daf75fc",
+        "file_name": "173.png",
+        "name": "Sinfonia de Proteção",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [],
-        "cost": 2,
-        "abilities": [
-            {
-                "abilityType": "action",
-                "description": "Destrua um Equipamento de Batalha (Battlegear) alvo equipado em uma Criatura engajada.",
-                "effectType": null,
-                "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
-                "value": 0,
-                "actionType": "destroy_target_battlegear",
-                "actionPayload": {
-                    "targetMustBeEquippedAndEngaged": true
-                },
-                "targetTribes": []
-            }
-        ],
-        "created_at": "2026-02-15T18:15:37.085Z",
-        "updated_at": "2026-02-15T18:15:37.085Z"
-    },
-    {
-        "id": "f22c645c-7e33-46cf-8952-fdd4d61c1ce3",
-        "name": "Nourishing Nocturne",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "tribes": [],
-        "cost": 2,
-        "abilities": [
-            {
-                "abilityType": "action",
-                "description": "Sacrifique uma Criatura Minion. Se o fizer, uma Criatura engajada alvo ganha Energia igual à Energia Escaneada da Criatura sacrificada.",
-                "effectType": null,
-                "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
-                "value": 0,
-                "actionType": "sacrifice_friendly_then_gain_energy_from_sacrificed",
-                "actionPayload": {
-                    "requiredTribeOrSubtype": "minion",
-                    "gainFrom": "sacrificed_scanned_energy"
-                },
-                "targetTribes": []
-            }
-        ],
-        "created_at": "2026-02-15T18:15:37.085Z",
-        "updated_at": "2026-02-15T18:15:37.085Z"
-    },
-    {
-        "id": "ef49e66e-caf1-4a2e-a5d7-9d229df10162",
-        "name": "Predator's Song",
-        "rarity": "ultra_rara",
-        "image_file_id": null,
-        "image_url": null,
-        "tribes": [],
         "cost": 1,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Sacrifique uma Criatura não engajada. Se o fizer, a Criatura engajada alvo perde X de cada Disciplina, onde X são as Disciplinas Escaneadas da Criatura sacrificada. Se a criatura sacrificada for um Minion, as Criaturas engajadas também perdem 10 de Energia.",
+                "description": "O Ataque ou Mugic alvo causa 0 de dano.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
                 "value": 0,
-                "actionType": "sacrifice_friendly_then_reduce_enemy_by_sacrificed_stats",
+                "actionType": "cancel_target_mugic",
                 "actionPayload": {
-                    "gainFrom": "sacrificed_scanned_disciplines",
-                    "additionalIfSacrificedIsMinion": {
-                        "allEngagedLoseEnergy": 10
+                    "legacyEffectType": "protection",
+                    "legacyBattleRules": {
+                        "type": "negate_damage_from_source",
+                        "notes": "Nega o dano de um ataque ou Mugic alvo.",
+                        "payload": {}
                     }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.085Z",
-        "updated_at": "2026-02-15T18:15:37.085Z"
+        "created_at": "2026-02-16T14:00:09.000000Z",
+        "updated_at": "2026-02-16T14:00:09.000000Z",
+        "tribe": "overworld",
+        "rarity": "super_rara"
     },
     {
-        "id": "8d7c3d8d-e1b6-4672-ba4e-f949774c887b",
-        "name": "Prelude to Dominance",
-        "rarity": "comum",
+        "id": "19b2014c-64de-4de3-ae87-2e352388992f",
+        "file_name": "174.png",
+        "name": "Canção de Batalha da Exaustão",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [],
-        "cost": 1,
-        "abilities": [
-            {
-                "abilityType": "action",
-                "description": "Cause 10 de dano à Criatura alvo.",
-                "effectType": null,
-                "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
-                "value": 0,
-                "actionType": "modify_stats_map",
-                "actionPayload": {
-                    "effectType": "decrease",
-                    "valuesByStat": {
-                        "energy": 10
-                    }
-                },
-                "targetTribes": []
-            }
-        ],
-        "created_at": "2026-02-15T18:15:37.086Z",
-        "updated_at": "2026-02-15T18:15:37.086Z"
-    },
-    {
-        "id": "7d09fed1-5743-4d65-98f6-efebafe56f52",
-        "name": "Psionic Serenade",
-        "rarity": "ultra_rara",
-        "image_file_id": null,
-        "image_url": null,
-        "tribes": [],
         "cost": 2,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Remova do jogo uma carta de Criatura Minion da sua pilha de descarte geral. Se o fizer, cause dano à Criatura engajada alvo igual à Energia Escaneada da carta removida. Única.",
+                "description": "Criaturas engajadas com o conjurador perdem todos os Tipos Elementais.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "cancel_target_activated_ability",
+                "actionPayload": {
+                    "legacyEffectType": "special",
+                    "legacyBattleRules": {
+                        "type": "remove_all_elements_from_engaged",
+                        "notes": "Criaturas engajadas com o conjurador perdem todos os tipos elementais.",
+                        "payload": {}
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:10.000000Z",
+        "updated_at": "2026-02-16T14:00:10.000000Z",
+        "tribe": "generic",
+        "rarity": "super_rara"
+    },
+    {
+        "id": "b5ca7f74-2a5e-4d58-8af9-9fbe4e9ce600",
+        "file_name": "175.png",
+        "name": "Cacofonia Consumidora",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Cause 20 de dano à Criatura alvo. Se o conjurador deste Mugic tiver Fogo, cause 10 de dano adicional.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
                 "value": 0,
                 "actionType": "banish_mugic_card_from_discard_then_deal_damage",
                 "actionPayload": {
-                    "requiredCardSubtype": "minion",
-                    "damageFrom": "banished_card_scanned_energy",
-                    "unique": true
+                    "legacyEffectType": "damage",
+                    "legacyBattleRules": {
+                        "type": "deal_damage_with_elemental_bonus",
+                        "notes": "Causa 20 de dano, mais 10 se o conjurador tiver Fogo.",
+                        "payload": {
+                            "base_amount": 20,
+                            "bonus_amount": 10,
+                            "element": "fire"
+                        }
+                    }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.086Z",
-        "updated_at": "2026-02-15T18:15:37.086Z"
+        "created_at": "2026-02-16T14:00:11.000000Z",
+        "updated_at": "2026-02-16T14:00:11.000000Z",
+        "tribe": "underworld",
+        "rarity": "rara"
     },
     {
-        "id": "08051f98-ab3c-440b-9868-a0b2e3df1a20",
-        "name": "Song of Stable Shields",
-        "rarity": "super_rara",
+        "id": "b02fdea1-6760-409f-987f-2478c5f44567",
+        "file_name": "176.png",
+        "name": "Contraponto do Caos",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [],
-        "cost": 2,
-        "abilities": [
-            {
-                "abilityType": "action",
-                "description": "Mugics e habilidades que aumentariam ou diminuiriam as Disciplinas da Criatura alvo não têm efeito.",
-                "effectType": null,
-                "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
-                "value": 0,
-                "actionType": "prevent_stat_modifiers_on_target",
-                "actionPayload": {
-                    "blockedSources": [
-                        "mugic",
-                        "ability"
-                    ],
-                    "blockedEffects": [
-                        "increase",
-                        "decrease"
-                    ],
-                    "affectedStats": "all_disciplines"
-                },
-                "targetTribes": []
-            }
-        ],
-        "created_at": "2026-02-15T18:15:37.086Z",
-        "updated_at": "2026-02-15T18:15:37.086Z"
-    },
-    {
-        "id": "cdd27e4e-c85a-4fd1-8acc-2c8ac692d765",
-        "name": "Specific Diminishing",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "tribes": [],
         "cost": 1,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Criatura alvo perde 20 de uma Disciplina à sua escolha.",
+                "description": "Criatura alvo não pode ganhar Tipos Elementais.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "cancel_target_activated_ability",
+                "actionPayload": {
+                    "legacyEffectType": "restriction",
+                    "legacyBattleRules": {
+                        "type": "prevent_elemental_gain",
+                        "notes": "Impede o alvo de ganhar tipos elementais.",
+                        "payload": {}
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:12.000000Z",
+        "updated_at": "2026-02-16T14:00:12.000000Z",
+        "tribe": "generic",
+        "rarity": "rara"
+    },
+    {
+        "id": "0f5744f6-46c4-4588-9730-24c9ec6c8aca",
+        "file_name": "177.png",
+        "name": "Decomposição",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo falha em todos os testes de Disciplina nos ataques que jogar.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "cancel_target_activated_ability",
+                "actionPayload": {
+                    "legacyEffectType": "restriction",
+                    "legacyBattleRules": {
+                        "type": "fail_all_discipline_checks",
+                        "notes": "O alvo falha em todos os testes de disciplina em seus ataques.",
+                        "payload": {}
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:13.000000Z",
+        "updated_at": "2026-02-16T14:00:13.000000Z",
+        "tribe": "underworld",
+        "rarity": "rara"
+    },
+    {
+        "id": "8d582826-fb93-49fe-b9d9-4d78cd664ba0",
+        "file_name": "178.png",
+        "name": "Sinfonia Incandescente",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 2,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Cause 10 de dano à Criatura alvo para cada Tipo Elemental que ela possui.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "banish_mugic_card_from_discard_then_deal_damage",
+                "actionPayload": {
+                    "legacyEffectType": "damage",
+                    "legacyBattleRules": {
+                        "type": "deal_damage_per_element",
+                        "notes": "Causa 10 de dano por tipo elemental que o alvo possui.",
+                        "payload": {
+                            "amount_per_element": 10
+                        }
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:14.000000Z",
+        "updated_at": "2026-02-16T14:00:14.000000Z",
+        "tribe": "underworld",
+        "rarity": "super_rara"
+    },
+    {
+        "id": "835770ff-01ef-4063-91a9-82ab9213ff6e",
+        "file_name": "179.png",
+        "name": "Hino Ancestral",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Remova do jogo uma carta de Criatura da sua pilha de descarte geral. Se o fizer, ative Colmeia (Hive).",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
                 "targetScope": "self",
+                "value": 0,
+                "actionType": "cancel_target_activated_ability",
+                "actionPayload": {
+                    "legacyEffectType": "special",
+                    "legacyBattleRules": {
+                        "type": "remove_creature_to_activate_hive",
+                        "notes": "Remove uma criatura do descarte para ativar o Hive.",
+                        "payload": {}
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:15.000000Z",
+        "updated_at": "2026-02-16T14:00:15.000000Z",
+        "tribe": "danian",
+        "rarity": "rara"
+    },
+    {
+        "id": "d3a5fbea-eb58-47cb-b732-3a5e582d1b58",
+        "file_name": "180.png",
+        "name": "Contraponto Elemental",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Ataque alvo causa 10 de dano a menos para cada Tipo Elemental que possui.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
                 "value": 0,
                 "actionType": "reduce_chosen_discipline",
                 "actionPayload": {
-                    "amount": 20,
-                    "chooseOneFrom": [
-                        "power",
-                        "courage",
-                        "speed",
-                        "wisdom",
-                        "mugic"
-                    ]
+                    "legacyEffectType": "damage_modifier",
+                    "legacyBattleRules": {
+                        "type": "reduce_attack_damage_per_element",
+                        "notes": "Reduz o dano de um ataque em 10 por tipo elemental que ele possui.",
+                        "payload": {
+                            "amount_per_element": -10
+                        }
+                    }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.086Z",
-        "updated_at": "2026-02-15T18:15:37.086Z"
+        "created_at": "2026-02-16T14:00:16.000000Z",
+        "updated_at": "2026-02-16T14:00:16.000000Z",
+        "tribe": "generic",
+        "rarity": "rara"
     },
     {
-        "id": "88f15903-d6b1-4b5b-bbb9-31881fb56be0",
-        "name": "Estudo Efervescente",
-        "rarity": "comum",
+        "id": "26ae13f6-c2c0-495d-8418-8b6a3bb40b2d",
+        "file_name": "181.png",
+        "name": "Bis Revigorante",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [],
         "cost": 1,
         "abilities": [
             {
-                "abilityType": "stat_modifier",
-                "description": "Cause 15 de dano a uma Criatura M'arrillian alvo.",
-                "effectType": "decrease",
-                "stats": [
-                    "energy"
+                "abilityType": "action",
+                "description": "Criatura alvo ganha todos os Tipos Elementais que as Criaturas na sua pilha de descarte possuem.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
                 ],
-                "cardTypes": [],
                 "targetScope": "enemy",
-                "value": 15,
-                "actionType": null,
-                "actionPayload": null,
-                "targetTribes": [
-                    "marrillian"
-                ]
+                "value": 0,
+                "actionType": "grant_mugic_counter",
+                "actionPayload": {
+                    "legacyEffectType": "gain",
+                    "legacyBattleRules": {
+                        "type": "gain_elements_from_discard",
+                        "notes": "O alvo ganha todos os tipos elementais das criaturas na sua pilha de descarte.",
+                        "payload": {}
+                    }
+                },
+                "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.087Z",
-        "updated_at": "2026-02-15T18:15:37.087Z"
+        "created_at": "2026-02-16T14:00:17.000000Z",
+        "updated_at": "2026-02-16T14:00:17.000000Z",
+        "tribe": "overworld",
+        "rarity": "rara"
     },
     {
-        "id": "88396056-98cf-4f25-a290-95ef0f322b7f",
-        "name": "Estudo da Exaustão",
-        "rarity": "comum",
+        "id": "63a1c631-ce6d-4ea6-9063-86d6a2a1e318",
+        "file_name": "182.png",
+        "name": "Refrão Rochoso",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [],
         "cost": 1,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Criatura alvo ganha 'Exaurir todas as Disciplinas 5'.",
+                "description": "Criatura engajada alvo ganha 5 de Energia para cada Tipo Elemental que a Criatura engajada oponente possui. Se o conjurador deste Mugic tiver Terra, a Criatura alvo ganha 5 de Energia adicional para cada Tipo Elemental que a Criatura engajada oponente possui.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
                 "value": 0,
-                "actionType": "apply_status_effect",
+                "actionType": "grant_mugic_counter",
                 "actionPayload": {
-                    "effectType": "status_effect",
-                    "statusType": "exhaust_disciplines",
-                    "statScope": "all_disciplines",
-                    "value": 5,
-                    "durationTurns": null
+                    "legacyEffectType": "gain",
+                    "legacyBattleRules": {
+                        "type": "gain_energy_per_opponent_element_with_bonus",
+                        "notes": "Ganha energia por elemento do oponente, com bônus se o conjurador tiver Terra.",
+                        "payload": {
+                            "base_amount_per_element": 5,
+                            "bonus_amount_per_element": 5,
+                            "element": "earth"
+                        }
+                    }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.087Z",
-        "updated_at": "2026-02-15T18:15:37.087Z"
+        "created_at": "2026-02-16T14:00:18.000000Z",
+        "updated_at": "2026-02-16T14:00:18.000000Z",
+        "tribe": "overworld",
+        "rarity": "rara"
     },
     {
-        "id": "fa70dc98-f9dc-45fd-b839-c0806116d809",
-        "name": "Fanfarra do Cérebro",
-        "rarity": "ultra_rara",
+        "id": "b428281a-53ee-4232-9888-151410e50ec6",
+        "file_name": "183.png",
+        "name": "Canção de Batalha Desequilibrante",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [],
-        "cost": 2,
+        "cost": 1,
         "abilities": [
             {
-                "abilityType": "stat_modifier",
-                "description": "Criatura alvo ganha 25 de Coragem e 25 de Sabedoria.",
-                "effectType": "increase",
-                "stats": [
-                    "courage",
-                    "wisdom"
+                "abilityType": "action",
+                "description": "O conjurador ganha 15 de Energia e as Criaturas engajadas com ele perdem 15 de Energia.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
                 ],
-                "cardTypes": [],
-                "targetScope": "self",
-                "value": 25,
-                "actionType": null,
-                "actionPayload": null,
-                "targetTribes": []
-            },
-            {
-                "abilityType": "stat_modifier",
-                "description": "Se o alvo for um Minion, ele ganha outros 25 de Coragem e 25 de Sabedoria.",
-                "effectType": "increase",
-                "stats": [
-                    "courage",
-                    "wisdom"
-                ],
-                "cardTypes": [],
-                "targetScope": "self",
-                "value": 25,
-                "actionType": null,
-                "actionPayload": null,
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "cancel_target_activated_ability",
+                "actionPayload": {
+                    "legacyEffectType": "stat_modifier",
+                    "legacyBattleRules": {
+                        "type": "energy_swing_caster_vs_engaged",
+                        "notes": "Conjurador ganha 15 de energia e criaturas engajadas perdem 15.",
+                        "payload": {
+                            "amount": 15
+                        }
+                    }
+                },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.088Z",
-        "updated_at": "2026-02-15T18:15:37.088Z"
+        "created_at": "2026-02-16T14:00:19.000000Z",
+        "updated_at": "2026-02-16T14:00:19.000000Z",
+        "tribe": "generic",
+        "rarity": "rara"
     },
     {
-        "id": "1d980c65-1e2e-4dd7-83e1-ddee42d43227",
-        "name": "Falsete Fatigante",
-        "rarity": "comum",
+        "id": "11368da6-f387-45e4-b47c-85681b3ebb37",
+        "file_name": "184.png",
+        "name": "Ária de Aebis",
         "image_file_id": null,
         "image_url": null,
-        "tribes": [],
         "cost": 2,
         "abilities": [
             {
                 "abilityType": "action",
-                "description": "Criatura alvo ganha 'Exaurir todas as Disciplinas 15'.",
+                "description": "Negue o ataque alvo. O próximo ataque jogado causa 0 de dano.",
                 "effectType": null,
                 "stats": [],
-                "cardTypes": [],
-                "targetScope": "self",
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
                 "value": 0,
-                "actionType": "apply_status_effect",
+                "actionType": "cancel_target_mugic",
                 "actionPayload": {
-                    "effectType": "status_effect",
-                    "statusType": "exhaust_disciplines",
-                    "statScope": "all_disciplines",
-                    "value": 15,
-                    "durationTurns": null
+                    "legacyEffectType": "protection",
+                    "legacyBattleRules": {
+                        "type": "negate_attack_and_next_attack",
+                        "notes": "Nega um ataque e o próximo ataque causa 0 de dano.",
+                        "payload": {}
+                    }
                 },
                 "targetTribes": []
             }
         ],
-        "created_at": "2026-02-15T18:15:37.088Z",
-        "updated_at": "2026-02-15T18:15:37.088Z"
+        "created_at": "2026-02-16T14:00:20.000000Z",
+        "updated_at": "2026-02-16T14:00:20.000000Z",
+        "tribe": "overworld",
+        "rarity": "super_rara"
+    },
+    {
+        "id": "699a03ff-2951-4360-bfa1-04d3556c90d6",
+        "file_name": "185.png",
+        "name": "Canção de Batalha de Vínculo",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Quando a Criatura oponente alvo curar ou ganhar Energia de um Mugic ou habilidade ativada, o conjurador deste Mugic também cura ou ganha essa mesma quantidade de Energia.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "heal_target",
+                "actionPayload": {
+                    "legacyEffectType": "reaction",
+                    "legacyBattleRules": {
+                        "type": "copy_heal_or_energy_gain",
+                        "notes": "Copia a cura ou ganho de energia de um oponente alvo.",
+                        "payload": {}
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:21.000000Z",
+        "updated_at": "2026-02-16T14:00:21.000000Z",
+        "tribe": "generic",
+        "rarity": "rara"
+    },
+    {
+        "id": "160d2759-22dd-4914-8d19-92169b682747",
+        "file_name": "186.png",
+        "name": "Réquiem Silencioso",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Negue o Mugic ou habilidade alvo que tenha como alvo uma Criatura com Invisibilidade.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "cancel_target_mugic",
+                "actionPayload": {
+                    "legacyEffectType": "negate",
+                    "legacyBattleRules": {
+                        "type": "negate_source_targeting_invisible",
+                        "notes": "Nega Mugic ou habilidade que tem como alvo uma criatura com Invisibility.",
+                        "payload": {}
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:22.000000Z",
+        "updated_at": "2026-02-16T14:00:22.000000Z",
+        "tribe": "mipedian",
+        "rarity": "super_rara"
+    },
+    {
+        "id": "8accb310-e0bc-4e33-9bbd-359ba34c2d4a",
+        "file_name": "187.png",
+        "name": "Sonata das Tempestades",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Criatura alvo ganha 'Alcance' e 'Rapidez 3 (Swift 3)'. Se o conjurador deste Mugic tiver Ar, essa Criatura também ganha 'Invisibilidade: Surpresa'.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "grant_element_attack_bonus",
+                "actionPayload": {
+                    "legacyEffectType": "gain",
+                    "legacyBattleRules": {
+                        "type": "gain_keywords_with_elemental_bonus",
+                        "notes": "Ganha Range e Swift 3, com bônus de Invisibility se o conjurador tiver Ar.",
+                        "payload": {
+                            "keywords": [
+                                "range",
+                                "swift 3"
+                            ],
+                            "bonus_keyword": "invisibility: surprise",
+                            "element": "air"
+                        }
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:23.000000Z",
+        "updated_at": "2026-02-16T14:00:23.000000Z",
+        "tribe": "mipedian",
+        "rarity": "rara"
+    },
+    {
+        "id": "05118628-0144-48c1-9ea8-ed19fe9ff82f",
+        "file_name": "188.png",
+        "name": "Canção da Translocação",
+        "image_file_id": null,
+        "image_url": null,
+        "cost": 1,
+        "abilities": [
+            {
+                "abilityType": "action",
+                "description": "Realoque a Criatura alvo que você controla para qualquer espaço desocupado no Campo de Batalha.",
+                "effectType": null,
+                "stats": [],
+                "cardTypes": [
+                    "creature"
+                ],
+                "targetScope": "enemy",
+                "value": 0,
+                "actionType": "return_target_card_to_hand",
+                "actionPayload": {
+                    "legacyEffectType": "special",
+                    "legacyBattleRules": {
+                        "type": "relocate_own_creature",
+                        "notes": "Realoca uma criatura aliada para um espaço desocupado.",
+                        "payload": {
+                            "requiresEmptySpace": true
+                        }
+                    }
+                },
+                "targetTribes": []
+            }
+        ],
+        "created_at": "2026-02-16T14:00:24.000000Z",
+        "updated_at": "2026-02-16T14:00:24.000000Z",
+        "tribe": "generic",
+        "rarity": "rara"
     }
 ]
