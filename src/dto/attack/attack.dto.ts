@@ -41,6 +41,7 @@ export type AttackAbilityDto = {
 export type AttackDto = {
     id: string;
     name: string;
+    fileName: string | null;
     rarity: CardRarity;
     imageFileId: string | null;
     imageUrl: string | null;
@@ -53,6 +54,7 @@ export type AttackDto = {
 
 export type CreateAttackRequestDto = {
     name: string;
+    fileName?: string | null;
     rarity: CardRarity;
     imageFileId?: string | null;
     energyCost: number;

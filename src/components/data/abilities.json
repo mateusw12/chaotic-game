@@ -3963,5 +3963,467 @@
       ],
       "notes": "Gastar Água: o controlador da Criatura alvo não engajada troca essa Criatura por outra Criatura não engajada que ele controla."
     }
+  },
+  {
+    "id": "atk-001",
+    "file_name": "87.png",
+    "name": "Atmosphere",
+    "build_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"If your engaged Creature has Invisibility, deal 5 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"conditional_damage\",\"notes\":\"Causa 5 de dano se a criatura engajada tiver Invisibility.\",\"payload\":{\"condition\":\"has_keyword\",\"keyword\":\"invisibility\",\"amount\":5}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-002",
+    "file_name": "88.png",
+    "name": "Before the Storm",
+    "build_cost": 4,
+    "base_damage": 15,
+    "elemental_damage": {
+      "air": 15
+    },
+    "abilities": "[{\"description\":\"Air: This counts as your first attack.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"set_as_first_attack\",\"notes\":\"Este ataque conta como o primeiro do combate.\",\"payload\":{\"element\":\"air\"}},\"targetScope\":\"self\"}]"
+  },
+  {
+    "id": "atk-003",
+    "file_name": "89.png",
+    "name": "Clean Slide",
+    "build_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"If the opposing engaged Creature has Earth, damage dealt by Clean Slide is reduced to 0.\",\"effectType\":\"protection\",\"battleRules\":{\"type\":\"negate_damage_if_opponent_has_element\",\"notes\":\"Nega o dano se o oponente tiver o elemento Terra.\",\"payload\":{\"element\":\"earth\"}},\"targetScope\":\"self\"}]"
+  },
+  {
+    "id": "atk-004",
+    "file_name": "90.png",
+    "name": "Combustion Carnage",
+    "build_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Fire: You may sacrifice an unengaged Creature you control. If you do, deal 20 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"sacrifice_for_damage\",\"notes\":\"Permite sacrificar uma criatura desengajada para causar 20 de dano.\",\"payload\":{\"element\":\"fire\",\"amount\":20}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-005",
+    "file_name": "91.png",
+    "name": "Consuming Flame",
+    "build_cost": 1,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": "[]"
+  },
+  {
+    "id": "atk-006",
+    "file_name": "92.png",
+    "name": "Deadwater Devastation",
+    "build_cost": 4,
+    "base_damage": 15,
+    "elemental_damage": {},
+    "abilities": "[]"
+  },
+  {
+    "id": "atk-007",
+    "file_name": "93.png",
+    "name": "Dry Touch",
+    "build_cost": 2,
+    "base_damage": 5,
+    "elemental_damage": {
+      "fire": 10
+    },
+    "abilities": "[{\"description\":\"Fire: The opposing engaged Creature loses Water.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"remove_element\",\"notes\":\"Remove o elemento Água do oponente.\",\"payload\":{\"element_to_remove\":\"water\",\"condition_element\":\"fire\"}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-008",
+    "file_name": "94.png",
+    "name": "Dust Strike",
+    "build_cost": 2,
+    "base_damage": 5,
+    "elemental_damage": {
+      "earth": 10
+    },
+    "abilities": "[{\"description\":\"Stat Check Speed 60: Deal 5 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_check_for_damage\",\"notes\":\"Realiza um teste de Velocidade para causar 5 de dano.\",\"payload\":{\"stat\":\"speed\",\"check_value\":60,\"amount\":5}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-009",
+    "file_name": "95.png",
+    "name": "Earth Pulse",
+    "build_cost": 4,
+    "base_damage": 15,
+    "elemental_damage": {},
+    "abilities": "[]"
+  },
+  {
+    "id": "atk-010",
+    "file_name": "96.png",
+    "name": "Earthshape",
+    "build_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Your engaged Creature gains Earth until the end of combat.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_element\",\"notes\":\"A criatura engajada ganha o elemento Terra.\",\"payload\":{\"element\":\"earth\",\"duration\":\"end_of_combat\"}},\"targetScope\":\"own_creature\"}]"
+  },
+  {
+    "id": "atk-011",
+    "file_name": "97.png",
+    "name": "Eidolon Advance",
+    "build_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {
+      "fire": 5,
+      "air": 5,
+      "earth": 5,
+      "water": 5
+    },
+    "abilities": "[{\"description\":\"Deal 5 damage if your engaged Creature has one or more Mugic counters.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"conditional_damage\",\"notes\":\"Causa 5 de dano se a criatura tiver contadores de Mugic.\",\"payload\":{\"condition\":\"has_mugic_counters\",\"amount\":5}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-012",
+    "file_name": "98.png",
+    "name": "Broding Blast",
+    "build_cost": 2,
+    "base_damage": 5,
+    "elemental_damage": {
+      "air": 10
+    },
+    "abilities": "[{\"description\":\"Air: The opposing engaged Creature loses Earth.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"remove_element\",\"notes\":\"Remove o elemento Terra do oponente.\",\"payload\":{\"element_to_remove\":\"earth\",\"condition_element\":\"air\"}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-013",
+    "file_name": "99.png",
+    "name": "Essential Evaporation",
+    "build_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": "[]"
+  },
+  {
+    "id": "atk-014",
+    "file_name": "100.png",
+    "name": "Extinguishing Fountain",
+    "build_cost": 2,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"The opposing engaged Creature loses Fire.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"remove_element\",\"notes\":\"Remove o elemento Fogo do oponente.\",\"payload\":{\"element_to_remove\":\"fire\"}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-015",
+    "file_name": "101.png",
+    "name": "Piperam",
+    "build_cost": 3,
+    "base_damage": 10,
+    "elemental_damage": {
+      "earth": 10
+    },
+    "abilities": "[{\"description\":\"Stat Check Power 60: Deal 10 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_check_for_damage\",\"notes\":\"Realiza um teste de Poder para causar 10 de dano.\",\"payload\":{\"stat\":\"power\",\"check_value\":60,\"amount\":10}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-016",
+    "file_name": "102.png",
+    "name": "Flame Breach",
+    "build_cost": 0,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": "[]"
+  },
+  {
+    "id": "atk-017",
+    "file_name": "103.png",
+    "name": "Flame Fright",
+    "build_cost": 3,
+    "base_damage": 10,
+    "elemental_damage": {
+      "fire": 15
+    },
+    "abilities": "[{\"description\":\"Engaged Creatures with less than 50 Wisdom or Courage lose a Mugic counter.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"lose_mugic_counter_if_stat_low\",\"notes\":\"Criaturas engajadas com Sabedoria ou Coragem baixa perdem um contador de Mugic.\",\"payload\":{\"stat1\":\"wisdom\",\"stat2\":\"courage\",\"check_value\":50}},\"targetScope\":\"engaged_creatures\"}]"
+  },
+  {
+    "id": "atk-018",
+    "file_name": "104.png",
+    "name": "Flood Force",
+    "build_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": "[]"
+  },
+  {
+    "id": "atk-019",
+    "file_name": "105.png",
+    "name": "Fluid Flame",
+    "build_cost": 0,
+    "base_damage": 1,
+    "elemental_damage": {},
+    "abilities": "[]"
+  },
+  {
+    "id": "atk-020",
+    "file_name": "106.png",
+    "name": "Gladiator's Fire",
+    "build_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {
+      "fire": 5
+    },
+    "abilities": "[{\"description\":\"If your engaged Creature has Recklessness, deal 5 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"conditional_damage\",\"notes\":\"Causa 5 de dano se a criatura engajada tiver Recklessness.\",\"payload\":{\"condition\":\"has_keyword\",\"keyword\":\"recklessness\",\"amount\":5}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-021",
+    "file_name": "107.png",
+    "name": "Grounding Grapple",
+    "build_cost": 4,
+    "base_damage": 15,
+    "elemental_damage": {
+      "earth": 15
+    },
+    "abilities": "[{\"description\":\"Earth: Look at the top three cards of your Location Deck and put them back in any order. You may reveal a new active Location.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"scry_and_reveal_location\",\"notes\":\"Olha o topo do deck de Local e pode revelar um novo.\",\"payload\":{\"card_count\":3,\"element\":\"earth\"}},\"targetScope\":\"own_player\"}]"
+  },
+  {
+    "id": "atk-022",
+    "file_name": "108.png",
+    "name": "Incessant Wave",
+    "build_cost": 2,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Stat Check Courage 60: Deal 5 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_check_for_damage\",\"notes\":\"Realiza um teste de Coragem para causar 5 de dano.\",\"payload\":{\"stat\":\"courage\",\"check_value\":60,\"amount\":5}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-023",
+    "file_name": "109.png",
+    "name": "Inferno Claws",
+    "build_cost": 4,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": "[]"
+  },
+  {
+    "id": "atk-024",
+    "file_name": "110.png",
+    "name": "Magma Might",
+    "build_cost": 4,
+    "base_damage": 15,
+    "elemental_damage": {
+      "fire": 15
+    },
+    "abilities": "[{\"description\":\"Fire: Destroy the opposing engaged Creature's Battlegear.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"destroy_battlegear\",\"notes\":\"Destrói o Battlegear do oponente.\",\"payload\":{\"element\":\"fire\"}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-025",
+    "file_name": "111.png",
+    "name": "Meditative Leap",
+    "build_cost": 4,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Stat Check Wisdom 100: Remove a Mugic counter from a Creature you control. If you do, put a Mugic counter on your engaged Creature.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"stat_check_move_mugic_counter\",\"notes\":\"Teste de Sabedoria para mover um contador de Mugic.\",\"payload\":{\"stat\":\"wisdom\",\"check_value\":100}}},{\"description\":\"Stat Check Speed 100: Draw an Attack Card and discard an Attack Card.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"stat_check_draw_discard\",\"notes\":\"Teste de Velocidade para comprar e descartar uma carta de ataque.\",\"payload\":{\"stat\":\"speed\",\"check_value\":100}}}]"
+  },
+  {
+    "id": "atk-026",
+    "file_name": "112.png",
+    "name": "Mind Mash",
+    "build_cost": 5,
+    "base_damage": 15,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Challenge Wisdom vs Courage: Deal 15 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"challenge_for_damage\",\"notes\":\"Desafio de Sabedoria vs Coragem para causar dano.\",\"payload\":{\"own_stat\":\"wisdom\",\"opponent_stat\":\"courage\",\"amount\":15}}},{\"description\":\"Challenge Wisdom vs Power: Deal 15 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"challenge_for_damage\",\"notes\":\"Desafio de Sabedoria vs Poder para causar dano.\",\"payload\":{\"own_stat\":\"wisdom\",\"opponent_stat\":\"power\",\"amount\":15}}},{\"description\":\"Challenge Wisdom vs Speed: Deal 15 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"challenge_for_damage\",\"notes\":\"Desafio de Sabedoria vs Velocidade para causar dano.\",\"payload\":{\"own_stat\":\"wisdom\",\"opponent_stat\":\"speed\",\"amount\":15}}}]"
+  },
+  {
+    "id": "atk-027",
+    "file_name": "113.png",
+    "name": "Mindvoid",
+    "build_cost": 1,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Stat Check Courage 100: Gain 5 Energy.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"stat_check_for_energy\",\"notes\":\"Teste de Coragem para ganhar 5 de Energia.\",\"payload\":{\"stat\":\"courage\",\"check_value\":100,\"amount\":5}}},{\"description\":\"Stat Check Wisdom 100: Remove a Mugic counter from a Creature you control. If you do, put a Mugic counter on your engaged Creature.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"stat_check_move_mugic_counter\",\"notes\":\"Teste de Sabedoria para mover um contador de Mugic.\",\"payload\":{\"stat\":\"wisdom\",\"check_value\":100}}}]"
+  },
+  {
+    "id": "atk-028",
+    "file_name": "114.png",
+    "name": "Mineral Mayhem",
+    "build_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"You may choose to have Mineral Mayhem deal no damage. If you do, gain 100 Courage.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"optional_no_damage_for_stat_gain\",\"notes\":\"Opcional: não causa dano para ganhar 100 de Coragem.\",\"payload\":{\"stat\":\"courage\",\"amount\":100}},\"targetScope\":\"own_creature\"}]"
+  },
+  {
+    "id": "atk-029",
+    "file_name": "115.png",
+    "name": "Obscuring Winds",
+    "build_cost": 1,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"You may choose to have Obscuring Winds deal no damage. If you do, gain 100 Speed.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"optional_no_damage_for_stat_gain\",\"notes\":\"Opcional: não causa dano para ganhar 100 de Velocidade.\",\"payload\":{\"stat\":\"speed\",\"amount\":100}},\"targetScope\":\"own_creature\"}]"
+  },
+  {
+    "id": "atk-030",
+    "file_name": "116.png",
+    "name": "Outfreeze",
+    "build_cost": 1,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"You may choose to have Outfreeze deal no damage. If you do, gain 100 Wisdom.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"optional_no_damage_for_stat_gain\",\"notes\":\"Opcional: não causa dano para ganhar 100 de Sabedoria.\",\"payload\":{\"stat\":\"wisdom\",\"amount\":100}},\"targetScope\":\"own_creature\"}]"
+  },
+  {
+    "id": "atk-031",
+    "file_name": "117.png",
+    "name": "Paraseed",
+    "build_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {
+      "earth": 5,
+      "water": 5
+    },
+    "abilities": "[{\"description\":\"Deal 5 damage if Hive is active.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"conditional_damage\",\"notes\":\"Causa 5 de dano se Hive estiver ativo.\",\"payload\":{\"condition\":\"hive_is_active\",\"amount\":5}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-032",
+    "file_name": "118.png",
+    "name": "Primordial Rage",
+    "build_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {
+      "fire": 5,
+      "air": 5,
+      "earth": 5,
+      "water": 5
+    },
+    "abilities": "[{\"description\":\"You may choose to have Primordial Rage deal no damage. If you do, gain 100 Power.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"optional_no_damage_for_stat_gain\",\"notes\":\"Opcional: não causa dano para ganhar 100 de Poder.\",\"payload\":{\"stat\":\"power\",\"amount\":100}},\"targetScope\":\"own_creature\"}]"
+  },
+  {
+    "id": "atk-033",
+    "file_name": "119.png",
+    "name": "Hainspears",
+    "build_cost": 3,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Stat Check Wisdom 60: Deal 10 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_check_for_damage\",\"notes\":\"Realiza um teste de Sabedoria para causar 10 de dano.\",\"payload\":{\"stat\":\"wisdom\",\"check_value\":60,\"amount\":10}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-034",
+    "file_name": "120.png",
+    "name": "Retallatory Strike",
+    "build_cost": 3,
+    "base_damage": 5,
+    "elemental_damage": {
+      "fire": 5
+    },
+    "abilities": "[{\"description\":\"Retallatory Strike deals additional damage equal to the damage dealt by the last attack played this combat.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"damage_based_on_last_attack\",\"notes\":\"Causa dano adicional igual ao dano do último ataque no combate.\",\"payload\":{}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-035",
+    "file_name": "121.png",
+    "name": "Sleet Slide",
+    "build_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"If the opposing engaged Creature has Water, damage dealt by Sleet Slide is reduced to 0.\",\"effectType\":\"protection\",\"battleRules\":{\"type\":\"negate_damage_if_opponent_has_element\",\"notes\":\"Nega o dano se o oponente tiver o elemento Água.\",\"payload\":{\"element\":\"water\"}},\"targetScope\":\"self\"}]"
+  },
+  {
+    "id": "atk-036",
+    "file_name": "122.png",
+    "name": "Smokesurge",
+    "build_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"If the opposing engaged Creature has Fire, damage dealt by Smokesurge is reduced to 0.\",\"effectType\":\"protection\",\"battleRules\":{\"type\":\"negate_damage_if_opponent_has_element\",\"notes\":\"Nega o dano se o oponente tiver o elemento Fogo.\",\"payload\":{\"element\":\"fire\"}},\"targetScope\":\"self\"}]"
+  },
+  {
+    "id": "atk-037",
+    "file_name": "123.png",
+    "name": "Sudden Flare",
+    "build_cost": 2,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Stat Check Wisdom 60: Deal 5 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_check_for_damage\",\"notes\":\"Realiza um teste de Sabedoria para causar 5 de dano.\",\"payload\":{\"stat\":\"wisdom\",\"check_value\":60,\"amount\":5}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-038",
+    "file_name": "124.png",
+    "name": "Synaptic Acceleration",
+    "build_cost": 1,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Stat Check Power 100: Deal 5 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_check_for_damage\",\"notes\":\"Teste de Poder para causar 5 de dano.\",\"payload\":{\"stat\":\"power\",\"check_value\":100,\"amount\":5}}},{\"description\":\"Stat Check Speed 100: Draw an Attack Card and discard an Attack Card.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"stat_check_draw_discard\",\"notes\":\"Teste de Velocidade para comprar e descartar uma carta de ataque.\",\"payload\":{\"stat\":\"speed\",\"check_value\":100}}}]"
+  },
+  {
+    "id": "atk-039",
+    "file_name": "125.png",
+    "name": "Teotosthike",
+    "build_cost": 3,
+    "base_damage": 10,
+    "elemental_damage": {
+      "earth": 10
+    },
+    "abilities": "[{\"description\":\"Stat Check Courage 60: Deal 10 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_check_for_damage\",\"notes\":\"Realiza um teste de Coragem para causar 10 de dano.\",\"payload\":{\"stat\":\"courage\",\"check_value\":60,\"amount\":10}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-040",
+    "file_name": "126.png",
+    "name": "Terrantula Tackle",
+    "build_cost": 3,
+    "base_damage": 10,
+    "elemental_damage": {
+      "earth": 15
+    },
+    "abilities": "[{\"description\":\"Destroy all Battlegear equipped to engaged Creatures with less than 50 Power or Speed.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"destroy_battlegear_if_stat_low\",\"notes\":\"Destrói Battlegear de criaturas engajadas com Poder ou Velocidade baixos.\",\"payload\":{\"stat1\":\"power\",\"stat2\":\"speed\",\"check_value\":50}},\"targetScope\":\"engaged_creatures\"}]"
+  },
+  {
+    "id": "atk-041",
+    "file_name": "127.png",
+    "name": "Traditionalist's Charge",
+    "build_cost": 10,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Stat Check Power 100: Deal 5 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_check_for_damage\",\"notes\":\"Teste de Poder para causar 5 de dano.\",\"payload\":{\"stat\":\"power\",\"check_value\":100,\"amount\":5}}},{\"description\":\"Stat Check Courage 100: Gain 5 Energy.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"stat_check_for_energy\",\"notes\":\"Teste de Coragem para ganhar 5 de Energia.\",\"payload\":{\"stat\":\"courage\",\"check_value\":100,\"amount\":5}}}]"
+  },
+  {
+    "id": "atk-042",
+    "file_name": "128.png",
+    "name": "Turbulence Funnel",
+    "build_cost": 3,
+    "base_damage": 10,
+    "elemental_damage": {
+      "air": 10
+    },
+    "abilities": "[{\"description\":\"Stat Check Speed 60: Deal 10 damage.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"stat_check_for_damage\",\"notes\":\"Realiza um teste de Velocidade para causar 10 de dano.\",\"payload\":{\"stat\":\"speed\",\"check_value\":60,\"amount\":10}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-043",
+    "file_name": "129.png",
+    "name": "Vacuum Hemisphere",
+    "build_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"The opposing engaged Creature loses Air.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"remove_element\",\"notes\":\"Remove o elemento Ar do oponente.\",\"payload\":{\"element_to_remove\":\"air\"}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-044",
+    "file_name": "130.png",
+    "name": "Vapor Wipeout",
+    "build_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"The opposing engaged Creature loses Water.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"remove_element\",\"notes\":\"Remove o elemento Água do oponente.\",\"payload\":{\"element_to_remove\":\"water\"}},\"targetScope\":\"opposing_creature\"}]"
+  },
+  {
+    "id": "atk-045",
+    "file_name": "131.png",
+    "name": "Voltdrive",
+    "build_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Your engaged Creature gains Air until the end of combat.\",\"effectType\":\"gain\",\"battleRules\":{\"type\":\"gain_element\",\"notes\":\"A criatura engajada ganha o elemento Ar.\",\"payload\":{\"element\":\"air\",\"duration\":\"end_of_combat\"}},\"targetScope\":\"own_creature\"}]"
+  },
+  {
+    "id": "atk-046",
+    "file_name": "132.png",
+    "name": "Wall of Flame",
+    "build_cost": 3,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Air: Flip one Battlegear face-up and one Battlegear face-down.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"flip_battlegear\",\"notes\":\"Vira um Battlegear para cima e outro para baixo.\",\"payload\":{\"element\":\"air\",\"flip_up\":1,\"flip_down\":1}},\"targetScope\":\"all_battlegear\"}]"
+  },
+  {
+    "id": "atk-047",
+    "file_name": "133.png",
+    "name": "Xenocentric Wrath",
+    "build_cost": 1,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": "[{\"description\":\"Deal 10 damage if the opposing engaged Creature does not share a Tribe with the Creature playing this attack.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"conditional_damage\",\"notes\":\"Causa 10 de dano se as tribos forem diferentes.\",\"payload\":{\"condition\":\"different_tribe\",\"amount\":10}},\"targetScope\":\"opposing_creature\"}]"
   }
 ]

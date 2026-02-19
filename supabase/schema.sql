@@ -425,6 +425,7 @@ create table if not exists public.mugic (
 create table if not exists public.attacks (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  file_name text,
   rarity text not null default 'comum' check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
   image_file_id text,
   image_url text,
@@ -598,6 +599,9 @@ alter table if exists public.mugic
 
 alter table if exists public.attacks
   add column if not exists image_file_id text;
+
+alter table if exists public.attacks
+  add column if not exists file_name text;
 
 alter table if exists public.attacks
   add column if not exists image_url text;

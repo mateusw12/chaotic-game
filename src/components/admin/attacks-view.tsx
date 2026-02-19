@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
@@ -74,6 +74,7 @@ export function AttacksView({ attacks }: AttacksViewProps) {
     const [form] = Form.useForm<AttackFormValues>();
     const [editingId, setEditingId] = useState<string | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
+    const batchImageInputRef = useRef<HTMLInputElement | null>(null);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
@@ -91,6 +92,10 @@ export function AttacksView({ attacks }: AttacksViewProps) {
 
     const importMutation = useMutation({
         mutationFn: () => AttacksAdminService.importFromJson(),
+    });
+
+    const importImagesMutation = useMutation({
+        mutationFn: (formData: FormData) => AttacksAdminService.importImages(formData),
     });
 
     const deleteMutation = useMutation({
@@ -213,6 +218,46 @@ export function AttacksView({ attacks }: AttacksViewProps) {
         }
     }, [importMutation, notification, queryClient]);
 
+    const onImportAttackImages = useCallback(async (files: File[]) => {
+        if (files.length === 0) {
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            files.forEach((file) => formData.append("files", file));
+
+            const result = await importImagesMutation.mutateAsync(formData);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.attacks });
+
+            const extraInfo = [
+                result.unmatchedFiles && result.unmatchedFiles.length > 0
+                    ? `Sem match: ${result.unmatchedFiles.length}`
+                    : null,
+                result.failedFiles && result.failedFiles.length > 0
+                    ? `Falhas: ${result.failedFiles.length}`
+                    : null,
+            ].filter(Boolean).join(" | ");
+
+            notification.success({
+                message: `${result.updated} attack(s) atualizado(s), ${result.uploaded} upload(s), ${result.skipped} ignorado(s).${extraInfo ? ` ${extraInfo}` : ""}`,
+            });
+        } catch (error) {
+            notification.error({
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Erro ao importar imagens de attacks.",
+            });
+        }
+    }, [importImagesMutation, notification, queryClient]);
+
+    const onBatchImageInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files ?? []);
+        event.currentTarget.value = "";
+        void onImportAttackImages(files);
+    }, [onImportAttackImages]);
+
     const columns = useMemo<ColumnsType<AttackDto>>(
         () => [
             {
@@ -313,6 +358,21 @@ export function AttacksView({ attacks }: AttacksViewProps) {
                             <Button onClick={() => void onImportAttacksFromJson()} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar attack.json
                             </Button>
+                            <Button
+                                onClick={() => batchImageInputRef.current?.click()}
+                                icon={importImagesMutation.isPending ? <LoadingLogo /> : undefined}
+                                disabled={importImagesMutation.isPending}
+                            >
+                                Importar imagens em lote
+                            </Button>
+                            <input
+                                ref={batchImageInputRef}
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                hidden
+                                onChange={onBatchImageInputChange}
+                            />
                             <Link href="/">
                                 <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
                             </Link>

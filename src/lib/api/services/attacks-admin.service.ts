@@ -17,6 +17,17 @@ type UploadFileApiResponse = {
     message?: string;
 };
 
+type ImportImagesApiResponse = {
+    success: boolean;
+    uploaded: number;
+    updated: number;
+    skipped: number;
+    matched: number;
+    message?: string;
+    unmatchedFiles?: string[];
+    failedFiles?: Array<{ fileName: string; reason: string }>;
+};
+
 export class AttacksAdminService extends BaseCrudService {
     private static readonly resourcePath = "/admin/attacks";
 
@@ -54,5 +65,12 @@ export class AttacksAdminService extends BaseCrudService {
 
     static uploadImage(formData: FormData) {
         return ApiClient.postFormData<UploadFileApiResponse>("/admin/uploads/attacks", formData);
+    }
+
+    static importImages(formData: FormData) {
+        return ApiClient.postFormData<ImportImagesApiResponse>(
+            "/admin/attacks/import-images",
+            formData,
+        );
     }
 }

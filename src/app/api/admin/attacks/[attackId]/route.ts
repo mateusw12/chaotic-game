@@ -65,6 +65,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 
         const attack = await updateAttackById(attackId, {
             name: body.name ?? "",
+            fileName: body.fileName ?? null,
             rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             energyCost: Number(body.energyCost ?? 0),

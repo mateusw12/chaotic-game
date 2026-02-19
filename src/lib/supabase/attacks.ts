@@ -16,6 +16,15 @@ import { getAttackImagePublicUrl, getSupabaseAdminClient } from "./storage";
 import { getAttacksTableName, isMissingTableError } from "./core";
 import type { SupabaseApiError, SupabaseAttackRow } from "./types";
 
+function isMissingFileNameColumnError(error: SupabaseApiError): boolean {
+    const normalizedMessage = error.message.toLowerCase();
+
+    return (
+        (error.code === "42703" || error.code === "PGRST204")
+        && (normalizedMessage.includes("file_name") || normalizedMessage.includes("'file_name'"))
+    );
+}
+
 function mapRow(row: SupabaseAttackRow): AttackDto {
     const resolvedImageUrl = row.image_file_id
         ? getAttackImagePublicUrl(row.image_file_id)
@@ -24,6 +33,7 @@ function mapRow(row: SupabaseAttackRow): AttackDto {
     return {
         id: row.id,
         name: row.name,
+        fileName: row.file_name ?? null,
         rarity: row.rarity,
         imageFileId: row.image_file_id,
         imageUrl: resolvedImageUrl,
@@ -114,14 +124,37 @@ export async function listAttacks(): Promise<AttackDto[]> {
     const supabase = getSupabaseAdminClient();
     const tableName = getAttacksTableName();
 
+    const withFileNameSelect = "id,name,file_name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at";
+    const fallbackSelect = "id,name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at";
+
     const { data, error } = await supabase
         .from(tableName)
-        .select("id,name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at")
+        .select(withFileNameSelect)
         .order("created_at", { ascending: false })
         .returns<SupabaseAttackRow[]>();
 
     if (error) {
         const supabaseError = error as SupabaseApiError;
+
+        if (isMissingFileNameColumnError(supabaseError)) {
+            const fallback = await supabase
+                .from(tableName)
+                .select(fallbackSelect)
+                .order("created_at", { ascending: false })
+                .returns<SupabaseAttackRow[]>();
+
+            if (fallback.error) {
+                const fallbackError = fallback.error as SupabaseApiError;
+
+                if (isMissingTableError(fallbackError)) {
+                    throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de cadastrar ataques (veja supabase/schema.sql).`);
+                }
+
+                throw new Error(`Erro Supabase [${fallbackError.code ?? "UNKNOWN"}]: ${fallbackError.message}`);
+            }
+
+            return (fallback.data ?? []).map(mapRow);
+        }
 
         if (isMissingTableError(supabaseError)) {
             throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de cadastrar ataques (veja supabase/schema.sql).`);
@@ -139,21 +172,49 @@ export async function createAttack(payload: CreateAttackRequestDto): Promise<Att
     const supabase = getSupabaseAdminClient();
     const tableName = getAttacksTableName();
 
+    const insertPayload = {
+        name: payload.name.trim(),
+        file_name: payload.fileName?.trim() || null,
+        rarity: payload.rarity,
+        image_file_id: payload.imageFileId?.trim() || null,
+        energy_cost: Number(payload.energyCost),
+        element_values: normalizeElementValues(payload.elementValues),
+        abilities: normalizeAbilities(payload.abilities),
+    };
+
+    const withFileNameSelect = "id,name,file_name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at";
+    const fallbackSelect = "id,name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at";
+
     const { data, error } = await supabase
         .from(tableName)
-        .insert({
-            name: payload.name.trim(),
-            rarity: payload.rarity,
-            image_file_id: payload.imageFileId?.trim() || null,
-            energy_cost: Number(payload.energyCost),
-            element_values: normalizeElementValues(payload.elementValues),
-            abilities: normalizeAbilities(payload.abilities),
-        })
-        .select("id,name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at")
+        .insert(insertPayload)
+        .select(withFileNameSelect)
         .single<SupabaseAttackRow>();
 
     if (error) {
         const supabaseError = error as SupabaseApiError;
+
+        if (isMissingFileNameColumnError(supabaseError)) {
+            const { file_name: _ignored, ...fallbackInsertPayload } = insertPayload;
+
+            const fallback = await supabase
+                .from(tableName)
+                .insert(fallbackInsertPayload)
+                .select(fallbackSelect)
+                .single<SupabaseAttackRow>();
+
+            if (fallback.error) {
+                const fallbackError = fallback.error as SupabaseApiError;
+
+                if (isMissingTableError(fallbackError)) {
+                    throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de cadastrar ataques (veja supabase/schema.sql).`);
+                }
+
+                throw new Error(`Erro Supabase [${fallbackError.code ?? "UNKNOWN"}]: ${fallbackError.message}`);
+            }
+
+            return mapRow(fallback.data);
+        }
 
         if (isMissingTableError(supabaseError)) {
             throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de cadastrar ataques (veja supabase/schema.sql).`);
@@ -171,22 +232,53 @@ export async function updateAttackById(attackId: string, payload: UpdateAttackRe
     const supabase = getSupabaseAdminClient();
     const tableName = getAttacksTableName();
 
+    const fileName = payload.fileName;
+    const updatePayload = {
+        name: payload.name.trim(),
+        ...(fileName !== undefined ? { file_name: fileName?.trim() || null } : {}),
+        rarity: payload.rarity,
+        image_file_id: payload.imageFileId?.trim() || null,
+        energy_cost: Number(payload.energyCost),
+        element_values: normalizeElementValues(payload.elementValues),
+        abilities: normalizeAbilities(payload.abilities),
+    };
+
+    const withFileNameSelect = "id,name,file_name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at";
+    const fallbackSelect = "id,name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at";
+
     const { data, error } = await supabase
         .from(tableName)
-        .update({
-            name: payload.name.trim(),
-            rarity: payload.rarity,
-            image_file_id: payload.imageFileId?.trim() || null,
-            energy_cost: Number(payload.energyCost),
-            element_values: normalizeElementValues(payload.elementValues),
-            abilities: normalizeAbilities(payload.abilities),
-        })
+        .update(updatePayload)
         .eq("id", attackId)
-        .select("id,name,rarity,image_file_id,image_url,energy_cost,element_values,abilities,created_at,updated_at")
+        .select(withFileNameSelect)
         .single<SupabaseAttackRow>();
 
     if (error) {
         const supabaseError = error as SupabaseApiError;
+
+        if (isMissingFileNameColumnError(supabaseError)) {
+            const fallbackUpdatePayload = { ...updatePayload } as Record<string, unknown>;
+            delete fallbackUpdatePayload.file_name;
+
+            const fallback = await supabase
+                .from(tableName)
+                .update(fallbackUpdatePayload)
+                .eq("id", attackId)
+                .select(fallbackSelect)
+                .single<SupabaseAttackRow>();
+
+            if (fallback.error) {
+                const fallbackError = fallback.error as SupabaseApiError;
+
+                if (isMissingTableError(fallbackError)) {
+                    throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de editar ataques (veja supabase/schema.sql).`);
+                }
+
+                throw new Error(`Erro Supabase [${fallbackError.code ?? "UNKNOWN"}]: ${fallbackError.message}`);
+            }
+
+            return mapRow(fallback.data);
+        }
 
         if (isMissingTableError(supabaseError)) {
             throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de editar ataques (veja supabase/schema.sql).`);
@@ -209,6 +301,29 @@ export async function deleteAttackById(attackId: string): Promise<void> {
 
         if (isMissingTableError(supabaseError)) {
             throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de remover ataques (veja supabase/schema.sql).`);
+        }
+
+        throw new Error(`Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`);
+    }
+}
+
+export async function updateAttackImageFileById(
+    attackId: string,
+    imageFileId: string | null,
+): Promise<void> {
+    const supabase = getSupabaseAdminClient();
+    const tableName = getAttacksTableName();
+
+    const { error } = await supabase
+        .from(tableName)
+        .update({ image_file_id: imageFileId?.trim() || null })
+        .eq("id", attackId);
+
+    if (error) {
+        const supabaseError = error as SupabaseApiError;
+
+        if (isMissingTableError(supabaseError)) {
+            throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de atualizar imagens (veja supabase/schema.sql).`);
         }
 
         throw new Error(`Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`);

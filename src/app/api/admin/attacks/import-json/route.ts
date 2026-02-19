@@ -40,6 +40,8 @@ type SeedAttackAbility = {
 
 type SeedAttack = {
     name?: unknown;
+    file_name?: unknown;
+    fileName?: unknown;
     rarity?: unknown;
     image_file_id?: unknown;
     imageFileId?: unknown;
@@ -290,6 +292,9 @@ function normalizeAttackPayload(item: SeedAttack): CreateAttackRequestDto | null
 
     return {
         name,
+        fileName: typeof (item.file_name ?? item.fileName) === "string"
+            ? String(item.file_name ?? item.fileName).trim() || null
+            : null,
         rarity: normalizeRarity(item.rarity),
         imageFileId: imageFileId || null,
         energyCost: normalizeEnergyCost(item.energy_cost ?? item.energyCost),

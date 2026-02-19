@@ -95,6 +95,7 @@ export async function POST(request: Request) {
 
         const attack = await createAttack({
             name: body.name ?? "",
+            fileName: body.fileName ?? null,
             rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             energyCost: Number(body.energyCost ?? 0),
