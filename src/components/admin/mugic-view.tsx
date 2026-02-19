@@ -147,13 +147,13 @@ export function MugicView({ mugics }: MugicViewProps) {
                 abilities: values.abilities.map((ability) => ({
                     abilityType: ability.abilityType,
                     description: ability.description,
-                    effectType: ability.effectType,
+                    effectType: ability.effectType ?? null,
                     stats: ability.stats ?? [],
                     cardTypes: ability.cardTypes,
                     targetScope: ability.targetScope,
                     targetTribes: ability.targetTribes ?? [],
-                    value: ability.value,
-                    actionType: ability.actionType,
+                    value: ability.value ?? 0,
+                    actionType: ability.actionType ?? null,
                     actionPayload: ability.actionPayload ?? null,
                 })),
             };
@@ -183,19 +183,19 @@ export function MugicView({ mugics }: MugicViewProps) {
             abilities: mugic.abilities.map((ability) => ({
                 abilityType: ability.abilityType,
                 description: ability.description,
-                effectType: ability.effectType,
+                effectType: ability.effectType ?? undefined,
                 stats: ability.stats ?? [],
                 cardTypes: ability.cardTypes,
                 targetScope: ability.targetScope,
                 targetTribes: ability.targetTribes ?? [],
                 value: ability.value,
-                actionType: ability.actionType,
+                actionType: ability.actionType ?? undefined,
                 actionPayload:
                     ability.actionPayload
                         && typeof ability.actionPayload === "object"
                         && !Array.isArray(ability.actionPayload)
                         ? (ability.actionPayload as Record<string, {} | undefined>)
-                        : null,
+                        : undefined,
             })),
         });
 
