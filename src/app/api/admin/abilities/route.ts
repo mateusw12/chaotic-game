@@ -68,19 +68,23 @@ function buildCreatePayload(body: Partial<CreateAbilityRequestDto>): CreateAbili
         throw new Error("Nome da habilidade é obrigatório.");
     }
 
-    if (!isValidAbilityCategory(String(body.category ?? ""))) {
+    const category = String(body.category ?? "");
+    if (!isValidAbilityCategory(category)) {
         throw new Error("Categoria de habilidade inválida.");
     }
 
-    if (!isValidAbilityEffectType(String(body.effectType ?? ""))) {
+    const effectType = String(body.effectType ?? "");
+    if (!isValidAbilityEffectType(effectType)) {
         throw new Error("Tipo de efeito inválido.");
     }
 
-    if (!isValidAbilityTargetScope(String(body.targetScope ?? ""))) {
+    const targetScope = String(body.targetScope ?? "");
+    if (!isValidAbilityTargetScope(targetScope)) {
         throw new Error("Escopo de alvo inválido.");
     }
 
-    if (!isValidAbilityStat(String(body.stat ?? ""))) {
+    const stat = String(body.stat ?? "");
+    if (!isValidAbilityStat(stat)) {
         throw new Error("Atributo de habilidade inválido.");
     }
 
@@ -96,10 +100,10 @@ function buildCreatePayload(body: Partial<CreateAbilityRequestDto>): CreateAbili
 
     return {
         name,
-        category: body.category,
-        effectType: body.effectType,
-        targetScope: body.targetScope,
-        stat: body.stat,
+        category: category as CreateAbilityRequestDto["category"],
+        effectType: effectType as CreateAbilityRequestDto["effectType"],
+        targetScope: targetScope as CreateAbilityRequestDto["targetScope"],
+        stat: stat as CreateAbilityRequestDto["stat"],
         value,
         description: body.description ?? null,
         battleRules,
