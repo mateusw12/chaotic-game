@@ -8,6 +8,7 @@ import type {
 } from "@/dto/ability";
 import type { CardRarity, CreatureElement, CreatureTribe } from "@/dto/creature";
 import type { LocationAbilityDto, LocationInitiativeElement } from "@/dto/location";
+import type { BattleGearAbilityDto } from "@/dto/battlegear";
 import type { AttackAbilityDto, AttackElementValueDto } from "@/dto/attack";
 import type { ProgressionEventSource, UserCardType } from "@/dto/progression";
 import type { TournamentFormat, TournamentLocationMode, TournamentScheduleType } from "@/dto/tournament";
@@ -104,12 +105,13 @@ export type SupabaseLocationRow = {
 export type SupabaseBattleGearRow = {
     id: string;
     name: string;
+    file_name?: string | null;
     rarity: CardRarity;
     image_file_id: string | null;
     image_url: string | null;
     allowed_tribes: CreatureTribe[];
     allowed_creature_ids: string[];
-    abilities: LocationAbilityDto[];
+    abilities: BattleGearAbilityDto[];
     created_at: string;
     updated_at: string;
 };

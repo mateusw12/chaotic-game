@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
     type BattleGearAbilityDto,
+    type BattleGearBattleRuleDto,
     type DeleteBattleGearResponseDto,
     type UpdateBattleGearRequestDto,
     type UpdateBattleGearResponseDto,
@@ -59,12 +60,13 @@ export async function PATCH(request: Request, context: RouteContext) {
             .json()
             .catch(() => ({} as Partial<UpdateBattleGearRequestDto>));
 
-        const rawAbilities: Array<Partial<BattleGearAbilityDto> & { stat?: LocationStat }> = Array.isArray(body.abilities)
+        const rawAbilities: Array<Partial<BattleGearAbilityDto> & { stat?: LocationStat; battleRules?: BattleGearBattleRuleDto | null }> = Array.isArray(body.abilities)
             ? body.abilities
             : [];
 
         const battlegearItem = await updateBattleGearById(battleGearId, {
             name: body.name ?? "",
+            fileName: typeof body.fileName === "string" ? body.fileName : body.fileName ?? undefined,
             rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             allowedTribes: Array.isArray(body.allowedTribes) ? body.allowedTribes : [],
@@ -85,6 +87,21 @@ export async function PATCH(request: Request, context: RouteContext) {
                     ? (ability.cardTypes as UpdateBattleGearRequestDto["abilities"][number]["cardTypes"])
                     : [],
                 value: Number(ability.value ?? 0),
+                battleRules:
+                    ability.battleRules && typeof ability.battleRules === "object" && !Array.isArray(ability.battleRules)
+                        ? {
+                            type: ability.battleRules.type,
+                            requiresTarget: ability.battleRules.requiresTarget,
+                            usageLimitPerTurn: ability.battleRules.usageLimitPerTurn ?? null,
+                            notes: ability.battleRules.notes ?? null,
+                            payload:
+                                ability.battleRules.payload
+                                    && typeof ability.battleRules.payload === "object"
+                                    && !Array.isArray(ability.battleRules.payload)
+                                    ? ability.battleRules.payload
+                                    : null,
+                        }
+                        : null,
             })),
         });
 

@@ -17,6 +17,17 @@ type UploadFileApiResponse = {
     message?: string;
 };
 
+type ImportImagesApiResponse = {
+    success: boolean;
+    uploaded: number;
+    updated: number;
+    skipped: number;
+    matched: number;
+    message?: string;
+    unmatchedFiles?: string[];
+    failedFiles?: Array<{ fileName: string; reason: string }>;
+};
+
 export class BattleGearAdminService extends BaseCrudService {
     private static readonly resourcePath = "/admin/battlegear";
 
@@ -54,5 +65,12 @@ export class BattleGearAdminService extends BaseCrudService {
 
     static uploadImage(formData: FormData) {
         return ApiClient.postFormData<UploadFileApiResponse>("/admin/uploads/battlegear", formData);
+    }
+
+    static importImages(formData: FormData) {
+        return ApiClient.postFormData<ImportImagesApiResponse>(
+            "/admin/battlegear/import-images",
+            formData,
+        );
     }
 }

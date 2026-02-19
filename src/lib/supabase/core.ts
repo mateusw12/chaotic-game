@@ -49,6 +49,14 @@ import {
     type LocationStat,
     type LocationTargetScope,
 } from "@/dto/location";
+import {
+    BATTLEGEAR_BATTLE_RULE_TYPES,
+    BATTLEGEAR_EFFECT_TYPES,
+    BATTLEGEAR_TARGET_SCOPES,
+    type BattleGearBattleRuleType,
+    type BattleGearEffectType,
+    type BattleGearTargetScope,
+} from "@/dto/battlegear";
 import type { SupabaseApiError } from "./types";
 
 export function isMissingTableError(error: SupabaseApiError): boolean {
@@ -213,4 +221,16 @@ export function isValidLocationTargetScope(value: string): value is LocationTarg
 
 export function isValidLocationBattleRuleType(value: string): value is LocationBattleRuleType {
     return LOCATION_BATTLE_RULE_TYPES.includes(value as LocationBattleRuleType);
+}
+
+export function isValidBattleGearEffectType(value: string): value is BattleGearEffectType {
+    return BATTLEGEAR_EFFECT_TYPES.includes(value as BattleGearEffectType);
+}
+
+export function isValidBattleGearTargetScope(value: string): value is BattleGearTargetScope {
+    return BATTLEGEAR_TARGET_SCOPES.includes(value as BattleGearTargetScope);
+}
+
+export function isValidBattleGearBattleRuleType(value: string): value is BattleGearBattleRuleType {
+    return BATTLEGEAR_BATTLE_RULE_TYPES.includes(value as BattleGearBattleRuleType);
 }

@@ -4,6 +4,7 @@ import {
     type CreateBattleGearRequestDto,
     type CreateBattleGearResponseDto,
     type ListBattleGearResponseDto,
+    type BattleGearBattleRuleDto,
 } from "@/dto/battlegear";
 import type { CardRarity } from "@/dto/creature";
 import type { LocationStat } from "@/dto/location";
@@ -88,12 +89,13 @@ export async function POST(request: Request) {
             .json()
             .catch(() => ({} as Partial<CreateBattleGearRequestDto>));
 
-        const rawAbilities: Array<Partial<BattleGearAbilityDto> & { stat?: LocationStat }> = Array.isArray(body.abilities)
+        const rawAbilities: Array<Partial<BattleGearAbilityDto> & { stat?: LocationStat; battleRules?: BattleGearBattleRuleDto | null }> = Array.isArray(body.abilities)
             ? body.abilities
             : [];
 
         const battlegearItem = await createBattleGear({
             name: body.name ?? "",
+            fileName: typeof body.fileName === "string" ? body.fileName : body.fileName ?? undefined,
             rarity: (body.rarity ?? "comum") as CardRarity,
             imageFileId: body.imageFileId ?? null,
             allowedTribes: Array.isArray(body.allowedTribes) ? body.allowedTribes : [],
@@ -114,6 +116,21 @@ export async function POST(request: Request) {
                     ? (ability.cardTypes as CreateBattleGearRequestDto["abilities"][number]["cardTypes"])
                     : [],
                 value: Number(ability.value ?? 0),
+                battleRules:
+                    ability.battleRules && typeof ability.battleRules === "object" && !Array.isArray(ability.battleRules)
+                        ? {
+                            type: ability.battleRules.type,
+                            requiresTarget: ability.battleRules.requiresTarget,
+                            usageLimitPerTurn: ability.battleRules.usageLimitPerTurn ?? null,
+                            notes: ability.battleRules.notes ?? null,
+                            payload:
+                                ability.battleRules.payload
+                                    && typeof ability.battleRules.payload === "object"
+                                    && !Array.isArray(ability.battleRules.payload)
+                                    ? ability.battleRules.payload
+                                    : null,
+                        }
+                        : null,
             })),
         });
 

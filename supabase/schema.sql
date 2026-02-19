@@ -397,6 +397,7 @@ create table if not exists public.locations (
 create table if not exists public.battlegear (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  file_name text,
   rarity text not null default 'comum' check (rarity in ('comum', 'incomum', 'rara', 'super_rara', 'ultra_rara')),
   image_file_id text,
   image_url text,
@@ -432,6 +433,9 @@ create table if not exists public.attacks (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table if exists public.battlegear
+  add column if not exists file_name text;
 
 alter table if exists public.abilities
   add column if not exists target_scope text not null default 'all_creatures';

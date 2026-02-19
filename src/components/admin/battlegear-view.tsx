@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     App as AntdApp,
@@ -13,6 +13,7 @@ import {
     Popconfirm,
     Select,
     Space,
+    Switch,
     Tag,
     Typography,
     Upload,
@@ -21,17 +22,29 @@ import type { ColumnsType } from "antd/es/table";
 import type { UploadFile } from "antd/es/upload/interface";
 import { ArrowLeftOutlined, ToolOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { CARD_RARITY_OPTIONS, CREATURE_TRIBE_OPTIONS, type CardRarity, type CreatureDto, type CreatureTribe } from "@/dto/creature";
+import {
+    CARD_RARITY_OPTIONS,
+    CREATURE_ELEMENT_OPTIONS,
+    CREATURE_TRIBE_OPTIONS,
+    type CardRarity,
+    type CreatureDto,
+    type CreatureElement,
+    type CreatureTribe,
+} from "@/dto/creature";
 import {
     LOCATION_CARD_TYPE_OPTIONS,
-    LOCATION_EFFECT_TYPE_OPTIONS,
     LOCATION_STAT_OPTIONS,
     type LocationCardType,
-    type LocationEffectType,
     type LocationStat,
 } from "@/dto/location";
 import {
+    BATTLEGEAR_BATTLE_RULE_TYPES,
+    BATTLEGEAR_EFFECT_TYPE_OPTIONS,
+    BATTLEGEAR_TARGET_SCOPE_OPTIONS,
+    type BattleGearBattleRuleDto,
     type BattleGearDto,
+    type BattleGearEffectType,
+    type BattleGearTargetScope,
     type CreateBattleGearRequestDto,
 } from "@/dto/battlegear";
 import { AdminShell } from "@/components/admin/admin-shell";
@@ -47,10 +60,20 @@ type BattleGearViewProps = {
 
 type BattleGearAbilityFormValues = {
     description: string;
-    effectType: LocationEffectType;
+    effectType: BattleGearEffectType;
+    targetScope: BattleGearTargetScope;
+    targetTribes: CreatureTribe[];
     stats: LocationStat[];
     cardTypes: LocationCardType[];
     value: number;
+    battleRuleType?: string;
+    battleRuleRequiresTarget?: boolean;
+    battleRuleUsageLimitPerTurn?: number | null;
+    battleRuleNotes?: string;
+    battleRuleStat?: LocationStat;
+    battleRuleElement?: CreatureElement;
+    battleRuleAmount?: number;
+    battleRuleKeyword?: string;
 };
 
 type BattleGearFormValues = {
@@ -62,6 +85,89 @@ type BattleGearFormValues = {
     abilities: BattleGearAbilityFormValues[];
 };
 
+const BATTLE_RULE_TYPES_REQUIRING_AMOUNT = new Set<string>([
+    "additional_damage_to_no_element_creatures",
+    "expend_element_for_stat",
+    "gain_energy_on_opponent_fail_check",
+    "gain_energy_with_element_bonus",
+    "destroy_battlegear_on_damage_threshold",
+    "sacrifice_for_mugic_and_heal",
+    "sacrifice_for_damage_with_bonus",
+    "redirect_damage_option",
+    "additional_damage_if_has_element",
+    "damage_cap",
+]);
+
+const BATTLE_RULE_TYPES_REQUIRING_ELEMENT = new Set<string>([
+    "expend_element_for_stat",
+    "gain_element_on_engage",
+    "gain_energy_with_element_bonus",
+    "destroy_battlegear_on_damage_threshold",
+    "gain_element_and_bonus_for_specific_creature",
+    "sacrifice_for_mugic_and_heal",
+    "sacrifice_for_damage_with_bonus",
+    "gain_keyword_with_element_bonus",
+    "redirect_damage_option",
+    "additional_damage_if_has_element",
+]);
+
+function buildBattleRulesFromForm(ability: BattleGearAbilityFormValues): BattleGearBattleRuleDto | null {
+    if (!ability.battleRuleType) {
+        return null;
+    }
+
+    const payload: Record<string, unknown> = {};
+
+    if (ability.battleRuleStat) {
+        payload.stat = ability.battleRuleStat;
+    }
+
+    if (ability.battleRuleElement) {
+        payload.element = ability.battleRuleElement;
+    }
+
+    if (typeof ability.battleRuleAmount === "number") {
+        payload.amount = ability.battleRuleAmount;
+    }
+
+    if (ability.battleRuleKeyword?.trim()) {
+        payload.keyword = ability.battleRuleKeyword.trim();
+    }
+
+    return {
+        type: ability.battleRuleType as BattleGearBattleRuleDto["type"],
+        requiresTarget: ability.battleRuleRequiresTarget ?? ability.targetScope !== "none",
+        usageLimitPerTurn: ability.battleRuleUsageLimitPerTurn ?? null,
+        notes: ability.battleRuleNotes?.trim() || null,
+        payload: Object.keys(payload).length > 0 ? payload : null,
+    };
+}
+
+function mapBattleRulesToForm(ability: BattleGearDto["abilities"][number]): BattleGearAbilityFormValues {
+    const rule = ability.battleRules;
+    const payload = (rule?.payload && typeof rule.payload === "object" && !Array.isArray(rule.payload))
+        ? rule.payload as Record<string, unknown>
+        : null;
+
+    return {
+        description: ability.description,
+        effectType: ability.effectType,
+        targetScope: ability.targetScope,
+        targetTribes: ability.targetTribes,
+        stats: ability.stats,
+        cardTypes: ability.cardTypes,
+        value: ability.value,
+        battleRuleType: rule?.type,
+        battleRuleRequiresTarget: rule?.requiresTarget ?? ability.targetScope !== "none",
+        battleRuleUsageLimitPerTurn: rule?.usageLimitPerTurn ?? null,
+        battleRuleNotes: rule?.notes ?? "",
+        battleRuleStat: typeof payload?.stat === "string" ? payload.stat as LocationStat : undefined,
+        battleRuleElement: typeof payload?.element === "string" ? payload.element as CreatureElement : undefined,
+        battleRuleAmount: typeof payload?.amount === "number" ? payload.amount : undefined,
+        battleRuleKeyword: typeof payload?.keyword === "string" ? payload.keyword : undefined,
+    };
+}
+
 const { Title, Text } = Typography;
 
 export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
@@ -70,6 +176,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
     const [form] = Form.useForm<BattleGearFormValues>();
     const [editingId, setEditingId] = useState<string | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
+    const batchImageInputRef = useRef<HTMLInputElement | null>(null);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [imageFileList, setImageFileList] = useState<UploadFile[]>([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
@@ -87,6 +194,10 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
 
     const importMutation = useMutation({
         mutationFn: () => BattleGearAdminService.importFromJson(),
+    });
+
+    const importImagesMutation = useMutation({
+        mutationFn: (formData: FormData) => BattleGearAdminService.importImages(formData),
     });
 
     const deleteMutation = useMutation({
@@ -122,9 +233,9 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                 },
             ]);
 
-            notification.success({ message: "Imagem enviada para o Storage com sucesso." });
+            notification.success({ title: "Imagem enviada para o Storage com sucesso." });
         } catch (error) {
-            notification.error({ message: error instanceof Error ? error.message : "Erro ao anexar imagem." });
+            notification.error({ title: error instanceof Error ? error.message : "Erro ao anexar imagem." });
         } finally {
             setIsImageUploading(false);
         }
@@ -141,11 +252,12 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                 abilities: values.abilities.map((ability) => ({
                     description: ability.description,
                     effectType: ability.effectType,
-                    targetScope: "all_creatures",
-                    targetTribes: [],
+                    targetScope: ability.targetScope,
+                    targetTribes: ability.targetTribes,
                     stats: ability.stats,
                     cardTypes: ability.cardTypes,
                     value: ability.value,
+                    battleRules: buildBattleRulesFromForm(ability),
                 })),
             };
 
@@ -157,9 +269,9 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             form.resetFields();
             setImageFileList([]);
             setImagePreviewUrl(null);
-            notification.success({ message: isEditing ? "Equipamento atualizado com sucesso." : "Equipamento cadastrado com sucesso." });
+            notification.success({ title: isEditing ? "Equipamento atualizado com sucesso." : "Equipamento cadastrado com sucesso." });
         } catch (error) {
-            notification.error({ message: error instanceof Error ? error.message : "Erro ao salvar equipamento." });
+            notification.error({ title: error instanceof Error ? error.message : "Erro ao salvar equipamento." });
         }
     }
 
@@ -171,7 +283,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             imageFileId: item.imageFileId ?? undefined,
             allowedTribes: item.allowedTribes,
             allowedCreatureIds: item.allowedCreatureIds,
-            abilities: item.abilities,
+            abilities: item.abilities.map((ability) => mapBattleRulesToForm(ability)),
         });
 
         if (item.imageUrl) {
@@ -203,9 +315,9 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
         try {
             await deleteMutation.mutateAsync(itemId);
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.battlegear });
-            notification.success({ message: "Equipamento removido com sucesso." });
+            notification.success({ title: "Equipamento removido com sucesso." });
         } catch (error) {
-            notification.error({ message: error instanceof Error ? error.message : "Erro ao remover equipamento." });
+            notification.error({ title: error instanceof Error ? error.message : "Erro ao remover equipamento." });
         } finally {
             setDeletingId(null);
         }
@@ -216,15 +328,55 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
             const result = await importMutation.mutateAsync();
             await queryClient.invalidateQueries({ queryKey: adminQueryKeys.battlegear });
 
-            notification.success({ message: `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).` });
+            notification.success({ title: `${result.fileName}: ${result.imported} importado(s), ${result.updated} atualizado(s), ${result.skipped} ignorado(s).` });
         } catch (error) {
             notification.error({
-                message: error instanceof Error
+                title: error instanceof Error
                     ? error.message
                     : "Erro ao importar equipamentos do JSON.",
             });
         }
     }, [importMutation, notification, queryClient]);
+
+    const onImportBattleGearImages = useCallback(async (files: File[]) => {
+        if (files.length === 0) {
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            files.forEach((file) => formData.append("files", file));
+
+            const result = await importImagesMutation.mutateAsync(formData);
+            await queryClient.invalidateQueries({ queryKey: adminQueryKeys.battlegear });
+
+            const extraInfo = [
+                result.unmatchedFiles && result.unmatchedFiles.length > 0
+                    ? `Sem match: ${result.unmatchedFiles.length}`
+                    : null,
+                result.failedFiles && result.failedFiles.length > 0
+                    ? `Falhas: ${result.failedFiles.length}`
+                    : null,
+            ].filter(Boolean).join(" | ");
+
+            notification.success({
+                title: `${result.updated} equipamento(s) atualizado(s), ${result.uploaded} upload(s), ${result.skipped} ignorado(s).${extraInfo ? ` ${extraInfo}` : ""}`,
+            });
+        } catch (error) {
+            notification.error({
+                title:
+                    error instanceof Error
+                        ? error.message
+                        : "Erro ao importar imagens de equipamentos.",
+            });
+        }
+    }, [importImagesMutation, notification, queryClient]);
+
+    const onBatchImageInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files ?? []);
+        event.currentTarget.value = "";
+        void onImportBattleGearImages(files);
+    }, [onImportBattleGearImages]);
 
     const columns = useMemo<ColumnsType<BattleGearDto>>(
         () => [
@@ -285,12 +437,14 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                         {row.abilities.length === 0 ? <Text type="secondary">Sem habilidades</Text> : null}
                         {row.abilities.map((ability, index) => {
                             const effectLabel =
-                                LOCATION_EFFECT_TYPE_OPTIONS.find((item) => item.value === ability.effectType)?.label
+                                BATTLEGEAR_EFFECT_TYPE_OPTIONS.find((item) => item.value === ability.effectType)?.label
                                 ?? ability.effectType;
                             const statLabel =
-                                ability.stats
-                                    .map((stat) => LOCATION_STAT_OPTIONS.find((item) => item.value === stat)?.label ?? stat)
-                                    .join(", ");
+                                ability.stats.length === 0
+                                    ? "-"
+                                    : ability.stats
+                                        .map((stat) => LOCATION_STAT_OPTIONS.find((item) => item.value === stat)?.label ?? stat)
+                                        .join(", ");
                             const cardTypesLabel =
                                 ability.cardTypes.length === 0
                                     ? "Todas as cartas"
@@ -300,7 +454,7 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
 
                             return (
                                 <Tag key={`${row.id}-ability-${index}`} color={ability.effectType === "increase" ? "green" : "volcano"}>
-                                    {ability.description} • {effectLabel} {ability.value} em {statLabel} ({cardTypesLabel})
+                                    {ability.description} • {effectLabel} {ability.value} em {statLabel} ({cardTypesLabel}) • Alvo: {ability.targetScope} • Regra: {ability.battleRules?.type ?? "-"}
                                 </Tag>
                             );
                         })}
@@ -350,6 +504,21 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                             <Button onClick={() => void onImportBattlegearFromJson()} icon={importMutation.isPending ? <LoadingLogo /> : undefined} disabled={importMutation.isPending}>
                                 Importar battlegear.json
                             </Button>
+                            <input
+                                ref={batchImageInputRef}
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                style={{ display: "none" }}
+                                onChange={onBatchImageInputChange}
+                            />
+                            <Button
+                                onClick={() => batchImageInputRef.current?.click()}
+                                icon={importImagesMutation.isPending ? <LoadingLogo /> : undefined}
+                                disabled={importImagesMutation.isPending}
+                            >
+                                Importar imagens em lote
+                            </Button>
                             <Link href="/">
                                 <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
                             </Link>
@@ -366,7 +535,19 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                             rarity: "comum",
                             allowedTribes: [],
                             allowedCreatureIds: [],
-                            abilities: [{ description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], value: 0 }],
+                            abilities: [{
+                                description: "",
+                                effectType: "increase",
+                                targetScope: "all_creatures",
+                                targetTribes: [],
+                                stats: ["speed"],
+                                cardTypes: ["creature"],
+                                value: 0,
+                                battleRuleType: undefined,
+                                battleRuleRequiresTarget: true,
+                                battleRuleUsageLimitPerTurn: null,
+                                battleRuleNotes: "",
+                            }],
                         }}
                     >
                         <Space orientation="vertical" size={12} style={{ width: "100%" }}>
@@ -459,10 +640,57 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                                                         >
                                                             <Select
                                                                 style={{ width: 180 }}
-                                                                options={LOCATION_EFFECT_TYPE_OPTIONS.map((item) => ({
+                                                                options={BATTLEGEAR_EFFECT_TYPE_OPTIONS.map((item) => ({
                                                                     value: item.value,
                                                                     label: item.label,
                                                                 }))}
+                                                            />
+                                                        </Form.Item>
+
+                                                        <Form.Item
+                                                            label="Escopo"
+                                                            name={[field.name, "targetScope"]}
+                                                            rules={[{ required: true, message: "Selecione o escopo." }]}
+                                                        >
+                                                            <Select
+                                                                style={{ width: 220 }}
+                                                                options={BATTLEGEAR_TARGET_SCOPE_OPTIONS.map((item) => ({
+                                                                    value: item.value,
+                                                                    label: item.label,
+                                                                }))}
+                                                            />
+                                                        </Form.Item>
+
+                                                        <Form.Item
+                                                            label="Tribos alvo"
+                                                            name={[field.name, "targetTribes"]}
+                                                            dependencies={["abilities", field.name, "targetScope"]}
+                                                            rules={[
+                                                                ({ getFieldValue }) => ({
+                                                                    validator(_, value) {
+                                                                        const scope = getFieldValue(["abilities", field.name, "targetScope"]);
+
+                                                                        if (scope !== "specific_tribes") {
+                                                                            return Promise.resolve();
+                                                                        }
+
+                                                                        if (Array.isArray(value) && value.length > 0) {
+                                                                            return Promise.resolve();
+                                                                        }
+
+                                                                        return Promise.reject(new Error("Selecione ao menos uma tribo para escopo por tribo."));
+                                                                    },
+                                                                }),
+                                                            ]}
+                                                        >
+                                                            <Select
+                                                                mode="multiple"
+                                                                style={{ width: 220 }}
+                                                                options={CREATURE_TRIBE_OPTIONS.map((item) => ({
+                                                                    value: item.value,
+                                                                    label: item.label,
+                                                                }))}
+                                                                placeholder="Opcional"
                                                             />
                                                         </Form.Item>
 
@@ -508,12 +736,136 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                                                     <Button danger onClick={() => remove(field.name)}>
                                                         Remover habilidade
                                                     </Button>
+
+                                                    <Card size="small" title="Regras de batalha">
+                                                        <Space wrap size={12}>
+                                                            <Form.Item
+                                                                label="Tipo da regra"
+                                                                name={[field.name, "battleRuleType"]}
+                                                            >
+                                                                <Select
+                                                                    allowClear
+                                                                    style={{ width: 260 }}
+                                                                    options={BATTLEGEAR_BATTLE_RULE_TYPES.map((type) => ({ value: type, label: type }))}
+                                                                    placeholder="Opcional"
+                                                                />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Exige alvo"
+                                                                name={[field.name, "battleRuleRequiresTarget"]}
+                                                                valuePropName="checked"
+                                                            >
+                                                                <Switch />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Limite por turno"
+                                                                name={[field.name, "battleRuleUsageLimitPerTurn"]}
+                                                            >
+                                                                <InputNumber min={0} style={{ width: 160 }} placeholder="Opcional" />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Atributo da regra"
+                                                                name={[field.name, "battleRuleStat"]}
+                                                            >
+                                                                <Select
+                                                                    allowClear
+                                                                    style={{ width: 200 }}
+                                                                    options={LOCATION_STAT_OPTIONS.map((item) => ({ value: item.value, label: item.label }))}
+                                                                    placeholder="Opcional"
+                                                                />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Elemento"
+                                                                name={[field.name, "battleRuleElement"]}
+                                                                dependencies={["abilities", field.name, "battleRuleType"]}
+                                                                rules={[
+                                                                    ({ getFieldValue }) => ({
+                                                                        validator(_, value) {
+                                                                            const battleRuleType = getFieldValue(["abilities", field.name, "battleRuleType"]);
+
+                                                                            if (!BATTLE_RULE_TYPES_REQUIRING_ELEMENT.has(String(battleRuleType ?? ""))) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            if (typeof value === "string" && value.trim().length > 0) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            return Promise.reject(new Error("Informe o elemento para esse tipo de regra."));
+                                                                        },
+                                                                    }),
+                                                                ]}
+                                                            >
+                                                                <Select
+                                                                    allowClear
+                                                                    style={{ width: 180 }}
+                                                                    options={CREATURE_ELEMENT_OPTIONS.map((item) => ({ value: item.value, label: item.label }))}
+                                                                    placeholder="Opcional"
+                                                                />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Quantidade"
+                                                                name={[field.name, "battleRuleAmount"]}
+                                                                dependencies={["abilities", field.name, "battleRuleType"]}
+                                                                rules={[
+                                                                    ({ getFieldValue }) => ({
+                                                                        validator(_, value) {
+                                                                            const battleRuleType = getFieldValue(["abilities", field.name, "battleRuleType"]);
+
+                                                                            if (!BATTLE_RULE_TYPES_REQUIRING_AMOUNT.has(String(battleRuleType ?? ""))) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            if (typeof value === "number" && Number.isFinite(value) && value >= 0) {
+                                                                                return Promise.resolve();
+                                                                            }
+
+                                                                            return Promise.reject(new Error("Informe a quantidade (mínimo 0)."));
+                                                                        },
+                                                                    }),
+                                                                ]}
+                                                            >
+                                                                <InputNumber min={0} style={{ width: 150 }} placeholder="Opcional" />
+                                                            </Form.Item>
+
+                                                            <Form.Item
+                                                                label="Keyword"
+                                                                name={[field.name, "battleRuleKeyword"]}
+                                                            >
+                                                                <Input style={{ width: 220 }} placeholder="Opcional" />
+                                                            </Form.Item>
+                                                        </Space>
+
+                                                        <Form.Item
+                                                            label="Notas da regra"
+                                                            name={[field.name, "battleRuleNotes"]}
+                                                        >
+                                                            <Input.TextArea rows={2} placeholder="Opcional" />
+                                                        </Form.Item>
+                                                    </Card>
                                                 </Space>
                                             </Card>
                                         ))}
 
                                         <Button
-                                            onClick={() => add({ description: "", effectType: "increase", stats: ["speed"], cardTypes: ["creature"], value: 0 })}
+                                            onClick={() => add({
+                                                description: "",
+                                                effectType: "increase",
+                                                targetScope: "all_creatures",
+                                                targetTribes: [],
+                                                stats: ["speed"],
+                                                cardTypes: ["creature"],
+                                                value: 0,
+                                                battleRuleType: undefined,
+                                                battleRuleRequiresTarget: true,
+                                                battleRuleUsageLimitPerTurn: null,
+                                                battleRuleNotes: "",
+                                            })}
                                         >
                                             Adicionar habilidade
                                         </Button>

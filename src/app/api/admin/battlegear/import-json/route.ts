@@ -1,14 +1,20 @@
 import { NextResponse } from "next/server";
 import {
     LOCATION_CARD_TYPES,
-    LOCATION_EFFECT_TYPES,
     LOCATION_STATS,
     type LocationCardType,
-    type LocationEffectType,
     type LocationStat,
 } from "@/dto/location";
 import { CARD_RARITIES, CREATURE_TRIBES, type CardRarity, type CreatureTribe } from "@/dto/creature";
-import type { CreateBattleGearRequestDto } from "@/dto/battlegear";
+import {
+    BATTLEGEAR_BATTLE_RULE_TYPES,
+    BATTLEGEAR_EFFECT_TYPES,
+    BATTLEGEAR_TARGET_SCOPES,
+    type BattleGearBattleRuleDto,
+    type BattleGearEffectType,
+    type BattleGearTargetScope,
+    type CreateBattleGearRequestDto,
+} from "@/dto/battlegear";
 import battlegearSeed from "@/components/data/battlegear.json";
 import { auth } from "@/lib/auth";
 import {
@@ -31,15 +37,23 @@ type SeedAbility = {
     description?: unknown;
     effectType?: unknown;
     effect_type?: unknown;
+    targetScope?: unknown;
+    target_scope?: unknown;
+    targetTribes?: unknown;
+    target_tribes?: unknown;
     stats?: unknown;
     stat?: unknown;
     cardTypes?: unknown;
     card_types?: unknown;
     value?: unknown;
+    battleRules?: unknown;
+    battle_rules?: unknown;
 };
 
 type SeedBattleGear = {
     name?: unknown;
+    file_name?: unknown;
+    fileName?: unknown;
     rarity?: unknown;
     image_file_id?: unknown;
     imageFileId?: unknown;
@@ -73,6 +87,32 @@ function parseJsonArray(value: unknown): unknown[] {
     }
 
     return [];
+}
+
+function parseJsonObject(value: unknown): Record<string, unknown> | null {
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+        return value as Record<string, unknown>;
+    }
+
+    if (typeof value === "string") {
+        const trimmed = value.trim();
+
+        if (!trimmed) {
+            return null;
+        }
+
+        try {
+            const parsed = JSON.parse(trimmed) as unknown;
+
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                return parsed as Record<string, unknown>;
+            }
+        } catch {
+            return null;
+        }
+    }
+
+    return null;
 }
 
 function normalizeRarity(value: unknown): CardRarity {
@@ -177,22 +217,58 @@ function normalizeStats(value: unknown, description: string): LocationStat[] {
     return [inferStatFromDescription(description)];
 }
 
-function normalizeEffectType(value: unknown): LocationEffectType {
+function normalizeEffectType(value: unknown): BattleGearEffectType {
     if (typeof value !== "string") {
         return "special";
     }
 
     const normalized = value.trim().toLowerCase();
 
-    if (LOCATION_EFFECT_TYPES.includes(normalized as LocationEffectType)) {
-        return normalized as LocationEffectType;
-    }
-
-    if (["damage", "outperform", "protection", "forced_movement", "relocate_opponent", "deck_manipulation"].includes(normalized)) {
-        return "special";
+    if (BATTLEGEAR_EFFECT_TYPES.includes(normalized as BattleGearEffectType)) {
+        return normalized as BattleGearEffectType;
     }
 
     return "special";
+}
+
+function normalizeTargetScope(value: unknown): BattleGearTargetScope {
+    if (typeof value !== "string") {
+        return "all_creatures";
+    }
+
+    const normalized = value.trim().toLowerCase();
+
+    if (BATTLEGEAR_TARGET_SCOPES.includes(normalized as BattleGearTargetScope)) {
+        return normalized as BattleGearTargetScope;
+    }
+
+    return "all_creatures";
+}
+
+function normalizeBattleRules(value: unknown): BattleGearBattleRuleDto | null {
+    const parsed = parseJsonObject(value);
+
+    if (!parsed) {
+        return null;
+    }
+
+    const type = typeof parsed.type === "string" ? parsed.type.trim() : "";
+
+    if (!type || !BATTLEGEAR_BATTLE_RULE_TYPES.includes(type as BattleGearBattleRuleDto["type"])) {
+        return null;
+    }
+
+    const payload = parsed.payload && typeof parsed.payload === "object" && !Array.isArray(parsed.payload)
+        ? parsed.payload as Record<string, unknown>
+        : null;
+
+    return {
+        type: type as BattleGearBattleRuleDto["type"],
+        requiresTarget: typeof parsed.requiresTarget === "boolean" ? parsed.requiresTarget : undefined,
+        usageLimitPerTurn: typeof parsed.usageLimitPerTurn === "number" ? parsed.usageLimitPerTurn : null,
+        notes: typeof parsed.notes === "string" ? parsed.notes : null,
+        payload,
+    };
 }
 
 function normalizeValue(value: unknown): number {
@@ -219,11 +295,12 @@ function normalizeAbilities(value: unknown): CreateBattleGearRequestDto["abiliti
         normalized.push({
             description,
             effectType: normalizeEffectType(ability.effect_type ?? ability.effectType),
-            targetScope: "all_creatures",
-            targetTribes: [],
+            targetScope: normalizeTargetScope(ability.target_scope ?? ability.targetScope),
+            targetTribes: normalizeTribes(ability.target_tribes ?? ability.targetTribes),
             stats: normalizeStats(ability.stats ?? (ability.stat !== undefined ? [ability.stat] : []), description),
             cardTypes: normalizeCardTypes(ability.card_types ?? ability.cardTypes ?? []),
             value: normalizeValue(ability.value),
+            battleRules: normalizeBattleRules(ability.battle_rules ?? ability.battleRules),
         });
     }
 
@@ -239,6 +316,10 @@ function normalizePayload(item: SeedBattleGear): CreateBattleGearRequestDto | nu
 
     return {
         name,
+        fileName:
+            typeof (item.file_name ?? item.fileName) === "string"
+                ? (item.file_name ?? item.fileName as string).trim() || null
+                : null,
         rarity: normalizeRarity(item.rarity),
         imageFileId: null,
         allowedTribes: normalizeTribes(item.allowed_tribes ?? item.allowedTribes),
