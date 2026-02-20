@@ -204,6 +204,21 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
     mutationFn: (id: string) => BattleGearAdminService.remove(id),
   });
 
+  const syncImagesMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch("/api/admin/battlegear/sync-images", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha ao sincronizar imagens");
+      }
+
+      return response.json();
+    },
+  });
+
   const creatureOptions = useMemo(
     () => creatures.map((creature) => ({ value: creature.id, label: creature.name })),
     [creatures],
@@ -518,6 +533,21 @@ export function BattleGearView({ battlegear, creatures }: BattleGearViewProps) {
                 disabled={importImagesMutation.isPending}
               >
                 Importar imagens em lote
+              </Button>
+              <Button
+                onClick={async () => {
+                  try {
+                    const result = await syncImagesMutation.mutateAsync();
+                    await queryClient.invalidateQueries({ queryKey: adminQueryKeys.battlegear });
+                    notification.success({ message: `Sincronização: ${result.processed} processados, ${result.renamed} renomeados` });
+                  } catch (err) {
+                    notification.error({ message: err instanceof Error ? err.message : "Erro ao sincronizar imagens" });
+                  }
+                }}
+                icon={syncImagesMutation.isPending ? <LoadingLogo /> : undefined}
+                disabled={syncImagesMutation.isPending}
+              >
+                Sincronizar imagens
               </Button>
               <Link href="/">
                 <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
