@@ -314,3 +314,68 @@ export async function renameBattlegearImage(
 
   return newPath;
 }
+
+export async function listAllMugicImages(): Promise<Array<{ name: string; id: string }>> {
+  const supabase = getSupabaseAdminClient();
+  const bucketName = getMugicImagesBucketName();
+
+  const allFiles: Array<{ name: string; id: string }> = [];
+
+  async function listFilesInPath(path: string = ""): Promise<void> {
+    const { data, error } = await supabase.storage.from(bucketName).list(path, {
+      limit: 1000,
+      sortBy: { column: "name", order: "asc" },
+    });
+
+    if (error) {
+      console.error(`Erro ao listar arquivos no path "${path}":`, error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      return;
+    }
+
+    for (const item of data) {
+      const isFolder = item.id === null || (item.metadata && Object.keys(item.metadata).length === 0);
+      const fullPath = path ? `${path}/${item.name}` : item.name;
+
+      if (isFolder && item.name !== ".emptyFolderPlaceholder") {
+        await listFilesInPath(fullPath);
+      } else if (item.id && item.name && !item.name.startsWith(".")) {
+        allFiles.push({ name: item.name, id: fullPath });
+      }
+    }
+  }
+
+  await listFilesInPath("");
+
+  return allFiles;
+}
+
+export async function renameMugicImage(
+  oldPath: string,
+  newFileName: string,
+): Promise<string> {
+  const supabase = getSupabaseAdminClient();
+  const bucketName = getMugicImagesBucketName();
+
+  const pathParts = oldPath.split("/");
+  const directory = pathParts.slice(0, -1).join("/");
+
+  const oldFileName = pathParts[pathParts.length - 1];
+  const extension = oldFileName.includes(".") ? oldFileName.substring(oldFileName.lastIndexOf(".")) : "";
+
+  const safeNewFileName = `${newFileName}${extension}`;
+  const newPath = `${directory}/${safeNewFileName}`;
+
+  const { error: moveError } = await supabase.storage
+    .from(bucketName)
+    .move(oldPath, newPath);
+
+  if (moveError) {
+    throw new Error(`Erro ao renomear imagem [${moveError.name ?? "STORAGE"}]: ${moveError.message}`);
+  }
+
+  return newPath;
+}

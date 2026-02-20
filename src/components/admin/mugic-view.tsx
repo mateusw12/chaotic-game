@@ -100,6 +100,21 @@ export function MugicView({ mugics }: MugicViewProps) {
     mutationFn: (formData: FormData) => MugicAdminService.importImages(formData),
   });
 
+  const syncImagesMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch("/api/admin/mugic/sync-images", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha ao sincronizar imagens");
+      }
+
+      return response.json();
+    },
+  });
+
   const deleteMutation = useMutation({
     mutationFn: (id: string) => MugicAdminService.remove(id),
   });
@@ -442,6 +457,21 @@ export function MugicView({ mugics }: MugicViewProps) {
                 disabled={importImagesMutation.isPending}
               >
                 Importar imagens em lote
+              </Button>
+              <Button
+                onClick={async () => {
+                  try {
+                    const result = await syncImagesMutation.mutateAsync();
+                    await queryClient.invalidateQueries({ queryKey: adminQueryKeys.mugic });
+                    notification.success({ title: `Sincronização: ${result.processed} processados, ${result.renamed} renomeados` });
+                  } catch (err) {
+                    notification.error({ title: err instanceof Error ? err.message : "Erro ao sincronizar imagens" });
+                  }
+                }}
+                icon={syncImagesMutation.isPending ? <LoadingLogo /> : undefined}
+                disabled={syncImagesMutation.isPending}
+              >
+                Sincronizar imagens
               </Button>
               <Link href="/">
                 <Button icon={<ArrowLeftOutlined />}>Voltar</Button>
