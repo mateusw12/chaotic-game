@@ -158,3 +158,15 @@
   transform: scale(1.06);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 6px 18px rgba(56, 214, 255, 0.08);
 }
+
+/* when reward was already claimed, visually de-emphasize and disable interactions */
+.claimed .packTile {
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+.claimed .packTile img {
+  transform: none !important;
+  box-shadow: none !important;
+  filter: grayscale(20%);
+}

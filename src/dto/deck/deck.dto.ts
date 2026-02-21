@@ -65,6 +65,7 @@ export type AwardCardToDeckRequestDto = {
   rarity: CardRarity;
   quantity?: number;
   deckId?: string | null;
+  referenceId?: string | null;
 };
 
 export type AwardCardToDeckResponseDto = ProgressionMutationResponseDto & {

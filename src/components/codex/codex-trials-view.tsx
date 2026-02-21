@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Card, Col, Divider, Row, Space, Tag, Typography, Button, Progress } from "antd";
+import { useState, useEffect } from "react";
+import { Card, Col, Divider, Row, Space, Tag, Typography, Button, Progress, message } from "antd";
 import type { PackCard } from "@/components/codex/types";
 import { Modal } from "antd";
 import { PlayerShell } from "@/components/player/player-shell";
@@ -185,6 +185,7 @@ export function CodexTrialsView({
   const [selectedFormat, setSelectedFormat] = useState<BattleFormat | null>(null);
   const [isPackModalOpen, setIsPackModalOpen] = useState(false);
   const [packCards, setPackCards] = useState<PackCard[]>([]);
+  const [claimedPacks, setClaimedPacks] = useState<Record<string, boolean>>({});
   const [isPicking, setIsPicking] = useState(false);
   const [pickedCardId, setPickedCardId] = useState<string | null>(null);
   const [packRarity, setPackRarity] = useState<string | null>(null);
@@ -200,6 +201,30 @@ export function CodexTrialsView({
     setIsFormatModalOpen(true);
   };
 
+  // prefetch pack metadata to determine which leagues are already claimed
+  useEffect(() => {
+    let mounted = true;
+
+    (async () => {
+      try {
+        const res = await CodexTrialsService.getClaimedLeagues();
+        if (!mounted) return;
+        const map: Record<string, boolean> = {};
+        for (const l of LEAGUES) {
+          const slug = l.imgSymbol ? l.imgSymbol.replace(/\.png$/i, '') : l.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          map[slug] = (res?.claimed ?? []).includes(slug);
+        }
+        setClaimedPacks(map);
+      } catch (e) {
+        // ignore errors
+        // eslint-disable-next-line no-console
+        console.error('Erro ao pré-checar packs:', e);
+      }
+    })();
+
+    return () => { mounted = false; };
+  }, []);
+
   const handleSelectFormat = (format: BattleFormat) => {
     setSelectedFormat(format);
     setIsFormatModalOpen(false);
@@ -210,14 +235,31 @@ export function CodexTrialsView({
     try {
       setPickedCardId(null);
       setRevealedIndex(null);
-      setIsPackModalOpen(true);
-      // decide a liga/slug and request pack metadata from service; cards will be fetched on pack click
+      // decide a liga/slug and request claim from service; cards will be fetched on pack click
       const slug = league.imgSymbol ? league.imgSymbol.replace(/\.png$/i, '') : league.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       setPackLeagueSlug(slug);
+
+      try {
+        // claim the pack permanently for this user/league
+        await CodexTrialsService.claimPack(slug);
+        // mark locally immediately so button disables
+        setClaimedPacks((s) => ({ ...s, [slug]: true }));
+      } catch (e: any) {
+        // if already claimed, mark locally and notify
+        if (e && typeof e === 'object' && 'status' in e && (e as any).status === 409) {
+          setClaimedPacks((s) => ({ ...s, [slug]: true }));
+          message.info('Pacote já resgatado para esta liga.');
+          return;
+        }
+        throw e;
+      }
+
+      // fetch metadata after successful claim
       const data = await CodexTrialsService.getPackMetadata(slug);
       setPackCards([]);
       setPackRarity(data.packRarity || null);
       setPackImage(data.packImage || null);
+      setIsPackModalOpen(true);
     } catch (err) {
       console.error(err);
       setPackCards([]);
@@ -405,15 +447,24 @@ export function CodexTrialsView({
                             </div>
                           </div>
 
-                          {leagueRuntime.status === 'completed' ? (
-                            <Button block type="primary" className={styles.openPackButton} onClick={() => handleOpenPack(league)}>
-                              Abrir pacote de 3 cartas
-                            </Button>
-                          ) : (
-                            <Button block disabled={!leagueRuntime.isActive} onClick={() => handleStartLeague(league)}>
-                              {leagueRuntime.isActive ? `Jogar ${league.name}` : "Liga indisponível"}
-                            </Button>
-                          )}
+                          {(() => {
+                            const slug = league.imgSymbol ? league.imgSymbol.replace(/\.png$/i, '') : league.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                            if (leagueRuntime.status === 'completed') {
+                              const disabled = !!claimedPacks[slug];
+                              return (
+                                <Button block type="primary" className={styles.openPackButton} onClick={() => handleOpenPack(league)} disabled={disabled}>
+                                  {disabled ? 'Pacote resgatado' : 'Abrir pacote de 3 cartas'}
+                                </Button>
+                              );
+                            }
+
+                            return (
+                              <Button block disabled={!leagueRuntime.isActive} onClick={() => handleStartLeague(league)}>
+                                {leagueRuntime.isActive ? `Jogar ${league.name}` : "Liga indisponível"}
+                              </Button>
+                            );
+                          })()}
+
                         </Space>
                       </Card>
                     </div>
@@ -435,6 +486,11 @@ export function CodexTrialsView({
             // add awarded card to local collection/deck preview
             setPickedCardId(card.id);
             setUserDeck((d) => [...d, { id: card.id, name: card.name }]);
+
+            // mark this league's pack as claimed so button is disabled
+            if (packLeagueSlug) {
+              setClaimedPacks((s) => ({ ...s, [packLeagueSlug]: true }));
+            }
 
             // parent resets UI state after modal handled award
             setIsPackModalOpen(false);

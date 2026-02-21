@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 import creatures from '@/components/data/creatures.json';
+import { auth } from '@/lib/auth';
+import { getUserByEmail } from '@/lib/supabase';
+import { getSupabaseAdminClient } from '@/lib/supabase/storage';
+import { getProgressionEventsTableName } from '@/lib/supabase/core';
 
 function pickRarity() {
   // legacy helper used for individual card picks (lower rarities heavier)
@@ -69,7 +73,35 @@ export async function GET(request: Request) {
     const packRarity = requestedRarity ?? pickPackRarityByLeague(url.searchParams.get('league'));
 
     if (count === 0) {
-      return NextResponse.json({ packRarity, packImage: packImageMap[packRarity] || '/assets/codex-trials/bonus/pack.png', cards: [] });
+      // check whether the current user already claimed this pack for the league
+      let alreadyClaimed = false;
+      try {
+        const session = await auth();
+        const email = session?.user?.email;
+        if (email) {
+          const user = await getUserByEmail(email);
+          if (user) {
+            const supabase = getSupabaseAdminClient();
+            const eventsTable = getProgressionEventsTableName();
+            const referenceId = `codex-pack:${(url.searchParams.get('league') || '').toLowerCase()}`;
+            const { data: existing } = await supabase
+              .from(eventsTable)
+              .select('id')
+              .eq('user_id', user.id)
+              .eq('reference_id', referenceId)
+              .limit(1)
+              .maybeSingle();
+
+            if (existing) alreadyClaimed = true;
+          }
+        }
+      } catch (e) {
+        // ignore auth/check errors and default to not claimed
+        // eslint-disable-next-line no-console
+        console.error('Erro ao checar resgate do pacote:', e);
+      }
+
+      return NextResponse.json({ packRarity, packImage: packImageMap[packRarity] || '/assets/codex-trials/bonus/pack.png', cards: [], claimed: alreadyClaimed });
     }
 
     // try to pick `count` cards from that rarity

@@ -28,6 +28,7 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
   const [bonusMugic, setBonusMugic] = useState<{ id: string; name: string } | null>(null);
   const [chosenPackIndex, setChosenPackIndex] = useState<number | null>(null);
   const [phase, setPhase] = useState<"choose-pack" | "choose-card">("choose-pack");
+  const [claimed, setClaimed] = useState(false);
   const hasChosenCardRef = useRef(false);
 
   // reset internal state when modal opens or pack changes
@@ -40,11 +41,12 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
     setChosenPackIndex(null);
     setPhase("choose-pack");
     hasChosenCardRef.current = false;
+    setClaimed(false);
   }, [open, packCards]);
 
   // user selects a pack; reveal cards but do not allow further selection
   const handlePackFrontClick = async (i: number) => {
-    if (isPicking || phase !== "choose-pack") return;
+    if (claimed || isPicking || phase !== "choose-pack") return;
     setChosenPackIndex(i);
 
     try {
@@ -78,7 +80,7 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
 
   // after reveal, user selects one of the revealed cards; selection is final
   const handleSelectCard = async (card: PackCard, i: number) => {
-    if (hasChosenCardRef.current || isPicking || selectedIndex !== null) return;
+    if (claimed || hasChosenCardRef.current || isPicking || selectedIndex !== null) return;
     hasChosenCardRef.current = true;
     setIsPicking(true);
     setSelectedIndex(i);
@@ -87,11 +89,11 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
 
     try {
       // use DecksService which calls the new /users/decks/award route
-      await DecksService.awardCardToDeck({ cardType: "creature", cardId: card.id, rarity: card.rarity as CardRarity, quantity: 1 });
+      await DecksService.awardCardToDeck({ cardType: "creature", cardId: card.id, rarity: card.rarity as CardRarity, quantity: 1, referenceId: `codex-pack:${league ?? 'unknown'}` });
       // award bonus location if present
       if (bonusLocation) {
         try {
-          await DecksService.awardCardToDeck({ cardType: "location", cardId: bonusLocation.id, rarity: 'comum', quantity: 1 });
+          await DecksService.awardCardToDeck({ cardType: "location", cardId: bonusLocation.id, rarity: 'comum', quantity: 1, referenceId: `codex-pack:${league ?? 'unknown'}` });
           message.info(`Local recebido: ${bonusLocation.name}`);
         } catch (e) {
           console.error('Erro ao conceder location bonus', e);
@@ -100,13 +102,14 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
       // award bonus mugic if present
       if (bonusMugic) {
         try {
-          await DecksService.awardCardToDeck({ cardType: "mugic", cardId: bonusMugic.id, rarity: 'comum', quantity: 1 });
+          await DecksService.awardCardToDeck({ cardType: "mugic", cardId: bonusMugic.id, rarity: 'comum', quantity: 1, referenceId: `codex-pack:${league ?? 'unknown'}` });
           message.info(`Mugic recebido: ${bonusMugic.name}`);
         } catch (e) {
           console.error('Erro ao conceder mugic bonus', e);
         }
       }
       message.success("Carta enviada ao seu deck.");
+      setClaimed(true);
       // keep reveal on screen before closing/resetting
       setCloseCountdown(3);
       await new Promise((r) => setTimeout(r, 1000));
@@ -138,16 +141,19 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
           {closeCountdown !== null && (
             <div className={styles.packSubtitle}>Fechando em {closeCountdown}s...</div>
           )}
+          {claimed && (
+            <div className={styles.packSubtitle}>Recompensa resgatada</div>
+          )}
         </div>
 
-        <div className={styles.packGrid}>
+        <div className={`${styles.packGrid} ${claimed ? styles.claimed : ''}`}>
           {phase === "choose-pack" ? (
             // show three pack fronts for the user to choose one
             Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={`pack-${i}`}
                 className={`${styles.packTile} ${chosenPackIndex === i ? styles.packSelected : ''}`}
-                onClick={() => handlePackFrontClick(i)}
+                onClick={!claimed ? () => handlePackFrontClick(i) : undefined}
                 role="button"
                 tabIndex={0}
               >
