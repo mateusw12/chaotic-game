@@ -1,498 +1,2531 @@
 [
-    {
-        "id": "b121e471-a497-4d0a-9bea-b7785a2f5e98",
-        "name": "Máscara de Fobia",
-        "image_file_id": null,
-        "image_url": null,
-        "allowed_tribes": "[]",
-        "allowed_creature_ids": "[]",
-        "abilities": "[{\"stats\":[\"courage\"],\"value\":10,\"cardTypes\":[\"creature\"],\"effectType\":\"decrease\",\"description\":\"Diminui coragem do adversá¡rio em 10\"},{\"stats\":[\"power\"],\"value\":10,\"cardTypes\":[\"creature\"],\"effectType\":\"decrease\",\"description\":\"Diminui poder do adversá¡rio em 10\"}]",
-        "created_at": "2026-02-14 17:07:36.534366+00",
-        "updated_at": "2026-02-14 17:07:36.534366+00",
-        "rarity": "comum"
-    },
-    {
-        "id": "bc7dd3b5-18b4-4ce8-9574-1882360f9e1a",
-        "name": "Aperto Mental",
-        "image_file_id": null,
-        "image_url": null,
-        "allowed_tribes": "[]",
-        "allowed_creature_ids": "[]",
-        "abilities": "[{\"effectType\":\"damage\",\"value\":5,\"trigger\":\"opponent_reduces_disciplines\",\"description\":\"Quando um efeito controlado por um oponente reduz qualquer Disciplina da Criatura equipada, Aperto Mental causa 5 de dano á  Criatura engajada alvo.\"}]",
-        "created_at": "2026-02-15 15:00:00.000000+00",
-        "updated_at": "2026-02-15 15:00:00.000000+00",
-        "rarity": "rara"
-    },
-    {
-        "id": "17914e8d-2f6d-421c-8471-f040a018c9eb",
-        "name": "Espelhos do Deslocamento",
-        "image_file_id": null,
-        "image_url": null,
-        "allowed_tribes": "[]",
-        "allowed_creature_ids": "[]",
-        "abilities": "[{\"effectType\": \"cycle_attack\", \"trigger\": \"mugic_to_discard\", \"description\": \"Quando um Card de Mugic vai para a pilha de descarte geral, descarte um Card de Ataque e compre um Card de Ataque.\"}]",
-        "created_at": "2026-02-15 15:00:00.000000+00",
-        "updated_at": "2026-02-15 15:00:00.000000+00",
-        "rarity": "super"
-    },
-    {
-        "id": "eac9b078-f325-4e4f-8965-5f1ac5522925",
-        "name": "Tabuleta Parasita",
-        "image_file_id": null,
-        "image_url": null,
-        "allowed_tribes": "[]",
-        "allowed_creature_ids": "[]",
-        "abilities": "[{\"stats\":[\"courage\"],\"value\":10,\"cardTypes\":[\"creature\"],\"effectType\":\"increase\",\"description\":\"Criatura equipada ganha 10 de Coragem\"},{\"effectType\":\"sacrifice_transform\",\"target_tribe\":\"Mandiblor\",\"condition\":\"engaged\",\"description\":\"Sacrifique Tabuleta Parasita: Criatura equipada conta como um Mandiblor. Jogue esta habilidade apenas enquanto a criatura equipada estiver engajada.\"}]",
-        "created_at": "2026-02-15 15:00:00.000000+00",
-        "updated_at": "2026-02-15 15:00:00.000000+00",
-        "rarity": "comum"
-    },
-    {
-        "id": "63f4caa1-4b81-4339-a8bd-772f4687c7c8",
-        "name": "Armadura de Carapaça de Kha'rall",
-        "image_file_id": null,
-        "rarity": "rara",
-        "unique": true,
-        "abilities": "[{\"stats\":[\"energy\"],\"value\":50,\"effectType\":\"increase\",\"description\":\"Criatura equipada ganha 50 de Energia\"},{\"trigger\":\"receive_15_damage\",\"effectType\":\"damage_negation\",\"description\":\"Quando a criatura equipada recebe 15 ou mais de dano de ataque, o próximo ataque que ela realizar causa 0 de dano.\"}]"
-    },
-    {
-        "id": "0dea98f1-37e6-4501-86ef-cb87c6501a90",
-        "name": "Manual de Vidav",
-        "image_file_id": null,
-        "rarity": "comum",
-        "abilities": "[{\"stats\":[\"wisdom\"],\"value\":10,\"effectType\":\"increase\",\"description\":\"Criatura equipada ganha 10 de Sabedoria\"},{\"effectType\":\"sacrifice_heal\",\"value\":15,\"condition\":\"engaged\",\"description\":\"Sacrifique Manual de Vidav: cure 15 de dano da criatura equipada. Ative apenas enquanto engajada.\"}]"
-    },
-    {
-        "id": "d2d91851-271b-4837-9b8b-0cc1284b753a",
-        "name": "Tocha de Maxxor",
-        "image_file_id": null,
-        "rarity": "super",
-        "unique": true,
-        "abilities": "[{\"effectType\":\"sacrifice_damage\",\"value\":25,\"target_restriction\":[\"M'arrillian\",\"Minion\"],\"description\":\"Sacrifique Tocha de Maxxor: O oponente escolhe uma criatura M'arrillian ou Minion que ele controla. Tocha de Maxxor causa 25 de dano á  criatura escolhida.\"}]"
-    },
-    {
-        "id": "e7dba31e-3e9e-489f-b449-bafb858632ae",
-        "name": "Prisma Mental",
-        "image_file_id": null,
-        "rarity": "comum",
-        "abilities": "[{\"stats\": [\"energy\"], \"value\": 10, \"effectType\": \"increase\", \"description\": \"Criatura equipada ganha 10 de Energia\"}]"
-    },
-    {
-        "id": "90f58526-cfac-4b97-98d9-35f9b63f66cb",
-        "name": "Aperto Mental",
-        "image_file_id": null,
-        "rarity": "rara",
-        "abilities": "[{\"trigger\":\"opponent_reduces_disciplines\",\"effectType\":\"damage\",\"value\":5,\"description\":\"Quando um efeito controlado pelo oponente reduz qualquer Disciplina da criatura equipada, Aperto Mental causa 5 de dano á  criatura engajada alvo.\"}]"
-    },
-    {
-        "id": "35add343-c670-4ccd-a606-fb6fa85854b9",
-        "name": "Espelhos do Deslocamento",
-        "image_file_id": null,
-        "rarity": "super",
-        "abilities": "[{\"trigger\": \"mugic_to_discard\", \"effectType\": \"cycle_attack\", \"description\": \"Quando um card de Mugic vai para a pilha de descarte geral, descarte um card de Ataque e compre um card de Ataque.\"}]"
-    },
-    {
-        "id": "1246eeff-38ad-48a1-af16-2a652db7c6fc",
-        "name": "Tabuleta Parasita",
-        "image_file_id": null,
-        "rarity": "comum",
-        "abilities": "[{\"stats\":[\"courage\"],\"value\":10,\"effectType\":\"increase\",\"description\":\"Criatura equipada ganha 10 de Coragem\"},{\"effectType\":\"sacrifice_trait\",\"trait\":\"Mandiblor\",\"condition\":\"engaged\",\"description\":\"Sacrifique Tabuleta Parasita: A criatura equipada conta como um Mandiblor enquanto estiver engajada.\"}]"
-    },
-    {
-        "id": "1b7ffe2f-5c04-4593-a5ed-7f7e6e72253f",
-        "name": "Amplificador Cerebral",
-        "image_file_id": null,
-        "rarity": "super",
-        "abilities": "[{\"stats\": [\"wisdom\"], \"value\": 15, \"effectType\": \"increase\", \"description\": \"Criatura equipada ganha 15 de Sabedoria\"}, {\"stats\": [\"energy\"], \"value\": 5, \"effectType\": \"increase\", \"description\": \"Criatura equipada ganha 5 de Energia\"}, {\"trigger\": \"win_combat\", \"effectType\": \"gain_mugic_counter\", \"description\": \"Quando a criatura equipada vence um combate, ela ganha um Mugic Counter.\"}]"
-    },
-    {
-        "id": "6101a9ec-08a3-4532-a8d0-304984aa7158",
-        "name": "Sopro do Deserto",
-        "image_file_id": null,
-        "rarity": "comum",
-        "abilities": "[{\"stats\":[\"speed\"],\"value\":10,\"effectType\":\"increase\",\"description\":\"Criatura equipada ganha 10 de Velocidade\"},{\"effectType\":\"sacrifice_gain_element\",\"element\":\"Air\",\"value\":5,\"condition\":\"engaged\",\"description\":\"Sacrifique Sopro do Deserto: Criatura equipada ganha 'Ar 5'. Jogue esta habilidade apenas enquanto a criatura estiver engajada.\"}]"
-    },
-    {
-        "id": "8854b1ec-b74d-44a3-b8b7-c783b37aee79",
-        "name": "Destrutozuca",
-        "image_file_id": null,
-        "rarity": "rara",
-        "abilities": "[{\"trigger\":\"revealed\",\"effectType\":\"choice_elemental_gain\",\"value\":5,\"description\":\"Quando Destrutozuca á© revelado, escolha um Tipo Elemental. A criatura equipada ganha o elemento escolhido e 'Elemento 5' daquele tipo.\"}]"
-    },
-    {
-        "id": "4acef7fe-1056-4023-981d-15fb3ef2478f",
-        "name": "Âmbar da Colmeia",
-        "image_file_id": null,
-        "rarity": "rara",
-        "abilities": "[{\"effectType\":\"sacrifice_activate_hive\",\"description\":\"Sacrifique Âmbar da Colmeia: Ative a Colmeia (Hive).\"},{\"trigger\":\"mandiblor_to_discard\",\"effectType\":\"return_from_discard\",\"description\":\"Quando um Mandiblor que você controla á© colocado na pilha de descarte, você pode retornar Âmbar da Colmeia para o jogo equipado em uma criatura sua não equipada.\"}]"
-    },
-    {
-        "id": "ab0a3b7a-e51b-4a3b-9cf4-7a85915e6c0c",
-        "name": "Amplificador de Aspecto: Agilidade",
-        "image_file_id": null,
-        "rarity": "comum",
-        "abilities": "[{\"effectType\": \"outperform\", \"stats\": [\"speed\"], \"value\": 5, \"description\": \"Criatura equipada ganha 'Outperform Speed 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Velocidade bem-sucedidos.\"}]"
-    },
-    {
-        "id": "327d934b-1030-4081-9628-f8b7951ea41a",
-        "name": "Amplificador de Aspecto: Bravura",
-        "image_file_id": null,
-        "rarity": "comum",
-        "abilities": "[{\"effectType\": \"outperform\", \"stats\": [\"courage\"], \"value\": 5, \"description\": \"Criatura equipada ganha 'Outperform Courage 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Coragem bem-sucedidos.\"}]"
-    },
-    {
-        "id": "cd3e455a-5cf6-43f2-a6ce-f78c682e802e",
-        "name": "Amplificador de Aspecto: Potência",
-        "image_file_id": null,
-        "rarity": "comum",
-        "abilities": "[{\"effectType\": \"outperform\", \"stats\": [\"power\"], \"value\": 5, \"description\": \"Criatura equipada ganha 'Outperform Power 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Poder bem-sucedidos.\"}]"
-    },
-    {
-        "id": "6e83c522-0fbd-4808-997f-a0898005bf5a",
-        "name": "Amplificador de Aspecto: Sagacidade",
-        "image_file_id": null,
-        "rarity": "comum",
-        "abilities": "[{\"effectType\": \"outperform\", \"stats\": [\"wisdom\"], \"value\": 5, \"description\": \"Criatura equipada ganha 'Outperform Wisdom 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Sabedoria bem-sucedidos.\"}]"
-    },
-    {
-        "id": "2bdbadb4-ec29-4f39-a3df-57d0bcc95b68",
-        "name": "Aerodrone",
-        "image_file_id": null,
-        "rarity": "super",
-        "abilities": "[{\"trigger\":\"deal_air_damage\",\"effectType\":\"deck_manipulation\",\"description\":\"Quando a criatura equipada causa dano de Ar, você pode olhar os quatro cards do topo do seu Attack Deck e colocá¡-los de volta no topo em qualquer ordem.\"}]"
-    },
-    {
-        "id": "54f435c1-c4d2-4071-80ca-31169e36c079",
-        "name": "Asas Algares de Atração",
-        "image_file_id": null,
-        "rarity": "ultra",
-        "unique": true,
-        "abilities": "[{\"effectType\":\"forced_movement\",\"description\":\"Se uma Criatura oponente adjacente puder se mover para o espaço da criatura equipada, ela deve fazáª-lo. (Vocáª pode iniciar apenas um combate por turno).\"}]"
-    },
-    {
-        "id": "d214571b-40bc-4fdf-9284-749926c360c5",
-        "name": "Isca Sedutora",
-        "image_file_id": null,
-        "rarity": "rara",
-        "abilities": "[{\"cost\":\"discard_mugic\",\"effectType\":\"relocate_opponent\",\"description\":\"Criatura equipada ganha: 'Descarte um Card de Mugic: Realoque a criatura oponente não engajada alvo para um espaço desocupado adjacente á  criatura equipada.'\"}]"
-    },
-    {
-        "id": "btg-001",
-        "file_name": "134.png",
-        "name": "Sonda Mental de Azaia",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada não pode ser alvo de Mugic ou habilidades jogadas por criaturas com Sabedoria menor que a dela. Este Battlegear começa o jogo virado para cima.\",\"effectType\":\"protection\",\"battleRules\":{\"type\":\"prevent_targeting_by_lower_stat\",\"notes\":\"Impede ser alvo de Mugic/habilidades de criaturas com Sabedoria menor.\",\"payload\":{\"stat\":\"wisdom\",\"starts_face_up\":true}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:00.000000Z",
-        "updated_at": "2026-02-16T15:00:00.000000Z",
-        "rarity": "super_rara"
-    },
-    {
-        "id": "btg-002",
-        "file_name": "135.png",
-        "name": "Ankh de Kehn-Sep",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada causa 5 de dano de ataque adicional a criaturas sem tipos elementais.\",\"effectType\":\"damage_modifier\",\"battleRules\":{\"type\":\"additional_damage_to_no_element_creatures\",\"notes\":\"Causa 5 de dano de ataque adicional a criaturas sem tipo elemental.\",\"payload\":{\"amount\":5}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:01.000000Z",
-        "updated_at": "2026-02-16T15:00:01.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-003",
-        "file_name": "136.png",
-        "name": "Familiar Aquático",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada recebe 'Gaste Água: ganhe 50 de Sabedoria'.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"expend_element_for_stat\",\"notes\":\"Ganha 50 de Sabedoria ao gastar o elemento Água.\",\"payload\":{\"element\":\"water\",\"stat\":\"wisdom\",\"amount\":50}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:02.000000Z",
-        "updated_at": "2026-02-16T15:00:02.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-004",
-        "file_name": "137.png",
-        "name": "Bi-Mowercycle",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada recebe 'Range' e 'Swift 1'.\",\"effectType\":\"gain_keyword\",\"battleRules\":{\"type\":\"gain_keywords\",\"notes\":\"Ganha Range e Swift 1.\",\"payload\":{\"keywords\":[\"range\",\"swift 1\"]}},\"targetScope\":\"self\"},{\"description\":\"Sacrifique Bi-Mowercycle: a criatura alvo recebe 'Range' e 'Swift 1'.\",\"effectType\":\"gain_keyword\",\"battleRules\":{\"type\":\"sacrifice_to_grant_keywords\",\"notes\":\"Sacrifica para dar Range e Swift 1 a um alvo.\",\"payload\":{\"keywords\":[\"range\",\"swift 1\"]}},\"targetScope\":\"target_creature\"},{\"description\":\"Este Battlegear começa o jogo virado para cima.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"starts_face_up\",\"notes\":\"Começa o jogo virado para cima.\",\"payload\":{}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:03.000000Z",
-        "updated_at": "2026-02-16T15:00:03.000000Z",
-        "rarity": "super_rara"
-    },
-    {
-        "id": "btg-005",
-        "file_name": "138.png",
-        "name": "Fragmentos da Cidadela",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada recebe 5 de Energia e 5 em cada Disciplina para cada tipo elemental que possuir.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"gain_stats_per_element\",\"notes\":\"Ganha 5 de Energia e 5 em cada disciplina por tipo elemental.\",\"payload\":{\"energy_per_element\":5,\"discipline_per_element\":5}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:04.000000Z",
-        "updated_at": "2026-02-16T15:00:04.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-006",
-        "file_name": "139.png",
-        "name": "Pedra-Ímã de Chadel",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Quando a criatura equipada fica engajada, ela ganha Terra.\",\"effectType\":\"gain_element\",\"battleRules\":{\"type\":\"gain_element_on_engage\",\"notes\":\"Ganha Terra ao se tornar engajado.\",\"payload\":{\"element\":\"earth\"}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:05.000000Z",
-        "updated_at": "2026-02-16T15:00:05.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-007",
-        "file_name": "140.png",
-        "name": "Colestone",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Quando uma criatura engajada com a equipada falha em um teste de Disciplina de um ataque jogado, a criatura equipada ganha 10 de Energia.\",\"effectType\":\"gain_energy\",\"battleRules\":{\"type\":\"gain_energy_on_opponent_fail_check\",\"notes\":\"Ganha 10 de energia quando o oponente engajado falha em um teste de disciplina.\",\"payload\":{\"amount\":10}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:06.000000Z",
-        "updated_at": "2026-02-16T15:00:06.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-008",
-        "file_name": "141.png",
-        "name": "Manto Duplo",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"No início do combate, escolha 'Fogo 5', 'Ar 5', 'Terra 5' ou 'Água 5'. A criatura equipada ganha a habilidade escolhida e 'Recklessness 5'.\",\"effectType\":\"gain_keyword\",\"battleRules\":{\"type\":\"choose_elemental_keyword_and_gain_recklessness\",\"notes\":\"Escolhe uma habilidade elemental e ganha Recklessness 5 no início do combate.\",\"payload\":{\"recklessness_amount\":5}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:07.000000Z",
-        "updated_at": "2026-02-16T15:00:07.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-009",
-        "file_name": "142.jpg",
-        "name": "Plataforma de Perfuração",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada ganha 10 de Energia. Se tiver Terra, ganha mais 10 de Energia.\",\"effectType\":\"gain_energy\",\"battleRules\":{\"type\":\"gain_energy_with_element_bonus\",\"notes\":\"Ganha 10 de energia, e mais 10 se tiver Terra.\",\"payload\":{\"base_amount\":10,\"bonus_amount\":10,\"element\":\"earth\"}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:08.000000Z",
-        "updated_at": "2026-02-16T15:00:08.000000Z",
-        "rarity": "comum"
-    },
-    {
-        "id": "btg-010",
-        "file_name": "143.png",
-        "name": "Lâmina de Chamas de Seeryn",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Sempre que a criatura equipada causar 30 ou mais de dano de Fogo com um único ataque, destrua um Battlegear alvo.\",\"effectType\":\"destroy\",\"battleRules\":{\"type\":\"destroy_battlegear_on_damage_threshold\",\"notes\":\"Destrói um Battlegear alvo ao causar 30 ou mais de dano de Fogo.\",\"payload\":{\"damage_threshold\":30,\"element\":\"fire\"}},\"targetScope\":\"target_battlegear\"}]",
-        "created_at": "2026-02-16T15:00:09.000000Z",
-        "updated_at": "2026-02-16T15:00:09.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-011",
-        "file_name": "144.png",
-        "name": "Hiperplanador",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada ganha 'Untargetable' se tiver se movido neste turno.\",\"effectType\":\"gain_keyword\",\"battleRules\":{\"type\":\"gain_keyword_if_moved\",\"notes\":\"Ganha 'Untargetable' se a criatura se moveu no turno.\",\"payload\":{\"keyword\":\"untargetable\"}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:10.000000Z",
-        "updated_at": "2026-02-16T15:00:10.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-012",
-        "file_name": "145.png",
-        "name": "Fragmento Inabalável de Kha'rall",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada ganha Água. Se a equipada for um Kha'rall, ganha +15 de Energia e 'Defender: Water'. Este Battlegear começa o jogo virado para cima.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"gain_element_and_bonus_for_specific_creature\",\"notes\":\"Dá Água. Se for um Kha'rall, dá +15 de Energia e Defender: Water.\",\"payload\":{\"element\":\"water\",\"creature_name\":\"kha'rall\",\"bonus_energy\":15,\"bonus_keyword\":\"defender: water\",\"starts_face_up\":true}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:11.000000Z",
-        "updated_at": "2026-02-16T15:00:11.000000Z",
-        "rarity": "super_rara"
-    },
-    {
-        "id": "btg-013",
-        "file_name": "146.png",
-        "name": "Sobrecarregador Metabólico",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada recebe 'Gaste Fogo: ganhe 50 de Poder'.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"expend_element_for_stat\",\"notes\":\"Ganha 50 de Poder ao gastar o elemento Fogo.\",\"payload\":{\"element\":\"fire\",\"stat\":\"power\",\"amount\":50}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:12.000000Z",
-        "updated_at": "2026-02-16T15:00:12.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-014",
-        "file_name": "147.png",
-        "name": "Lâmina de Garra Misteriosa",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada recebe 'Gaste Ar: ganhe 50 de Velocidade'.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"expend_element_for_stat\",\"notes\":\"Ganha 50 de Velocidade ao gastar o elemento Ar.\",\"payload\":{\"element\":\"air\",\"stat\":\"speed\",\"amount\":50}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:13.000000Z",
-        "updated_at": "2026-02-16T15:00:13.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-015",
-        "file_name": "148.png",
-        "name": "Orbe de Unda",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Sacrifique Orb of Unda: coloque um contador de Mugic na criatura equipada. Se ela tiver Água, cure 10 de dano dela.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"sacrifice_for_mugic_and_heal\",\"notes\":\"Sacrifica para dar um contador de Mugic e curar 10 se tiver Água.\",\"payload\":{\"heal_amount\":10,\"element\":\"water\"}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:14.000000Z",
-        "updated_at": "2026-02-16T15:00:14.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-016",
-        "file_name": "149.png",
-        "name": "Orchis Undin",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Quando a criatura equipada fica engajada, ela ganha Água.\",\"effectType\":\"gain_element\",\"battleRules\":{\"type\":\"gain_element_on_engage\",\"notes\":\"Ganha Água ao se tornar engajado.\",\"payload\":{\"element\":\"water\"}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:15.000000Z",
-        "updated_at": "2026-02-16T15:00:15.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-017",
-        "file_name": "150.png",
-        "name": "Cinto da Fênix",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Sacrifique Phoenix Belt: cause 10 de dano á criatura alvo. Se a criatura equipada tiver Fogo, cause mais 10 de dano.\",\"effectType\":\"damage\",\"battleRules\":{\"type\":\"sacrifice_for_damage_with_bonus\",\"notes\":\"Sacrifica para causar 10 de dano, mais 10 se tiver Fogo.\",\"payload\":{\"base_amount\":10,\"bonus_amount\":10,\"element\":\"fire\"}},\"targetScope\":\"target_creature\"}]",
-        "created_at": "2026-02-16T15:00:16.000000Z",
-        "updated_at": "2026-02-16T15:00:16.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-018",
-        "file_name": "151.png",
-        "name": "Transportador de Fase",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"No início de cada turno, a criatura equipada deve trocar de lugar com outra criatura que você controla. Este Battlegear começa o jogo virado para cima.\",\"effectType\":\"special\",\"battleRules\":{\"type\":\"forced_swap_at_turn_start\",\"notes\":\"Força a troca de lugar com outra criatura no início do turno.\",\"payload\":{\"starts_face_up\":true}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:17.000000Z",
-        "updated_at": "2026-02-16T15:00:17.000000Z",
-        "rarity": "super_rara"
-    },
-    {
-        "id": "btg-019",
-        "file_name": "152.png",
-        "name": "Pingente de Guranium",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada recebe 'Gaste Terra: ganhe 50 de Coragem'.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"expend_element_for_stat\",\"notes\":\"Ganha 50 de Coragem ao gastar o elemento Terra.\",\"payload\":{\"element\":\"earth\",\"stat\":\"courage\",\"amount\":50}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:18.000000Z",
-        "updated_at": "2026-02-16T15:00:18.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-020",
-        "file_name": "153.png",
-        "name": "Manto da Tempestade de Areia",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Quando a criatura equipada fica engajada, ela ganha Ar.\",\"effectType\":\"gain_element\",\"battleRules\":{\"type\":\"gain_element_on_engage\",\"notes\":\"Ganha Ar ao se tornar engajado.\",\"payload\":{\"element\":\"air\"}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:19.000000Z",
-        "updated_at": "2026-02-16T15:00:19.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-021",
-        "file_name": "154.png",
-        "name": "Escaravelho de Khilai",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada e as criaturas engajadas com ela não podem perder tipos elementais.\",\"effectType\":\"protection\",\"battleRules\":{\"type\":\"prevent_elemental_loss_for_engaged\",\"notes\":\"Impede a perda de tipos elementais para a criatura equipada e as engajadas com ela.\",\"payload\":{}},\"targetScope\":\"self_and_engaged\"}]",
-        "created_at": "2026-02-16T15:00:20.000000Z",
-        "updated_at": "2026-02-16T15:00:20.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-022",
-        "file_name": "155.png",
-        "name": "Skopolon",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"No início do turno, você pode olhar um Battlegear alvo virado para baixo que você não controla. (Ele permanece virado para baixo). Este Battlegear começa o jogo virado para cima.\",\"effectType\":\"scry\",\"battleRules\":{\"type\":\"look_at_opponent_battlegear\",\"notes\":\"Permite olhar um Battlegear virado para baixo do oponente no início do turno.\",\"payload\":{\"starts_face_up\":true}},\"targetScope\":\"opponent_battlegear\"}]",
-        "created_at": "2026-02-16T15:00:21.000000Z",
-        "updated_at": "2026-02-16T15:00:21.000000Z",
-        "rarity": "super_rara"
-    },
-    {
-        "id": "btg-023",
-        "file_name": "156.png",
-        "name": "Estátua do Pássaro da Tempestade",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada ganha 'Swift 1'. Se tiver Ar, tambám ganha 'Surprise'. Este Battlegear começa o jogo virado para cima.\",\"effectType\":\"gain_keyword\",\"battleRules\":{\"type\":\"gain_keyword_with_element_bonus\",\"notes\":\"Ganha Swift 1, e Surprise se tiver Ar.\",\"payload\":{\"base_keyword\":\"swift 1\",\"bonus_keyword\":\"surprise\",\"element\":\"air\",\"starts_face_up\":true}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:22.000000Z",
-        "updated_at": "2026-02-16T15:00:22.000000Z",
-        "rarity": "super_rara"
-    },
-    {
-        "id": "btg-024",
-        "file_name": "157.png",
-        "name": "Carruagem Solar de Kehn-Sep",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Quando a criatura equipada fica engajada, ela ganha Fogo.\",\"effectType\":\"gain_element\",\"battleRules\":{\"type\":\"gain_element_on_engage\",\"notes\":\"Ganha Fogo ao se tornar engajado.\",\"payload\":{\"element\":\"fire\"}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:23.000000Z",
-        "updated_at": "2026-02-16T15:00:23.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-025",
-        "file_name": "158.png",
-        "name": "Tridente da Traição",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Se a criatura equipada fosse causar 20 ou mais de dano de ataque de Fogo, ela pode causar 10 de dano a uma criatura alvo em vez disso.\",\"effectType\":\"damage_modifier\",\"battleRules\":{\"type\":\"redirect_damage_option\",\"notes\":\"Se causaria 20+ de dano de Fogo, pode causar 10 a um alvo em vez disso.\",\"payload\":{\"damage_threshold\":20,\"element\":\"fire\",\"redirect_damage\":10}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:24.000000Z",
-        "updated_at": "2026-02-16T15:00:24.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-026",
-        "file_name": "159.png",
-        "name": "Ulmanator",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Criaturas engajadas com a criatura equipada perdem 10 em todas as Disciplinas para cada tipo elemental que possuírem.\",\"effectType\":\"stat_modifier\",\"battleRules\":{\"type\":\"reduce_opponent_stats_per_element\",\"notes\":\"Reduz as disciplinas do oponente engajado em 10 por tipo elemental.\",\"payload\":{\"amount_per_element\":-10}},\"targetScope\":\"engaged_creatures\"}]",
-        "created_at": "2026-02-16T15:00:25.000000Z",
-        "updated_at": "2026-02-16T15:00:25.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-027",
-        "file_name": "160.png",
-        "name": "Varanos",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada ganha 'Range' e 'Swift 1' para cada criatura na sua pilha de descarte. Este Battlegear começa o jogo virado para cima.\",\"effectType\":\"gain_keyword\",\"battleRules\":{\"type\":\"gain_keywords_per_creature_in_discard\",\"notes\":\"Ganha Range e Swift 1 por criatura no descarte.\",\"payload\":{\"keywords\":[\"range\",\"swift 1\"],\"starts_face_up\":true}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:26.000000Z",
-        "updated_at": "2026-02-16T15:00:26.000000Z",
-        "rarity": "super_rara"
-    },
-    {
-        "id": "btg-028",
-        "file_name": "161.png",
-        "name": "Fragmento de Vlaric",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"A criatura equipada com Terra causa 5 de dano de ataque adicional.\",\"effectType\":\"damage_modifier\",\"battleRules\":{\"type\":\"additional_damage_if_has_element\",\"notes\":\"Causa 5 de dano de ataque adicional se tiver Terra.\",\"payload\":{\"amount\":5,\"element\":\"earth\"}},\"targetScope\":\"self\"},{\"description\":\"Quando você embaralhar seu deck de ataque, destrua Vlaric Shard.\",\"effectType\":\"destroy\",\"battleRules\":{\"type\":\"destroy_on_shuffle\",\"notes\":\"É destruído quando você embaralha seu deck de ataque.\",\"payload\":{}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:27.000000Z",
-        "updated_at": "2026-02-16T15:00:27.000000Z",
-        "rarity": "rara"
-    },
-    {
-        "id": "btg-029",
-        "file_name": "162.png",
-        "name": "Armadura de Xerium",
-        "image_file_id": null,
-        "image_url": null,
-        "abilities": "[{\"description\":\"Se a criatura equipada fosse receber mais de 20 de dano de um ataque, ela recebe 20 de dano em vez disso. Único.\",\"effectType\":\"protection\",\"battleRules\":{\"type\":\"damage_cap\",\"notes\":\"Limita o dano recebido de um ataque a 20. Único.\",\"payload\":{\"cap_amount\":20,\"is_unique\":true}},\"targetScope\":\"self\"}]",
-        "created_at": "2026-02-16T15:00:28.000000Z",
-        "updated_at": "2026-02-16T15:00:28.000000Z",
-        "rarity": "super_rara"
-    }
+  {
+    "id": "b121e471-a497-4d0a-9bea-b7785a2f5e98",
+    "name": "Máscara de Fobia",
+    "image_file_id": null,
+    "image_url": null,
+    "allowed_tribes": "[]",
+    "allowed_creature_ids": "[]",
+    "abilities": [
+      {
+        "stats": [
+          "courage"
+        ],
+        "value": 10,
+        "cardTypes": [
+          "creature"
+        ],
+        "effectType": "decrease",
+        "description": "Diminui coragem do adversá¡rio em 10"
+      },
+      {
+        "stats": [
+          "power"
+        ],
+        "value": 10,
+        "cardTypes": [
+          "creature"
+        ],
+        "effectType": "decrease",
+        "description": "Diminui poder do adversá¡rio em 10"
+      }
+    ],
+    "created_at": "2026-02-14 17:07:36.534366+00",
+    "updated_at": "2026-02-14 17:07:36.534366+00",
+    "rarity": "comum"
+  },
+  {
+    "id": "bc7dd3b5-18b4-4ce8-9574-1882360f9e1a",
+    "name": "Aperto Mental",
+    "image_file_id": null,
+    "image_url": null,
+    "allowed_tribes": "[]",
+    "allowed_creature_ids": "[]",
+    "abilities": [
+      {
+        "effectType": "damage",
+        "value": 5,
+        "trigger": "opponent_reduces_disciplines",
+        "description": "Quando um efeito controlado por um oponente reduz qualquer Disciplina da Criatura equipada, Aperto Mental causa 5 de dano á  Criatura engajada alvo."
+      }
+    ],
+    "created_at": "2026-02-15 15:00:00.000000+00",
+    "updated_at": "2026-02-15 15:00:00.000000+00",
+    "rarity": "rara"
+  },
+  {
+    "id": "17914e8d-2f6d-421c-8471-f040a018c9eb",
+    "name": "Espelhos do Deslocamento",
+    "image_file_id": null,
+    "image_url": null,
+    "allowed_tribes": "[]",
+    "allowed_creature_ids": "[]",
+    "abilities": [
+      {
+        "effectType": "cycle_attack",
+        "trigger": "mugic_to_discard",
+        "description": "Quando um Card de Mugic vai para a pilha de descarte geral, descarte um Card de Ataque e compre um Card de Ataque."
+      }
+    ],
+    "created_at": "2026-02-15 15:00:00.000000+00",
+    "updated_at": "2026-02-15 15:00:00.000000+00",
+    "rarity": "super"
+  },
+  {
+    "id": "eac9b078-f325-4e4f-8965-5f1ac5522925",
+    "name": "Tabuleta Parasita",
+    "image_file_id": null,
+    "image_url": null,
+    "allowed_tribes": "[]",
+    "allowed_creature_ids": "[]",
+    "abilities": [
+      {
+        "stats": [
+          "courage"
+        ],
+        "value": 10,
+        "cardTypes": [
+          "creature"
+        ],
+        "effectType": "increase",
+        "description": "Criatura equipada ganha 10 de Coragem"
+      },
+      {
+        "effectType": "sacrifice_transform",
+        "target_tribe": "Mandiblor",
+        "condition": "engaged",
+        "description": "Sacrifique Tabuleta Parasita: Criatura equipada conta como um Mandiblor. Jogue esta habilidade apenas enquanto a criatura equipada estiver engajada."
+      }
+    ],
+    "created_at": "2026-02-15 15:00:00.000000+00",
+    "updated_at": "2026-02-15 15:00:00.000000+00",
+    "rarity": "comum"
+  },
+  {
+    "id": "63f4caa1-4b81-4339-a8bd-772f4687c7c8",
+    "name": "Armadura de Carapaça de Kha'rall",
+    "image_file_id": null,
+    "rarity": "rara",
+    "unique": true,
+    "abilities": [
+      {
+        "stats": [
+          "energy"
+        ],
+        "value": 50,
+        "effectType": "increase",
+        "description": "Criatura equipada ganha 50 de Energia"
+      },
+      {
+        "trigger": "receive_15_damage",
+        "effectType": "damage_negation",
+        "description": "Quando a criatura equipada recebe 15 ou mais de dano de ataque, o próximo ataque que ela realizar causa 0 de dano."
+      }
+    ]
+  },
+  {
+    "id": "0dea98f1-37e6-4501-86ef-cb87c6501a90",
+    "name": "Manual de Vidav",
+    "image_file_id": null,
+    "rarity": "comum",
+    "abilities": [
+      {
+        "stats": [
+          "wisdom"
+        ],
+        "value": 10,
+        "effectType": "increase",
+        "description": "Criatura equipada ganha 10 de Sabedoria"
+      },
+      {
+        "effectType": "sacrifice_heal",
+        "value": 15,
+        "condition": "engaged",
+        "description": "Sacrifique Manual de Vidav: cure 15 de dano da criatura equipada. Ative apenas enquanto engajada."
+      }
+    ]
+  },
+  {
+    "id": "d2d91851-271b-4837-9b8b-0cc1284b753a",
+    "name": "Tocha de Maxxor",
+    "image_file_id": null,
+    "rarity": "super",
+    "unique": true,
+    "abilities": [
+      {
+        "effectType": "sacrifice_damage",
+        "value": 25,
+        "target_restriction": [
+          "M'arrillian",
+          "Minion"
+        ],
+        "description": "Sacrifique Tocha de Maxxor: O oponente escolhe uma criatura M'arrillian ou Minion que ele controla. Tocha de Maxxor causa 25 de dano á  criatura escolhida."
+      }
+    ]
+  },
+  {
+    "id": "e7dba31e-3e9e-489f-b449-bafb858632ae",
+    "name": "Prisma Mental",
+    "image_file_id": null,
+    "rarity": "comum",
+    "abilities": [
+      {
+        "stats": [
+          "energy"
+        ],
+        "value": 10,
+        "effectType": "increase",
+        "description": "Criatura equipada ganha 10 de Energia"
+      }
+    ]
+  },
+  {
+    "id": "90f58526-cfac-4b97-98d9-35f9b63f66cb",
+    "name": "Aperto Mental",
+    "image_file_id": null,
+    "rarity": "rara",
+    "abilities": [
+      {
+        "trigger": "opponent_reduces_disciplines",
+        "effectType": "damage",
+        "value": 5,
+        "description": "Quando um efeito controlado pelo oponente reduz qualquer Disciplina da criatura equipada, Aperto Mental causa 5 de dano á  criatura engajada alvo."
+      }
+    ]
+  },
+  {
+    "id": "35add343-c670-4ccd-a606-fb6fa85854b9",
+    "name": "Espelhos do Deslocamento",
+    "image_file_id": null,
+    "rarity": "super",
+    "abilities": [
+      {
+        "trigger": "mugic_to_discard",
+        "effectType": "cycle_attack",
+        "description": "Quando um card de Mugic vai para a pilha de descarte geral, descarte um card de Ataque e compre um card de Ataque."
+      }
+    ]
+  },
+  {
+    "id": "1246eeff-38ad-48a1-af16-2a652db7c6fc",
+    "name": "Tabuleta Parasita",
+    "image_file_id": null,
+    "rarity": "comum",
+    "abilities": [
+      {
+        "stats": [
+          "courage"
+        ],
+        "value": 10,
+        "effectType": "increase",
+        "description": "Criatura equipada ganha 10 de Coragem"
+      },
+      {
+        "effectType": "sacrifice_trait",
+        "trait": "Mandiblor",
+        "condition": "engaged",
+        "description": "Sacrifique Tabuleta Parasita: A criatura equipada conta como um Mandiblor enquanto estiver engajada."
+      }
+    ]
+  },
+  {
+    "id": "1b7ffe2f-5c04-4593-a5ed-7f7e6e72253f",
+    "name": "Amplificador Cerebral",
+    "image_file_id": null,
+    "rarity": "super",
+    "abilities": [
+      {
+        "stats": [
+          "wisdom"
+        ],
+        "value": 15,
+        "effectType": "increase",
+        "description": "Criatura equipada ganha 15 de Sabedoria"
+      },
+      {
+        "stats": [
+          "energy"
+        ],
+        "value": 5,
+        "effectType": "increase",
+        "description": "Criatura equipada ganha 5 de Energia"
+      },
+      {
+        "trigger": "win_combat",
+        "effectType": "gain_mugic_counter",
+        "description": "Quando a criatura equipada vence um combate, ela ganha um Mugic Counter."
+      }
+    ]
+  },
+  {
+    "id": "6101a9ec-08a3-4532-a8d0-304984aa7158",
+    "name": "Sopro do Deserto",
+    "image_file_id": null,
+    "rarity": "comum",
+    "abilities": [
+      {
+        "stats": [
+          "speed"
+        ],
+        "value": 10,
+        "effectType": "increase",
+        "description": "Criatura equipada ganha 10 de Velocidade"
+      },
+      {
+        "effectType": "sacrifice_gain_element",
+        "element": "Air",
+        "value": 5,
+        "condition": "engaged",
+        "description": "Sacrifique Sopro do Deserto: Criatura equipada ganha 'Ar 5'. Jogue esta habilidade apenas enquanto a criatura estiver engajada."
+      }
+    ]
+  },
+  {
+    "id": "8854b1ec-b74d-44a3-b8b7-c783b37aee79",
+    "name": "Destrutozuca",
+    "image_file_id": null,
+    "rarity": "rara",
+    "abilities": [
+      {
+        "trigger": "revealed",
+        "effectType": "choice_elemental_gain",
+        "value": 5,
+        "description": "Quando Destrutozuca á© revelado, escolha um Tipo Elemental. A criatura equipada ganha o elemento escolhido e 'Elemento 5' daquele tipo."
+      }
+    ]
+  },
+  {
+    "id": "4acef7fe-1056-4023-981d-15fb3ef2478f",
+    "name": "Âmbar da Colmeia",
+    "image_file_id": null,
+    "rarity": "rara",
+    "abilities": [
+      {
+        "effectType": "sacrifice_activate_hive",
+        "description": "Sacrifique Âmbar da Colmeia: Ative a Colmeia (Hive)."
+      },
+      {
+        "trigger": "mandiblor_to_discard",
+        "effectType": "return_from_discard",
+        "description": "Quando um Mandiblor que você controla á© colocado na pilha de descarte, você pode retornar Âmbar da Colmeia para o jogo equipado em uma criatura sua não equipada."
+      }
+    ]
+  },
+  {
+    "id": "ab0a3b7a-e51b-4a3b-9cf4-7a85915e6c0c",
+    "name": "Amplificador de Aspecto: Agilidade",
+    "image_file_id": null,
+    "rarity": "comum",
+    "abilities": [
+      {
+        "effectType": "outperform",
+        "stats": [
+          "speed"
+        ],
+        "value": 5,
+        "description": "Criatura equipada ganha 'Outperform Speed 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Velocidade bem-sucedidos."
+      }
+    ]
+  },
+  {
+    "id": "327d934b-1030-4081-9628-f8b7951ea41a",
+    "name": "Amplificador de Aspecto: Bravura",
+    "image_file_id": null,
+    "rarity": "comum",
+    "abilities": [
+      {
+        "effectType": "outperform",
+        "stats": [
+          "courage"
+        ],
+        "value": 5,
+        "description": "Criatura equipada ganha 'Outperform Courage 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Coragem bem-sucedidos."
+      }
+    ]
+  },
+  {
+    "id": "cd3e455a-5cf6-43f2-a6ce-f78c682e802e",
+    "name": "Amplificador de Aspecto: Potência",
+    "image_file_id": null,
+    "rarity": "comum",
+    "abilities": [
+      {
+        "effectType": "outperform",
+        "stats": [
+          "power"
+        ],
+        "value": 5,
+        "description": "Criatura equipada ganha 'Outperform Power 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Poder bem-sucedidos."
+      }
+    ]
+  },
+  {
+    "id": "6e83c522-0fbd-4808-997f-a0898005bf5a",
+    "name": "Amplificador de Aspecto: Sagacidade",
+    "image_file_id": null,
+    "rarity": "comum",
+    "abilities": [
+      {
+        "effectType": "outperform",
+        "stats": [
+          "wisdom"
+        ],
+        "value": 5,
+        "description": "Criatura equipada ganha 'Outperform Wisdom 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Sabedoria bem-sucedidos."
+      }
+    ]
+  },
+  {
+    "id": "2bdbadb4-ec29-4f39-a3df-57d0bcc95b68",
+    "name": "Aerodrone",
+    "image_file_id": null,
+    "rarity": "super",
+    "abilities": [
+      {
+        "trigger": "deal_air_damage",
+        "effectType": "deck_manipulation",
+        "description": "Quando a criatura equipada causa dano de Ar, você pode olhar os quatro cards do topo do seu Attack Deck e colocá¡-los de volta no topo em qualquer ordem."
+      }
+    ]
+  },
+  {
+    "id": "54f435c1-c4d2-4071-80ca-31169e36c079",
+    "name": "Asas Algares de Atração",
+    "image_file_id": null,
+    "rarity": "ultra",
+    "unique": true,
+    "abilities": [
+      {
+        "effectType": "forced_movement",
+        "description": "Se uma Criatura oponente adjacente puder se mover para o espaço da criatura equipada, ela deve fazáª-lo. (Vocáª pode iniciar apenas um combate por turno)."
+      }
+    ]
+  },
+  {
+    "id": "d214571b-40bc-4fdf-9284-749926c360c5",
+    "name": "Isca Sedutora",
+    "image_file_id": null,
+    "rarity": "rara",
+    "abilities": [
+      {
+        "cost": "discard_mugic",
+        "effectType": "relocate_opponent",
+        "description": "Criatura equipada ganha: 'Descarte um Card de Mugic: Realoque a criatura oponente não engajada alvo para um espaço desocupado adjacente á  criatura equipada.'"
+      }
+    ]
+  },
+  {
+    "id": "0d2303fd-389b-4586-ab23-fb026388461b",
+    "file_name": "134.png",
+    "name": "Sonda Mental de Azaia",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada não pode ser alvo de Mugic ou habilidades jogadas por criaturas com Sabedoria menor que a dela. Este Battlegear começa o jogo virado para cima.",
+        "effectType": "protection",
+        "battleRules": {
+          "type": "prevent_targeting_by_lower_stat",
+          "notes": "Impede ser alvo de Mugic/habilidades de criaturas com Sabedoria menor.",
+          "payload": {
+            "stat": "wisdom",
+            "starts_face_up": true
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:00.000000Z",
+    "updated_at": "2026-02-16T15:00:00.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "ea72574f-2310-4fac-8a0c-5aeca649f108",
+    "file_name": "135.png",
+    "name": "Ankh de Kehn-Sep",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada causa 5 de dano de ataque adicional a criaturas sem tipos elementais.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "additional_damage_to_no_element_creatures",
+          "notes": "Causa 5 de dano de ataque adicional a criaturas sem tipo elemental.",
+          "payload": {
+            "amount": 5
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:01.000000Z",
+    "updated_at": "2026-02-16T15:00:01.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "2a503bb5-5334-4f09-a330-1b15c1a6d2b2",
+    "file_name": "136.png",
+    "name": "Familiar Aquático",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada recebe 'Gaste Água: ganhe 50 de Sabedoria'.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "expend_element_for_stat",
+          "notes": "Ganha 50 de Sabedoria ao gastar o elemento Água.",
+          "payload": {
+            "element": "water",
+            "stat": "wisdom",
+            "amount": 50
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:02.000000Z",
+    "updated_at": "2026-02-16T15:00:02.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "86eea5fc-fa5b-4794-aaad-d643a2bb128c",
+    "file_name": "137.png",
+    "name": "Bi-Mowercycle",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada recebe 'Range' e 'Swift 1'.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_keywords",
+          "notes": "Ganha Range e Swift 1.",
+          "payload": {
+            "keywords": [
+              "range",
+              "swift 1"
+            ]
+          }
+        },
+        "targetScope": "self"
+      },
+      {
+        "description": "Sacrifique Bi-Mowercycle: a criatura alvo recebe 'Range' e 'Swift 1'.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "sacrifice_to_grant_keywords",
+          "notes": "Sacrifica para dar Range e Swift 1 a um alvo.",
+          "payload": {
+            "keywords": [
+              "range",
+              "swift 1"
+            ]
+          }
+        },
+        "targetScope": "target_creature"
+      },
+      {
+        "description": "Este Battlegear começa o jogo virado para cima.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "starts_face_up",
+          "notes": "Começa o jogo virado para cima.",
+          "payload": {}
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:03.000000Z",
+    "updated_at": "2026-02-16T15:00:03.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "80eb605d-1b4c-4d29-8c6d-2887212a5f8f",
+    "file_name": "138.png",
+    "name": "Fragmentos da Cidadela",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada recebe 5 de Energia e 5 em cada Disciplina para cada tipo elemental que possuir.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "gain_stats_per_element",
+          "notes": "Ganha 5 de Energia e 5 em cada disciplina por tipo elemental.",
+          "payload": {
+            "energy_per_element": 5,
+            "discipline_per_element": 5
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:04.000000Z",
+    "updated_at": "2026-02-16T15:00:04.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "4af5981d-1fa1-4166-b332-bfdbdaaf17dd",
+    "file_name": "139.png",
+    "name": "Pedra-Ímã de Chadel",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Quando a criatura equipada fica engajada, ela ganha Terra.",
+        "effectType": "gain_element",
+        "battleRules": {
+          "type": "gain_element_on_engage",
+          "notes": "Ganha Terra ao se tornar engajado.",
+          "payload": {
+            "element": "earth"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:05.000000Z",
+    "updated_at": "2026-02-16T15:00:05.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "936a15a4-3788-4dfb-aad7-2011cdb01186",
+    "file_name": "140.png",
+    "name": "Colestone",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Quando uma criatura engajada com a equipada falha em um teste de Disciplina de um ataque jogado, a criatura equipada ganha 10 de Energia.",
+        "effectType": "gain_energy",
+        "battleRules": {
+          "type": "gain_energy_on_opponent_fail_check",
+          "notes": "Ganha 10 de energia quando o oponente engajado falha em um teste de disciplina.",
+          "payload": {
+            "amount": 10
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:06.000000Z",
+    "updated_at": "2026-02-16T15:00:06.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "200697d8-93e7-4d4b-a4fa-9adb67f02556",
+    "file_name": "141.png",
+    "name": "Manto Duplo",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "No início do combate, escolha 'Fogo 5', 'Ar 5', 'Terra 5' ou 'Água 5'. A criatura equipada ganha a habilidade escolhida e 'Recklessness 5'.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "choose_elemental_keyword_and_gain_recklessness",
+          "notes": "Escolhe uma habilidade elemental e ganha Recklessness 5 no início do combate.",
+          "payload": {
+            "recklessness_amount": 5
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:07.000000Z",
+    "updated_at": "2026-02-16T15:00:07.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "ef79030a-3694-423b-a6b8-0a87968f177b",
+    "file_name": "142.jpg",
+    "name": "Plataforma de Perfuração",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada ganha 10 de Energia. Se tiver Terra, ganha mais 10 de Energia.",
+        "effectType": "gain_energy",
+        "battleRules": {
+          "type": "gain_energy_with_element_bonus",
+          "notes": "Ganha 10 de energia, e mais 10 se tiver Terra.",
+          "payload": {
+            "base_amount": 10,
+            "bonus_amount": 10,
+            "element": "earth"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:08.000000Z",
+    "updated_at": "2026-02-16T15:00:08.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "bd3e95e0-52e5-4dbb-828d-5d41cbdce3ac",
+    "file_name": "143.png",
+    "name": "Lâmina de Chamas de Seeryn",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Sempre que a criatura equipada causar 30 ou mais de dano de Fogo com um único ataque, destrua um Battlegear alvo.",
+        "effectType": "destroy",
+        "battleRules": {
+          "type": "destroy_battlegear_on_damage_threshold",
+          "notes": "Destrói um Battlegear alvo ao causar 30 ou mais de dano de Fogo.",
+          "payload": {
+            "damage_threshold": 30,
+            "element": "fire"
+          }
+        },
+        "targetScope": "target_battlegear"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:09.000000Z",
+    "updated_at": "2026-02-16T15:00:09.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "cc90c7a6-804a-42f5-9843-80ea167fffb0",
+    "file_name": "144.png",
+    "name": "Hiperplanador",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada ganha 'Untargetable' se tiver se movido neste turno.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_keyword_if_moved",
+          "notes": "Ganha 'Untargetable' se a criatura se moveu no turno.",
+          "payload": {
+            "keyword": "untargetable"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:10.000000Z",
+    "updated_at": "2026-02-16T15:00:10.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "8e807b77-157d-44ee-9105-33c2281b4725",
+    "file_name": "145.png",
+    "name": "Fragmento Inabalável de Kha'rall",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada ganha Água. Se a equipada for um Kha'rall, ganha +15 de Energia e 'Defender: Water'. Este Battlegear começa o jogo virado para cima.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "gain_element_and_bonus_for_specific_creature",
+          "notes": "Dá Água. Se for um Kha'rall, dá +15 de Energia e Defender: Water.",
+          "payload": {
+            "element": "water",
+            "creature_name": "kha'rall",
+            "bonus_energy": 15,
+            "bonus_keyword": "defender: water",
+            "starts_face_up": true
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:11.000000Z",
+    "updated_at": "2026-02-16T15:00:11.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "c4e44d85-ef8e-4eda-9232-c2fd719fdd0b",
+    "file_name": "146.png",
+    "name": "Sobrecarregador Metabólico",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada recebe 'Gaste Fogo: ganhe 50 de Poder'.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "expend_element_for_stat",
+          "notes": "Ganha 50 de Poder ao gastar o elemento Fogo.",
+          "payload": {
+            "element": "fire",
+            "stat": "power",
+            "amount": 50
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:12.000000Z",
+    "updated_at": "2026-02-16T15:00:12.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "09d2062c-2c7a-498f-a769-7c915038ceeb",
+    "file_name": "147.png",
+    "name": "Lâmina de Garra Misteriosa",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada recebe 'Gaste Ar: ganhe 50 de Velocidade'.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "expend_element_for_stat",
+          "notes": "Ganha 50 de Velocidade ao gastar o elemento Ar.",
+          "payload": {
+            "element": "air",
+            "stat": "speed",
+            "amount": 50
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:13.000000Z",
+    "updated_at": "2026-02-16T15:00:13.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "ddf74571-d082-48b0-8d03-b0b8fd6cf387",
+    "file_name": "148.png",
+    "name": "Orbe de Unda",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Sacrifique Orb of Unda: coloque um contador de Mugic na criatura equipada. Se ela tiver Água, cure 10 de dano dela.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "sacrifice_for_mugic_and_heal",
+          "notes": "Sacrifica para dar um contador de Mugic e curar 10 se tiver Água.",
+          "payload": {
+            "heal_amount": 10,
+            "element": "water"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:14.000000Z",
+    "updated_at": "2026-02-16T15:00:14.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "2575943b-0d35-4c36-b2b1-7627d33624c4",
+    "file_name": "149.png",
+    "name": "Orchis Undin",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Quando a criatura equipada fica engajada, ela ganha Água.",
+        "effectType": "gain_element",
+        "battleRules": {
+          "type": "gain_element_on_engage",
+          "notes": "Ganha Água ao se tornar engajado.",
+          "payload": {
+            "element": "water"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:15.000000Z",
+    "updated_at": "2026-02-16T15:00:15.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "860123dd-8131-4033-81e3-1487b1ab5ec3",
+    "file_name": "150.png",
+    "name": "Cinto da Fênix",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Sacrifique Phoenix Belt: cause 10 de dano á criatura alvo. Se a criatura equipada tiver Fogo, cause mais 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "sacrifice_for_damage_with_bonus",
+          "notes": "Sacrifica para causar 10 de dano, mais 10 se tiver Fogo.",
+          "payload": {
+            "base_amount": 10,
+            "bonus_amount": 10,
+            "element": "fire"
+          }
+        },
+        "targetScope": "target_creature"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:16.000000Z",
+    "updated_at": "2026-02-16T15:00:16.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "6b4448bc-bfa8-4621-8bef-808b464bcaeb",
+    "file_name": "151.png",
+    "name": "Transportador de Fase",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "No início de cada turno, a criatura equipada deve trocar de lugar com outra criatura que você controla. Este Battlegear começa o jogo virado para cima.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "forced_swap_at_turn_start",
+          "notes": "Força a troca de lugar com outra criatura no início do turno.",
+          "payload": {
+            "starts_face_up": true
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:17.000000Z",
+    "updated_at": "2026-02-16T15:00:17.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "4754dd13-23fd-4716-82eb-2c59099f5037",
+    "file_name": "152.png",
+    "name": "Pingente de Guranium",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada recebe 'Gaste Terra: ganhe 50 de Coragem'.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "expend_element_for_stat",
+          "notes": "Ganha 50 de Coragem ao gastar o elemento Terra.",
+          "payload": {
+            "element": "earth",
+            "stat": "courage",
+            "amount": 50
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:18.000000Z",
+    "updated_at": "2026-02-16T15:00:18.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "ba5082d0-8a0c-40e9-93aa-8e5a78a11d73",
+    "file_name": "153.png",
+    "name": "Manto da Tempestade de Areia",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Quando a criatura equipada fica engajada, ela ganha Ar.",
+        "effectType": "gain_element",
+        "battleRules": {
+          "type": "gain_element_on_engage",
+          "notes": "Ganha Ar ao se tornar engajado.",
+          "payload": {
+            "element": "air"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:19.000000Z",
+    "updated_at": "2026-02-16T15:00:19.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "295677f4-d8b4-4a0d-a1e6-007df3663f89",
+    "file_name": "154.png",
+    "name": "Escaravelho de Khilai",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada e as criaturas engajadas com ela não podem perder tipos elementais.",
+        "effectType": "protection",
+        "battleRules": {
+          "type": "prevent_elemental_loss_for_engaged",
+          "notes": "Impede a perda de tipos elementais para a criatura equipada e as engajadas com ela.",
+          "payload": {}
+        },
+        "targetScope": "self_and_engaged"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:20.000000Z",
+    "updated_at": "2026-02-16T15:00:20.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "b2c501c9-1daa-4f5e-88d4-394fa1340e9e",
+    "file_name": "155.png",
+    "name": "Skopolon",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "No início do turno, você pode olhar um Battlegear alvo virado para baixo que você não controla. (Ele permanece virado para baixo). Este Battlegear começa o jogo virado para cima.",
+        "effectType": "scry",
+        "battleRules": {
+          "type": "look_at_opponent_battlegear",
+          "notes": "Permite olhar um Battlegear virado para baixo do oponente no início do turno.",
+          "payload": {
+            "starts_face_up": true
+          }
+        },
+        "targetScope": "opponent_battlegear"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:21.000000Z",
+    "updated_at": "2026-02-16T15:00:21.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "27b6247f-903f-4afd-8479-dd23802350ab",
+    "file_name": "156.png",
+    "name": "Estátua do Pássaro da Tempestade",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada ganha 'Swift 1'. Se tiver Ar, tambám ganha 'Surprise'. Este Battlegear começa o jogo virado para cima.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_keyword_with_element_bonus",
+          "notes": "Ganha Swift 1, e Surprise se tiver Ar.",
+          "payload": {
+            "base_keyword": "swift 1",
+            "bonus_keyword": "surprise",
+            "element": "air",
+            "starts_face_up": true
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:22.000000Z",
+    "updated_at": "2026-02-16T15:00:22.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "f140b59b-82b0-49b9-abda-b08f7dca1811",
+    "file_name": "157.png",
+    "name": "Carruagem Solar de Kehn-Sep",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Quando a criatura equipada fica engajada, ela ganha Fogo.",
+        "effectType": "gain_element",
+        "battleRules": {
+          "type": "gain_element_on_engage",
+          "notes": "Ganha Fogo ao se tornar engajado.",
+          "payload": {
+            "element": "fire"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:23.000000Z",
+    "updated_at": "2026-02-16T15:00:23.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "e5aecb63-6f94-4426-84ee-1980b057a73f",
+    "file_name": "158.png",
+    "name": "Tridente da Traição",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Se a criatura equipada fosse causar 20 ou mais de dano de ataque de Fogo, ela pode causar 10 de dano a uma criatura alvo em vez disso.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "redirect_damage_option",
+          "notes": "Se causaria 20+ de dano de Fogo, pode causar 10 a um alvo em vez disso.",
+          "payload": {
+            "damage_threshold": 20,
+            "element": "fire",
+            "redirect_damage": 10
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:24.000000Z",
+    "updated_at": "2026-02-16T15:00:24.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "21c647d3-449d-46ba-8fec-f9faaa6ab2a4",
+    "file_name": "159.png",
+    "name": "Ulmanator",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Criaturas engajadas com a criatura equipada perdem 10 em todas as Disciplinas para cada tipo elemental que possuírem.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "reduce_opponent_stats_per_element",
+          "notes": "Reduz as disciplinas do oponente engajado em 10 por tipo elemental.",
+          "payload": {
+            "amount_per_element": -10
+          }
+        },
+        "targetScope": "engaged_creatures"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:25.000000Z",
+    "updated_at": "2026-02-16T15:00:25.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "6a2b67d2-9345-44a3-be9b-fd3b0651502c",
+    "file_name": "160.png",
+    "name": "Varanos",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada ganha 'Range' e 'Swift 1' para cada criatura na sua pilha de descarte. Este Battlegear começa o jogo virado para cima.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_keywords_per_creature_in_discard",
+          "notes": "Ganha Range e Swift 1 por criatura no descarte.",
+          "payload": {
+            "keywords": [
+              "range",
+              "swift 1"
+            ],
+            "starts_face_up": true
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:26.000000Z",
+    "updated_at": "2026-02-16T15:00:26.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "19bf6fa5-c223-4e02-b91d-8816b64a9119",
+    "file_name": "161.png",
+    "name": "Fragmento de Vlaric",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A criatura equipada com Terra causa 5 de dano de ataque adicional.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "additional_damage_if_has_element",
+          "notes": "Causa 5 de dano de ataque adicional se tiver Terra.",
+          "payload": {
+            "amount": 5,
+            "element": "earth"
+          }
+        },
+        "targetScope": "self"
+      },
+      {
+        "description": "Quando você embaralhar seu deck de ataque, destrua Vlaric Shard.",
+        "effectType": "destroy",
+        "battleRules": {
+          "type": "destroy_on_shuffle",
+          "notes": "É destruído quando você embaralha seu deck de ataque.",
+          "payload": {}
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:27.000000Z",
+    "updated_at": "2026-02-16T15:00:27.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "2de05236-718e-408f-9c0f-90a36a9cbd9d",
+    "file_name": "162.png",
+    "name": "Armadura de Xerium",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Se a criatura equipada fosse receber mais de 20 de dano de um ataque, ela recebe 20 de dano em vez disso. Único.",
+        "effectType": "protection",
+        "battleRules": {
+          "type": "damage_cap",
+          "notes": "Limita o dano recebido de um ataque a 20. Único.",
+          "payload": {
+            "cap_amount": 20,
+            "is_unique": true
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-16T15:00:28.000000Z",
+    "updated_at": "2026-02-16T15:00:28.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "c7598085-1164-4e64-8f37-4d8453fe0342",
+    "file_name": "dawn_perin_136.png",
+    "name": "Água Escudo",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 5 Energy.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 5 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 5
+          }
+        },
+        "targetScope": "self",
+        "stat": "energy",
+        "value": 5
+      },
+      {
+        "description": "Sacrseice Água Escudo: Heal 15 Energy to target Creature.",
+        "effectType": "heal",
+        "battleRules": {
+          "type": "sacrifice_for_heal",
+          "notes": "Sacrseica para curar 15 de Energia em um alvo.",
+          "payload": {
+            "amount": 15
+          }
+        },
+        "targetScope": "target_creature",
+        "stat": null,
+        "value": 15
+      }
+    ],
+    "created_at": "2026-02-16T16:00:00.000000Z",
+    "updated_at": "2026-02-16T16:00:00.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "c4be8567-0266-4fc7-833a-49ae7b6a28b7",
+    "file_name": "dawn_perin_137.png",
+    "name": "Cyclance",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Sacrseice Cyclance: Equipped Creature ganhes Elemental Type Air until o end de combat.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "sacrifice_to_gain_element",
+          "notes": "Sacrseica para ganhar o elemento Ar até o final do combate.",
+          "payload": {
+            "element": "air",
+            "duration": "end_of_combat"
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:01.000000Z",
+    "updated_at": "2026-02-16T16:00:01.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "e5d5e6a8-673c-4e95-8238-e87094e342b7",
+    "file_name": "dawn_perin_138.png",
+    "name": "Diamond de Vearic",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Sacrseice Diamond de Vearic: Equipped Creature ganhes Elemental Type Earth until o end de combat.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "sacrifice_to_gain_element",
+          "notes": "Sacrseica para ganhar o elemento Terra até o final do combate.",
+          "payload": {
+            "element": "earth",
+            "duration": "end_of_combat"
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:02.000000Z",
+    "updated_at": "2026-02-16T16:00:02.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "2bdfc0f7-a1b9-41a6-9af2-d668b7b8d1ae",
+    "file_name": "dawn_perin_139.png",
+    "name": "Dragão Pulse",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 25 Coragem.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 25 de Coragem.",
+          "payload": {
+            "stat": "courage",
+            "amount": 25
+          }
+        },
+        "targetScope": "self",
+        "stat": "courage",
+        "value": 25
+      }
+    ],
+    "created_at": "2026-02-16T16:00:03.000000Z",
+    "updated_at": "2026-02-16T16:00:03.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "34b742f2-8a35-4d1c-b871-a0e5bbaea886",
+    "file_name": "dawn_perin_140.png",
+    "name": "Cuxin de Tenacity",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 10 Coragem e 10 Velocidade.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_multiple_stats",
+          "notes": "Ganha 10 de Coragem e 10 de Velocidade.",
+          "payload": [
+            {
+              "stat": "courage",
+              "amount": 10
+            },
+            {
+              "stat": "speed",
+              "amount": 10
+            }
+          ]
+        },
+        "stat": null,
+        "value": 0,
+        "targetScope": null
+      },
+      {
+        "description": "Se equipped Creature has at least 50 Poder, it ganhes 10 Energy.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_energy_if_stat_threshold",
+          "notes": "Ganha 10 de Energia se o Poder for 50 ou mais.",
+          "payload": {
+            "stat": "power",
+            "threshold": 50,
+            "amount": 10
+          }
+        },
+        "targetScope": "self",
+        "stat": "power",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-16T16:00:04.000000Z",
+    "updated_at": "2026-02-16T16:00:04.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "45df4616-93d9-4ae8-8d29-a0076a17bbc8",
+    "file_name": "dawn_perin_141.png",
+    "name": "Flux Bauble",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "At o beginning de combat, look at o top two cards de sua Location Deck. Put one de om on top de that deck e o oor on o bottom.",
+        "effectType": "scry",
+        "battleRules": {
+          "type": "scry_location_deck_reorder",
+          "notes": "No início do combate, olha as 2 cartas do topo do deck de Local e reordena.",
+          "payload": {
+            "card_count": 2,
+            "trigger": "on_combat_start"
+          }
+        },
+        "targetScope": "own_player",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:05.000000Z",
+    "updated_at": "2026-02-16T16:00:05.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "5b909a03-fed4-49ca-94bd-864b8f21de12",
+    "file_name": "dawn_perin_142.png",
+    "name": "Dauntlets de Might",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 25 Poder.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 25 de Poder.",
+          "payload": {
+            "stat": "power",
+            "amount": 25
+          }
+        },
+        "targetScope": "self",
+        "stat": "power",
+        "value": 25
+      }
+    ],
+    "created_at": "2026-02-16T16:00:06.000000Z",
+    "updated_at": "2026-02-16T16:00:06.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "13d85ab5-4777-46fa-95f3-e4a31f1a6270",
+    "file_name": "dawn_perin_143.png",
+    "name": "Liquilizer",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Sacrseice Liquilizer: Equipped Creature ganhes Elemental Type Water until o end de combat.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "sacrifice_to_gain_element",
+          "notes": "Sacrseica para ganhar o elemento Água até o final do combate.",
+          "payload": {
+            "element": "water",
+            "duration": "end_of_combat"
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:07.000000Z",
+    "updated_at": "2026-02-16T16:00:07.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "7408c5cf-76cf-4951-970b-40ef7d46fedb",
+    "file_name": "dawn_perin_144.png",
+    "name": "Mipedian Cactus",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 15 Sabedoria.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 15 de Sabedoria.",
+          "payload": {
+            "stat": "wisdom",
+            "amount": 15
+          }
+        },
+        "targetScope": "self",
+        "stat": "wisdom",
+        "value": 15
+      },
+      {
+        "description": "Se equipped Creature is Mipedian, it ganhes '☐: Until o end de o turn, this Creature can move to any space on o board.'",
+        "effectType": "gain_ability",
+        "battleRules": {
+          "type": "gain_ability_if_tribe",
+          "notes": "Se for Mipedian, ganha uma habilidade de movimento por um contador de Mugic.",
+          "payload": {
+            "tribe": "mipedian",
+            "ability_description": "☐: Until the end of the turn, this Creature can move to any space on the board."
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:08.000000Z",
+    "updated_at": "2026-02-16T16:00:08.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "f899b18a-be53-424c-b870-191d265b1821",
+    "file_name": "dawn_perin_145.png",
+    "name": "Mowercycle",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 25 Velocidade.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 25 de Velocidade.",
+          "payload": {
+            "stat": "speed",
+            "amount": 25
+          }
+        },
+        "targetScope": "self",
+        "stat": "speed",
+        "value": 25
+      }
+    ],
+    "created_at": "2026-02-16T16:00:09.000000Z",
+    "updated_at": "2026-02-16T16:00:09.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "1451268b-9472-49b0-8bed-c17f342d5366",
+    "file_name": "dawn_perin_146.png",
+    "name": "Mugician's Lyre",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Sacrseice Mugician's Lyre: Add ☐ to this Creature.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "sacrifice_for_mugic_counter",
+          "notes": "Sacrseica para adicionar um contador de Mugic.",
+          "payload": {
+            "amount": 1
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 1
+      }
+    ],
+    "created_at": "2026-02-16T16:00:10.000000Z",
+    "updated_at": "2026-02-16T16:00:10.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "b95e5dd9-1145-4729-9b67-a134d133af1a",
+    "file_name": "dawn_perin_147.png",
+    "name": "Nexus Fuse",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 5 Energy.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 5 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 5
+          }
+        },
+        "targetScope": "self",
+        "stat": "energy",
+        "value": 5
+      },
+      {
+        "description": "Sacrseice Nexus Fuse: Cause 15 dano to target Creature.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "sacrifice_for_damage",
+          "notes": "Sacrseica para causar 15 de dano a um alvo.",
+          "payload": {
+            "amount": 15
+          }
+        },
+        "targetScope": "target_creature",
+        "stat": null,
+        "value": 15
+      }
+    ],
+    "created_at": "2026-02-16T16:00:11.000000Z",
+    "updated_at": "2026-02-16T16:00:11.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "d8787e15-041d-4c30-90fb-9d681079681d",
+    "file_name": "dawn_perin_148.png",
+    "name": "Orb de Foresight",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "At o beginning de combat, look at o top three cards de sua Attack Deck. Put one de om on top de that deck e o oor two on o bottom in any order.",
+        "effectType": "scry",
+        "battleRules": {
+          "type": "scry_attack_deck_reorder",
+          "notes": "No início do combate, olha as 3 cartas do topo do deck de Ataque e reordena.",
+          "payload": {
+            "card_count": 3,
+            "trigger": "on_combat_start"
+          }
+        },
+        "targetScope": "own_player",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:12.000000Z",
+    "updated_at": "2026-02-16T16:00:12.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "df4a42e8-638b-4888-86a4-906e10e9b90b",
+    "file_name": "dawn_perin_149.png",
+    "name": "Phobia Mask",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 'Intimidate: Coragem 10' e 'Intimidate: Poder 10'.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_keywords",
+          "notes": "Ganha Intimidate: Coragem 10 e Intimidate: Poder 10.",
+          "payload": {
+            "keywords": [
+              "intimidate: courage 10",
+              "intimidate: power 10"
+            ]
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:13.000000Z",
+    "updated_at": "2026-02-16T16:00:13.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "f522db7d-50ea-4fbd-9d5f-e823c2b12be9",
+    "file_name": "dawn_perin_150.png",
+    "name": "Prism de Vacuity",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 5 Energy.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 5 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 5
+          }
+        },
+        "targetScope": "self",
+        "stat": "energy",
+        "value": 5
+      },
+      {
+        "description": "Sacrseice Prism de Vacuity. Until o end de o turn, target Creature loses 20 Poder.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "sacrifice_for_stat_reduction",
+          "notes": "Sacrseica para reduzir o Poder de um alvo em 20.",
+          "payload": {
+            "stat": "power",
+            "amount": -20,
+            "duration": "end_of_turn"
+          }
+        },
+        "targetScope": "target_creature",
+        "stat": "power",
+        "value": -20
+      }
+    ],
+    "created_at": "2026-02-16T16:00:14.000000Z",
+    "updated_at": "2026-02-16T16:00:14.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "aea6a290-c99d-4809-bce0-523f463387bc",
+    "file_name": "dawn_perin_151.png",
+    "name": "Pyroblaster",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Sacrseice Pyroblaster: Equipped Creature ganhes Elemental Type Fire until o end de combat.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "sacrifice_to_gain_element",
+          "notes": "Sacrseica para ganhar o elemento Fogo até o final do combate.",
+          "payload": {
+            "element": "fire",
+            "duration": "end_of_combat"
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:15.000000Z",
+    "updated_at": "2026-02-16T16:00:15.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "13bd5c64-6f28-48f9-a30f-3a97e20db115",
+    "file_name": "dawn_perin_152.png",
+    "name": "Anel de Na'arin",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 10 Poder e 10 Sabedoria.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_multiple_stats",
+          "notes": "Ganha 10 de Poder e 10 de Sabedoria.",
+          "payload": [
+            {
+              "stat": "power",
+              "amount": 10
+            },
+            {
+              "stat": "wisdom",
+              "amount": 10
+            }
+          ]
+        },
+        "stat": null,
+        "value": 0,
+        "targetScope": null
+      },
+      {
+        "description": "Se equipped Creature has at least 50 Coragem, it ganhes 10 Energy.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_energy_if_stat_threshold",
+          "notes": "Ganha 10 de Energia se a Coragem for 50 ou mais.",
+          "payload": {
+            "stat": "courage",
+            "threshold": 50,
+            "amount": 10
+          }
+        },
+        "targetScope": "self",
+        "stat": "courage",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-16T16:00:16.000000Z",
+    "updated_at": "2026-02-16T16:00:16.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "31d11667-4445-4b29-8270-f491f88d6099",
+    "file_name": "dawn_perin_153.png",
+    "name": "Riverle Star",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 15 Coragem.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 15 de Coragem.",
+          "payload": {
+            "stat": "courage",
+            "amount": 15
+          }
+        },
+        "targetScope": "self",
+        "stat": "courage",
+        "value": 15
+      },
+      {
+        "description": "Se equipped Creature is OverWorld, it ganhes 'Queo equipped Creature causes Water dano, heal 5 Energy to that Creature.'",
+        "effectType": "gain_ability",
+        "battleRules": {
+          "type": "gain_ability_if_tribe",
+          "notes": "Se for OverWorld, ganha uma habilidade de cura ao causar dano de Água.",
+          "payload": {
+            "tribe": "overworld",
+            "ability_description": "When equipped Creature deals Water damage, heal 5 Energy to that Creature."
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:17.000000Z",
+    "updated_at": "2026-02-16T16:00:17.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "811472ac-089f-4a9a-a429-06f5c27b0396",
+    "file_name": "dawn_perin_154.png",
+    "name": "Skeletal Steed",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 'Range' e 'Swset 1'.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_keywords",
+          "notes": "Ganha Range e Swset 1.",
+          "payload": {
+            "keywords": [
+              "range",
+              "swift 1"
+            ]
+          }
+        },
+        "stat": null,
+        "value": 0,
+        "targetScope": null
+      },
+      {
+        "description": "Reveal this Battlegear at beginning de game.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "reveal_at_game_start",
+          "notes": "Revela este Battlegear no início do jogo.",
+          "payload": {}
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:18.000000Z",
+    "updated_at": "2026-02-16T16:00:18.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "0fa4b533-8723-4c1a-9fac-de4bcb0a04d0",
+    "file_name": "dawn_perin_155.png",
+    "name": "Spectral Viewer",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature is immune to all Invisibility abilities.",
+        "effectType": "protection",
+        "battleRules": {
+          "type": "immune_to_keyword",
+          "notes": "Imune a todas as habilidades de Invisibility.",
+          "payload": {
+            "keyword": "invisibility"
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:19.000000Z",
+    "updated_at": "2026-02-16T16:00:19.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "c23a04be-bec2-4368-a4f6-c6833ebe4f0a",
+    "file_name": "dawn_perin_156.png",
+    "name": "Cajado de Sabedoria",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 25 Sabedoria.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 25 de Sabedoria.",
+          "payload": {
+            "stat": "wisdom",
+            "amount": 25
+          }
+        },
+        "targetScope": "self",
+        "stat": "wisdom",
+        "value": 25
+      }
+    ],
+    "created_at": "2026-02-16T16:00:20.000000Z",
+    "updated_at": "2026-02-16T16:00:20.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "255f489c-05b8-430f-ac2a-a6b080482e62",
+    "file_name": "dawn_perin_157.png",
+    "name": "Pedra Manto",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature may not move.",
+        "effectType": "restriction",
+        "battleRules": {
+          "type": "prevent_movement",
+          "notes": "A criatura equipada não pode se mover.",
+          "payload": {}
+        },
+        "stat": null,
+        "value": 0,
+        "targetScope": null
+      },
+      {
+        "description": "Equipped Creature ganhes 50 Energy.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 50 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 50
+          }
+        },
+        "stat": "energy",
+        "value": 50,
+        "targetScope": null
+      },
+      {
+        "description": "All dano causet to equipped Creature is increased by 5.",
+        "effectType": "vulnerability",
+        "battleRules": {
+          "type": "increase_damage_taken",
+          "notes": "Todo dano recebido é aumentado em 5.",
+          "payload": {
+            "amount": 5
+          }
+        },
+        "stat": null,
+        "value": 5,
+        "targetScope": null
+      },
+      {
+        "description": "Equipped Creature loses all abilities.",
+        "effectType": "restriction",
+        "battleRules": {
+          "type": "lose_all_abilities",
+          "notes": "A criatura equipada perde todas as habilidades.",
+          "payload": {}
+        },
+        "stat": null,
+        "value": 0,
+        "targetScope": null
+      }
+    ],
+    "created_at": "2026-02-16T16:00:21.000000Z",
+    "updated_at": "2026-02-16T16:00:21.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "d996d0d5-d6b8-41ac-af7c-9594ad01c2fd",
+    "file_name": "dawn_perin_158.png",
+    "name": "Talisman de o Meiblor",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 15 Velocidade.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 15 de Velocidade.",
+          "payload": {
+            "stat": "speed",
+            "amount": 15
+          }
+        },
+        "stat": "speed",
+        "value": 15,
+        "targetScope": null
+      },
+      {
+        "description": "Se equipped Creature is Danian, it ganhes 'Sacrseice equipped Creature: Return a Meiblor to play in any open space.'",
+        "effectType": "gain_ability",
+        "battleRules": {
+          "type": "gain_ability_if_tribe",
+          "notes": "Se for Danian, ganha uma habilidade para sacrseicar e reviver um Meiblor.",
+          "payload": {
+            "tribe": "danian",
+            "ability_description": "Sacrifice equipped Creature: Return a Mandiblor to play in any open space."
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:22.000000Z",
+    "updated_at": "2026-02-16T16:00:22.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "ef09c510-00ef-4db0-ae43-496c83b65263",
+    "file_name": "dawn_perin_159.png",
+    "name": "Torrent Kaint",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 'Water 5 (Water attacks made by this Creature cause an additional 5 dano.)'",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_elemental_keyword",
+          "notes": "Ganha Água 5.",
+          "payload": {
+            "keyword": "water",
+            "amount": 5
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 5
+      }
+    ],
+    "created_at": "2026-02-16T16:00:23.000000Z",
+    "updated_at": "2026-02-16T16:00:23.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "55e62be5-9528-4838-a9b0-b51f6bf69be4",
+    "file_name": "dawn_perin_160.png",
+    "name": "Torwegg",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 'Air 5 (Air attacks made by this Creature cause an additional 5 dano.)'",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_elemental_keyword",
+          "notes": "Ganha Ar 5.",
+          "payload": {
+            "keyword": "air",
+            "amount": 5
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 5
+      }
+    ],
+    "created_at": "2026-02-16T16:00:24.000000Z",
+    "updated_at": "2026-02-16T16:00:24.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "555cafdb-b8ca-4aab-b5e7-beda47b3d745",
+    "file_name": "dawn_perin_161.png",
+    "name": "Viledriver",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 'Fire 5 (Fire attacks made by this Creature cause an additional 5 dano.)'",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_elemental_keyword",
+          "notes": "Ganha Fogo 5.",
+          "payload": {
+            "keyword": "fire",
+            "amount": 5
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 5
+      }
+    ],
+    "created_at": "2026-02-16T16:00:25.000000Z",
+    "updated_at": "2026-02-16T16:00:25.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "78d0e734-28e8-4d42-b3b1-1052e51d0f8f",
+    "file_name": "dawn_perin_162.png",
+    "name": "Vlaric Shard",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 'Earth 5 (Earth attacks made by this Creature cause an additional 5 dano.)'",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_elemental_keyword",
+          "notes": "Ganha Terra 5.",
+          "payload": {
+            "keyword": "earth",
+            "amount": 5
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 5
+      }
+    ],
+    "created_at": "2026-02-16T16:00:26.000000Z",
+    "updated_at": "2026-02-16T16:00:26.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "4ede7383-3c54-4c00-9487-a75765a7d3b0",
+    "file_name": "dawn_perin_163.png",
+    "name": "Whepcrack",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 15 Poder.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 15 de Poder.",
+          "payload": {
+            "stat": "power",
+            "amount": 15
+          }
+        },
+        "targetScope": "self",
+        "stat": "power",
+        "value": 15
+      },
+      {
+        "description": "Se equipped Creature is UnderWorld, it ganhes 'Fire 5'.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_keyword_if_tribe",
+          "notes": "Se for UnderWorld, ganha Fogo 5.",
+          "payload": {
+            "tribe": "underworld",
+            "keyword": "fire 5"
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:27.000000Z",
+    "updated_at": "2026-02-16T16:00:27.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "6c47fea5-ca80-41a2-9088-70259b3f68d2",
+    "file_name": "dawn_perin_164.png",
+    "name": "Ventostrider",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Equipped Creature ganhes 'Swset 2'.",
+        "effectType": "gain_keyword",
+        "battleRules": {
+          "type": "gain_keyword",
+          "notes": "Ganha Swset 2.",
+          "payload": {
+            "keyword": "swift 2"
+          }
+        },
+        "stat": null,
+        "value": 0,
+        "targetScope": null
+      },
+      {
+        "description": "Reveal this Battlegear at beginning de game.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "reveal_at_game_start",
+          "notes": "Revela este Battlegear no início do jogo.",
+          "payload": {}
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T16:00:28.000000Z",
+    "updated_at": "2026-02-16T16:00:28.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "ebc5a034-7235-403c-8630-717f0c7fd552",
+    "file_name": "forget_unity_65.png",
+    "name": "Bruma de Aichlay",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 40 de Sabedoria e 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_multiple_stats",
+          "notes": "Ganha 40 de Sabedoria e 5 de Energia.",
+          "payload": [
+            {
+              "stat": "wisdom",
+              "amount": 40
+            },
+            {
+              "stat": "energy",
+              "amount": 5
+            }
+          ]
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:00.000000Z",
+    "updated_at": "2026-02-16T20:00:00.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "30aaf2d1-2f33-41da-ad9d-edabcd841171",
+    "file_name": "forget_unity_66.png",
+    "name": "Braçadeiras de Lore",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 40 de Coragem e 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_multiple_stats",
+          "notes": "Ganha 40 de Coragem e 5 de Energia.",
+          "payload": [
+            {
+              "stat": "courage",
+              "amount": 40
+            },
+            {
+              "stat": "energy",
+              "amount": 5
+            }
+          ]
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:01.000000Z",
+    "updated_at": "2026-02-16T20:00:01.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "d5b1204f-c0a1-4170-8f28-0e2ad0c8ee8b",
+    "file_name": "forget_unity_67.png",
+    "name": "Adaga de Boday",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A Criatura equipada causa 10 de dano adicional com ataques que não sejam Elementais ou de Disciplina.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "additional_damage_non_elemental_non_discipline",
+          "notes": "Causa 10 de dano adicional com ataques não-elementais e não-disciplinares.",
+          "payload": {
+            "amount": 10
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-16T20:00:02.000000Z",
+    "updated_at": "2026-02-16T20:00:02.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "8e49fd94-dcea-447b-842b-2afc1036927d",
+    "file_name": "forget_unity_68.png",
+    "name": "Coroa de Aa'une",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha o Tipo de Criatura 'Chefe' além de seus outros tipos. Lendário, Leal - M'arrillians ou Minions.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "gain_subtype",
+          "notes": "Ganha o subtipo 'Chefe'. Restrito a M'arrillians ou Minions.",
+          "payload": {
+            "subtype": "chieftain",
+            "is_legendary": true,
+            "is_loyal": true,
+            "allowed_tribes": [
+              "marrillian",
+              "minion"
+            ]
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:03.000000Z",
+    "updated_at": "2026-02-16T20:00:03.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "0bbad8d4-d356-445b-93cd-b0ccba9ce7b9",
+    "file_name": "forget_unity_69.png",
+    "name": "Estearte do General",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Queo o Estearte do General é revelado, escolha uma Tribo. A Criatura equipada é considerada como pertencente àquela Tribo enquanto o Estearte do General estiver virado para cima.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "choose_and_set_tribe_on_reveal",
+          "notes": "Escolhe e define uma tribo para a criatura equipada ao ser revelado.",
+          "payload": {
+            "duration": "permanent"
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:04.000000Z",
+    "updated_at": "2026-02-16T20:00:04.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "a16b62d3-1fef-480f-b58e-d0c10196d65a",
+    "file_name": "forget_unity_70.png",
+    "name": "Cigantraper",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "No início do combate, a criatura equipada perde todas as habilidades e define sua Coragem, Poder, Sabedoria e Velocidade como 50 e sua Energia como 70. Único.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "set_stats_and_lose_abilities",
+          "notes": "Define os atributos e remove habilidades no início do combate.",
+          "payload": {
+            "trigger": "on_combat_start",
+            "courage": 50,
+            "power": 50,
+            "wisdom": 50,
+            "speed": 50,
+            "energy": 70,
+            "is_unique": true
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:05.000000Z",
+    "updated_at": "2026-02-16T20:00:05.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "db0e3e8d-678f-4b63-9ea6-b14dda6afe31",
+    "file_name": "forget_unity_71.png",
+    "name": "Faixa Índigo",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 40 de Velocidade e 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_multiple_stats",
+          "notes": "Ganha 40 de Velocidade e 5 de Energia.",
+          "payload": [
+            {
+              "stat": "speed",
+              "amount": 40
+            },
+            {
+              "stat": "energy",
+              "amount": 5
+            }
+          ]
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:06.000000Z",
+    "updated_at": "2026-02-16T20:00:06.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "9e296080-77ff-4a61-8007-2adc3e60797d",
+    "file_name": "forget_unity_72.png",
+    "name": "Lâmina Mecânica de Khybon",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 20 de Poder e 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_multiple_stats",
+          "notes": "Ganha 20 de Poder e 5 de Energia.",
+          "payload": [
+            {
+              "stat": "power",
+              "amount": 20
+            },
+            {
+              "stat": "energy",
+              "amount": 5
+            }
+          ]
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:07.000000Z",
+    "updated_at": "2026-02-16T20:00:07.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "f8e52475-f80d-4154-bcb0-ce8e3c06dbe6",
+    "file_name": "forget_unity_73.png",
+    "name": "Fulgurito Mipediano",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 'Ar 10'. No final do combate, destrua o Fulgurito Mipediano.",
+        "effectType": "gain_and_destroy",
+        "battleRules": {
+          "type": "gain_keyword_then_destroy",
+          "notes": "Ganha Ar 10 e é destruído no final do combate.",
+          "payload": {
+            "keyword": "air 10",
+            "destroy_trigger": "end_of_combat"
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:08.000000Z",
+    "updated_at": "2026-02-16T20:00:08.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "fc3a1dc0-9572-45f9-936a-d95365cdf374",
+    "file_name": "forget_unity_74.png",
+    "name": "Diapasão do Muge",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A Criatura equipada pode usar Mugic de qualquer Tribo que você controla. Revele este Battlegear no início do jogo. Único.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "ignore_mugic_tribe_restriction_own",
+          "notes": "Permite usar Mugic de qualquer tribo aliada. Revela no início do jogo.",
+          "payload": {
+            "is_unique": true,
+            "reveal_at_game_start": true
+          }
+        },
+        "targetScope": "self",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:09.000000Z",
+    "updated_at": "2026-02-16T20:00:09.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "f06a21d4-5f77-46cd-8386-ed8662b3ac54",
+    "file_name": "forget_unity_75.png",
+    "name": "Lua do Rio",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "Queo a Criatura equipada causa dano de Água, ela ganha 10 em todas as Disciplinas.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stats_on_elemental_damage",
+          "notes": "Ganha 10 em todas as disciplinas ao causar dano de Água.",
+          "payload": {
+            "element": "water",
+            "amount": 10,
+            "stat": "all_disciplines"
+          }
+        },
+        "targetScope": "self",
+        "stat": "all_disciplines",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-16T20:00:10.000000Z",
+    "updated_at": "2026-02-16T20:00:10.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "8a47ac9e-3e5f-450e-ab25-93fd2a39873b",
+    "file_name": "forget_unity_76.png",
+    "name": "Fragmento da Solidão",
+    "image_file_id": null,
+    "image_url": null,
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 5 de Energia. Enquanto um Kha'rall equipado estiver engajado, Criaturas desengajadas não podem usar Mugic ou habilidades ativadas.",
+        "effectType": "gain_and_restriction",
+        "battleRules": {
+          "type": "gain_energy_and_prevent_unengaged_abilities",
+          "notes": "Ganha 5 de Energia e impede habilidades de criaturas desengajadas se for um Kha'rall.",
+          "payload": {
+            "energy_gain": 5,
+            "condition_creature": "kha'rall"
+          }
+        },
+        "targetScope": "self_and_all_unengaged",
+        "stat": null,
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-16T20:00:11.000000Z",
+    "updated_at": "2026-02-16T20:00:11.000000Z",
+    "rarity": "super_rara"
+  }
 ]

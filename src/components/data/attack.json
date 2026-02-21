@@ -1,1527 +1,2230 @@
 [
+  {
+    "id": "5103e62a-9d4e-459f-9c25-73d544f56dbb",
+    "file_name": "120.png",
+    "name": "Torrente de Água",
+    "rarity": "comum",
+    "image_file_id": "attacks/2026/bb54cd21-5d42-47de-83a9-9d23ef0ed67f-120.png",
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [
+      {
+        "element": "water",
+        "value": 5
+      },
+      {
+        "element": "earth",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Criatura atacante for água aumenta coragem em 10",
+        "conditionElement": "water",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "courage",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-14 17:57:10.788682+00",
+    "updated_at": "2026-02-14 17:57:10.788682+00"
+  },
+  {
+    "id": "d3fa8e94-a908-4fe8-90da-d857b66b20ea",
+    "file_name": null,
+    "name": "Torrente de Cinzas",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 5
+      },
+      {
+        "element": "earth",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Desafio Poder 15: Cause 10 de dano",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00.000000+00",
+    "updated_at": "2026-02-15 17:00:00.000000+00"
+  },
+  {
+    "id": "0417a804-21a9-43ce-8d88-ed41420a2cc6",
+    "file_name": null,
+    "name": "Bravura Intimidante",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Desafio Coragem 15: Cause 10 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 10
+      },
+      {
+        "description": "Teste de Atributo Coragem 50: Criatura oponente engajada perde 15 de Coragem",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 15
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "24c9e987-59b2-4b78-af1d-228182d9453e",
+    "file_name": null,
+    "name": "Desaceleração",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 2,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Falha de Atributo Velocidade 100: Cause 5 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "speed",
+        "value": 5
+      },
+      {
+        "description": "Falha de Atributo Velocidade 50: Cause 10 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "speed",
+        "value": 10
+      },
+      {
+        "description": "Falha de Atributo Velocidade 5: Cause 15 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "speed",
+        "value": 15
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "460ddb45-680e-47b7-9934-fe414c10d069",
+    "file_name": null,
+    "name": "Delírio",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Sabedoria 50: Cause 5 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "wisdom",
+        "value": 5
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "a88eabb0-de54-4b39-9a83-69f0557a6f2e",
+    "file_name": null,
+    "name": "Chuva Ardente",
+    "rarity": "super_rara",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [
+      {
+        "element": "water",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Se Chuva Ardente fosse causar mais de 10 de dano, ela causará 10 de dano em vez disso",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "feb3423d-2834-46da-aad9-28c0594046df",
+    "file_name": null,
+    "name": "Confusão",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 5
+      },
+      {
+        "element": "air",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Ar: Ganhe 10 de Poder",
+        "conditionElement": "air",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "power",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "fefe4af8-9eae-49cc-9ae4-914f7906a8db",
+    "file_name": null,
+    "name": "Combo de Desenergização",
+    "rarity": "super_rara",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [
+      {
+        "element": "water",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Falha de Atributo Coragem 30: Cause 10 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 10
+      },
+      {
+        "description": "Falha de Atributo Poder 30: Cause 10 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 10
+      },
+      {
+        "description": "Falha de Atributo Sabedoria 30: Cause 10 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "wisdom",
+        "value": 10
+      },
+      {
+        "description": "Falha de Atributo Velocidade 30: Cause 10 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "speed",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "70276664-bcb2-4d56-82ca-5aafbe049bb5",
+    "file_name": null,
+    "name": "Líquido Seco",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Desafio Poder 15: Cause 10 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 10
+      },
+      {
+        "description": "Teste de Atributo Poder 50: Criatura oponente engajada perde 15 de Poder",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 15
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "41b29ae1-49b2-4b8e-bd3a-f494adf7c831",
+    "file_name": null,
+    "name": "Eletroteia",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 2,
+    "element_values": [
+      {
+        "element": "water",
+        "value": 0
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Desafio Poder 30: Cause 10 de dano. Se você perder este Desafio, ganhe 15 de Poder",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 10
+      },
+      {
+        "description": "Desafio Velocidade 30: Cause 10 de dano. Se você perder este Desafio, ganhe 15 de Velocidade",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "speed",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "ad2eaf18-fc7d-4aeb-8983-297c2b0e17ef",
+    "file_name": null,
+    "name": "Enxame de Brasas",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Fogo: Criatura oponente engajada perde 25 de Sabedoria",
+        "conditionElement": "fire",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "wisdom",
+        "value": 25
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "97105ef7-9285-44a0-9e31-9c8145b6dd76",
+    "file_name": null,
+    "name": "Projeção de Medo",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Criatura oponente engajada perde 20 de Coragem",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 20
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "bc97e126-e93c-444d-9434-1093debcd6b7",
+    "file_name": null,
+    "name": "Carvões em Chamas",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 3,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 10
+      },
+      {
+        "element": "water",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Carvões em Chamas não pode ser alvo de Mugic ou habilidades",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "mugic",
+        "value": 0
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "503d2bdd-3738-4f6f-a975-0f55cdbf1b52",
+    "file_name": null,
+    "name": "Distorção Instantânea",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Desafio Poder 15: Cause 10 de dano",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 10
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "0387c4dd-940c-4919-99e1-f0f839b93bc9",
+    "file_name": null,
+    "name": "Dilúvio da Perdição",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 2,
+    "element_values": [
+      {
+        "element": "earth",
+        "value": 10
+      },
+      {
+        "element": "water",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Água: Criatura oponente engajada perde 25 de Coragem",
+        "conditionElement": "water",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 25
+      }
+    ],
+    "created_at": "2026-02-15 17:00:00+00",
+    "updated_at": "2026-02-15 17:00:00+00"
+  },
+  {
+    "id": "7180c2ea-f2ac-4668-895d-3fc9980a0f77",
+    "file_name": "87.png",
+    "name": "Atmosfera",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Se sua Criatura engajada tiver Invisibilidade, cause 5 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 5
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "6d16e7de-b53d-4f6a-9678-d861cf06540a",
+    "file_name": "88.png",
+    "name": "Antes da Tempestade",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [
+      {
+        "element": "air",
+        "value": 15
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Ar: Este ataque conta como seu primeiro ataque.",
+        "conditionElement": "air",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "2ad2f386-e88b-4456-a8ea-acac90f724c7",
+    "file_name": "89.png",
+    "name": "Deslize Limpo",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Se a Criatura engajada oponente tiver Terra, o dano causado por Deslize Limpo é reduzido a 0.",
+        "conditionElement": "earth",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "9390cf2c-1fbe-4586-82c4-76b7c09646d9",
+    "file_name": "90.png",
+    "name": "Carnificina da Combustão",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Fogo: Você pode sacrificar uma Criatura desengajada que controla. Se fizer isso, cause 20 de dano.",
+        "conditionElement": "fire",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 20
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "2184f41b-a86b-4d2c-86e4-095045f262b5",
+    "file_name": "91.png",
+    "name": "Chama Consumidora",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [],
+    "abilities": [],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "9e584e81-5cc1-4b5d-a281-dbaed404cc26",
+    "file_name": "92.png",
+    "name": "Devastação das Águas Mortas",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [],
+    "abilities": [],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "ac18c222-d593-4689-aa01-221b3882b4cd",
+    "file_name": "93.png",
+    "name": "Toque Seco",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 2,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Fogo: A Criatura engajada oponente perde Água.",
+        "conditionElement": "fire",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "8a35e087-8525-4e0e-8856-82873ed57713",
+    "file_name": "94.png",
+    "name": "Golpe de Poeira",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 2,
+    "element_values": [
+      {
+        "element": "earth",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Velocidade 60: Cause 5 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "speed",
+        "value": 5
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "a671935f-7cad-4918-930b-33dde423d70c",
+    "file_name": "95.png",
+    "name": "Pulso da Terra",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [],
+    "abilities": [],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "4d4ffdd0-8e3f-41bd-be1d-5073cf504845",
+    "file_name": "96.png",
+    "name": "Forma da Terra",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Sua Criatura engajada ganha Terra até o fim do combate.",
+        "conditionElement": "earth",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "0e22df95-01a5-4a05-a4d9-cfd3529da896",
+    "file_name": "97.png",
+    "name": "Avanço Eidolon",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 5
+      },
+      {
+        "element": "air",
+        "value": 5
+      },
+      {
+        "element": "earth",
+        "value": 5
+      },
+      {
+        "element": "water",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Cause 5 de dano se sua Criatura engajada tiver um ou mais contadores de Mugic.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "mugic",
+        "value": 5
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "afdf627f-4151-4530-8888-b8387da9a23c",
+    "file_name": "98.png",
+    "name": "Explosão de Broding",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 2,
+    "element_values": [
+      {
+        "element": "air",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Ar: A Criatura engajada oponente perde Terra.",
+        "conditionElement": "air",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "0cfaa639-a204-4972-a0f9-34bbbf60d46a",
+    "file_name": "99.png",
+    "name": "Evaporação Essencial",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [],
+    "abilities": [],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "e8bccba7-443c-4413-b23d-b746dcb8f71f",
+    "file_name": "100.png",
+    "name": "Fonte Extintora",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 2,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "A Criatura engajada oponente perde Fogo.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "8c17bce4-a83a-4ae9-a5c0-6efbf5edf558",
+    "file_name": "101.png",
+    "name": "Piperam",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 3,
+    "element_values": [
+      {
+        "element": "earth",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Poder 60: Cause 10 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 10
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "59b142d0-a980-4e53-a90a-5ff07e2d002d",
+    "file_name": "102.png",
+    "name": "Ruptura Flamejante",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "ca0f683b-5848-41e2-a75d-4043142b1ffe",
+    "file_name": "103.png",
+    "name": "Pavor Flamejante",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 3,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 15
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas engajadas com menos de 50 de Sabedoria ou Coragem perdem um contador de Mugic.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 50
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "9d0234c1-2773-4416-8b97-5ea69627226f",
+    "file_name": "104.png",
+    "name": "Força da Inundação",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [],
+    "abilities": [],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "438e5981-928f-4697-952a-9f4563870246",
+    "file_name": "105.png",
+    "name": "Chama Fluida",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "ab7feb23-8cb1-4c22-81d5-7f5b565f9ac5",
+    "file_name": "106.png",
+    "name": "Fogo do Gladiador",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Se sua Criatura engajada tiver Recklessness, cause 5 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 5
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "48a9ec7c-463c-4a65-9fb5-d91772738f28",
+    "file_name": "107.png",
+    "name": "Agarre de Aterramento",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [
+      {
+        "element": "earth",
+        "value": 15
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Terra: Olhe as três cartas do topo do seu Deck de Local e coloque-as de volta em qualquer ordem. Você pode revelar um novo Local ativo.",
+        "conditionElement": "earth",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "65cd6f28-5e28-487f-9a1c-14825f1bff2c",
+    "file_name": "108.png",
+    "name": "Onda Incessante",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 2,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Coragem 60: Cause 5 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 5
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "75fa6a7a-fc94-496e-b673-7fb18e2ec616",
+    "file_name": "109.png",
+    "name": "Garras Infernais",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [],
+    "abilities": [],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "ae7bcef9-7eb8-4d5b-a5ce-8a480e75b66a",
+    "file_name": "110.png",
+    "name": "Poder do Magma",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 15
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Fogo: Destrua o Battlegear da Criatura engajada oponente.",
+        "conditionElement": "fire",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "a2f3f0a4-cd45-4b48-9d31-61f3fc5efef7",
+    "file_name": "111.png",
+    "name": "Salto Meditativo",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Sabedoria 100: Remova um contador de Mugic de uma Criatura que você controla. Se fizer isso, coloque um contador de Mugic na sua Criatura engajada.",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "wisdom",
+        "value": 100
+      },
+      {
+        "description": "Teste de Atributo Velocidade 100: Compre uma carta de Ataque e descarte uma carta de Ataque.",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "speed",
+        "value": 100
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "53547f70-a1ed-48b5-809d-a113e5431950",
+    "file_name": "112.png",
+    "name": "Esmagamento Mental",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 5,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Desafio Sabedoria vs Coragem: Cause 15 de dano.",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 15
+      },
+      {
+        "description": "Desafio Sabedoria vs Poder: Cause 15 de dano.",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 15
+      },
+      {
+        "description": "Desafio Sabedoria vs Velocidade: Cause 15 de dano.",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "speed",
+        "value": 15
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "bf5cf5b2-099a-40e5-9d75-73995dd826fe",
+    "file_name": "113.png",
+    "name": "Vazio Mental",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Coragem 100: Ganhe 5 de Energia.",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "courage",
+        "value": 5
+      },
+      {
+        "description": "Teste de Atributo Sabedoria 100: Remova um contador de Mugic de uma Criatura que você controla. Se fizer isso, coloque um contador de Mugic na sua Criatura engajada.",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "wisdom",
+        "value": 100
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "432ba83d-6f06-4c37-8307-69ccd5486b27",
+    "file_name": "114.png",
+    "name": "Caos Mineral",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Você pode escolher que Caos Mineral não cause dano. Se fizer isso, ganhe 100 de Coragem.",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 100
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "9a9e40c5-a527-4980-8f5c-6a695ebf79ca",
+    "file_name": "115.png",
+    "name": "Ventos Ofuscantes",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Você pode escolher que Ventos Ofuscantes não cause dano. Se fizer isso, ganhe 100 de Velocidade.",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "speed",
+        "value": 100
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "5fc18b7a-0e71-4c06-9ddc-6bb7a25b2ff7",
+    "file_name": "116.png",
+    "name": "Supercongelamento",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Você pode escolher que Supercongelamento não cause dano. Se fizer isso, ganhe 100 de Sabedoria.",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "wisdom",
+        "value": 100
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "1512f86b-7b1c-4607-8af8-3b591fa59c74",
+    "file_name": "117.png",
+    "name": "Parasemente",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [
+      {
+        "element": "earth",
+        "value": 5
+      },
+      {
+        "element": "water",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Cause 5 de dano se Hive estiver ativo.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 5
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "2925f375-703d-450b-a513-086f477d2d7d",
+    "file_name": "118.png",
+    "name": "Fúria Primordial",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 4,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 5
+      },
+      {
+        "element": "air",
+        "value": 5
+      },
+      {
+        "element": "earth",
+        "value": 5
+      },
+      {
+        "element": "water",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Você pode escolher que Fúria Primordial não cause dano. Se fizer isso, ganhe 100 de Poder.",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 100
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "95d5a045-b0f0-4b23-a58d-dd537e868001",
+    "file_name": "119.png",
+    "name": "Lanças de Granizo",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 3,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Sabedoria 60: Cause 10 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "wisdom",
+        "value": 10
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "ec56ff63-3248-44a8-8be3-c71e89990608",
+    "file_name": "120.png",
+    "name": "Golpe Retaliatório",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 3,
+    "element_values": [
+      {
+        "element": "fire",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Golpe Retaliatório causa dano adicional igual ao dano causado pelo último ataque jogado neste combate.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "30b72c68-9cfa-46db-88c0-d1e0a786a46c",
+    "file_name": "121.png",
+    "name": "Deslize de Granizo",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Se a Criatura engajada oponente tiver Água, o dano causado por Deslize de Granizo é reduzido a 0.",
+        "conditionElement": "water",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "925356e2-3bd5-4a30-86b2-5b244bd3c154",
+    "file_name": "122.png",
+    "name": "Surto de Fumaça",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Se a Criatura engajada oponente tiver Fogo, o dano causado por Surto de Fumaça é reduzido a 0.",
+        "conditionElement": "fire",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "0a8331ea-1c3a-453f-b6f6-565ac74e5b06",
+    "file_name": "123.png",
+    "name": "Clarão Repentino",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 2,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Sabedoria 60: Cause 5 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "wisdom",
+        "value": 5
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "31db5665-3031-42fe-9928-6de10650efe3",
+    "file_name": "124.png",
+    "name": "Aceleração Sináptica",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Poder 100: Cause 5 de dano.",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 5
+      },
+      {
+        "description": "Teste de Atributo Velocidade 100: Compre uma carta de Ataque e descarte uma carta de Ataque.",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "speed",
+        "value": 100
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "2a29fbb3-f287-4b18-a09b-b6264a6780c3",
+    "file_name": "125.png",
+    "name": "Golpe Teotosthike",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 3,
+    "element_values": [
+      {
+        "element": "earth",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Coragem 60: Cause 10 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "courage",
+        "value": 10
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "306635b6-ea0d-4731-b7d6-b8729d59b857",
+    "file_name": "126.png",
+    "name": "Investida Terrântula",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 3,
+    "element_values": [
+      {
+        "element": "earth",
+        "value": 15
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Destrua todos os Battlegears equipados em Criaturas engajadas com menos de 50 de Poder ou Velocidade.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 50
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "14225f0a-79ab-491b-be55-129ef8ef340a",
+    "file_name": "127.png",
+    "name": "Carga Tradicionalista",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 10,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Poder 100: Cause 5 de dano.",
+        "targetScope": "attacker",
+        "effectType": "decrease",
+        "stat": "power",
+        "value": 5
+      },
+      {
+        "description": "Teste de Atributo Coragem 100: Ganhe 5 de Energia.",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "courage",
+        "value": 5
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "92626d34-d226-4ed7-ba7f-40d9aa6fa22b",
+    "file_name": "128.png",
+    "name": "Funil de Turbulência",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 3,
+    "element_values": [
+      {
+        "element": "air",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Teste de Atributo Velocidade 60: Cause 10 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "speed",
+        "value": 10
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "4c9acb10-759b-477b-afb8-b4d92f7d3d66",
+    "file_name": "129.png",
+    "name": "Hemisfério de Vácuo",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "A Criatura engajada oponente perde Ar.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "8b7b59f8-602c-48d0-8302-9b735405607a",
+    "file_name": "130.png",
+    "name": "Aniquilação de Vapor",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "A Criatura engajada oponente perde Água.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "d298a144-a195-4c96-9494-f121c00f49e6",
+    "file_name": "131.png",
+    "name": "Impulso Voltaico",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 0,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Sua Criatura engajada ganha Ar até o fim do combate.",
+        "conditionElement": "air",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "00204068-2131-4d40-b396-3da56296e7b1",
+    "file_name": "132.png",
+    "name": "Parede de Chamas",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 3,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Ar: Vire um Battlegear para cima e um Battlegear para baixo.",
+        "conditionElement": "air",
+        "targetScope": "defender",
+        "effectType": "increase",
+        "stat": "energy",
+        "value": 0
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "bd1c832e-600a-4738-8e53-fc282d07c5bc",
+    "file_name": "133.png",
+    "name": "Ira Xenocêntrica",
+    "rarity": "comum",
+    "image_file_id": null,
+    "image_url": null,
+    "energy_cost": 1,
+    "element_values": [],
+    "abilities": [
+      {
+        "description": "Cause 10 de dano se a Criatura engajada oponente não compartilhar uma Tribo com a Criatura que está jogando este ataque.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "energy",
+        "value": 10
+      }
+    ],
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "937883c6-38dc-4ff8-8a23-991d0cb23297",
+    "fileName": "dawn_perin_118.png",
+    "name": "Ataque Sombrio",
+    "energy_cost": 1,
+    "abilities": [
+      {
+        "description": "Desafio de Coragem 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "courage",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "e6e9c413-a3e5-4f6a-98c3-20f9b97d32ed",
+    "fileName": "dawn_perin_119.png",
+    "name": "Grito Chocante",
+    "energy_cost": 1,
+    "abilities": [
+      {
+        "description": "Teste de Atributo ☑ Velocidade 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "stat": "speed",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "4d97c345-e44c-4b04-a307-73d8b31720a5",
+    "fileName": "dawn_perin_120.png",
+    "name": "Golpe Esquelético",
+    "energy_cost": 2,
+    "abilities": [
+      {
+        "description": "Desafio de Coragem 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "courage",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "41fc64e9-34e0-4a68-a168-7326c666aeb8",
+    "fileName": "dawn_perin_121.png",
+    "name": "Ferrão Sonolento",
+    "energy_cost": 2,
+    "abilities": [
+      {
+        "description": "Desafio ☑ Sabedoria 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "wisdom",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "56506f9b-dd1a-4645-a95b-fbdc91e15c5a",
+    "fileName": "dawn_perin_122.png",
+    "name": "Jorro de Lodo",
+    "energy_cost": 3,
+    "abilities": []
+  },
+  {
+    "id": "825f6919-af21-48f4-b7f0-13889ba947c1",
+    "fileName": "dawn_perin_123.png",
+    "name": "Rajada Espiritual",
+    "energy_cost": 1,
+    "abilities": [
+      {
+        "description": "Teste de Atributo ☐ Coragem 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "stat": "courage",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "a732587c-cff3-48a3-bea2-2a609cfc5f18",
+    "fileName": "dawn_perin_124.png",
+    "name": "Jogada Apertada",
+    "energy_cost": 0,
+    "abilities": [
+      {
+        "description": "Olhe as duas primeiras cartas do seu Deck de Ataque. Coloque uma delas no topo desse deck e a outra no fundo.",
+        "effectType": "special",
+        "stat": null,
+        "value": 0
+      }
+    ]
+  },
+  {
+    "id": "2bbfe857-9005-4509-81af-1eaf5209670f",
+    "fileName": "dawn_perin_125.png",
+    "name": "Fúria a Vapor",
+    "energy_cost": 0,
+    "abilities": []
+  },
+  {
+    "id": "9054cf8e-1a5a-483c-aff2-bdacc2f2cef4",
+    "fileName": "dawn_perin_126.png",
+    "name": "Raio Telecinético",
+    "energy_cost": 3,
+    "abilities": []
+  },
+  {
+    "id": "1c095181-b75a-4dd0-a934-555629864424",
+    "fileName": "dawn_perin_127.png",
+    "name": "Grito do Trovão",
+    "energy_cost": 2,
+    "abilities": []
+  },
+  {
+    "id": "d90831b5-fe2f-4ae8-a112-6125afbe579b",
+    "fileName": "dawn_perin_128.png",
+    "name": "Investida Tornado",
+    "energy_cost": 1,
+    "abilities": [
+      {
+        "description": "Ar: Ambos os jogadores reembaralham seus Decks de Ataque.",
+        "effectType": "special",
+        "stat": null,
+        "value": 0,
+        "conditionElement": "air"
+      }
+    ]
+  },
+  {
+    "id": "a5f02507-69f1-4e55-b12d-e84ab8c126bf",
+    "fileName": "dawn_perin_129.png",
+    "name": "Torrente de Chamas",
+    "energy_cost": 2,
+    "abilities": []
+  },
+  {
+    "id": "342b961f-8418-4269-bc4e-12458c018291",
+    "fileName": "dawn_perin_130.png",
+    "name": "Rajada Tóxica",
+    "energy_cost": 3,
+    "elemental_damage": {
+      "unspecified": [
+        5,
+        5
+      ]
+    },
+    "abilities": []
+  },
+  {
+    "id": "a1f7ca38-9db0-4e61-9dc0-6dec08214e93",
+    "fileName": "dawn_perin_131.png",
+    "name": "Unisanidade",
+    "energy_cost": 0,
+    "abilities": [
+      {
+        "description": "Desafio ☑ Sabedoria 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "wisdom",
+        "value": 10
+      }
+    ]
+  },
+  [
     {
-        "id": "5103e62a-9d4e-459f-9c25-73d544f56dbb",
-        "file_name": "120.png",
-        "name": "Torrente de Água",
-        "rarity": "comum",
-        "image_file_id": "attacks/2026/bb54cd21-5d42-47de-83a9-9d23ef0ed67f-120.png",
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [
-            {
-                "element": "water",
-                "value": 5
-            },
-            {
-                "element": "earth",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Criatura atacante for água aumenta coragem em 10",
-                "conditionElement": "water",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "courage",
-                "value": 10
-            }
-        ],
-        "created_at": "2026-02-14 17:57:10.788682+00",
-        "updated_at": "2026-02-14 17:57:10.788682+00"
+      "id": "attack-015",
+      "fileName": "dawn_perin_windslash.png",
+      "name": "Windslash",
+      "energy_cost": 1,
+      "abilities": [
+        {
+          "description": "O oponente alvo vira para cima todas as Cartas de Battlegear viradas para baixo que ele controla.",
+          "effectType": "special",
+          "stat": null,
+          "value": 0
+        }
+      ]
     },
     {
-        "id": "d3fa8e94-a908-4fe8-90da-d857b66b20ea",
-        "file_name": null,
-        "name": "Torrente de Cinzas",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 5
-            },
-            {
-                "element": "earth",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Desafio Poder 15: Cause 10 de dano",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 10
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00.000000+00",
-        "updated_at": "2026-02-15 17:00:00.000000+00"
+      "id": "attack-016",
+      "fileName": "dawn_perin_velocitrap.png",
+      "name": "Velocitrap",
+      "energy_cost": 0,
+      "abilities": [
+        {
+          "description": "Desafio de Velocidade 15: Cause 10 de dano.",
+          "effectType": "damage",
+          "stat": "speed",
+          "value": 10
+        }
+      ]
     },
     {
-        "id": "0417a804-21a9-43ce-8d88-ed41420a2cc6",
-        "file_name": null,
-        "name": "Bravura Intimidante",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Desafio Coragem 15: Cause 10 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 10
-            },
-            {
-                "description": "Teste de Atributo Coragem 50: Criatura oponente engajada perde 15 de Coragem",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 15
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
+      "id": "attack-017",
+      "fileName": "dawn_perin_vine_snare.png",
+      "name": "Vine Snare",
+      "energy_cost": 1,
+      "elemental_damage": {
+        "earth": 5
+      },
+      "abilities": [
+        {
+          "description": "Terra: A Criatura oponente perde 25 de Velocidade até o final do turno.",
+          "effectType": "special",
+          "stat": null,
+          "value": -25
+        }
+      ]
     },
     {
-        "id": "24c9e987-59b2-4b78-af1d-228182d9453e",
-        "file_name": null,
-        "name": "Desaceleração",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 2,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Falha de Atributo Velocidade 100: Cause 5 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "speed",
-                "value": 5
-            },
-            {
-                "description": "Falha de Atributo Velocidade 50: Cause 10 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "speed",
-                "value": 10
-            },
-            {
-                "description": "Falha de Atributo Velocidade 5: Cause 15 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "speed",
-                "value": 15
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "460ddb45-680e-47b7-9934-fe414c10d069",
-        "file_name": null,
-        "name": "Delírio",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Sabedoria 50: Cause 5 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "wisdom",
-                "value": 5
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "a88eabb0-de54-4b39-9a83-69f0557a6f2e",
-        "file_name": null,
-        "name": "Chuva Ardente",
-        "rarity": "super_rara",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [
-            {
-                "element": "water",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Se Chuva Ardente fosse causar mais de 10 de dano, ela causará 10 de dano em vez disso",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 10
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "feb3423d-2834-46da-aad9-28c0594046df",
-        "file_name": null,
-        "name": "Confusão",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 5
-            },
-            {
-                "element": "air",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Ar: Ganhe 10 de Poder",
-                "conditionElement": "air",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "power",
-                "value": 10
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "fefe4af8-9eae-49cc-9ae4-914f7906a8db",
-        "file_name": null,
-        "name": "Combo de Desenergização",
-        "rarity": "super_rara",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [
-            {
-                "element": "water",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Falha de Atributo Coragem 30: Cause 10 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 10
-            },
-            {
-                "description": "Falha de Atributo Poder 30: Cause 10 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 10
-            },
-            {
-                "description": "Falha de Atributo Sabedoria 30: Cause 10 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "wisdom",
-                "value": 10
-            },
-            {
-                "description": "Falha de Atributo Velocidade 30: Cause 10 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "speed",
-                "value": 10
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "70276664-bcb2-4d56-82ca-5aafbe049bb5",
-        "file_name": null,
-        "name": "Líquido Seco",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Desafio Poder 15: Cause 10 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 10
-            },
-            {
-                "description": "Teste de Atributo Poder 50: Criatura oponente engajada perde 15 de Poder",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 15
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "41b29ae1-49b2-4b8e-bd3a-f494adf7c831",
-        "file_name": null,
-        "name": "Eletroteia",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 2,
-        "element_values": [
-            {
-                "element": "water",
-                "value": 0
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Desafio Poder 30: Cause 10 de dano. Se você perder este Desafio, ganhe 15 de Poder",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 10
-            },
-            {
-                "description": "Desafio Velocidade 30: Cause 10 de dano. Se você perder este Desafio, ganhe 15 de Velocidade",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "speed",
-                "value": 10
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "ad2eaf18-fc7d-4aeb-8983-297c2b0e17ef",
-        "file_name": null,
-        "name": "Enxame de Brasas",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Fogo: Criatura oponente engajada perde 25 de Sabedoria",
-                "conditionElement": "fire",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "wisdom",
-                "value": 25
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "97105ef7-9285-44a0-9e31-9c8145b6dd76",
-        "file_name": null,
-        "name": "Projeção de Medo",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Criatura oponente engajada perde 20 de Coragem",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 20
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "bc97e126-e93c-444d-9434-1093debcd6b7",
-        "file_name": null,
-        "name": "Carvões em Chamas",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 3,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 10
-            },
-            {
-                "element": "water",
-                "value": 10
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Carvões em Chamas não pode ser alvo de Mugic ou habilidades",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "mugic",
-                "value": 0
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "503d2bdd-3738-4f6f-a975-0f55cdbf1b52",
-        "file_name": null,
-        "name": "Distorção Instantânea",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Desafio Poder 15: Cause 10 de dano",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 10
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "0387c4dd-940c-4919-99e1-f0f839b93bc9",
-        "file_name": null,
-        "name": "Dilúvio da Perdição",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 2,
-        "element_values": [
-            {
-                "element": "earth",
-                "value": 10
-            },
-            {
-                "element": "water",
-                "value": 10
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Água: Criatura oponente engajada perde 25 de Coragem",
-                "conditionElement": "water",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 25
-            }
-        ],
-        "created_at": "2026-02-15 17:00:00+00",
-        "updated_at": "2026-02-15 17:00:00+00"
-    },
-    {
-        "id": "7180c2ea-f2ac-4668-895d-3fc9980a0f77",
-        "file_name": "87.png",
-        "name": "Atmosfera",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Se sua Criatura engajada tiver Invisibilidade, cause 5 de dano.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 5
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "6d16e7de-b53d-4f6a-9678-d861cf06540a",
-        "file_name": "88.png",
-        "name": "Antes da Tempestade",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [
-            {
-                "element": "air",
-                "value": 15
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Ar: Este ataque conta como seu primeiro ataque.",
-                "conditionElement": "air",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "2ad2f386-e88b-4456-a8ea-acac90f724c7",
-        "file_name": "89.png",
-        "name": "Deslize Limpo",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Se a Criatura engajada oponente tiver Terra, o dano causado por Deslize Limpo é reduzido a 0.",
-                "conditionElement": "earth",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "9390cf2c-1fbe-4586-82c4-76b7c09646d9",
-        "file_name": "90.png",
-        "name": "Carnificina da Combustão",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Fogo: Você pode sacrificar uma Criatura desengajada que controla. Se fizer isso, cause 20 de dano.",
-                "conditionElement": "fire",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 20
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "2184f41b-a86b-4d2c-86e4-095045f262b5",
-        "file_name": "91.png",
-        "name": "Chama Consumidora",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [],
-        "abilities": [],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "9e584e81-5cc1-4b5d-a281-dbaed404cc26",
-        "file_name": "92.png",
-        "name": "Devastação das Águas Mortas",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [],
-        "abilities": [],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "ac18c222-d593-4689-aa01-221b3882b4cd",
-        "file_name": "93.png",
-        "name": "Toque Seco",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 2,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 10
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Fogo: A Criatura engajada oponente perde Água.",
-                "conditionElement": "fire",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "8a35e087-8525-4e0e-8856-82873ed57713",
-        "file_name": "94.png",
-        "name": "Golpe de Poeira",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 2,
-        "element_values": [
-            {
-                "element": "earth",
-                "value": 10
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Velocidade 60: Cause 5 de dano.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "speed",
-                "value": 5
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "a671935f-7cad-4918-930b-33dde423d70c",
-        "file_name": "95.png",
-        "name": "Pulso da Terra",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [],
-        "abilities": [],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "4d4ffdd0-8e3f-41bd-be1d-5073cf504845",
-        "file_name": "96.png",
-        "name": "Forma da Terra",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Sua Criatura engajada ganha Terra até o fim do combate.",
-                "conditionElement": "earth",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "0e22df95-01a5-4a05-a4d9-cfd3529da896",
-        "file_name": "97.png",
-        "name": "Avanço Eidolon",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 5
-            },
-            {
-                "element": "air",
-                "value": 5
-            },
-            {
-                "element": "earth",
-                "value": 5
-            },
-            {
-                "element": "water",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Cause 5 de dano se sua Criatura engajada tiver um ou mais contadores de Mugic.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "mugic",
-                "value": 5
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "afdf627f-4151-4530-8888-b8387da9a23c",
-        "file_name": "98.png",
-        "name": "Explosão de Broding",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 2,
-        "element_values": [
-            {
-                "element": "air",
-                "value": 10
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Ar: A Criatura engajada oponente perde Terra.",
-                "conditionElement": "air",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "0cfaa639-a204-4972-a0f9-34bbbf60d46a",
-        "file_name": "99.png",
-        "name": "Evaporação Essencial",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [],
-        "abilities": [],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "e8bccba7-443c-4413-b23d-b746dcb8f71f",
-        "file_name": "100.png",
-        "name": "Fonte Extintora",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 2,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "A Criatura engajada oponente perde Fogo.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "8c17bce4-a83a-4ae9-a5c0-6efbf5edf558",
-        "file_name": "101.png",
-        "name": "Piperam",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 3,
-        "element_values": [
-            {
-                "element": "earth",
-                "value": 10
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Poder 60: Cause 10 de dano.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 10
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "59b142d0-a980-4e53-a90a-5ff07e2d002d",
-        "file_name": "102.png",
-        "name": "Ruptura Flamejante",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "ca0f683b-5848-41e2-a75d-4043142b1ffe",
-        "file_name": "103.png",
-        "name": "Pavor Flamejante",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 3,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 15
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Criaturas engajadas com menos de 50 de Sabedoria ou Coragem perdem um contador de Mugic.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 50
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "9d0234c1-2773-4416-8b97-5ea69627226f",
-        "file_name": "104.png",
-        "name": "Força da Inundação",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [],
-        "abilities": [],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "438e5981-928f-4697-952a-9f4563870246",
-        "file_name": "105.png",
-        "name": "Chama Fluida",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "ab7feb23-8cb1-4c22-81d5-7f5b565f9ac5",
-        "file_name": "106.png",
-        "name": "Fogo do Gladiador",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Se sua Criatura engajada tiver Recklessness, cause 5 de dano.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 5
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "48a9ec7c-463c-4a65-9fb5-d91772738f28",
-        "file_name": "107.png",
-        "name": "Agarre de Aterramento",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [
-            {
-                "element": "earth",
-                "value": 15
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Terra: Olhe as três cartas do topo do seu Deck de Local e coloque-as de volta em qualquer ordem. Você pode revelar um novo Local ativo.",
-                "conditionElement": "earth",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "65cd6f28-5e28-487f-9a1c-14825f1bff2c",
-        "file_name": "108.png",
-        "name": "Onda Incessante",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 2,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Coragem 60: Cause 5 de dano.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 5
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "75fa6a7a-fc94-496e-b673-7fb18e2ec616",
-        "file_name": "109.png",
-        "name": "Garras Infernais",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [],
-        "abilities": [],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "ae7bcef9-7eb8-4d5b-a5ce-8a480e75b66a",
-        "file_name": "110.png",
-        "name": "Poder do Magma",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 15
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Fogo: Destrua o Battlegear da Criatura engajada oponente.",
-                "conditionElement": "fire",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "a2f3f0a4-cd45-4b48-9d31-61f3fc5efef7",
-        "file_name": "111.png",
-        "name": "Salto Meditativo",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Sabedoria 100: Remova um contador de Mugic de uma Criatura que você controla. Se fizer isso, coloque um contador de Mugic na sua Criatura engajada.",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "wisdom",
-                "value": 100
-            },
-            {
-                "description": "Teste de Atributo Velocidade 100: Compre uma carta de Ataque e descarte uma carta de Ataque.",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "speed",
-                "value": 100
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "53547f70-a1ed-48b5-809d-a113e5431950",
-        "file_name": "112.png",
-        "name": "Esmagamento Mental",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 5,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Desafio Sabedoria vs Coragem: Cause 15 de dano.",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 15
-            },
-            {
-                "description": "Desafio Sabedoria vs Poder: Cause 15 de dano.",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 15
-            },
-            {
-                "description": "Desafio Sabedoria vs Velocidade: Cause 15 de dano.",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "speed",
-                "value": 15
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "bf5cf5b2-099a-40e5-9d75-73995dd826fe",
-        "file_name": "113.png",
-        "name": "Vazio Mental",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Coragem 100: Ganhe 5 de Energia.",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "courage",
-                "value": 5
-            },
-            {
-                "description": "Teste de Atributo Sabedoria 100: Remova um contador de Mugic de uma Criatura que você controla. Se fizer isso, coloque um contador de Mugic na sua Criatura engajada.",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "wisdom",
-                "value": 100
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "432ba83d-6f06-4c37-8307-69ccd5486b27",
-        "file_name": "114.png",
-        "name": "Caos Mineral",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Você pode escolher que Caos Mineral não cause dano. Se fizer isso, ganhe 100 de Coragem.",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 100
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "9a9e40c5-a527-4980-8f5c-6a695ebf79ca",
-        "file_name": "115.png",
-        "name": "Ventos Ofuscantes",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Você pode escolher que Ventos Ofuscantes não cause dano. Se fizer isso, ganhe 100 de Velocidade.",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "speed",
-                "value": 100
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "5fc18b7a-0e71-4c06-9ddc-6bb7a25b2ff7",
-        "file_name": "116.png",
-        "name": "Supercongelamento",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Você pode escolher que Supercongelamento não cause dano. Se fizer isso, ganhe 100 de Sabedoria.",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "wisdom",
-                "value": 100
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "1512f86b-7b1c-4607-8af8-3b591fa59c74",
-        "file_name": "117.png",
-        "name": "Parasemente",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [
-            {
-                "element": "earth",
-                "value": 5
-            },
-            {
-                "element": "water",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Cause 5 de dano se Hive estiver ativo.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 5
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "2925f375-703d-450b-a513-086f477d2d7d",
-        "file_name": "118.png",
-        "name": "Fúria Primordial",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 4,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 5
-            },
-            {
-                "element": "air",
-                "value": 5
-            },
-            {
-                "element": "earth",
-                "value": 5
-            },
-            {
-                "element": "water",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Você pode escolher que Fúria Primordial não cause dano. Se fizer isso, ganhe 100 de Poder.",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 100
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "95d5a045-b0f0-4b23-a58d-dd537e868001",
-        "file_name": "119.png",
-        "name": "Lanças de Granizo",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 3,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Sabedoria 60: Cause 10 de dano.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "wisdom",
-                "value": 10
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "ec56ff63-3248-44a8-8be3-c71e89990608",
-        "file_name": "120.png",
-        "name": "Golpe Retaliatório",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 3,
-        "element_values": [
-            {
-                "element": "fire",
-                "value": 5
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Golpe Retaliatório causa dano adicional igual ao dano causado pelo último ataque jogado neste combate.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "30b72c68-9cfa-46db-88c0-d1e0a786a46c",
-        "file_name": "121.png",
-        "name": "Deslize de Granizo",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Se a Criatura engajada oponente tiver Água, o dano causado por Deslize de Granizo é reduzido a 0.",
-                "conditionElement": "water",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "925356e2-3bd5-4a30-86b2-5b244bd3c154",
-        "file_name": "122.png",
-        "name": "Surto de Fumaça",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Se a Criatura engajada oponente tiver Fogo, o dano causado por Surto de Fumaça é reduzido a 0.",
-                "conditionElement": "fire",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "0a8331ea-1c3a-453f-b6f6-565ac74e5b06",
-        "file_name": "123.png",
-        "name": "Clarão Repentino",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 2,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Sabedoria 60: Cause 5 de dano.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "wisdom",
-                "value": 5
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "31db5665-3031-42fe-9928-6de10650efe3",
-        "file_name": "124.png",
-        "name": "Aceleração Sináptica",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Poder 100: Cause 5 de dano.",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 5
-            },
-            {
-                "description": "Teste de Atributo Velocidade 100: Compre uma carta de Ataque e descarte uma carta de Ataque.",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "speed",
-                "value": 100
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "2a29fbb3-f287-4b18-a09b-b6264a6780c3",
-        "file_name": "125.png",
-        "name": "Golpe Teotosthike",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 3,
-        "element_values": [
-            {
-                "element": "earth",
-                "value": 10
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Coragem 60: Cause 10 de dano.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "courage",
-                "value": 10
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "306635b6-ea0d-4731-b7d6-b8729d59b857",
-        "file_name": "126.png",
-        "name": "Investida Terrântula",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 3,
-        "element_values": [
-            {
-                "element": "earth",
-                "value": 15
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Destrua todos os Battlegears equipados em Criaturas engajadas com menos de 50 de Poder ou Velocidade.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 50
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "14225f0a-79ab-491b-be55-129ef8ef340a",
-        "file_name": "127.png",
-        "name": "Carga Tradicionalista",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 10,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Poder 100: Cause 5 de dano.",
-                "targetScope": "attacker",
-                "effectType": "decrease",
-                "stat": "power",
-                "value": 5
-            },
-            {
-                "description": "Teste de Atributo Coragem 100: Ganhe 5 de Energia.",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "courage",
-                "value": 5
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "92626d34-d226-4ed7-ba7f-40d9aa6fa22b",
-        "file_name": "128.png",
-        "name": "Funil de Turbulência",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 3,
-        "element_values": [
-            {
-                "element": "air",
-                "value": 10
-            }
-        ],
-        "abilities": [
-            {
-                "description": "Teste de Atributo Velocidade 60: Cause 10 de dano.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "speed",
-                "value": 10
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "4c9acb10-759b-477b-afb8-b4d92f7d3d66",
-        "file_name": "129.png",
-        "name": "Hemisfério de Vácuo",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "A Criatura engajada oponente perde Ar.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "8b7b59f8-602c-48d0-8302-9b735405607a",
-        "file_name": "130.png",
-        "name": "Aniquilação de Vapor",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "A Criatura engajada oponente perde Água.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "d298a144-a195-4c96-9494-f121c00f49e6",
-        "file_name": "131.png",
-        "name": "Impulso Voltaico",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 0,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Sua Criatura engajada ganha Ar até o fim do combate.",
-                "conditionElement": "air",
-                "targetScope": "attacker",
-                "effectType": "increase",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "00204068-2131-4d40-b396-3da56296e7b1",
-        "file_name": "132.png",
-        "name": "Parede de Chamas",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 3,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Ar: Vire um Battlegear para cima e um Battlegear para baixo.",
-                "conditionElement": "air",
-                "targetScope": "defender",
-                "effectType": "increase",
-                "stat": "energy",
-                "value": 0
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": "bd1c832e-600a-4738-8e53-fc282d07c5bc",
-        "file_name": "133.png",
-        "name": "Ira Xenocêntrica",
-        "rarity": "comum",
-        "image_file_id": null,
-        "image_url": null,
-        "energy_cost": 1,
-        "element_values": [],
-        "abilities": [
-            {
-                "description": "Cause 10 de dano se a Criatura engajada oponente não compartilhar uma Tribo com a Criatura que está jogando este ataque.",
-                "targetScope": "defender",
-                "effectType": "decrease",
-                "stat": "energy",
-                "value": 10
-            }
-        ],
-        "created_at": null,
-        "updated_at": null
+      "id": "attack-018",
+      "fileName": "dawn_perin_viperlash.png",
+      "name": "Viperlash",
+      "energy_cost": 3,
+      "abilities": []
     }
+  ],
+  {
+    "id": "6cfb9be9-d6fb-45c6-a431-eb4b7e50327c",
+    "fileName": "forget_unity_39.png",
+    "name": "Força Alacre",
+    "energy_cost": 2,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Poder 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "power",
+        "value": 10
+      },
+      {
+        "description": "Teste de Velocidade 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "speed",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "2cddc0ec-258d-4bb4-863a-08269b11ef43",
+    "fileName": "forget_unity_40.png",
+    "name": "Brilho Valente",
+    "energy_cost": 2,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Coragem 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "courage",
+        "value": 10
+      },
+      {
+        "description": "Teste de Velocidade 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "speed",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "24cf73a4-b226-4c8e-9e94-28b0473f259d",
+    "fileName": "forget_unity_41.png",
+    "name": "Jato de Colisão",
+    "energy_cost": 1,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Poder 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "stat": "power",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "1bd9fce2-66e3-45b8-ac2b-00245b663a62",
+    "fileName": "forget_unity_42.png",
+    "name": "Bolas de Coral",
+    "energy_cost": 1,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se a sua Criatura engajada tiver Defensor, cause 10 de dano.",
+        "effectType": "damage",
+        "stat": null,
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "99f6b11b-e3c5-436b-8267-8f93ca9ca618",
+    "fileName": "forget_unity_43.png",
+    "name": "Bravura Direcionada",
+    "energy_cost": 2,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Coragem 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "courage",
+        "value": 10
+      },
+      {
+        "description": "Teste de Sabedoria 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "wisdom",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "8b46ff9a-8211-41a1-99b8-a1246815d17e",
+    "fileName": "forget_unity_44.png",
+    "name": "Destruição de Disciplina",
+    "energy_cost": 4,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Coragem 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": null,
+        "value": 10
+      },
+      {
+        "description": "Desafio de Poder 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": null,
+        "value": 10
+      },
+      {
+        "description": "Desafio de Sabedoria 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": null,
+        "value": 10
+      },
+      {
+        "description": "Desafio de Velocidade 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": null,
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "02ee34e0-570b-4b81-8479-7a73e6f6b550",
+    "fileName": "forget_unity_45.png",
+    "name": "Golpe Destemido",
+    "energy_cost": 2,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Coragem 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "courage",
+        "value": 10
+      },
+      {
+        "description": "Teste de Poder 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "power",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "0f61725f-a8a1-4c69-b381-7a9668f8fb3b",
+    "fileName": "forget_unity_46.png",
+    "name": "Anel de Fogo",
+    "energy_cost": 1,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Ao jogar Anel de Fogo, cause 10 de dano à sua Criatura engajada.",
+        "effectType": "damage",
+        "stat": null,
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "ac734ed2-face-4fb6-9b7d-70df9d78c778",
+    "fileName": "forget_unity_47.png",
+    "name": "Explosão de Funil",
+    "energy_cost": 4,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Velocidade 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "stat": "speed",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "ebced100-743b-4177-b0cb-196ed23f933f",
+    "fileName": "forget_unity_48.png",
+    "name": "Jorro de Gêiser",
+    "energy_cost": 1,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Coragem 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "stat": "courage",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "a3a843a7-83dc-4d70-af18-6ee502d4c640",
+    "fileName": "forget_unity_49.png",
+    "name": "Postura de Grantkae",
+    "energy_cost": 3,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se você controlar um OverWorlder, ganhe 10 de Energia;",
+        "effectType": "gain",
+        "stat": null,
+        "value": 10
+      },
+      {
+        "description": "Se você controlar um UnderWorlder, destrua o Battlegear da Criatura oponente engajada;",
+        "effectType": "destroy",
+        "stat": null,
+        "value": 0
+      },
+      {
+        "description": "Se você controlar um Mipedian, o próximo ataque jogado neste turno causa 10 a menos de dano;",
+        "effectType": "damage_modifier",
+        "stat": null,
+        "value": -10
+      },
+      {
+        "description": "Se você controlar um Danian, cause 10 de dano.",
+        "effectType": "damage",
+        "stat": null,
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "8b3d66e0-5d6f-4f58-994d-affa6f8e9fdd",
+    "fileName": "forget_unity_50.png",
+    "name": "Triturar Cascalho",
+    "energy_cost": 4,
+    "elemental_damage": {
+      "earth": 0
+    },
+    "abilities": [
+      {
+        "description": "Terra: Quando Triturar Cascalho causa dano, remova uma carta de uma pilha de descarte geral do jogo.",
+        "effectType": "special",
+        "stat": null,
+        "value": 0,
+        "conditionElement": "earth"
+      }
+    ]
+  },
+  {
+    "id": "1ed41648-fe93-4e30-b50b-a337c1215a63",
+    "fileName": "forget_unity_51.png",
+    "name": "Sincronia Cardíaca",
+    "energy_cost": 3,
+    "elemental_damage": {},
+    "abilities": []
+  },
+  {
+    "id": "ec0e0890-6f27-4c4c-85c7-f765e85852b5",
+    "fileName": "forget_unity_52.png",
+    "name": "Inundação Interior",
+    "energy_cost": 0,
+    "elemental_damage": {
+      "water": 0
+    },
+    "abilities": [
+      {
+        "description": "Água: Remova um contador de Mugic de uma Criatura e coloque um contador de Mugic em outra Criatura controlada pelo mesmo jogador.",
+        "effectType": "special",
+        "stat": null,
+        "value": 0,
+        "conditionElement": "water"
+      }
+    ]
+  },
+  {
+    "id": "f8394ddf-06d9-4cd2-a75a-aa3f6da27060",
+    "fileName": "forget_unity_53.png",
+    "name": "Inspiração Instantânea",
+    "energy_cost": 2,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Sabedoria 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "wisdom",
+        "value": 10
+      },
+      {
+        "description": "Teste de Velocidade 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "speed",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "fcf16a93-82f5-4d60-82de-cc180d6484ba",
+    "fileName": "forget_unity_54.png",
+    "name": "Interpensar",
+    "energy_cost": 3,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Sabedoria 75: Você pode colocar um contador de Mugic em qualquer Criatura.",
+        "effectType": "special",
+        "stat": "wisdom",
+        "value": 75
+      }
+    ]
+  },
+  {
+    "id": "6a1a51c2-f922-466c-ac20-81eb24d641b1",
+    "fileName": "forget_unity_55.png",
+    "name": "Piscar em Massa",
+    "energy_cost": 3,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Velocidade 75: Você pode trocar as posições de duas Criaturas desengajadas que estão adjacentes uma à outra.",
+        "effectType": "special",
+        "stat": "speed",
+        "value": 75
+      }
+    ]
+  },
+  {
+    "id": "3e7883ba-f93c-4ea3-85b1-e6daa22fc45b",
+    "fileName": "forget_unity_56.png",
+    "name": "Corte de Poder",
+    "energy_cost": 1,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Poder 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "power",
+        "value": 10
+      },
+      {
+        "description": "Perca 60 de Poder.",
+        "effectType": "stat_modifier",
+        "stat": "power",
+        "value": -60
+      }
+    ]
+  },
+  {
+    "id": "8bb44ec2-104d-479c-b8c1-22388b60e653",
+    "fileName": "forget_unity_57.png",
+    "name": "Siroco",
+    "energy_cost": 2,
+    "elemental_damage": {
+      "air": 0
+    },
+    "abilities": [
+      {
+        "description": "Ar: Vire um Battlegear seu que está virado para baixo para cima.",
+        "effectType": "special",
+        "stat": null,
+        "value": 0,
+        "conditionElement": "air"
+      }
+    ]
+  },
+  {
+    "id": "3791e85c-ddd9-49e9-9582-07b163606c68",
+    "fileName": "forget_unity_58.png",
+    "name": "Pancada Inteligente",
+    "energy_cost": 2,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Poder 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "power",
+        "value": 10
+      },
+      {
+        "description": "Teste de Sabedoria 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "wisdom",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "089300a9-c35c-4851-a99c-46023742e077",
+    "fileName": "forget_unity_59.png",
+    "name": "Vínculo Fortalecedor",
+    "energy_cost": 3,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Poder 75: Quando Vínculo Fortalecedor causa dano, destrua um Battlegear alvo.",
+        "effectType": "destroy",
+        "stat": "power",
+        "value": 75
+      }
+    ]
+  },
+  {
+    "id": "fec54dfb-ab02-4b10-8e5f-0e908a8b2fe7",
+    "fileName": "forget_unity_60.png",
+    "name": "Anéis Térmicos",
+    "energy_cost": 4,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Sabedoria 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "stat": "wisdom",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "dd421523-7815-42b9-9f2d-9f052af5be27",
+    "fileName": "forget_unity_61.png",
+    "name": "Baía do Pensamento",
+    "energy_cost": 1,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Sabedoria 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "wisdom",
+        "value": 10
+      },
+      {
+        "description": "Perca 60 de Sabedoria.",
+        "effectType": "stat_modifier",
+        "stat": "wisdom",
+        "value": -60
+      }
+    ]
+  },
+  {
+    "id": "f67069b9-0898-43aa-9f8a-74a874c2c217",
+    "fileName": "forget_unity_62.png",
+    "name": "Carga Desequilibrada",
+    "energy_cost": 1,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Velocidade 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "speed",
+        "value": 10
+      },
+      {
+        "description": "Perca 60 de Velocidade.",
+        "effectType": "stat_modifier",
+        "stat": "speed",
+        "value": -60
+      }
+    ]
+  },
+  {
+    "id": "24717c23-8f0a-4ff9-862e-24f72b794f5c",
+    "fileName": "forget_unity_63.png",
+    "name": "Tricarga Unificada",
+    "energy_cost": 1,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Cause 10 de dano para cada Tribo que você controla.",
+        "effectType": "damage",
+        "stat": null,
+        "value": 0
+      }
+    ]
+  },
+  {
+    "id": "876c8f2f-6798-4ae3-b628-17a65d312b43",
+    "fileName": "forget_unity_64.png",
+    "name": "Contínuo de Valor",
+    "energy_cost": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Coragem 60: Cause 10 de dano.",
+        "effectType": "damage",
+        "stat": "courage",
+        "value": 10
+      },
+      {
+        "description": "Perca 60 de Coragem.",
+        "effectType": "stat_modifier",
+        "stat": "courage",
+        "value": -60
+      }
+    ]
+  }
 ]
