@@ -5,7 +5,7 @@ import { Modal, message } from "antd";
 import { DecksService } from "@/lib/api/services/decks.service";
 import CodexTrialsService from "@/lib/api/services/codex-trials.service";
 import styles from "./pack-modal.module.css";
-import type { PackCard } from "./types";
+import type { PackCard } from "../types";
 import { CardRarity } from "@/dto/creature/creature.dto";
 
 type PackModalProps = {

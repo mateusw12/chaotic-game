@@ -6,7 +6,7 @@ import type { PackCard } from "@/components/codex/types";
 import { Modal } from "antd";
 import { PlayerShell } from "@/components/player/player-shell";
 import styles from "./codex-trials-view.module.css";
-import PackModal from "@/components/codex/pack-modal";
+import PackModal from "@/components/codex/pack-modal/pack-modal";
 import CodexTrialsService from "@/lib/api/services/codex-trials.service";
 
 type CodexTrialsViewProps = {
