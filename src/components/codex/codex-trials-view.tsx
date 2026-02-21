@@ -23,6 +23,8 @@ type LeagueSpec = {
   objective: string;
   rewardFocus: string;
   rewardHighlights: string[];
+  imgSymbol?: string;
+  imgBoss?: string;
 };
 
 type LeagueRuntime = {
@@ -45,6 +47,8 @@ const LEAGUES: LeagueSpec[] = [
     objective: "Consolidar fundamentos e leitura de jogo.",
     rewardFocus: "Cartas básicas + moedas.",
     rewardHighlights: ["Pacote base", "Moedas bônus", "Carta de progressão"],
+    imgSymbol: "bronze.png",
+    imgBoss: "boss_1.png"
   },
   {
     id: 2,
@@ -54,6 +58,8 @@ const LEAGUES: LeagueSpec[] = [
     objective: "Evoluir consistência tática e gestão de recursos.",
     rewardFocus: "Cartas incomuns + diamantes menores.",
     rewardHighlights: ["Cartas incomuns", "Diamantes", "Bônus de etapa"],
+    imgSymbol: "silver.png",
+    imgBoss: "boss_2.png"
   },
   {
     id: 3,
@@ -63,6 +69,8 @@ const LEAGUES: LeagueSpec[] = [
     objective: "Forçar adaptação estratégica entre elementos e ritmos.",
     rewardFocus: "Cartas raras e progressão estratégica.",
     rewardHighlights: ["Cartas raras", "XP elevado", "Recompensa de consistência"],
+    imgSymbol: "gold.png",
+    imgBoss: "boss_3.png"
   },
   {
     id: 4,
@@ -72,6 +80,8 @@ const LEAGUES: LeagueSpec[] = [
     objective: "Dominar partidas com restrições avançadas.",
     rewardFocus: "Raras + ultra raras situacionais.",
     rewardHighlights: ["Raras avançadas", "Chance ultra rara", "Bônus tático"],
+    imgSymbol: "platinum.png",
+    imgBoss: "boss_4.png"
   },
   {
     id: 5,
@@ -81,6 +91,8 @@ const LEAGUES: LeagueSpec[] = [
     objective: "Operar combos sob alta pressão de tempo e recursos.",
     rewardFocus: "Pacotes premium e cartas raras.",
     rewardHighlights: ["Pacote premium", "Cartas raras", "Bônus de elite"],
+    imgSymbol: "diamond.png",
+    imgBoss: "boss_5.png"
   },
   {
     id: 6,
@@ -90,15 +102,19 @@ const LEAGUES: LeagueSpec[] = [
     objective: "Atingir consistência de performance em cenários limite.",
     rewardFocus: "Recompensas altas e exclusivas por modo.",
     rewardHighlights: ["Recompensa exclusiva", "Super/ultra raras", "Multiplicador de bônus"],
+    imgSymbol: "champion.png",
+    imgBoss: "boss_6.png"
   },
   {
     id: 7,
-    tier: "Liga 7 · Mítica",
+    tier: "Liga 7 · Legend",
     name: "Pantheon of Champions",
     boss: "Apexion",
     objective: "Concluir a jornada competitiva máxima do modo.",
     rewardFocus: "Ultra raras/promo e bônus máximos.",
     rewardHighlights: ["Carta promo", "Ultra rara garantida", "Bônus máximo"],
+    imgSymbol: "legend.png",
+    imgBoss: "boss_7.png"
   },
 ];
 
@@ -144,7 +160,7 @@ function getLeagueThemeClass(leagueId: number): string {
     4: styles.themePlatinum,
     5: styles.themeDiamond,
     6: styles.themeEmerald,
-    7: styles.themeMythic,
+    7: styles.themeLegend,
   };
 
   return themeMap[leagueId] ?? styles.themeBronze;
@@ -191,25 +207,34 @@ export function CodexTrialsView({
       <Space direction="vertical" size={16} style={{ width: "100%" }}>
         <Card className={`${styles.sectionCard} ${styles.heroCard}`}>
           <Space direction="vertical" size={10} style={{ width: "100%" }}>
-            <Space size={8} wrap>
-              <Tag color="purple">Novo modo PvE</Tag>
-              <Tag color="cyan">7 ligas progressivas</Tag>
-              <Tag color="gold">Chefões únicos</Tag>
-            </Space>
-            <Title level={3} style={{ margin: 0 }}>Codex Trials</Title>
-            <Paragraph className={styles.heroText}>
-              Evolua de Bronze até Mítica enfrentando IAs cada vez mais estratégicas. Cada liga possui
-              regras próprias, estrelas de desempenho e um chefão temático.
-            </Paragraph>
+            <div className={styles.heroHeader}>
+              <div className={styles.heroCrest} aria-hidden />
+              <div>
+                <Title level={3} className={styles.heroTitle} style={{ margin: 0 }}>Codex Trials</Title>
+                <Paragraph className={styles.heroText}>
+                  Evolua de Bronze até Lendária enfrentando IAs cada vez mais estratégicas. Enfrente desafios únicos em cada liga, derrote chefões e conquiste recompensas épicas.
+                </Paragraph>
+              </div>
+            </div>
+
             <Row gutter={[10, 10]}>
               <Col xs={24} md={8}>
-                <div className={styles.flowStep}><strong>1.</strong> Vença batalhas de fase contra IA</div>
+                <div className={styles.flowStep}>
+                  <div className={styles.stepIcon}>⚔️</div>
+                  <div className={styles.stepText}><strong>1.</strong> Vença batalhas de fase contra IA</div>
+                </div>
               </Col>
               <Col xs={24} md={8}>
-                <div className={styles.flowStep}><strong>2.</strong> Derrote o chefão da liga</div>
+                <div className={styles.flowStep}>
+                  <div className={styles.stepIcon}>🏆</div>
+                  <div className={styles.stepText}><strong>2.</strong> Derrote o chefão da liga</div>
+                </div>
               </Col>
               <Col xs={24} md={8}>
-                <div className={styles.flowStep}><strong>3.</strong> Suba de liga e ganhe recompensas</div>
+                <div className={styles.flowStep}>
+                  <div className={styles.stepIcon}>🚀</div>
+                  <div className={styles.stepText}><strong>3.</strong> Suba de liga e ganhe recompensas</div>
+                </div>
               </Col>
             </Row>
           </Space>
@@ -247,45 +272,44 @@ export function CodexTrialsView({
                       className={`${styles.flowStepItem} ${index % 2 === 0 ? styles.flowLeft : styles.flowRight} ${getLeagueThemeClass(league.id)}`}
                       style={{ animationDelay: `${index * 80}ms` }}
                     >
-                      <div className={styles.flowNode}>{league.id}</div>
+                      <div className={styles.flowNode}>
+                        <img
+                          src={`/assets/ligas/symbols/${league.imgSymbol}`}
+                          alt={`${league.name} symbol`}
+                          className={styles.flowNodeSymbol}
+                        />
+                      </div>
                       <Card className={styles.leagueCard}>
                         <Space direction="vertical" size={10} style={{ width: "100%" }}>
                           <div className={styles.leagueTop}>
-                            <div className={styles.leagueHeaderRow}>
-                              <Tag color="blue">{league.tier}</Tag>
-                              <Tag color="purple">Boss: {league.boss}</Tag>
-                            </div>
+                            <div className={styles.leagueHeaderRow} />
                             <Title level={4} style={{ margin: 0 }}>{league.name}</Title>
-                            <div className={styles.placeholderRow}>
-                              <div className={styles.placeholderImage}>
-                                Símbolo da liga
-                                <br />
-                                /assets/codex-trials/symbols/{league.name.toLowerCase().replace(/\s+/g, "-")}.png
-                              </div>
-                              <div className={styles.placeholderImage}>
-                                Avatar do chefão
-                                <br />
-                                /assets/codex-trials/boss/{league.boss.toLowerCase()}.png
-                              </div>
+                            <div className={styles.energyBar} aria-hidden>
+                              <div className={styles.energyFill} style={{ width: `${leagueRuntime.percent}%` }} />
                             </div>
+
+                            <div className={styles.bossBlock}>
+                              <img
+                                src={`/assets/ligas/boss/${league.imgBoss}`}
+                                alt={`${league.boss} avatar`}
+                                className={styles.bossAvatarSmall}
+                              />
+                              <div className={styles.bossCaption}>{league.boss}</div>
+                            </div>
+
+                            <div className={styles.leagueHUD}>
+                              {leagueRuntime.percent > 0 && (
+                                <div className={styles.powerPill}>Power <strong>{Math.round(leagueRuntime.percent)}</strong></div>
+                              )}
+                            </div>
+
                           </div>
 
-                          <div className={styles.leagueMeta}>
-                            <Text><strong>Chefão:</strong> {league.boss}</Text>
-                            <Text><strong>Objetivo:</strong> {league.objective}</Text>
-                          </div>
 
-                          <div className={styles.progressPanel}>
-                            <div className={styles.progressHeader}>
-                              <Text className={styles.progressTitle}>Progresso da Liga</Text>
-                              <Tag className={styles.progressTag}>{leagueRuntime.label}</Tag>
-                            </div>
-                            <Progress percent={leagueRuntime.percent} showInfo={false} strokeColor="var(--league-accent)" railColor="rgba(255,255,255,0.08)" />
-                            <Text className={styles.progressCaption}>{leagueRuntime.percent}% concluído</Text>
-                          </div>
+
+                          {/* Progress removed — energy bar shows progress */}
 
                           <div className={styles.deckPreview}>
-                            <Text className={styles.deckPreviewLabel}>Arte temática do deck da liga</Text>
                             <div className={styles.deckPreviewImage}>
                               /assets/codex-trials/decks/{league.name.toLowerCase().replace(/\s+/g, "-")}.png
                             </div>
@@ -294,18 +318,26 @@ export function CodexTrialsView({
                           <div className={styles.rewardPanel}>
                             <div className={styles.rewardHeader}>
                               <Text className={styles.rewardTitle}>Recompensas da Liga</Text>
-                              <Tag className={styles.rewardHeaderTag}>Premium Track</Tag>
-                            </div>
-                            <div className={styles.rewardFocusBadge}>
-                              <Text className={styles.rewardFocusLine}>{league.rewardFocus}</Text>
                             </div>
                             <div className={styles.rewardGrid}>
-                              {league.rewardHighlights.map((reward) => (
-                                <div key={reward} className={styles.rewardItem}>
-                                  <span className={styles.rewardItemDot}>◆</span>
-                                  <Text className={styles.rewardItemText}>{reward}</Text>
-                                </div>
-                              ))}
+                              {league.rewardHighlights.map((reward) => {
+                                const imgSlug = reward.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                                return (
+                                  <div key={reward} className={styles.rewardItem}>
+                                    <div className={styles.rewardImage}>
+                                      <img
+                                        src={`/assets/codex-trials/rewards/${imgSlug}.png`}
+                                        alt={reward}
+                                        className={styles.rewardImg}
+                                        onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0.12'; }}
+                                      />
+                                    </div>
+                                    <div className={styles.rewardTextWrap}>
+                                      <Text className={styles.rewardItemText}>{reward}</Text>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
 

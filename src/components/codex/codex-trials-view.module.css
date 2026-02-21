@@ -1,413 +1,970 @@
 .sectionCard {
-    border-radius: 16px;
-    border: 1px solid rgba(139, 156, 230, 0.16);
-    background: linear-gradient(165deg, rgba(14, 20, 43, 0.9), rgba(8, 12, 28, 0.94));
-    box-shadow:
-        0 0 0 1px rgba(118, 138, 216, 0.08) inset,
-        0 8px 24px rgba(0, 0, 0, 0.24);
+  border-radius: 16px;
+  border: 1px solid rgba(139, 156, 230, 0.16);
+  background: linear-gradient(165deg, rgba(14, 20, 43, 0.9), rgba(8, 12, 28, 0.94));
+  box-shadow:
+    0 0 0 1px rgba(118, 138, 216, 0.08) inset,
+    0 8px 24px rgba(0, 0, 0, 0.24);
 }
 
 .heroCard {
-    position: relative;
-    overflow: hidden;
-    box-shadow:
-        0 0 0 1px rgba(132, 151, 230, 0.16) inset,
-        0 10px 26px rgba(0, 0, 0, 0.24);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(132, 151, 230, 0.16) inset,
+    0 10px 26px rgba(0, 0, 0, 0.24);
 }
 
 .heroCard::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 5% 10%, rgba(99, 102, 241, 0.2), transparent 36%),
-        radial-gradient(circle at 95% 0%, rgba(59, 130, 246, 0.16), transparent 40%);
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 5% 10%, rgba(99, 102, 241, 0.2), transparent 36%),
+    radial-gradient(circle at 95% 0%, rgba(59, 130, 246, 0.16), transparent 40%);
+  pointer-events: none;
 }
 
 .heroText {
-    margin-bottom: 0 !important;
-    color: rgba(224, 233, 255, 0.92);
+  margin-bottom: 0 !important;
+  color: rgba(224, 233, 255, 0.92);
+}
+
+/* Make room at top-right for boss avatar */
+.leagueCard {
+  padding-top: 28px;
 }
 
 .flowStep {
-    border: 1px solid rgba(145, 165, 245, 0.2);
-    border-radius: 10px;
-    padding: 10px;
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(10, 16, 36, 0.74);
-    color: rgba(221, 231, 255, 0.94);
+  border: 1px solid rgba(145, 165, 245, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(10, 16, 36, 0.74);
+  color: rgba(221, 231, 255, 0.94);
+}
+
+.stepIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  background: linear-gradient(180deg, rgba(20, 24, 54, 0.9), rgba(10, 12, 28, 0.85));
+  border: 1px solid rgba(129, 140, 248, 0.08);
+  box-shadow: 0 8px 20px rgba(56, 214, 255, 0.04);
+}
+
+/* Boss positioned at top-right of the card */
+.bossBlock {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 6;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+.bossAvatarSmall {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 18px 48px rgba(56, 214, 255, 0.18), 0 0 60px rgba(129, 140, 248, 0.08);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.bossCaption {
+  color: rgba(224, 233, 255, 0.98);
+  font-weight: 900;
+  font-size: 14px;
+  text-align: center;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(180deg, rgba(8, 12, 20, 0.6), rgba(8, 12, 20, 0.38));
+  padding: 6px 10px;
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+/* Futuristic circuit overlay inside card */
+.leagueCard .circuitOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.02), transparent 8%), linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent 20%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.6));
+}
+
+/* small tech badges */
+.leagueCard .techBadge {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 3;
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(6, 10, 22, 0.6);
+  color: rgba(200, 220, 255, 0.9);
+  border: 1px solid rgba(129, 140, 248, 0.06);
+}
+
+.stepText {
+  color: rgba(220, 230, 255, 0.96);
+  font-weight: 700;
 }
 
 .rulesList {
-    display: grid;
-    gap: 8px;
+  display: grid;
+  gap: 12px;
+}
+
+/* Rules card specific styles */
+.rulesCard {
+  position: relative;
+  overflow: visible;
+}
+
+.rulesHeader {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.rulesCrest {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(56, 214, 255, 0.16), rgba(170, 120, 255, 0.12));
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 8px 30px rgba(56, 214, 255, 0.06);
+}
+
+.rulesTitle {
+  color: rgba(232, 240, 255, 0.98);
+  font-weight: 800;
+}
+
+.rulesSubtitle {
+  display: block;
+  font-size: 13px;
+  color: rgba(200, 215, 255, 0.86);
+}
+
+.ruleItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(11, 16, 34, 0.7), rgba(6, 10, 22, 0.86));
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.ruleIcon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(16, 20, 40, 0.9), rgba(8, 10, 22, 0.86));
+  box-shadow: 0 8px 24px rgba(56, 214, 255, 0.06);
+  font-size: 18px;
+}
+
+.ruleText {
+  color: rgba(220, 232, 255, 0.96);
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 .flowCard {
-    overflow: hidden;
+  overflow: hidden;
+  position: relative;
+  /* create stacking context for rotating background */
 }
 
 .flowTrack {
-    position: relative;
-    display: grid;
-    gap: 14px;
-    padding: 10px 2px;
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 10px 2px;
 }
 
 .flowTrack::before {
-    content: "";
-    position: absolute;
-    left: 26px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, rgba(99, 102, 241, 0.45), rgba(56, 189, 248, 0.3));
-    opacity: 0.75;
+  content: "";
+  position: absolute;
+  left: 26px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.45), rgba(56, 189, 248, 0.3));
+  opacity: 0.75;
 }
 
 .flowStepItem {
-    --league-accent: rgba(129, 140, 248, 0.62);
-    --league-accent-soft: rgba(129, 140, 248, 0.18);
-    --league-card-start: rgba(18, 26, 56, 0.8);
-    --league-card-end: rgba(10, 15, 34, 0.9);
-    position: relative;
-    display: grid;
-    grid-template-columns: 52px 1fr;
-    gap: 10px;
-    opacity: 0;
-    transform: translateY(12px) scale(0.98);
-    animation: stepEnter 320ms ease forwards;
+  --league-accent: rgba(129, 140, 248, 0.62);
+  --league-accent-soft: rgba(129, 140, 248, 0.18);
+  --league-card-start: rgba(18, 26, 56, 0.8);
+  --league-card-end: rgba(10, 15, 34, 0.9);
+  position: relative;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  animation: stepEnter 320ms ease forwards;
 }
 
 .flowLeft {
-    justify-items: stretch;
+  justify-items: stretch;
 }
 
 .flowRight {
-    justify-items: stretch;
+  justify-items: stretch;
 }
 
 .flowNode {
-    width: 52px;
-    height: 52px;
-    border-radius: 999px;
-    border: 1px solid var(--league-accent);
-    background: radial-gradient(circle at 35% 30%, var(--league-accent), rgba(26, 34, 74, 0.82));
-    display: grid;
-    place-items: center;
-    color: #f4f7ff;
-    font-weight: 800;
-    box-shadow:
-        0 0 0 2px var(--league-accent-soft) inset,
-        0 0 12px var(--league-accent-soft);
-    z-index: 1;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid var(--league-accent);
+  background: radial-gradient(circle at 35% 30%, var(--league-accent), rgba(26, 34, 74, 0.82));
+  display: grid;
+  place-items: center;
+  color: #f4f7ff;
+  font-weight: 800;
+  box-shadow:
+    0 0 0 2px var(--league-accent-soft) inset,
+    0 0 12px var(--league-accent-soft);
+  z-index: 1;
+}
+
+/* Additional hero & step styling overrides for a more iconic, gamer look */
+.heroHeader {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.heroCrest {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: conic-gradient(from 140deg, rgba(129, 140, 248, 0.95), rgba(56, 214, 255, 0.85), rgba(170, 120, 255, 0.9));
+  box-shadow: 0 10px 40px rgba(56, 214, 255, 0.14), 0 0 60px rgba(170, 120, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transform: rotate(-8deg);
+  filter: saturate(1.05);
+  position: relative;
+}
+
+.heroCrest::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.08), transparent 30%), rgba(0, 0, 0, 0.06);
+}
+
+.heroTitle {
+  background: linear-gradient(90deg, #e6f3ff 0%, #a18bff 40%, #5fe7ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 8px 30px rgba(10, 12, 20, 0.6);
+  letter-spacing: 0.6px;
+}
+
+.heroText {
+  opacity: 0.95;
+  font-weight: 600;
+  color: rgba(210, 224, 255, 0.92);
+}
+
+.stepIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  background: linear-gradient(180deg, rgba(18, 22, 48, 0.95), rgba(8, 10, 24, 0.9));
+  border: 1px solid rgba(129, 140, 248, 0.12);
+  box-shadow: 0 10px 28px rgba(56, 214, 255, 0.12), 0 0 40px rgba(170, 120, 255, 0.06);
+}
+
+.iconInner {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(56, 214, 255, 0.12), rgba(129, 140, 248, 0.12));
+  box-shadow: 0 6px 18px rgba(56, 214, 255, 0.06);
+}
+
+.flowStep {
+  border-radius: 12px;
+  padding: 12px;
+  background: linear-gradient(180deg, rgba(8, 12, 26, 0.7), rgba(6, 8, 18, 0.86));
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+@keyframes crestPulse {
+  0% {
+    transform: rotate(-8deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(-6deg) scale(1.03);
+  }
+
+  100% {
+    transform: rotate(-8deg) scale(1);
+  }
+}
+
+.heroCrest {
+  animation: crestPulse 4.8s ease-in-out infinite;
 }
 
 .leagueCard {
-    height: 100%;
-    border-radius: 14px;
-    border: 1px solid var(--league-accent-soft);
-    background: linear-gradient(160deg, var(--league-card-start), var(--league-card-end));
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  height: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--league-accent-soft);
+  background: linear-gradient(160deg, var(--league-card-start), var(--league-card-end));
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  z-index: 1;
+  /* ensure cards sit above rotating background */
 }
 
 .leagueCard:hover {
-    transform: translateY(-2px);
-    border-color: var(--league-accent);
-    box-shadow:
-        0 0 0 1px var(--league-accent-soft) inset,
-        0 0 14px var(--league-accent-soft),
-        0 8px 18px rgba(0, 0, 0, 0.28);
+  transform: translateY(-2px);
+  border-color: var(--league-accent);
+  box-shadow:
+    0 0 0 1px var(--league-accent-soft) inset,
+    0 0 14px var(--league-accent-soft),
+    0 8px 18px rgba(0, 0, 0, 0.28);
 }
 
 .leagueTop {
-    display: grid;
-    gap: 10px;
+  display: grid;
+  gap: 10px;
 }
 
 .leagueHeaderRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .placeholderRow {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
 
 .placeholderImage {
-    min-height: 76px;
-    border-radius: 10px;
-    border: 1px dashed rgba(136, 154, 224, 0.34);
-    background: rgba(10, 16, 35, 0.78);
-    display: grid;
-    place-items: center;
-    color: rgba(206, 220, 255, 0.86);
-    font-size: 12px;
-    text-align: center;
-    padding: 8px;
+  min-height: 76px;
+  border-radius: 10px;
+  border: 1px dashed rgba(136, 154, 224, 0.34);
+  background: rgba(10, 16, 35, 0.78);
+  display: grid;
+  place-items: center;
+  color: rgba(206, 220, 255, 0.86);
+  font-size: 12px;
+  text-align: center;
+  padding: 8px;
 }
 
 .placeholderImage:hover {
-    border-color: rgba(155, 176, 246, 0.56);
-    background: rgba(13, 21, 47, 0.84);
+  border-color: rgba(155, 176, 246, 0.56);
+  background: rgba(13, 21, 47, 0.84);
+}
+
+.leagueSymbol {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 18px rgba(100, 125, 255, 0.16));
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.bossAvatar {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(41, 121, 255, 0.12);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.leagueSymbol:hover,
+.bossAvatar:hover {
+  transform: translateY(-6px) scale(1.03);
+  filter: drop-shadow(0 10px 30px rgba(129, 140, 248, 0.22));
+}
+
+/* legacy boss block styles removed — handled by top-right absolute block */
+
+.leagueCard {
+  backdrop-filter: blur(6px) saturate(1.05);
+  border-image: linear-gradient(90deg, rgba(129, 140, 248, 0.28), rgba(56, 214, 255, 0.24)) 1;
 }
 
 .leagueMeta {
-    display: grid;
-    gap: 6px;
+  display: grid;
+  gap: 6px;
 }
 
 .leagueMeta :global(.ant-typography) {
-    color: rgba(218, 227, 255, 0.92);
+  color: rgba(218, 227, 255, 0.92);
 }
 
 .progressPanel {
-    border: 1px solid var(--league-accent-soft);
-    border-radius: 10px;
-    padding: 10px;
-    background: linear-gradient(145deg, rgba(11, 18, 40, 0.82), rgba(8, 13, 30, 0.9));
-    display: grid;
-    gap: 6px;
+  border: 1px solid var(--league-accent-soft);
+  border-radius: 10px;
+  padding: 10px;
+  background: linear-gradient(145deg, rgba(11, 18, 40, 0.82), rgba(8, 13, 30, 0.9));
+  display: grid;
+  gap: 6px;
 }
 
 .progressHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .progressTitle {
-    color: rgba(224, 233, 255, 0.96) !important;
-    font-weight: 700;
+  color: rgba(224, 233, 255, 0.96) !important;
+  font-weight: 700;
 }
 
 .progressTag {
-    margin-inline-end: 0 !important;
-    border-radius: 999px;
-    border: 1px solid var(--league-accent-soft);
-    background: rgba(13, 21, 46, 0.82);
-    color: rgba(228, 236, 255, 0.94);
-    font-size: 11px;
+  margin-inline-end: 0 !important;
+  border-radius: 999px;
+  border: 1px solid var(--league-accent-soft);
+  background: rgba(13, 21, 46, 0.82);
+  color: rgba(228, 236, 255, 0.94);
+  font-size: 11px;
 }
 
 .progressCaption {
-    color: rgba(205, 217, 255, 0.9) !important;
-    font-size: 12px;
+  color: rgba(205, 217, 255, 0.9) !important;
+  font-size: 12px;
 }
 
 .deckPreview {
-    display: grid;
-    gap: 6px;
+  display: grid;
+  gap: 6px;
 }
 
 .deckPreviewLabel {
-    color: rgba(203, 217, 255, 0.86) !important;
-    font-size: 12px;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
+  color: rgba(203, 217, 255, 0.86) !important;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 
 .deckPreviewImage {
-    min-height: 74px;
-    border-radius: 8px;
-    border: 1px dashed var(--league-accent-soft);
-    background: linear-gradient(135deg, rgba(13, 20, 43, 0.86), rgba(9, 14, 31, 0.9));
-    display: grid;
-    place-items: center;
-    text-align: center;
-    color: rgba(221, 230, 255, 0.88);
-    font-size: 12px;
-    padding: 8px;
+  min-height: 74px;
+  border-radius: 8px;
+  border: 1px dashed var(--league-accent-soft);
+  background: linear-gradient(135deg, rgba(13, 20, 43, 0.86), rgba(9, 14, 31, 0.9));
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: rgba(221, 230, 255, 0.88);
+  font-size: 12px;
+  padding: 8px;
 }
 
 .rewardPanel {
-    border: 1px solid var(--league-accent-soft);
-    border-radius: 10px;
-    padding: 10px;
-    background: linear-gradient(145deg, rgba(11, 17, 38, 0.86), rgba(8, 13, 30, 0.9));
-    display: grid;
-    gap: 8px;
+  border: 1px solid var(--league-accent-soft);
+  border-radius: 10px;
+  padding: 10px;
+  background: linear-gradient(145deg, rgba(11, 17, 38, 0.86), rgba(8, 13, 30, 0.9));
+  display: grid;
+  gap: 8px;
 }
 
 .rewardHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .rewardTitle {
-    font-weight: 700;
-    color: rgba(226, 234, 255, 0.96);
+  font-weight: 700;
+  color: rgba(226, 234, 255, 0.96);
 }
 
 .rewardHeaderTag {
-    margin-inline-end: 0 !important;
-    border-radius: 999px;
-    border: 1px solid var(--league-accent-soft);
-    background: rgba(13, 20, 45, 0.8);
-    color: rgba(224, 233, 255, 0.92);
-    font-size: 11px;
+  margin-inline-end: 0 !important;
+  border-radius: 999px;
+  border: 1px solid var(--league-accent-soft);
+  background: rgba(13, 20, 45, 0.8);
+  color: rgba(224, 233, 255, 0.92);
+  font-size: 11px;
 }
 
 .rewardFocusBadge {
-    border: 1px solid var(--league-accent-soft);
-    border-radius: 8px;
-    padding: 8px 10px;
-    background: linear-gradient(135deg, rgba(17, 27, 60, 0.86), rgba(11, 18, 40, 0.9));
+  border: 1px solid var(--league-accent-soft);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: linear-gradient(135deg, rgba(17, 27, 60, 0.86), rgba(11, 18, 40, 0.9));
 }
 
 .rewardFocusLine {
-    color: rgba(219, 228, 255, 0.92) !important;
-    font-weight: 600;
+  color: rgba(219, 228, 255, 0.92) !important;
+  font-weight: 600;
 }
 
 .rewardGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 6px;
 }
 
 .rewardItem {
-    border: 1px solid var(--league-accent-soft);
-    border-radius: 8px;
-    padding: 7px 8px;
-    background: rgba(11, 17, 39, 0.82);
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  background: rgba(11, 17, 39, 0.82);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.rewardItemDot {
-    color: var(--league-accent);
-    font-size: 11px;
-    line-height: 1;
+.rewardItem {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(12, 18, 36, 0.7), rgba(6, 10, 22, 0.86));
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  box-shadow: 0 6px 18px rgba(3, 8, 20, 0.6);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.rewardItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(56, 214, 255, 0.08), 0 4px 12px rgba(0, 0, 0, 0.5);
+  border-color: var(--league-accent);
+}
+
+.rewardImage {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(20, 24, 44, 0.6), rgba(10, 12, 24, 0.8));
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.rewardImg {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.rewardTextWrap {
+  display: flex;
+  flex-direction: column;
 }
 
 .rewardItemText {
-    color: rgba(230, 238, 255, 0.95) !important;
+  color: rgba(226, 236, 255, 0.96);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* League HUD inside cards */
+.leagueHUD {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.tierPill {
+  background: linear-gradient(180deg, rgba(18, 22, 48, 0.9), rgba(28, 34, 68, 0.88));
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: rgba(220, 230, 255, 0.96);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.powerPill {
+  background: linear-gradient(90deg, rgba(56, 214, 255, 0.06), rgba(129, 140, 248, 0.06));
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: rgba(180, 200, 255, 0.96);
+  font-weight: 800;
+  font-size: 12px;
+  box-shadow: 0 6px 18px rgba(56, 214, 255, 0.04) inset;
+}
+
+.formatPill {
+  margin-left: auto;
+  background: rgba(13, 21, 46, 0.9);
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: rgba(210, 225, 255, 0.94);
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid rgba(129, 140, 248, 0.06);
 }
 
 .formatButton {
-    height: 42px;
-    border-radius: 10px;
-    border: 1px solid rgba(129, 140, 248, 0.28);
-    background: linear-gradient(150deg, rgba(22, 33, 70, 0.9), rgba(12, 18, 38, 0.92));
-    color: rgba(231, 238, 255, 0.96);
-    font-weight: 600;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(129, 140, 248, 0.28);
+  background: linear-gradient(150deg, rgba(22, 33, 70, 0.9), rgba(12, 18, 38, 0.92));
+  color: rgba(231, 238, 255, 0.96);
+  font-weight: 600;
 }
 
 .formatButton:hover,
 .formatButton:focus {
-    border-color: rgba(154, 168, 248, 0.56) !important;
-    color: rgba(241, 246, 255, 1) !important;
+  border-color: rgba(154, 168, 248, 0.56) !important;
+  color: rgba(241, 246, 255, 1) !important;
 }
 
 .deckSelectionPlaceholder {
-    border: 1px dashed rgba(136, 154, 224, 0.4);
-    border-radius: 10px;
-    padding: 10px;
-    background: rgba(11, 17, 37, 0.8);
-    color: rgba(212, 223, 255, 0.9) !important;
+  border: 1px dashed rgba(136, 154, 224, 0.4);
+  border-radius: 10px;
+  padding: 10px;
+  background: rgba(11, 17, 37, 0.8);
+  color: rgba(212, 223, 255, 0.9) !important;
 }
 
 .themeBronze {
-    --league-accent: rgba(186, 128, 67, 0.62);
-    --league-accent-soft: rgba(186, 128, 67, 0.18);
-    --league-card-start: rgba(48, 34, 22, 0.8);
-    --league-card-end: rgba(24, 17, 11, 0.9);
+  --league-accent: rgba(255, 166, 86, 0.78);
+  --league-accent-soft: rgba(255, 166, 86, 0.18);
+  --league-card-start: linear-gradient(180deg, rgba(32, 18, 8, 0.9), rgba(18, 10, 5, 0.95));
+  --league-card-end: rgba(12, 6, 3, 0.96);
 }
 
 .themeSilver {
-    --league-accent: rgba(144, 160, 186, 0.62);
-    --league-accent-soft: rgba(144, 160, 186, 0.18);
-    --league-card-start: rgba(34, 43, 58, 0.8);
-    --league-card-end: rgba(18, 24, 35, 0.9);
+  --league-accent: rgba(200, 225, 255, 0.82);
+  --league-accent-soft: rgba(200, 225, 255, 0.16);
+  --league-card-start: linear-gradient(180deg, rgba(18, 22, 30, 0.9), rgba(10, 12, 18, 0.95));
+  --league-card-end: rgba(6, 8, 12, 0.96);
 }
 
 .themeGold {
-    --league-accent: rgba(201, 162, 73, 0.62);
-    --league-accent-soft: rgba(201, 162, 73, 0.18);
-    --league-card-start: rgba(54, 43, 20, 0.8);
-    --league-card-end: rgba(26, 21, 10, 0.9);
+  --league-accent: rgba(255, 210, 95, 0.9);
+  --league-accent-soft: rgba(255, 210, 95, 0.2);
+  --league-card-start: linear-gradient(180deg, rgba(28, 22, 8, 0.9), rgba(16, 12, 6, 0.95));
+  --league-card-end: rgba(10, 8, 4, 0.96);
 }
 
 .themePlatinum {
-    --league-accent: rgba(121, 170, 219, 0.62);
-    --league-accent-soft: rgba(121, 170, 219, 0.18);
-    --league-card-start: rgba(22, 39, 57, 0.8);
-    --league-card-end: rgba(10, 20, 31, 0.9);
+  --league-accent: rgba(160, 220, 255, 0.9);
+  --league-accent-soft: rgba(160, 220, 255, 0.18);
+  --league-card-start: linear-gradient(180deg, rgba(12, 20, 32, 0.9), rgba(6, 10, 18, 0.95));
+  --league-card-end: rgba(4, 6, 10, 0.96);
 }
 
 .themeDiamond {
-    --league-accent: rgba(108, 133, 226, 0.64);
-    --league-accent-soft: rgba(108, 133, 226, 0.2);
-    --league-card-start: rgba(21, 30, 62, 0.82);
-    --league-card-end: rgba(10, 15, 34, 0.92);
+  --league-accent: rgba(110, 200, 255, 0.95);
+  --league-accent-soft: rgba(110, 200, 255, 0.22);
+  --league-card-start: linear-gradient(180deg, rgba(6, 12, 28, 0.9), rgba(2, 6, 14, 0.95));
+  --league-card-end: rgba(2, 6, 12, 0.96);
 }
 
 .themeEmerald {
-    --league-accent: rgba(66, 168, 146, 0.62);
-    --league-accent-soft: rgba(66, 168, 146, 0.18);
-    --league-card-start: rgba(14, 45, 40, 0.82);
-    --league-card-end: rgba(7, 23, 21, 0.92);
+  --league-accent: rgba(60, 220, 170, 0.9);
+  --league-accent-soft: rgba(60, 220, 170, 0.18);
+  --league-card-start: linear-gradient(180deg, rgba(6, 18, 16, 0.9), rgba(4, 10, 8, 0.95));
+  --league-card-end: rgba(2, 6, 5, 0.96);
 }
 
-.themeMythic {
-    --league-accent: rgba(154, 122, 214, 0.66);
-    --league-accent-soft: rgba(154, 122, 214, 0.2);
-    --league-card-start: rgba(36, 23, 58, 0.82);
-    --league-card-end: rgba(17, 11, 29, 0.92);
+.themeChampion {
+  --league-accent: rgba(200, 140, 255, 0.82);
+  --league-accent-soft: rgba(200, 140, 255, 0.22);
+  --league-card-start: linear-gradient(180deg, rgba(22, 12, 42, 0.9), rgba(12, 6, 24, 0.95));
+  --league-card-end: rgba(8, 4, 18, 0.96);
 }
+
+.themeLegend {
+  --league-accent: rgba(170, 120, 255, 0.92);
+  --league-accent-soft: rgba(170, 120, 255, 0.22);
+  --league-card-start: linear-gradient(180deg, rgba(6, 8, 16, 0.9), rgba(2, 4, 10, 0.95));
+  --league-card-end: rgba(2, 4, 8, 0.96);
+}
+
+/* Futuristic tweaks */
+.flowTrack::before {
+  background: linear-gradient(180deg, rgba(56, 214, 255, 0.7), rgba(129, 140, 248, 0.5));
+  box-shadow: 0 6px 24px rgba(56, 214, 255, 0.08);
+}
+
+.flowNode {
+  background: radial-gradient(circle at 35% 30%, var(--league-accent), rgba(10, 12, 22, 0.76));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.leagueCard {
+  backdrop-filter: blur(6px) saturate(1.05);
+}
+
+/* enhanced league card visuals */
+.leagueCard {
+  padding: 14px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  position: relative;
+  overflow: visible;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(18, 30, 80, 0.6), 0 0 40px rgba(56, 214, 255, 0.03) inset;
+  z-index: 1;
+}
+
+.leagueHeaderRow :global(.ant-tag) {
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(56, 214, 255, 0.06);
+}
+
+.leagueHeaderRow :global(.ant-tag[color="blue"]) {
+  background: linear-gradient(180deg, rgba(24, 28, 60, 0.9), rgba(34, 40, 82, 0.85));
+  border: 1px solid rgba(129, 140, 248, 0.18);
+  color: rgba(220, 230, 255, 0.96);
+}
+
+.leagueHeaderRow :global(.ant-tag[color="purple"]) {
+  background: linear-gradient(180deg, rgba(36, 18, 56, 0.9), rgba(44, 24, 72, 0.86));
+  border: 1px solid rgba(154, 122, 214, 0.12);
+}
+
+.progressPanel :global(.ant-progress-outer) {
+  background: transparent;
+}
+
+.progressPanel :global(.ant-progress-bg) {
+  background: linear-gradient(90deg, rgba(56, 214, 255, 0.9), rgba(129, 140, 248, 0.9));
+  box-shadow: 0 6px 18px rgba(56, 214, 255, 0.12) inset, 0 6px 20px rgba(129, 140, 248, 0.06);
+  border-radius: 6px;
+}
+
+.progressCaption {
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+}
+
+.leagueCard::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 12px;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(56, 214, 255, 0.02), rgba(129, 140, 248, 0.02));
+  box-shadow: 0 0 40px rgba(56, 214, 255, 0.06);
+  mix-blend-mode: screen;
+}
+
+.leagueCard:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 48px rgba(18, 30, 80, 0.7), 0 0 80px rgba(129, 140, 248, 0.06) inset;
+}
+
+.rewardItem {
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(12, 18, 38, 0.6), rgba(8, 13, 28, 0.65));
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.rewardItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(56, 214, 255, 0.06);
+}
+
+/* Flow node image and badge */
+.flowNode {
+  position: relative;
+  overflow: hidden;
+}
+
+.flowNodeSymbol {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 999px;
+  display: block;
+}
+
+/* numeric badge removed; only symbol remains inside .flowNode */
 
 @keyframes stepEnter {
-    from {
-        opacity: 0;
-        transform: translateY(12px) scale(0.98);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @media (max-width: 768px) {
-    .flowTrack::before {
-        left: 22px;
-    }
+  .flowTrack::before {
+    left: 22px;
+  }
 
-    .flowStepItem {
-        grid-template-columns: 44px 1fr;
-        gap: 8px;
-    }
+  .flowStepItem {
+    grid-template-columns: 44px 1fr;
+    gap: 8px;
+  }
 
-    .flowNode {
-        width: 44px;
-        height: 44px;
-    }
+  .flowNode {
+    width: 44px;
+    height: 44px;
+  }
+
+  .flowNodeSymbol {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* numeric badge removed for mobile */
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .flowStepItem {
-        animation: none;
-        opacity: 1;
-        transform: none;
-    }
+  .flowStepItem {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 
-    .leagueCard {
-        transition: none;
-    }
+  .leagueCard {
+    transition: none;
+  }
+}
+
+/* Energy bar (gamey HUD) */
+.energyBar {
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.06));
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.35);
+  margin-top: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.energyFill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(56, 214, 255, 0.95), rgba(129, 140, 248, 0.95));
+  box-shadow: 0 6px 24px rgba(56, 214, 255, 0.12);
+  border-radius: 6px;
+  transform-origin: left center;
+  animation: pulseEnergy 1.6s infinite ease-in-out;
+}
+
+@keyframes pulseEnergy {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(56, 214, 255, 0.06));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 20px rgba(56, 214, 255, 0.18));
+  }
+
+  100% {
+    filter: drop-shadow(0 0 0 rgba(56, 214, 255, 0.06));
+  }
+}
+
+/* Neon animated border */
+/* keep per-card subtle neon but move large rotating glow to container */
+.leagueCard::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 16px;
+  background: conic-gradient(from 120deg, rgba(129, 140, 248, 0.06), rgba(56, 214, 255, 0.06), rgba(129, 140, 248, 0.06));
+  opacity: 0.6;
+  filter: blur(8px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes spinNeon {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Large rotating neon backdrop for the whole flow area */
+.flowCard::before {
+  content: "";
+  position: absolute;
+  inset: -18% -10% -18% -10%;
+  border-radius: 20px;
+  background: conic-gradient(from 120deg, rgba(129, 140, 248, 0.12), rgba(56, 214, 255, 0.05), rgba(170, 120, 255, 0.12));
+  opacity: 0.9;
+  filter: blur(28px) saturate(1.2);
+  z-index: 0;
+  pointer-events: none;
+  animation: spinNeon 14s linear infinite;
+}
+
+/* Subtle tech scanlines */
+.leagueCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(transparent 60%, rgba(255, 255, 255, 0.015) 61%, transparent 62%);
+  background-size: 100% 10px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Flow node glow */
+.flowNodeSymbol {
+  box-shadow: 0 8px 26px rgba(56, 214, 255, 0.12), 0 0 40px rgba(129, 140, 248, 0.06);
+  transition: transform 240ms ease, box-shadow 240ms ease;
+}
+
+.flowNode:hover .flowNodeSymbol {
+  transform: scale(1.06) translateY(-4px);
+  box-shadow: 0 14px 48px rgba(56, 214, 255, 0.18), 0 0 80px rgba(129, 140, 248, 0.12);
 }
