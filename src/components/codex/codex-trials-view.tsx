@@ -204,9 +204,9 @@ export function CodexTrialsView({
       coins={coins}
       diamonds={diamonds}
     >
-      <Space direction="vertical" size={16} style={{ width: "100%" }}>
+      <Space orientation="vertical" size={16} style={{ width: "100%" }}>
         <Card className={`${styles.sectionCard} ${styles.heroCard}`}>
-          <Space direction="vertical" size={10} style={{ width: "100%" }}>
+          <Space orientation="vertical" size={10} style={{ width: "100%" }}>
             <div className={styles.heroHeader}>
               <div className={styles.heroCrest} aria-hidden />
               <div>
@@ -240,15 +240,48 @@ export function CodexTrialsView({
           </Space>
         </Card>
 
-        <Card className={styles.sectionCard}>
-          <Space direction="vertical" size={8} style={{ width: "100%" }}>
-            <Title level={4} style={{ margin: 0 }}>Regras e Progressão</Title>
+        <Card className={`${styles.sectionCard} ${styles.rulesCard}`}>
+          <Space orientation="vertical" size={8} style={{ width: "100%" }}>
+            <div className={styles.rulesHeader}>
+              <div className={styles.rulesCrest}>
+                <img
+                  src="/assets/codex-trials/rules/featured.png"
+                  alt="Ilustração Regras"
+                  className={styles.rulesCrestImg}
+                  onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0.18'; }}
+                />
+              </div>
+              <div>
+                <Title level={4} className={styles.rulesTitle} style={{ margin: 0 }}>Regras & Progressão</Title>
+                <Text className={styles.rulesSubtitle}>Guia rápido: subir de liga, ganhar estrelas e desbloquear prêmios exclusivos.</Text>
+              </div>
+            </div>
+
             <div className={styles.rulesList}>
-              <Text>• Para subir de liga, o jogador precisa vencer as batalhas da liga atual.</Text>
-              <Text>• Sistema de estrelas: 3★ (&gt;80% cartas sobreviventes), 2★ (&gt;50%), 1★ (&gt;25%).</Text>
-              <Text>• 3★ representa vitória perfeita e gera recompensa máxima.</Text>
-              <Text>• Recompensas por modo: 1x1 (básicas/moedas), 3x3 (incomuns/diamantes), 5x5 (raras/premium), 7x7 (super/ultra raras).</Text>
-              <Text>• Cada chefão entrega recompensa especial (ultra rara/promo exclusiva).</Text>
+              <div className={styles.ruleItem}>
+                <div className={styles.ruleIcon}>⚔️</div>
+                <div className={styles.ruleText}><strong>Vença fases:</strong> Complete as batalhas da liga para desbloquear o chefão e avançar.</div>
+              </div>
+
+              <div className={styles.ruleItem}>
+                <div className={styles.ruleIcon}>★</div>
+                <div className={styles.ruleText}><strong>Sistema de estrelas:</strong> 3★ (&gt;80%) = vitória impecável e recompensa máxima.</div>
+              </div>
+
+              <div className={styles.ruleItem}>
+                <div className={styles.ruleIcon}>🛡️</div>
+                <div className={styles.ruleText}><strong>Consistência:</strong> Boas sequências aumentam multiplicadores e bônus de progresso.</div>
+              </div>
+
+              <div className={styles.ruleItem}>
+                <div className={styles.ruleIcon}>🎯</div>
+                <div className={styles.ruleText}><strong>Modos & Recompensas:</strong> Cada formato oferece faixas de recompensa (1x1 moedas → 7x7 prêmios raros/promo).</div>
+              </div>
+
+              <div className={styles.ruleItem}>
+                <div className={styles.ruleIcon}>🏆</div>
+                <div className={styles.ruleText}><strong>Chefões:</strong> Derrote-os para prêmios exclusivos — cartas promo, ultra raras e bônus de track.</div>
+              </div>
             </div>
           </Space>
         </Card>
@@ -256,7 +289,7 @@ export function CodexTrialsView({
         <Divider style={{ margin: 0 }} />
 
         <Card className={`${styles.sectionCard} ${styles.flowCard}`}>
-          <Space direction="vertical" size={12} style={{ width: "100%" }}>
+          <Space orientation="vertical" size={12} style={{ width: "100%" }}>
             <Title level={4} style={{ margin: 0 }}>Rota de Ascensão</Title>
             <Paragraph style={{ margin: 0 }}>
               As ligas seguem uma trilha progressiva. Vença as fases, enfrente o chefão e avance para o próximo nível.
@@ -280,7 +313,7 @@ export function CodexTrialsView({
                         />
                       </div>
                       <Card className={styles.leagueCard}>
-                        <Space direction="vertical" size={10} style={{ width: "100%" }}>
+                        <Space orientation="vertical" size={10} style={{ width: "100%" }}>
                           <div className={styles.leagueTop}>
                             <div className={styles.leagueHeaderRow} />
                             <Title level={4} style={{ margin: 0 }}>{league.name}</Title>
@@ -360,7 +393,7 @@ export function CodexTrialsView({
           onCancel={() => setIsFormatModalOpen(false)}
           footer={null}
         >
-          <Space direction="vertical" size={10} style={{ width: "100%" }}>
+          <Space orientation="vertical" size={10} style={{ width: "100%" }}>
             <Text>Selecione o formato da batalha para iniciar esta liga.</Text>
             {FORMAT_OPTIONS.map((formatOption) => (
               <Button
@@ -385,7 +418,7 @@ export function CodexTrialsView({
             </Button>,
           ]}
         >
-          <Space direction="vertical" size={10} style={{ width: "100%" }}>
+          <Space orientation="vertical" size={10} style={{ width: "100%" }}>
             <Text>
               <strong>Liga:</strong> {selectedLeague?.name ?? "-"}
             </Text>
