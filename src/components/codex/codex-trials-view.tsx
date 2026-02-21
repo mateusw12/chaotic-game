@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { Card, Col, Divider, Row, Space, Tag, Typography, Button, Progress } from "antd";
+import type { PackCard } from "@/components/codex/types";
 import { Modal } from "antd";
 import { PlayerShell } from "@/components/player/player-shell";
 import styles from "./codex-trials-view.module.css";
+import PackModal from "@/components/codex/pack-modal";
+import CodexTrialsService from "@/lib/api/services/codex-trials.service";
 
 type CodexTrialsViewProps = {
   userName: string | null;
@@ -96,7 +99,7 @@ const LEAGUES: LeagueSpec[] = [
   },
   {
     id: 6,
-    tier: "Liga 6 · Esmeralda",
+    tier: "Liga 6 · Campeão",
     name: "Chaos Citadel",
     boss: "Codarion",
     objective: "Atingir consistência de performance em cenários limite.",
@@ -107,7 +110,7 @@ const LEAGUES: LeagueSpec[] = [
   },
   {
     id: 7,
-    tier: "Liga 7 · Legend",
+    tier: "Liga 7 · Lendária",
     name: "Pantheon of Champions",
     boss: "Apexion",
     objective: "Concluir a jornada competitiva máxima do modo.",
@@ -180,6 +183,15 @@ export function CodexTrialsView({
   const [isDeckModalOpen, setIsDeckModalOpen] = useState(false);
   const [selectedLeague, setSelectedLeague] = useState<LeagueSpec | null>(null);
   const [selectedFormat, setSelectedFormat] = useState<BattleFormat | null>(null);
+  const [isPackModalOpen, setIsPackModalOpen] = useState(false);
+  const [packCards, setPackCards] = useState<PackCard[]>([]);
+  const [isPicking, setIsPicking] = useState(false);
+  const [pickedCardId, setPickedCardId] = useState<string | null>(null);
+  const [packRarity, setPackRarity] = useState<string | null>(null);
+  const [packImage, setPackImage] = useState<string | null>(null);
+  const [packLeagueSlug, setPackLeagueSlug] = useState<string | null>(null);
+  const [revealedIndex, setRevealedIndex] = useState<number | null>(null);
+  const [userDeck, setUserDeck] = useState<Array<{ id: string; name: string }>>([]);
 
   const handleStartLeague = (league: LeagueSpec) => {
     setSelectedLeague(league);
@@ -192,6 +204,25 @@ export function CodexTrialsView({
     setSelectedFormat(format);
     setIsFormatModalOpen(false);
     setIsDeckModalOpen(true);
+  };
+
+  const handleOpenPack = async (league: LeagueSpec) => {
+    try {
+      setPickedCardId(null);
+      setRevealedIndex(null);
+      setIsPackModalOpen(true);
+      // decide a liga/slug and request pack metadata from service; cards will be fetched on pack click
+      const slug = league.imgSymbol ? league.imgSymbol.replace(/\.png$/i, '') : league.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      setPackLeagueSlug(slug);
+      const data = await CodexTrialsService.getPackMetadata(slug);
+      setPackCards([]);
+      setPackRarity(data.packRarity || null);
+      setPackImage(data.packImage || null);
+    } catch (err) {
+      console.error(err);
+      setPackCards([]);
+      setIsPackModalOpen(false);
+    }
   };
 
   return (
@@ -374,9 +405,15 @@ export function CodexTrialsView({
                             </div>
                           </div>
 
-                          <Button block disabled={!leagueRuntime.isActive} onClick={() => handleStartLeague(league)}>
-                            {leagueRuntime.isActive ? `Jogar ${league.name}` : "Liga indisponível"}
-                          </Button>
+                          {leagueRuntime.status === 'completed' ? (
+                            <Button block type="primary" className={styles.openPackButton} onClick={() => handleOpenPack(league)}>
+                              Abrir pacote de 3 cartas
+                            </Button>
+                          ) : (
+                            <Button block disabled={!leagueRuntime.isActive} onClick={() => handleStartLeague(league)}>
+                              {leagueRuntime.isActive ? `Jogar ${league.name}` : "Liga indisponível"}
+                            </Button>
+                          )}
                         </Space>
                       </Card>
                     </div>
@@ -386,6 +423,28 @@ export function CodexTrialsView({
             </div>
           </Space>
         </Card>
+
+        <PackModal
+          open={isPackModalOpen}
+          packCards={packCards}
+          packImage={packImage}
+          packRarity={packRarity}
+          league={packLeagueSlug}
+          onCancel={() => { if (!isPicking) { setIsPackModalOpen(false); setPackCards([]); setPickedCardId(null); setPackRarity(null); setPackImage(null); setRevealedIndex(null); setPackLeagueSlug(null); } }}
+          onPick={(card: PackCard) => {
+            // add awarded card to local collection/deck preview
+            setPickedCardId(card.id);
+            setUserDeck((d) => [...d, { id: card.id, name: card.name }]);
+
+            // parent resets UI state after modal handled award
+            setIsPackModalOpen(false);
+            setPackCards([]);
+            setPackRarity(null);
+            setPackImage(null);
+            setRevealedIndex(null);
+            setIsPicking(false);
+          }}
+        />
 
         <Modal
           title={`Escolha o formato${selectedLeague ? ` · ${selectedLeague.name}` : ""}`}
