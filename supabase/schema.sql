@@ -968,19 +968,27 @@ begin
         'destroy_target_battlegear',
         'destroy_target_attack',
         'return_target_card_to_hand',
+        'cancel_target_attack',
         'cancel_target_mugic',
         'discard_opponent_mugic_from_hand',
         'cancel_target_activated_ability',
+        'redirect_target',
+        'relocate_target',
+        'banish_card_from_discard',
         'modify_stats_map',
         'heal_target',
         'grant_mugic_counter',
         'grant_element_attack_bonus',
+        'grant_keyword',
+        'remove_element_attack_bonus',
+        'deal_damage',
         'sacrifice_friendly_then_gain_energy_from_sacrificed',
         'sacrifice_friendly_then_reduce_enemy_by_sacrificed_stats',
         'banish_mugic_card_from_discard_then_deal_damage',
         'reduce_chosen_discipline',
         'apply_status_effect',
-        'prevent_stat_modifiers_on_target'
+        'prevent_stat_modifiers_on_target',
+        'custom_rule'
       ) then
         return false;
       end if;
@@ -998,7 +1006,13 @@ begin
           return false;
         end if;
 
-        if status_type not in ('exhaust_disciplines') then
+        if status_type not in (
+          'exhaust_disciplines',
+          'prevent_movement',
+          'prevent_heal',
+          'prevent_energy_gain',
+          'prevent_mugic_counter_gain'
+        ) then
           return false;
         end if;
 

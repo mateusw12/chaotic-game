@@ -2195,5 +2195,1069 @@
     "updated_at": "2026-02-16T19:00:11.000000Z",
     "tribe": "marrillian",
     "rarity": "super_rara"
+  },
+  {
+    "id": "f3464de8-09ea-439f-9164-f321e6a17899",
+    "fileName": "dawn_perin_181.png",
+    "name": "Canção da Ressurgência",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T17:00:00.000000Z",
+    "updatedAt": "2026-02-16T17:00:00.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Retorne uma carta de Mugic alvo da sua pilha de descarte para a sua mão.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "mugic"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "return_target_card_to_hand",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "19c59612-4808-4207-8acc-6f2b614694e9",
+    "fileName": "dawn_perin_182.png",
+    "name": "Canção da Estagnação",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "comum",
+    "createdAt": "2026-02-16T17:00:01.000000Z",
+    "updatedAt": "2026-02-16T17:00:01.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Até o final do turno, a Criatura alvo não pode se mover.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "apply_status_effect",
+        "actionPayload": {
+          "effectType": "status_effect",
+          "statusType": "exhaust_disciplines",
+          "statScope": "all_disciplines",
+          "value": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": "eb357b57-3730-4046-b9cf-d55bda2cf5ae",
+    "fileName": "dawn_perin_183.png",
+    "name": "Cânone da Casualidade",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 2,
+    "tribes": [
+      "overworld"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:02.000000Z",
+    "updatedAt": "2026-02-16T17:00:02.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Cause 20 de dano a uma Criatura alvo.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "custom_rule",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "6cfe7bac-3364-4495-86d1-bc5b56b46115",
+    "fileName": "dawn_perin_184.png",
+    "name": "Discórdia do Desarmamento",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:03.000000Z",
+    "updatedAt": "2026-02-16T17:00:03.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Destrua um Battlegear alvo.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "equipment"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "destroy_target_battlegear",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "4aaf77ab-859e-4d4b-9acb-dc69e2a055ce",
+    "fileName": "dawn_perin_185.png",
+    "name": "Melodia da Moléstia",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "underworld"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:04.000000Z",
+    "updatedAt": "2026-02-16T17:00:04.000000Z",
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "Uma Criatura engajada alvo ganha 10 de Energia. Cause 5 de dano a outra Criatura engajada alvo.",
+        "effectType": "increase",
+        "stats": [
+          "energy"
+        ],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 10,
+        "actionType": null,
+        "actionPayload": null
+      }
+    ]
+  },
+  {
+    "id": "7b79894b-1a7a-4186-a03d-2ae8197e4807",
+    "fileName": "dawn_perin_186.png",
+    "name": "Refrão de Manutenção",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "overworld"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:05.000000Z",
+    "updatedAt": "2026-02-16T17:00:05.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Disfaça uma Mugic Genérica ou do OverWorld alvo.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "mugic"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [
+          "overworld"
+        ],
+        "value": 0,
+        "actionType": "cancel_target_mugic",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "4bd9a832-ba88-4233-bb9c-a529f61a6f01",
+    "fileName": "dawn_perin_187.png",
+    "name": "Canção da Aspereza",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "underworld"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:06.000000Z",
+    "updatedAt": "2026-02-16T17:00:06.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Até o final do turno, a Criatura alvo ganha 'Fogo 5' e 'Ar 5'.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "grant_element_attack_bonus",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "fc564ce1-6693-4f36-8e3c-2086b57a410a",
+    "fileName": "dawn_perin_188.png",
+    "name": "Canção da Fúria",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "underworld"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:07.000000Z",
+    "updatedAt": "2026-02-16T17:00:07.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Cause 10 de dano a uma Criatura alvo. Até o final do turno, outra Criatura alvo ganha 'Fogo 5'.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "grant_element_attack_bonus",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "b52ecf55-990a-4178-bed3-fd135baa7ae3",
+    "fileName": "dawn_perin_189.png",
+    "name": "Cúpula da Muralha de Fogo",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 2,
+    "tribes": [
+      "underworld"
+    ],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T17:00:08.000000Z",
+    "updatedAt": "2026-02-16T17:00:08.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Retorne uma carta de Criatura do UnderWorld alvo da sua pilha de descarte para o jogo em qualquer espaço aberto. Essa Criatura entra em jogo sem contadores de Mugic.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "mugic"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [
+          "underworld"
+        ],
+        "value": 0,
+        "actionType": "custom_rule",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "d1a76e64-f8ca-4295-aaaa-9c0291337c2f",
+    "fileName": "dawn_perin_190.png",
+    "name": "Canção da Traição",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "comum",
+    "createdAt": "2026-02-16T17:00:09.000000Z",
+    "updatedAt": "2026-02-16T17:00:09.000000Z",
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "A Criatura alvo perde 15 de Coragem, Poder, Sabedoria e Velocidade até o final do turno.",
+        "effectType": "decrease",
+        "stats": [
+          "courage"
+        ],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 15,
+        "actionType": null,
+        "actionPayload": null
+      }
+    ]
+  },
+  {
+    "id": "ec924077-931d-46fa-a58c-c5b343631774",
+    "fileName": "dawn_perin_192.png",
+    "name": "Ressonância da Preparação",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "overworld"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:10.000000Z",
+    "updatedAt": "2026-02-16T17:00:10.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Disfaça uma Mugic do OverWorld ou UnderWorld alvo.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "mugic"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [
+          "overworld",
+          "underworld"
+        ],
+        "value": 0,
+        "actionType": "cancel_target_mugic",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "758664d4-0156-4628-8552-69a033094442",
+    "fileName": "dawn_perin_193.png",
+    "name": "Canção do Mandiblor",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "danian"
+    ],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T17:00:11.000000Z",
+    "updatedAt": "2026-02-16T17:00:11.000000Z",
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "A Criatura alvo ganha 5 de Coragem, Poder, Sabedoria e Velocidade para cada Danian em jogo até o final do turno.",
+        "effectType": "increase",
+        "stats": [
+          "courage"
+        ],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [
+          "danian"
+        ],
+        "value": 5,
+        "actionType": null,
+        "actionPayload": null
+      }
+    ]
+  },
+  {
+    "id": "31389a99-999b-4bd0-bc59-74dc233e792f",
+    "fileName": "dawn_perin_194.png",
+    "name": "Canção da Resistência",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "danian"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:12.000000Z",
+    "updatedAt": "2026-02-16T17:00:12.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Todo dano causado a esta Criatura por ataques é reduzido em 5 até o final do turno.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "attack"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "custom_rule",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "c96b353a-2281-4610-bdf9-4e7dfa65b523",
+    "fileName": "dawn_perin_195.png",
+    "name": "Canção da Surpresa",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "mipedian"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:13.000000Z",
+    "updatedAt": "2026-02-16T17:00:13.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo ganha 'Alcance' e 'Veloz 1' até o final do turno.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "grant_keyword",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "5b085e39-06ec-479e-bbcd-09fc34017771",
+    "fileName": "dawn_perin_196.png",
+    "name": "Canção da Simetria",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:14.000000Z",
+    "updatedAt": "2026-02-16T17:00:14.000000Z",
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "Uma Criatura engajada alvo ganha 10 de Energia. Cause 10 de dano a outra Criatura engajada alvo.",
+        "effectType": "increase",
+        "stats": [
+          "energy"
+        ],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 10,
+        "actionType": null,
+        "actionPayload": null
+      }
+    ]
+  },
+  {
+    "id": "196a13ef-5e65-4b15-a291-b2bf5f44b31d",
+    "fileName": "dawn_perin_197.png",
+    "name": "Fanfarra do Desaparecimento",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "mipedian"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:15.000000Z",
+    "updatedAt": "2026-02-16T17:00:15.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo ganha 'Invisibilidade: Ataque 15' até o final do turno.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "attack"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "grant_keyword",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "6e38c37a-8585-4432-85e9-a26bc626038f",
+    "fileName": "dawn_perin_198.png",
+    "name": "Melodia da Miragem",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "mipedian"
+    ],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T17:00:16.000000Z",
+    "updatedAt": "2026-02-16T17:00:16.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Um ataque alvo causa 0 de dano.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "attack"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "deal_damage",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "33a52cf1-4c22-4169-9df3-9103f0812e48",
+    "fileName": "dawn_perin_199.png",
+    "name": "Notas de Nenhum Lugar",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:17.000000Z",
+    "updatedAt": "2026-02-16T17:00:17.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Um Local alvo perde todas as habilidades até o final do turno.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "location"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "cancel_target_activated_ability",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "8481a2df-8b93-4160-abec-0ae35c4762cd",
+    "fileName": "dawn_perin_200.png",
+    "name": "Canção da Deflexão",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T17:00:18.000000Z",
+    "updatedAt": "2026-02-16T17:00:18.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Mude o alvo de uma Mugic ou habilidade alvo com um único alvo.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "mugic"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "redirect_target",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "2280aeed-d3df-4635-834d-3837a8362cbd",
+    "fileName": "dawn_perin_201.png",
+    "name": "Gongo da Recuperação",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "mipedian"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T17:00:19.000000Z",
+    "updatedAt": "2026-02-16T17:00:19.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Cure 10 de dano em uma Criatura alvo. Essa Criatura ganha 'Ar 5' até o final do turno.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "grant_element_attack_bonus",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "583e57c8-4487-4d8a-a144-ec7a0f92c074",
+    "fileName": "dawn_perin_202.png",
+    "name": "Trilos da Diminuição",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T17:00:20.000000Z",
+    "updatedAt": "2026-02-16T17:00:20.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Uma Criatura engajada alvo perde todas as habilidades até o final do turno.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "cancel_target_activated_ability",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "c927cfee-6119-47fc-af40-7776f8a32eee",
+    "fileName": "forget_unity_77.png",
+    "name": "Giga do Reforço",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T19:00:00.000000Z",
+    "updatedAt": "2026-02-16T19:00:00.000000Z",
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "A Criatura alvo ganha 10 de Energia se for do OverWorld; 'Fogo 5' se for do UnderWorld; 20 em todas as Disciplinas se for Danian; 'Invisibilidade: Ataque 10' se for Mipedian.",
+        "effectType": "increase",
+        "stats": [
+          "energy"
+        ],
+        "cardTypes": [
+          "attack"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [
+          "overworld",
+          "underworld",
+          "mipedian",
+          "danian"
+        ],
+        "value": 10,
+        "actionType": null,
+        "actionPayload": null
+      }
+    ]
+  },
+  {
+    "id": "8f7ba113-e90b-4eb0-9683-ad7ad49ef2df",
+    "fileName": "forget_unity_78.png",
+    "name": "Caos do Munofone",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T19:00:01.000000Z",
+    "updatedAt": "2026-02-16T19:00:01.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Escolha uma Tribo. Criaturas dessa Tribo não podem ganhar contadores de Mugic.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "mugic"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "grant_mugic_counter",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "e8f91f6c-39c9-43f1-8f6b-4394a3e49226",
+    "fileName": "forget_unity_79.png",
+    "name": "Opus Oposto",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T19:00:02.000000Z",
+    "updatedAt": "2026-02-16T19:00:02.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Cure 5 de dano na Criatura alvo para cada Tribo que você controla.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "self",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "custom_rule",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "0012b84e-8926-4e89-81ed-f21314c0bc7d",
+    "fileName": "forget_unity_80.png",
+    "name": "Arpejo do Canto Celeste",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "overworld"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T19:00:03.000000Z",
+    "updatedAt": "2026-02-16T19:00:03.000000Z",
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "A Criatura alvo ganha 30 de Sabedoria e 'Superar Sabedoria 5'.",
+        "effectType": "increase",
+        "stats": [
+          "wisdom"
+        ],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 30,
+        "actionType": null,
+        "actionPayload": null
+      }
+    ]
+  },
+  {
+    "id": "5374c96f-b1ad-4762-a6d7-aa041785632e",
+    "fileName": "forget_unity_81.png",
+    "name": "Voz de Vidav",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "overworld"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T19:00:04.000000Z",
+    "updatedAt": "2026-02-16T19:00:04.000000Z",
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "A Criatura alvo que não seja do OverWorld ganha 20 de Energia.",
+        "effectType": "increase",
+        "stats": [
+          "energy"
+        ],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [
+          "overworld"
+        ],
+        "value": 20,
+        "actionType": null,
+        "actionPayload": null
+      }
+    ]
+  },
+  {
+    "id": "be5a8cd3-5017-48c4-bd21-2f1ffea79264",
+    "fileName": "forget_unity_82.png",
+    "name": "Marcha Fúnebre da Negação",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "underworld"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T19:00:05.000000Z",
+    "updatedAt": "2026-02-16T19:00:05.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo não pode ser curada ou ganhar Energia.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "heal_target",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "30c287fb-bbb3-4b1d-9e45-7c2d46bc27e8",
+    "fileName": "forget_unity_83.png",
+    "name": "Melodia Entrelaçada",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "underworld"
+    ],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T19:00:06.000000Z",
+    "updatedAt": "2026-02-16T19:00:06.000000Z",
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "A Criatura alvo engajada com um não-UnderWorlder que você controla perde um Tipo Elemental de sua escolha e perde 30 em todas as Disciplinas.",
+        "effectType": "decrease",
+        "stats": [
+          "power",
+          "courage",
+          "speed",
+          "wisdom"
+        ],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "self",
+        "targetTribes": [
+          "underworld"
+        ],
+        "value": 30,
+        "actionType": null,
+        "actionPayload": null
+      }
+    ]
+  },
+  {
+    "id": "938d9e4e-df21-4075-a873-ef438ccb3292",
+    "fileName": "forget_unity_84.png",
+    "name": "Progressão Adaptativa",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "danian"
+    ],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T19:00:07.000000Z",
+    "updatedAt": "2026-02-16T19:00:07.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Negue um ataque Elemental alvo. (Um ataque Elemental é um ataque com pelo menos um Tipo Elemental. Esse ataque não causa dano e não tem outros efeitos.)",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "attack"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "cancel_target_attack",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "085ba272-c256-4cf4-801a-05eef478f1ec",
+    "fileName": "forget_unity_85.png",
+    "name": "Ode à Obscuridade",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "danian"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T19:00:08.000000Z",
+    "updatedAt": "2026-02-16T19:00:08.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Infecte X Criaturas não Infectadas. Se você controlar um não-Danian, Infecte outras X Criaturas não Infectadas.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "self",
+        "targetTribes": [
+          "danian"
+        ],
+        "value": 0,
+        "actionType": "custom_rule",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "ed331599-2e56-411d-9b1d-4c5d2913ebd0",
+    "fileName": "forget_unity_86.png",
+    "name": "Improvisação de Iflar",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "mipedian"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T19:00:09.000000Z",
+    "updatedAt": "2026-02-16T19:00:09.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo que não seja Mipediana ganha 'Invisibilidade: Ataque 30'.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "attack"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [
+          "mipedian"
+        ],
+        "value": 0,
+        "actionType": "grant_keyword",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "2966155c-4ae6-4e8b-9ffb-40f9f8297855",
+    "fileName": "forget_unity_87.png",
+    "name": "Glossário da Ilusão",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "mipedian"
+    ],
+    "rarity": "rara",
+    "createdAt": "2026-02-16T19:00:10.000000Z",
+    "updatedAt": "2026-02-16T19:00:10.000000Z",
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Realogue uma Miragem alvo no Tabuleiro para qualquer espaço.",
+        "effectType": null,
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "relocate_target",
+        "actionPayload": {
+          "parsedFromDescription": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "d88e1332-a37c-4f99-a334-af9fc86bf867",
+    "fileName": "forget_unity_88.png",
+    "name": "Ostinato de Obain Empe",
+    "imageFileId": null,
+    "imageUrl": null,
+    "cost": 1,
+    "tribes": [
+      "marrillian"
+    ],
+    "rarity": "super_rara",
+    "createdAt": "2026-02-16T19:00:11.000000Z",
+    "updatedAt": "2026-02-16T19:00:11.000000Z",
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "A Criatura M'arrillian ou Minion alvo ganha 10 de Energia para cada Minion em todas as pilhas de descarte.",
+        "effectType": "increase",
+        "stats": [
+          "energy"
+        ],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "enemy",
+        "targetTribes": [
+          "marrillian"
+        ],
+        "value": 10,
+        "actionType": null,
+        "actionPayload": null
+      }
+    ]
   }
 ]
