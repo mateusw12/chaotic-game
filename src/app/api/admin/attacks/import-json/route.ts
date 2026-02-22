@@ -350,11 +350,14 @@ export async function POST() {
     let imported = 0;
     let updated = 0;
     let skipped = 0;
+    const skippedAttacks: any[] = [];
 
     for (const item of attacksSeed as SeedAttack[]) {
       const payload = normalizeAttackPayload(item);
 
-      if (!payload) {
+      if (!payload || !payload.fileName) {
+        skipped += 1;
+        skippedAttacks.push(item);
         continue;
       }
 
@@ -372,6 +375,7 @@ export async function POST() {
       imported += 1;
     }
 
+    console.log("Skipped Attacks:", skippedAttacks)
     const response: ImportAttacksResponseDto = {
       success: true,
       imported,
