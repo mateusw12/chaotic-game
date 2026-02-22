@@ -7,7 +7,7 @@ import { ArrowLeftOutlined, SafetyOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { type UserPermissionDto, type UserRole } from "@/dto/user";
 import { AdminShell } from "@/components/admin/admin-shell";
-import { LoadingLogo } from "@/components/shared/loading-logo";
+import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 import { PermissionsAdminService } from "@/lib/api/service";
 
 type PermissionsViewProps = {

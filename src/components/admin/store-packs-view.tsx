@@ -10,7 +10,7 @@ import type { AdminStorePackDto } from "@/dto/store";
 import type { UserCardType } from "@/dto/progression";
 import { StorePacksAdminService } from "@/lib/api/service";
 import { AdminShell } from "@/components/admin/admin-shell";
-import { LoadingLogo } from "@/components/shared/loading-logo";
+import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 import { useImageUploadField } from "@/hooks/use-image-upload-field";
 
 const { Title, Text } = Typography;

@@ -19,8 +19,8 @@ import {
 import { AdminShell } from "@/components/admin/admin-shell";
 import { AbilitiesAdminService, CreaturesAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
-import { SearchableDataTable } from "@/components/shared/searchable-data-table";
-import { LoadingLogo } from "@/components/shared/loading-logo";
+import { SearchableDataTable } from "@/components/shared/searchable-data-table/searchable-data-table";
+import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 import { useImageUploadField } from "@/hooks/use-image-upload-field";
 import { useFormSubmitToast } from "@/hooks/use-form-submit-toast";
 

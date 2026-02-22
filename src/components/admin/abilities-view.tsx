@@ -53,10 +53,10 @@ import {
 } from "@/dto/ability";
 import { CREATURE_ELEMENT_OPTIONS, CREATURE_TRIBE_OPTIONS, type CreatureElement, type CreatureTribe } from "@/dto/creature";
 import { AdminShell } from "@/components/admin/admin-shell";
-import { LoadingLogo } from "@/components/shared/loading-logo";
+import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 import { AbilitiesAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
-import { SearchableDataTable } from "@/components/shared/searchable-data-table";
+import { SearchableDataTable } from "@/components/shared/searchable-data-table/searchable-data-table";
 
 type AbilitiesViewProps = {
   abilities: AbilityDto[];

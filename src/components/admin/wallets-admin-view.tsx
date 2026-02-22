@@ -7,7 +7,7 @@ import { ArrowLeftOutlined, DollarCircleOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import type { AdminUserWalletDto } from "@/dto/wallet";
 import { AdminShell } from "@/components/admin/admin-shell";
-import { LoadingLogo } from "@/components/shared/loading-logo";
+import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 import { WalletsAdminService } from "@/lib/api/service";
 
 type WalletsAdminViewProps = {

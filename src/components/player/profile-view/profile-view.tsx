@@ -5,7 +5,7 @@ import { App as AntdApp, Avatar, Button, Card, Col, Form, Input, Progress, Row, 
 import type { UploadFile } from "antd/es/upload/interface";
 import { CREATURE_TRIBE_OPTIONS } from "@/dto/creature";
 import { PlayerShell } from "@/components/player/player-shell";
-import { LoadingLogo } from "@/components/shared/loading-logo";
+import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 import { useDisplayUserName } from "@/hooks/use-display-user-name";
 import { ProfileService } from "@/lib/api/service";
 import styles from "./profile-view.module.css";

@@ -36,8 +36,8 @@ import type { LocationEffectType, LocationStat } from "@/dto/location";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { AttacksAdminService } from "@/lib/api/service";
 import { adminQueryKeys } from "@/lib/api/query-keys";
-import { SearchableDataTable } from "@/components/shared/searchable-data-table";
-import { LoadingLogo } from "@/components/shared/loading-logo";
+import { SearchableDataTable } from "@/components/shared/searchable-data-table/searchable-data-table";
+import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 
 type AttacksViewProps = {
   attacks: AttackDto[];

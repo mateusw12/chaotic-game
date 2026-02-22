@@ -20,7 +20,7 @@ import { CARD_RARITY_OPTIONS, type CardRarity, type CreatureTribe } from "@/dto/
 import type { UserCardType } from "@/dto/progression";
 import { StoreService } from "@/lib/api/services/store.service";
 import { PlayerShell } from "@/components/player/player-shell";
-import { LoadingLogo } from "@/components/shared/loading-logo";
+import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 import { DecksService } from "@/lib/api/service";
 import styles from "./decks-view.module.css";
 import { DecksViewProps, DeckFilters } from "./decks-view.interface";
