@@ -235,7 +235,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
         title: "Regras base",
         key: "rules",
         render: (_, row) => (
-          <Space direction="vertical" size={4}>
+          <Space orientation="vertical" size={4}>
             <Text>{row.cardsCount} cartas · {row.playersCount} jogadores</Text>
             <Text>Formatos: {row.allowedFormats.join(", ")}</Text>
             <Text>Tribos: {row.allowedTribes.length ? row.allowedTribes.join(", ") : "todas"}</Text>
@@ -247,7 +247,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
         title: "Agendamento",
         key: "schedule",
         render: (_, row) => (
-          <Space direction="vertical" size={4}>
+          <Space orientation="vertical" size={4}>
             <Text>{scheduleLabel(row)}</Text>
             <Tag color={row.isCurrentlyAvailable ? "green" : "default"}>
               {row.isCurrentlyAvailable ? "Disponível agora" : "Fora de janela"}
@@ -284,7 +284,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
 
   return (
     <AdminShell selectedKey="tournaments">
-      <Space direction="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
+      <Space orientation="vertical" size={20} style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
         <Card style={{ borderRadius: 16 }}>
           <Space style={{ width: "100%", justifyContent: "space-between" }}>
             <Space>
@@ -318,7 +318,7 @@ export function TournamentsView({ tournaments }: TournamentsViewProps) {
               isEnabled: true,
             }}
           >
-            <Space direction="vertical" size={12} style={{ width: "100%" }}>
+            <Space orientation="vertical" size={12} style={{ width: "100%" }}>
               <Form.Item label="Nome do torneio" name="name" rules={[{ required: true, message: "Informe o nome." }]}>
                 <Input placeholder="Ex.: Torneio Semanal das Tribos" />
               </Form.Item>

@@ -354,7 +354,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                         ) : null}
                       </Space>
 
-                      <Space direction="vertical" size={8} style={{ width: "100%", marginTop: "auto" }}>
+                      <Space orientation="vertical" size={8} style={{ width: "100%", marginTop: "auto" }}>
                         {pack.priceOptions.map((option) => {
                           const purchaseKey = `${pack.id}:${option.currency}`;
 

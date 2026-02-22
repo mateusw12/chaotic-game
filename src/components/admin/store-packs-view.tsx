@@ -73,7 +73,7 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
       title: "Pacote",
       key: "pack",
       render: (_, row) => (
-        <Space direction="vertical" size={2}>
+        <Space orientation="vertical" size={2}>
           <Text strong>{row.name}</Text>
           <Text type="secondary">{row.description}</Text>
           <Space>
@@ -178,7 +178,7 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
 
   return (
     <AdminShell selectedKey="store-packs">
-      <Space direction="vertical" size={20} style={{ width: "100%", maxWidth: 1280, margin: "0 auto" }}>
+      <Space orientation="vertical" size={20} style={{ width: "100%", maxWidth: 1280, margin: "0 auto" }}>
         <Card style={{ borderRadius: 16 }}>
           <Space style={{ width: "100%", justifyContent: "space-between" }}>
             <Space>
@@ -209,7 +209,7 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
               isActive: true,
             }}
           >
-            <Space direction="vertical" size={12} style={{ width: "100%" }}>
+            <Space orientation="vertical" size={12} style={{ width: "100%" }}>
               <Form.Item label="Nome do pacote" name="name" rules={[{ required: true, message: "Informe o nome." }]}>
                 <Input placeholder="Ex.: Pacote Tribos Raras" />
               </Form.Item>
