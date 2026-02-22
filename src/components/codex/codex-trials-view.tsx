@@ -1,132 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, Col, Divider, Row, Space, Tag, Typography, Button, Progress, message } from "antd";
+import { Card, Divider, Space, Typography, Button, message } from "antd";
 import type { PackCard } from "@/components/codex/types";
-import { Modal } from "antd";
 import { PlayerShell } from "@/components/player/player-shell";
 import styles from "./codex-trials-view.module.css";
 import PackModal from "@/components/codex/pack-modal/pack-modal";
+import CodexHeader from "./header/header";
+import CodexRules from "./rules/rules";
 import CodexTrialsService from "@/lib/api/services/codex-trials.service";
+import LeagueRewards from "./rewards/league-rewards";
+import DeckSelection from "./deck-selection/deck-selection";
+import FormatSelection from "./format-selection/format-selection";
+import { BattleFormat, LeagueRuntime, CodexTrialsViewProps, LeagueSpec } from "./codex-trials-view.interface";
+import { LEAGUES, FORMAT_OPTIONS } from "./codex-trials-view.constants";
 
-type CodexTrialsViewProps = {
-  userName: string | null;
-  userNickName: string | null;
-  userImageUrl: string | null;
-  userRole: "user" | "admin";
-  coins: number;
-  diamonds: number;
-};
-
-type LeagueSpec = {
-  id: number;
-  tier: string;
-  name: string;
-  boss: string;
-  objective: string;
-  rewardFocus: string;
-  rewardHighlights: string[];
-  imgSymbol?: string;
-  imgBoss?: string;
-};
-
-type LeagueRuntime = {
-  isActive: boolean;
-  status: "active" | "completed" | "locked";
-  label: string;
-  percent: number;
-};
-
-type BattleFormat = "1x1" | "3x3" | "5x5" | "7x7";
-
-const { Title, Paragraph, Text } = Typography;
-
-const LEAGUES: LeagueSpec[] = [
-  {
-    id: 1,
-    tier: "Liga 1 · Bronze",
-    name: "Rising Sparks",
-    boss: "Ignitus",
-    objective: "Consolidar fundamentos e leitura de jogo.",
-    rewardFocus: "Cartas básicas + moedas.",
-    rewardHighlights: ["Pacote base", "Moedas bônus", "Carta de progressão"],
-    imgSymbol: "bronze.png",
-    imgBoss: "boss_1.png"
-  },
-  {
-    id: 2,
-    tier: "Liga 2 · Prata",
-    name: "Shadow Trials",
-    boss: "Umbraxis",
-    objective: "Evoluir consistência tática e gestão de recursos.",
-    rewardFocus: "Cartas incomuns + diamantes menores.",
-    rewardHighlights: ["Cartas incomuns", "Diamantes", "Bônus de etapa"],
-    imgSymbol: "silver.png",
-    imgBoss: "boss_2.png"
-  },
-  {
-    id: 3,
-    tier: "Liga 3 · Ouro",
-    name: "Elemental Apex",
-    boss: "Maelstryx",
-    objective: "Forçar adaptação estratégica entre elementos e ritmos.",
-    rewardFocus: "Cartas raras e progressão estratégica.",
-    rewardHighlights: ["Cartas raras", "XP elevado", "Recompensa de consistência"],
-    imgSymbol: "gold.png",
-    imgBoss: "boss_3.png"
-  },
-  {
-    id: 4,
-    tier: "Liga 4 · Platina",
-    name: "Crystal Dominion",
-    boss: "Cryovex",
-    objective: "Dominar partidas com restrições avançadas.",
-    rewardFocus: "Raras + ultra raras situacionais.",
-    rewardHighlights: ["Raras avançadas", "Chance ultra rara", "Bônus tático"],
-    imgSymbol: "platinum.png",
-    imgBoss: "boss_4.png"
-  },
-  {
-    id: 5,
-    tier: "Liga 5 · Diamante",
-    name: "Titan Arena",
-    boss: "Titanor",
-    objective: "Operar combos sob alta pressão de tempo e recursos.",
-    rewardFocus: "Pacotes premium e cartas raras.",
-    rewardHighlights: ["Pacote premium", "Cartas raras", "Bônus de elite"],
-    imgSymbol: "diamond.png",
-    imgBoss: "boss_5.png"
-  },
-  {
-    id: 6,
-    tier: "Liga 6 · Campeão",
-    name: "Chaos Citadel",
-    boss: "Codarion",
-    objective: "Atingir consistência de performance em cenários limite.",
-    rewardFocus: "Recompensas altas e exclusivas por modo.",
-    rewardHighlights: ["Recompensa exclusiva", "Super/ultra raras", "Multiplicador de bônus"],
-    imgSymbol: "champion.png",
-    imgBoss: "boss_6.png"
-  },
-  {
-    id: 7,
-    tier: "Liga 7 · Lendária",
-    name: "Pantheon of Champions",
-    boss: "Apexion",
-    objective: "Concluir a jornada competitiva máxima do modo.",
-    rewardFocus: "Ultra raras/promo e bônus máximos.",
-    rewardHighlights: ["Carta promo", "Ultra rara garantida", "Bônus máximo"],
-    imgSymbol: "legend.png",
-    imgBoss: "boss_7.png"
-  },
-];
-
-const FORMAT_OPTIONS: Array<{ value: BattleFormat; label: string; description: string }> = [
-  { value: "1x1", label: "Formato 1x1", description: "Partidas rápidas com foco em leitura tática." },
-  { value: "3x3", label: "Formato 3x3", description: "Combinações intermediárias e sinergia de tribos." },
-  { value: "5x5", label: "Formato 5x5", description: "Estratégias amplas com mais variações de turno." },
-  { value: "7x7", label: "Formato 7x7", description: "Modo avançado com alto nível de complexidade." },
-];
+const { Title, Paragraph } = Typography;
 
 function getLeagueRuntime(leagueId: number, currentLeagueId: number, currentLeaguePercent: number): LeagueRuntime {
   if (leagueId < currentLeagueId) {
@@ -186,13 +75,9 @@ export function CodexTrialsView({
   const [isPackModalOpen, setIsPackModalOpen] = useState(false);
   const [packCards, setPackCards] = useState<PackCard[]>([]);
   const [claimedPacks, setClaimedPacks] = useState<Record<string, boolean>>({});
-  const [isPicking, setIsPicking] = useState(false);
-  const [pickedCardId, setPickedCardId] = useState<string | null>(null);
   const [packRarity, setPackRarity] = useState<string | null>(null);
   const [packImage, setPackImage] = useState<string | null>(null);
   const [packLeagueSlug, setPackLeagueSlug] = useState<string | null>(null);
-  const [revealedIndex, setRevealedIndex] = useState<number | null>(null);
-  const [userDeck, setUserDeck] = useState<Array<{ id: string; name: string }>>([]);
 
   const handleStartLeague = (league: LeagueSpec) => {
     setSelectedLeague(league);
@@ -207,12 +92,12 @@ export function CodexTrialsView({
 
     (async () => {
       try {
-        const res = await CodexTrialsService.getClaimedLeagues();
+        const claimedLeagues = await CodexTrialsService.getClaimedLeagues();
         if (!mounted) return;
         const map: Record<string, boolean> = {};
-        for (const l of LEAGUES) {
-          const slug = l.imgSymbol ? l.imgSymbol.replace(/\.png$/i, '') : l.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-          map[slug] = (res?.claimed ?? []).includes(slug);
+        for (const league of LEAGUES) {
+          const slug = league.imgSymbol ? league.imgSymbol.replace(/\.png$/i, '') : league.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          map[slug] = (claimedLeagues?.claimed ?? []).includes(slug);
         }
         setClaimedPacks(map);
       } catch (e) {
@@ -233,8 +118,6 @@ export function CodexTrialsView({
 
   const handleOpenPack = async (league: LeagueSpec) => {
     try {
-      setPickedCardId(null);
-      setRevealedIndex(null);
       // decide a liga/slug and request claim from service; cards will be fetched on pack click
       const slug = league.imgSymbol ? league.imgSymbol.replace(/\.png$/i, '') : league.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       setPackLeagueSlug(slug);
@@ -243,11 +126,11 @@ export function CodexTrialsView({
         // claim the pack permanently for this user/league
         await CodexTrialsService.claimPack(slug);
         // mark locally immediately so button disables
-        setClaimedPacks((s) => ({ ...s, [slug]: true }));
+        setClaimedPacks((value) => ({ ...value, [slug]: true }));
       } catch (e: any) {
         // if already claimed, mark locally and notify
         if (e && typeof e === 'object' && 'status' in e && (e as any).status === 409) {
-          setClaimedPacks((s) => ({ ...s, [slug]: true }));
+          setClaimedPacks((value) => ({ ...value, [slug]: true }));
           message.info('Pacote já resgatado para esta liga.');
           return;
         }
@@ -278,86 +161,9 @@ export function CodexTrialsView({
       diamonds={diamonds}
     >
       <Space orientation="vertical" size={16} style={{ width: "100%" }}>
-        <Card className={`${styles.sectionCard} ${styles.heroCard}`}>
-          <Space orientation="vertical" size={10} style={{ width: "100%" }}>
-            <div className={styles.heroHeader}>
-              <div className={styles.heroCrest} aria-hidden />
-              <div>
-                <Title level={3} className={styles.heroTitle} style={{ margin: 0 }}>Codex Trials</Title>
-                <Paragraph className={styles.heroText}>
-                  Evolua de Bronze até Lendária enfrentando IAs cada vez mais estratégicas. Enfrente desafios únicos em cada liga, derrote chefões e conquiste recompensas épicas.
-                </Paragraph>
-              </div>
-            </div>
+        <CodexHeader />
 
-            <Row gutter={[10, 10]}>
-              <Col xs={24} md={8}>
-                <div className={styles.flowStep}>
-                  <div className={styles.stepIcon}>⚔️</div>
-                  <div className={styles.stepText}><strong>1.</strong> Vença batalhas de fase contra IA</div>
-                </div>
-              </Col>
-              <Col xs={24} md={8}>
-                <div className={styles.flowStep}>
-                  <div className={styles.stepIcon}>🏆</div>
-                  <div className={styles.stepText}><strong>2.</strong> Derrote o chefão da liga</div>
-                </div>
-              </Col>
-              <Col xs={24} md={8}>
-                <div className={styles.flowStep}>
-                  <div className={styles.stepIcon}>🚀</div>
-                  <div className={styles.stepText}><strong>3.</strong> Suba de liga e ganhe recompensas</div>
-                </div>
-              </Col>
-            </Row>
-          </Space>
-        </Card>
-
-        <Card className={`${styles.sectionCard} ${styles.rulesCard}`}>
-          <Space orientation="vertical" size={8} style={{ width: "100%" }}>
-            <div className={styles.rulesHeader}>
-              <div className={styles.rulesCrest}>
-                <img
-                  src="/assets/codex-trials/rules/featured.png"
-                  alt="Ilustração Regras"
-                  className={styles.rulesCrestImg}
-                  onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0.18'; }}
-                />
-              </div>
-              <div>
-                <Title level={4} className={styles.rulesTitle} style={{ margin: 0 }}>Regras & Progressão</Title>
-                <Text className={styles.rulesSubtitle}>Guia rápido: subir de liga, ganhar estrelas e desbloquear prêmios exclusivos.</Text>
-              </div>
-            </div>
-
-            <div className={styles.rulesList}>
-              <div className={styles.ruleItem}>
-                <div className={styles.ruleIcon}>⚔️</div>
-                <div className={styles.ruleText}><strong>Vença fases:</strong> Complete as batalhas da liga para desbloquear o chefão e avançar.</div>
-              </div>
-
-              <div className={styles.ruleItem}>
-                <div className={styles.ruleIcon}>★</div>
-                <div className={styles.ruleText}><strong>Sistema de estrelas:</strong> 3★ (&gt;80%) = vitória impecável e recompensa máxima.</div>
-              </div>
-
-              <div className={styles.ruleItem}>
-                <div className={styles.ruleIcon}>🛡️</div>
-                <div className={styles.ruleText}><strong>Consistência:</strong> Boas sequências aumentam multiplicadores e bônus de progresso.</div>
-              </div>
-
-              <div className={styles.ruleItem}>
-                <div className={styles.ruleIcon}>🎯</div>
-                <div className={styles.ruleText}><strong>Modos & Recompensas:</strong> Cada formato oferece faixas de recompensa (1x1 moedas → 7x7 prêmios raros/promo).</div>
-              </div>
-
-              <div className={styles.ruleItem}>
-                <div className={styles.ruleIcon}>🏆</div>
-                <div className={styles.ruleText}><strong>Chefões:</strong> Derrote-os para prêmios exclusivos — cartas promo, ultra raras e bônus de track.</div>
-              </div>
-            </div>
-          </Space>
-        </Card>
+        <CodexRules />
 
         <Divider style={{ margin: 0 }} />
 
@@ -411,41 +217,13 @@ export function CodexTrialsView({
 
                           </div>
 
-
-
-                          {/* Progress removed — energy bar shows progress */}
-
                           <div className={styles.deckPreview}>
                             <div className={styles.deckPreviewImage}>
                               /assets/codex-trials/decks/{league.name.toLowerCase().replace(/\s+/g, "-")}.png
                             </div>
                           </div>
 
-                          <div className={styles.rewardPanel}>
-                            <div className={styles.rewardHeader}>
-                              <Text className={styles.rewardTitle}>Recompensas da Liga</Text>
-                            </div>
-                            <div className={styles.rewardGrid}>
-                              {league.rewardHighlights.map((reward) => {
-                                const imgSlug = reward.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                                return (
-                                  <div key={reward} className={styles.rewardItem}>
-                                    <div className={styles.rewardImage}>
-                                      <img
-                                        src={`/assets/codex-trials/rewards/${imgSlug}.png`}
-                                        alt={reward}
-                                        className={styles.rewardImg}
-                                        onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0.12'; }}
-                                      />
-                                    </div>
-                                    <div className={styles.rewardTextWrap}>
-                                      <Text className={styles.rewardItemText}>{reward}</Text>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
+                          <LeagueRewards rewards={league.rewardHighlights} />
 
                           {(() => {
                             const slug = league.imgSymbol ? league.imgSymbol.replace(/\.png$/i, '') : league.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -481,70 +259,34 @@ export function CodexTrialsView({
           packImage={packImage}
           packRarity={packRarity}
           league={packLeagueSlug}
-          onCancel={() => { if (!isPicking) { setIsPackModalOpen(false); setPackCards([]); setPickedCardId(null); setPackRarity(null); setPackImage(null); setRevealedIndex(null); setPackLeagueSlug(null); } }}
-          onPick={(card: PackCard) => {
-            // add awarded card to local collection/deck preview
-            setPickedCardId(card.id);
-            setUserDeck((d) => [...d, { id: card.id, name: card.name }]);
-
-            // mark this league's pack as claimed so button is disabled
+          onCancel={() => { setIsPackModalOpen(false); setPackCards([]); setPackRarity(null); setPackImage(null); setPackLeagueSlug(null); }}
+          onPick={() => {
             if (packLeagueSlug) {
               setClaimedPacks((s) => ({ ...s, [packLeagueSlug]: true }));
             }
 
-            // parent resets UI state after modal handled award
             setIsPackModalOpen(false);
             setPackCards([]);
             setPackRarity(null);
             setPackImage(null);
-            setRevealedIndex(null);
-            setIsPicking(false);
+            setPackLeagueSlug(null);
           }}
         />
 
-        <Modal
-          title={`Escolha o formato${selectedLeague ? ` · ${selectedLeague.name}` : ""}`}
+        <FormatSelection
           open={isFormatModalOpen}
           onCancel={() => setIsFormatModalOpen(false)}
-          footer={null}
-        >
-          <Space orientation="vertical" size={10} style={{ width: "100%" }}>
-            <Text>Selecione o formato da batalha para iniciar esta liga.</Text>
-            {FORMAT_OPTIONS.map((formatOption) => (
-              <Button
-                key={formatOption.value}
-                block
-                className={styles.formatButton}
-                onClick={() => handleSelectFormat(formatOption.value)}
-              >
-                {formatOption.label}
-              </Button>
-            ))}
-          </Space>
-        </Modal>
+          selectedLeague={selectedLeague}
+          formats={FORMAT_OPTIONS}
+          onSelectFormat={handleSelectFormat}
+        />
 
-        <Modal
-          title="Escolha seu deck"
+        <DeckSelection
           open={isDeckModalOpen}
           onCancel={() => setIsDeckModalOpen(false)}
-          footer={[
-            <Button key="close" type="primary" onClick={() => setIsDeckModalOpen(false)}>
-              Fechar
-            </Button>,
-          ]}
-        >
-          <Space orientation="vertical" size={10} style={{ width: "100%" }}>
-            <Text>
-              <strong>Liga:</strong> {selectedLeague?.name ?? "-"}
-            </Text>
-            <Text>
-              <strong>Formato escolhido:</strong> {selectedFormat ?? "-"}
-            </Text>
-            <Text className={styles.deckSelectionPlaceholder}>
-              A seleção de deck será exibida aqui em breve.
-            </Text>
-          </Space>
-        </Modal>
+          league={selectedLeague}
+          format={selectedFormat}
+        />
       </Space>
     </PlayerShell>
   );
