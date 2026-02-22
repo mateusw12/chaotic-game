@@ -10,9 +10,9 @@ export const STORE_LIMIT_WINDOWS = ["daily", "weekly"] as const;
 export type StoreLimitWindow = (typeof STORE_LIMIT_WINDOWS)[number];
 
 export type StorePackLimitDto = {
-    window: StoreLimitWindow;
-    maxPurchases: number;
-    remainingPurchases: number;
+  window: StoreLimitWindow;
+  maxPurchases: number;
+  remainingPurchases: number;
 };
 
 export type StorePackRarityWeightsDto = Record<CardRarity, number>;
@@ -20,152 +20,162 @@ export type StorePackRarityWeightsDto = Record<CardRarity, number>;
 export type StorePackTribeWeightsDto = Partial<Record<CreatureTribe, number>>;
 
 export type StorePackPriceOptionDto = {
-    currency: StoreCurrency;
-    price: number;
+  currency: StoreCurrency;
+  price: number;
 };
 
 export type StorePackDto = {
-    id: string;
-    name: string;
-    description: string;
-    imageUrl: string | null;
-    priceOptions: StorePackPriceOptionDto[];
-    currency: StoreCurrency;
-    price: number;
-    cardsCount: number;
-    cardTypes: UserCardType[];
-    allowedTribes: CreatureTribe[];
-    tribeWeights: StorePackTribeWeightsDto;
-    guaranteedMinRarity: CardRarity | null;
-    guaranteedCount: number;
-    rarityWeights: StorePackRarityWeightsDto;
-    limits: StorePackLimitDto[];
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string | null;
+  priceOptions: StorePackPriceOptionDto[];
+  currency: StoreCurrency;
+  price: number;
+  cardsCount: number;
+  cardTypes: UserCardType[];
+  allowedTribes: CreatureTribe[];
+  tribeWeights: StorePackTribeWeightsDto;
+  guaranteedMinRarity: CardRarity | null;
+  guaranteedCount: number;
+  rarityWeights: StorePackRarityWeightsDto;
+  limits: StorePackLimitDto[];
 };
 
 export type StoreRevealCardDto = {
-    cardType: UserCardType;
-    cardId: string;
-    rarity: CardRarity;
-    cardName: string | null;
-    cardImageUrl: string | null;
-    isDuplicateInCollection: boolean;
-    sellValue: number;
+  cardType: UserCardType;
+  cardId: string;
+  rarity: CardRarity;
+  cardName: string | null;
+  cardImageUrl: string | null;
+  isDuplicateInCollection: boolean;
+  sellValue: number;
 };
 
 export type StoreSellCardInputDto = {
-    cardType: UserCardType;
-    cardId: string;
-    quantity?: number;
+  cardType: UserCardType;
+  cardId: string;
+  quantity?: number;
 };
 
 export type GetStorePacksResponseDto = {
-    success: boolean;
-    packs: StorePackDto[];
-    wallet: {
-        coins: number;
-        diamonds: number;
-    } | null;
-    message?: string;
+  success: boolean;
+  packs: StorePackDto[];
+  wallet: {
+    coins: number;
+    diamonds: number;
+  } | null;
+  message?: string;
 };
 
 export type PurchaseStorePackRequestDto = {
-    packId: string;
-    currency?: StoreCurrency;
+  packId: string;
+  currency?: StoreCurrency;
 };
 
 export type PurchaseStorePackResponseDto = {
-    success: boolean;
-    packId: string | null;
-    cards: StoreRevealCardDto[];
-    progression: UserProgressionDto | null;
-    wallet: {
-        coins: number;
-        diamonds: number;
-    } | null;
-    message?: string;
+  success: boolean;
+  packId: string | null;
+  cards: StoreRevealCardDto[];
+  progression: UserProgressionDto | null;
+  wallet: {
+    coins: number;
+    diamonds: number;
+  } | null;
+  message?: string;
 };
 
 export type SellStoreCardsRequestDto = {
-    cards: StoreSellCardInputDto[];
+  cards: StoreSellCardInputDto[];
 };
 
 export type SellStoreCardsResponseDto = {
-    success: boolean;
-    soldCount: number;
-    coinsEarned: number;
-    wallet: {
-        coins: number;
-        diamonds: number;
-    } | null;
-    progression: UserProgressionDto | null;
-    message?: string;
+  success: boolean;
+  soldCount: number;
+  coinsEarned: number;
+  wallet: {
+    coins: number;
+    diamonds: number;
+  } | null;
+  progression: UserProgressionDto | null;
+  message?: string;
 };
 
 export type AdminStorePackDto = {
-    id: string;
-    name: string;
-    description: string;
-    imageFileId: string | null;
-    imageUrl: string | null;
-    cardsCount: number;
-    cardTypes: UserCardType[];
-    allowedTribes: CreatureTribe[];
-    tribeWeights: StorePackTribeWeightsDto;
-    rarityWeights: StorePackRarityWeightsDto;
-    guaranteedMinRarity: CardRarity | null;
-    guaranteedCount: number;
-    priceCoins: number | null;
-    priceDiamonds: number | null;
-    dailyLimit: number | null;
-    weeklyLimit: number | null;
-    isActive: boolean;
-    createdAt: string;
-    updatedAt: string;
+  id: string;
+  name: string;
+  description: string;
+  tags?: string[];
+  imageFileId: string | null;
+  imageUrl: string | null;
+  cardsCount: number;
+  cardTypes: UserCardType[];
+  allowedTribes: CreatureTribe[];
+  tribeWeights: StorePackTribeWeightsDto;
+  rarityWeights: StorePackRarityWeightsDto;
+  guaranteedMinRarity: CardRarity | null;
+  guaranteedCount: number;
+  priceCoins: number | null;
+  priceDiamonds: number | null;
+  dailyLimit: number | null;
+  weeklyLimit: number | null;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type CreateAdminStorePackRequestDto = {
-    name: string;
-    description?: string | null;
-    imageFileId?: string | null;
-    cardsCount: number;
-    cardTypes: UserCardType[];
-    allowedTribes?: CreatureTribe[];
-    tribeWeights?: StorePackTribeWeightsDto;
-    rarityWeights: StorePackRarityWeightsDto;
-    guaranteedMinRarity?: CardRarity | null;
-    guaranteedCount?: number;
-    priceCoins?: number | null;
-    priceDiamonds?: number | null;
-    dailyLimit?: number | null;
-    weeklyLimit?: number | null;
-    isActive?: boolean;
+  name: string;
+  description?: string | null;
+  imageFileId?: string | null;
+  tags?: string[];
+  cardsCount: number;
+  cardTypes: UserCardType[];
+  allowedTribes?: CreatureTribe[];
+  tribeWeights?: StorePackTribeWeightsDto;
+  rarityWeights: StorePackRarityWeightsDto;
+  guaranteedMinRarity?: CardRarity | null;
+  guaranteedCount?: number;
+  priceCoins?: number | null;
+  priceDiamonds?: number | null;
+  dailyLimit?: number | null;
+  weeklyLimit?: number | null;
+  isActive?: boolean;
 };
 
 export type UpdateAdminStorePackRequestDto = Partial<CreateAdminStorePackRequestDto>;
 
+export const STORE_PACK_TAGS = ["offer", "featured", "starter"] as const;
+
+export type StorePackTag = (typeof STORE_PACK_TAGS)[number];
+
+export function isValidStorePackTag(value: string): value is StorePackTag {
+  return (STORE_PACK_TAGS as readonly string[]).includes(value);
+}
+
 export type ListAdminStorePacksResponseDto = {
-    success: boolean;
-    packs: AdminStorePackDto[];
-    message?: string;
+  success: boolean;
+  packs: AdminStorePackDto[];
+  message?: string;
 };
 
 export type CreateAdminStorePackResponseDto = {
-    success: boolean;
-    pack: AdminStorePackDto | null;
-    message?: string;
+  success: boolean;
+  pack: AdminStorePackDto | null;
+  message?: string;
 };
 
 export type UpdateAdminStorePackResponseDto = {
-    success: boolean;
-    pack: AdminStorePackDto | null;
-    message?: string;
+  success: boolean;
+  pack: AdminStorePackDto | null;
+  message?: string;
 };
 
 export type DeleteAdminStorePackResponseDto = {
-    success: boolean;
-    message?: string;
+  success: boolean;
+  message?: string;
 };
 
 export function isValidStoreCurrency(value: string): value is StoreCurrency {
-    return STORE_CURRENCIES.includes(value as StoreCurrency);
+  return STORE_CURRENCIES.includes(value as StoreCurrency);
 }

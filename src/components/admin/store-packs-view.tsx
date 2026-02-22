@@ -7,6 +7,7 @@ import { ArrowLeftOutlined, ShopOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { CARD_RARITY_OPTIONS, CREATURE_TRIBE_OPTIONS, type CardRarity, type CreatureTribe } from "@/dto/creature";
 import type { AdminStorePackDto } from "@/dto/store";
+import { STORE_PACK_TAGS } from "@/dto/store";
 import type { UserCardType } from "@/dto/progression";
 import { StorePacksAdminService } from "@/lib/api/service";
 import { AdminShell } from "@/components/admin/admin-shell";
@@ -22,6 +23,7 @@ type StorePacksViewProps = {
 type FormValues = {
   name: string;
   description?: string;
+  tags?: string[];
   imageFileId?: string;
   cardsCount: number;
   cardTypes: UserCardType[];
@@ -49,6 +51,7 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
   const { notification } = AntdApp.useApp();
   const [rows, setRows] = useState<AdminStorePackDto[]>(packs);
   const [creating, setCreating] = useState(false);
+  const [editingPack, setEditingPack] = useState<AdminStorePackDto | null>(null);
   const [removingId, setRemovingId] = useState<string | null>(null);
   const [form] = Form.useForm<FormValues>();
   const {
@@ -76,6 +79,11 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
         <Space orientation="vertical" size={2}>
           <Text strong>{row.name}</Text>
           <Text type="secondary">{row.description}</Text>
+          <Space>
+            {(row.tags ?? []).map((t) => (
+              <Tag key={`tag-${row.id}-${t}`}>{t}</Tag>
+            ))}
+          </Space>
           <Space>
             <Tag>{row.cardsCount} cartas</Tag>
             {row.priceCoins ? <Tag color="gold">🪙 {row.priceCoins}</Tag> : null}
@@ -115,62 +123,114 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
     {
       title: "Ações",
       key: "actions",
-      width: 110,
+      width: 160,
       render: (_, row) => (
-        <Popconfirm
-          title="Remover pacote"
-          description="Essa ação não pode ser desfeita."
-          okText="Remover"
-          cancelText="Cancelar"
-          onConfirm={async () => {
-            setRemovingId(row.id);
-            try {
-              await StorePacksAdminService.remove(row.id);
-              setRows((previous) => previous.filter((item) => item.id !== row.id));
-              notification.success({ message: "Pacote removido." });
-            } catch (error) {
-              notification.error({ message: error instanceof Error ? error.message : "Erro ao remover pacote." });
-            } finally {
-              setRemovingId(null);
-            }
-          }}
-        >
-          <Button danger size="small" icon={removingId === row.id ? <LoadingLogo /> : undefined} disabled={removingId === row.id}>
-            Remover
-          </Button>
-        </Popconfirm>
+        <Space>
+          <Button size="small" onClick={() => {
+            setEditingPack(row);
+            form.setFieldsValue({
+              name: row.name,
+              description: row.description,
+              tags: row.tags ?? [],
+              imageFileId: row.imageFileId ?? undefined,
+              cardsCount: row.cardsCount,
+              cardTypes: row.cardTypes,
+              allowedTribes: row.allowedTribes,
+              tribeWeights: row.tribeWeights,
+              rarityWeights: row.rarityWeights,
+              guaranteedMinRarity: row.guaranteedMinRarity ?? undefined,
+              guaranteedCount: row.guaranteedCount,
+              priceCoins: row.priceCoins ?? undefined,
+              priceDiamonds: row.priceDiamonds ?? undefined,
+              dailyLimit: row.dailyLimit ?? undefined,
+              weeklyLimit: row.weeklyLimit ?? undefined,
+              isActive: row.isActive,
+            });
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}>Editar</Button>
+
+          <Popconfirm
+            title="Remover pacote"
+            description="Essa ação não pode ser desfeita."
+            okText="Remover"
+            cancelText="Cancelar"
+            onConfirm={async () => {
+              setRemovingId(row.id);
+              try {
+                await StorePacksAdminService.remove(row.id);
+                setRows((previous) => previous.filter((item) => item.id !== row.id));
+                notification.success({ message: "Pacote removido." });
+              } catch (error) {
+                notification.error({ message: error instanceof Error ? error.message : "Erro ao remover pacote." });
+              } finally {
+                setRemovingId(null);
+              }
+            }}
+          >
+            <Button danger size="small" icon={removingId === row.id ? <LoadingLogo /> : undefined} disabled={removingId === row.id}>
+              Remover
+            </Button>
+          </Popconfirm>
+        </Space>
       ),
     },
   ], [notification, removingId]);
 
-  const handleCreate = async (values: FormValues) => {
+  const handleSubmit = async (values: FormValues) => {
     setCreating(true);
 
     try {
-      const pack = await StorePacksAdminService.create({
-        name: values.name,
-        description: values.description ?? "",
-        imageFileId: values.imageFileId ?? null,
-        cardsCount: values.cardsCount,
-        cardTypes: values.cardTypes,
-        allowedTribes: values.allowedTribes,
-        tribeWeights: values.tribeWeights,
-        rarityWeights: values.rarityWeights,
-        guaranteedMinRarity: values.guaranteedMinRarity ?? null,
-        guaranteedCount: values.guaranteedCount,
-        priceCoins: values.priceCoins ?? null,
-        priceDiamonds: values.priceDiamonds ?? null,
-        dailyLimit: values.dailyLimit ?? null,
-        weeklyLimit: values.weeklyLimit ?? null,
-        isActive: values.isActive,
-      });
+      if (editingPack) {
+        const updated = await StorePacksAdminService.update(editingPack.id, {
+          name: values.name,
+          description: values.description ?? "",
+          tags: values.tags ?? [],
+          imageFileId: values.imageFileId ?? null,
+          cardsCount: values.cardsCount,
+          cardTypes: values.cardTypes,
+          allowedTribes: values.allowedTribes,
+          tribeWeights: values.tribeWeights,
+          rarityWeights: values.rarityWeights,
+          guaranteedMinRarity: values.guaranteedMinRarity ?? null,
+          guaranteedCount: values.guaranteedCount,
+          priceCoins: values.priceCoins ?? null,
+          priceDiamonds: values.priceDiamonds ?? null,
+          dailyLimit: values.dailyLimit ?? null,
+          weeklyLimit: values.weeklyLimit ?? null,
+          isActive: values.isActive,
+        });
 
-      setRows((previous) => [pack, ...previous]);
+        setRows((previous) => previous.map((r) => (r.id === updated.id ? updated : r)));
+        setEditingPack(null);
+        notification.success({ message: "Pacote atualizado com sucesso." });
+      } else {
+        const pack = await StorePacksAdminService.create({
+          name: values.name,
+          description: values.description ?? "",
+          tags: values.tags ?? [],
+          imageFileId: values.imageFileId ?? null,
+          cardsCount: values.cardsCount,
+          cardTypes: values.cardTypes,
+          allowedTribes: values.allowedTribes,
+          tribeWeights: values.tribeWeights,
+          rarityWeights: values.rarityWeights,
+          guaranteedMinRarity: values.guaranteedMinRarity ?? null,
+          guaranteedCount: values.guaranteedCount,
+          priceCoins: values.priceCoins ?? null,
+          priceDiamonds: values.priceDiamonds ?? null,
+          dailyLimit: values.dailyLimit ?? null,
+          weeklyLimit: values.weeklyLimit ?? null,
+          isActive: values.isActive,
+        });
+
+        setRows((previous) => [pack, ...previous]);
+        notification.success({ message: "Pacote criado com sucesso." });
+      }
+
       form.resetFields();
       clearImage();
-      notification.success({ message: "Pacote criado com sucesso." });
     } catch (error) {
-      notification.error({ message: error instanceof Error ? error.message : "Erro ao criar pacote." });
+      notification.error({ message: error instanceof Error ? error.message : "Erro ao salvar pacote." });
     } finally {
       setCreating(false);
     }
@@ -194,15 +254,16 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
           </Space>
         </Card>
 
-        <Card title="Novo pacote" style={{ borderRadius: 16 }}>
+        <Card title={editingPack ? "Editar pacote" : "Novo pacote"} style={{ borderRadius: 16 }}>
           <Form<FormValues>
             form={form}
             layout="vertical"
-            onFinish={handleCreate}
+            onFinish={handleSubmit}
             initialValues={{
               cardsCount: 6,
               cardTypes: ["creature", "location", "mugic", "battlegear", "attack"],
               allowedTribes: [],
+              tags: [],
               tribeWeights: {},
               rarityWeights: { comum: 55, incomum: 25, rara: 14, super_rara: 5, ultra_rara: 1 },
               guaranteedCount: 0,
@@ -216,6 +277,10 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
 
               <Form.Item label="Descrição" name="description">
                 <Input.TextArea rows={2} placeholder="Descrição opcional do pacote" />
+              </Form.Item>
+
+              <Form.Item label="Tags (opcional)" name="tags">
+                <Select mode="tags" options={STORE_PACK_TAGS.map((t) => ({ value: t, label: t }))} placeholder="Ex.: offer, featured" style={{ width: 360 }} />
               </Form.Item>
 
               <Form.Item name="imageFileId" hidden>
@@ -339,7 +404,7 @@ export function StorePacksView({ packs }: StorePacksViewProps) {
               </Form.Item>
 
               <Button type="primary" htmlType="submit" icon={creating ? <LoadingLogo /> : undefined} disabled={creating}>
-                Criar pacote
+                {editingPack ? "Salvar alterações" : "Criar pacote"}
               </Button>
             </Space>
           </Form>

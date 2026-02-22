@@ -4,8 +4,9 @@
     "name": "Máscara de Fobia",
     "image_file_id": null,
     "image_url": null,
-    "allowed_tribes": "[]",
-    "allowed_creature_ids": "[]",
+    "file_name": "dawn_perin_149.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
     "abilities": [
       {
         "stats": [
@@ -33,386 +34,6 @@
     "created_at": "2026-02-14 17:07:36.534366+00",
     "updated_at": "2026-02-14 17:07:36.534366+00",
     "rarity": "comum"
-  },
-  {
-    "id": "bc7dd3b5-18b4-4ce8-9574-1882360f9e1a",
-    "name": "Aperto Mental",
-    "image_file_id": null,
-    "image_url": null,
-    "allowed_tribes": "[]",
-    "allowed_creature_ids": "[]",
-    "abilities": [
-      {
-        "effectType": "damage",
-        "value": 5,
-        "trigger": "opponent_reduces_disciplines",
-        "description": "Quando um efeito controlado por um oponente reduz qualquer Disciplina da Criatura equipada, Aperto Mental causa 5 de dano á  Criatura engajada alvo."
-      }
-    ],
-    "created_at": "2026-02-15 15:00:00.000000+00",
-    "updated_at": "2026-02-15 15:00:00.000000+00",
-    "rarity": "rara"
-  },
-  {
-    "id": "17914e8d-2f6d-421c-8471-f040a018c9eb",
-    "name": "Espelhos do Deslocamento",
-    "image_file_id": null,
-    "image_url": null,
-    "allowed_tribes": "[]",
-    "allowed_creature_ids": "[]",
-    "abilities": [
-      {
-        "effectType": "cycle_attack",
-        "trigger": "mugic_to_discard",
-        "description": "Quando um Card de Mugic vai para a pilha de descarte geral, descarte um Card de Ataque e compre um Card de Ataque."
-      }
-    ],
-    "created_at": "2026-02-15 15:00:00.000000+00",
-    "updated_at": "2026-02-15 15:00:00.000000+00",
-    "rarity": "super"
-  },
-  {
-    "id": "eac9b078-f325-4e4f-8965-5f1ac5522925",
-    "name": "Tabuleta Parasita",
-    "image_file_id": null,
-    "image_url": null,
-    "allowed_tribes": "[]",
-    "allowed_creature_ids": "[]",
-    "abilities": [
-      {
-        "stats": [
-          "courage"
-        ],
-        "value": 10,
-        "cardTypes": [
-          "creature"
-        ],
-        "effectType": "increase",
-        "description": "Criatura equipada ganha 10 de Coragem"
-      },
-      {
-        "effectType": "sacrifice_transform",
-        "target_tribe": "Mandiblor",
-        "condition": "engaged",
-        "description": "Sacrifique Tabuleta Parasita: Criatura equipada conta como um Mandiblor. Jogue esta habilidade apenas enquanto a criatura equipada estiver engajada."
-      }
-    ],
-    "created_at": "2026-02-15 15:00:00.000000+00",
-    "updated_at": "2026-02-15 15:00:00.000000+00",
-    "rarity": "comum"
-  },
-  {
-    "id": "63f4caa1-4b81-4339-a8bd-772f4687c7c8",
-    "name": "Armadura de Carapaça de Kha'rall",
-    "image_file_id": null,
-    "rarity": "rara",
-    "unique": true,
-    "abilities": [
-      {
-        "stats": [
-          "energy"
-        ],
-        "value": 50,
-        "effectType": "increase",
-        "description": "Criatura equipada ganha 50 de Energia"
-      },
-      {
-        "trigger": "receive_15_damage",
-        "effectType": "damage_negation",
-        "description": "Quando a criatura equipada recebe 15 ou mais de dano de ataque, o próximo ataque que ela realizar causa 0 de dano."
-      }
-    ]
-  },
-  {
-    "id": "0dea98f1-37e6-4501-86ef-cb87c6501a90",
-    "name": "Manual de Vidav",
-    "image_file_id": null,
-    "rarity": "comum",
-    "abilities": [
-      {
-        "stats": [
-          "wisdom"
-        ],
-        "value": 10,
-        "effectType": "increase",
-        "description": "Criatura equipada ganha 10 de Sabedoria"
-      },
-      {
-        "effectType": "sacrifice_heal",
-        "value": 15,
-        "condition": "engaged",
-        "description": "Sacrifique Manual de Vidav: cure 15 de dano da criatura equipada. Ative apenas enquanto engajada."
-      }
-    ]
-  },
-  {
-    "id": "d2d91851-271b-4837-9b8b-0cc1284b753a",
-    "name": "Tocha de Maxxor",
-    "image_file_id": null,
-    "rarity": "super",
-    "unique": true,
-    "abilities": [
-      {
-        "effectType": "sacrifice_damage",
-        "value": 25,
-        "target_restriction": [
-          "M'arrillian",
-          "Minion"
-        ],
-        "description": "Sacrifique Tocha de Maxxor: O oponente escolhe uma criatura M'arrillian ou Minion que ele controla. Tocha de Maxxor causa 25 de dano á  criatura escolhida."
-      }
-    ]
-  },
-  {
-    "id": "e7dba31e-3e9e-489f-b449-bafb858632ae",
-    "name": "Prisma Mental",
-    "image_file_id": null,
-    "rarity": "comum",
-    "abilities": [
-      {
-        "stats": [
-          "energy"
-        ],
-        "value": 10,
-        "effectType": "increase",
-        "description": "Criatura equipada ganha 10 de Energia"
-      }
-    ]
-  },
-  {
-    "id": "90f58526-cfac-4b97-98d9-35f9b63f66cb",
-    "name": "Aperto Mental",
-    "image_file_id": null,
-    "rarity": "rara",
-    "abilities": [
-      {
-        "trigger": "opponent_reduces_disciplines",
-        "effectType": "damage",
-        "value": 5,
-        "description": "Quando um efeito controlado pelo oponente reduz qualquer Disciplina da criatura equipada, Aperto Mental causa 5 de dano á  criatura engajada alvo."
-      }
-    ]
-  },
-  {
-    "id": "35add343-c670-4ccd-a606-fb6fa85854b9",
-    "name": "Espelhos do Deslocamento",
-    "image_file_id": null,
-    "rarity": "super",
-    "abilities": [
-      {
-        "trigger": "mugic_to_discard",
-        "effectType": "cycle_attack",
-        "description": "Quando um card de Mugic vai para a pilha de descarte geral, descarte um card de Ataque e compre um card de Ataque."
-      }
-    ]
-  },
-  {
-    "id": "1246eeff-38ad-48a1-af16-2a652db7c6fc",
-    "name": "Tabuleta Parasita",
-    "image_file_id": null,
-    "rarity": "comum",
-    "abilities": [
-      {
-        "stats": [
-          "courage"
-        ],
-        "value": 10,
-        "effectType": "increase",
-        "description": "Criatura equipada ganha 10 de Coragem"
-      },
-      {
-        "effectType": "sacrifice_trait",
-        "trait": "Mandiblor",
-        "condition": "engaged",
-        "description": "Sacrifique Tabuleta Parasita: A criatura equipada conta como um Mandiblor enquanto estiver engajada."
-      }
-    ]
-  },
-  {
-    "id": "1b7ffe2f-5c04-4593-a5ed-7f7e6e72253f",
-    "name": "Amplificador Cerebral",
-    "image_file_id": null,
-    "rarity": "super",
-    "abilities": [
-      {
-        "stats": [
-          "wisdom"
-        ],
-        "value": 15,
-        "effectType": "increase",
-        "description": "Criatura equipada ganha 15 de Sabedoria"
-      },
-      {
-        "stats": [
-          "energy"
-        ],
-        "value": 5,
-        "effectType": "increase",
-        "description": "Criatura equipada ganha 5 de Energia"
-      },
-      {
-        "trigger": "win_combat",
-        "effectType": "gain_mugic_counter",
-        "description": "Quando a criatura equipada vence um combate, ela ganha um Mugic Counter."
-      }
-    ]
-  },
-  {
-    "id": "6101a9ec-08a3-4532-a8d0-304984aa7158",
-    "name": "Sopro do Deserto",
-    "image_file_id": null,
-    "rarity": "comum",
-    "abilities": [
-      {
-        "stats": [
-          "speed"
-        ],
-        "value": 10,
-        "effectType": "increase",
-        "description": "Criatura equipada ganha 10 de Velocidade"
-      },
-      {
-        "effectType": "sacrifice_gain_element",
-        "element": "Air",
-        "value": 5,
-        "condition": "engaged",
-        "description": "Sacrifique Sopro do Deserto: Criatura equipada ganha 'Ar 5'. Jogue esta habilidade apenas enquanto a criatura estiver engajada."
-      }
-    ]
-  },
-  {
-    "id": "8854b1ec-b74d-44a3-b8b7-c783b37aee79",
-    "name": "Destrutozuca",
-    "image_file_id": null,
-    "rarity": "rara",
-    "abilities": [
-      {
-        "trigger": "revealed",
-        "effectType": "choice_elemental_gain",
-        "value": 5,
-        "description": "Quando Destrutozuca á© revelado, escolha um Tipo Elemental. A criatura equipada ganha o elemento escolhido e 'Elemento 5' daquele tipo."
-      }
-    ]
-  },
-  {
-    "id": "4acef7fe-1056-4023-981d-15fb3ef2478f",
-    "name": "Âmbar da Colmeia",
-    "image_file_id": null,
-    "rarity": "rara",
-    "abilities": [
-      {
-        "effectType": "sacrifice_activate_hive",
-        "description": "Sacrifique Âmbar da Colmeia: Ative a Colmeia (Hive)."
-      },
-      {
-        "trigger": "mandiblor_to_discard",
-        "effectType": "return_from_discard",
-        "description": "Quando um Mandiblor que você controla á© colocado na pilha de descarte, você pode retornar Âmbar da Colmeia para o jogo equipado em uma criatura sua não equipada."
-      }
-    ]
-  },
-  {
-    "id": "ab0a3b7a-e51b-4a3b-9cf4-7a85915e6c0c",
-    "name": "Amplificador de Aspecto: Agilidade",
-    "image_file_id": null,
-    "rarity": "comum",
-    "abilities": [
-      {
-        "effectType": "outperform",
-        "stats": [
-          "speed"
-        ],
-        "value": 5,
-        "description": "Criatura equipada ganha 'Outperform Speed 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Velocidade bem-sucedidos."
-      }
-    ]
-  },
-  {
-    "id": "327d934b-1030-4081-9628-f8b7951ea41a",
-    "name": "Amplificador de Aspecto: Bravura",
-    "image_file_id": null,
-    "rarity": "comum",
-    "abilities": [
-      {
-        "effectType": "outperform",
-        "stats": [
-          "courage"
-        ],
-        "value": 5,
-        "description": "Criatura equipada ganha 'Outperform Courage 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Coragem bem-sucedidos."
-      }
-    ]
-  },
-  {
-    "id": "cd3e455a-5cf6-43f2-a6ce-f78c682e802e",
-    "name": "Amplificador de Aspecto: Potência",
-    "image_file_id": null,
-    "rarity": "comum",
-    "abilities": [
-      {
-        "effectType": "outperform",
-        "stats": [
-          "power"
-        ],
-        "value": 5,
-        "description": "Criatura equipada ganha 'Outperform Power 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Poder bem-sucedidos."
-      }
-    ]
-  },
-  {
-    "id": "6e83c522-0fbd-4808-997f-a0898005bf5a",
-    "name": "Amplificador de Aspecto: Sagacidade",
-    "image_file_id": null,
-    "rarity": "comum",
-    "abilities": [
-      {
-        "effectType": "outperform",
-        "stats": [
-          "wisdom"
-        ],
-        "value": 5,
-        "description": "Criatura equipada ganha 'Outperform Wisdom 5'. Ataques jogados pela criatura equipada causam 5 de dano adicional com ataques de Sabedoria bem-sucedidos."
-      }
-    ]
-  },
-  {
-    "id": "2bdbadb4-ec29-4f39-a3df-57d0bcc95b68",
-    "name": "Aerodrone",
-    "image_file_id": null,
-    "rarity": "super",
-    "abilities": [
-      {
-        "trigger": "deal_air_damage",
-        "effectType": "deck_manipulation",
-        "description": "Quando a criatura equipada causa dano de Ar, você pode olhar os quatro cards do topo do seu Attack Deck e colocá¡-los de volta no topo em qualquer ordem."
-      }
-    ]
-  },
-  {
-    "id": "54f435c1-c4d2-4071-80ca-31169e36c079",
-    "name": "Asas Algares de Atração",
-    "image_file_id": null,
-    "rarity": "ultra",
-    "unique": true,
-    "abilities": [
-      {
-        "effectType": "forced_movement",
-        "description": "Se uma Criatura oponente adjacente puder se mover para o espaço da criatura equipada, ela deve fazáª-lo. (Vocáª pode iniciar apenas um combate por turno)."
-      }
-    ]
-  },
-  {
-    "id": "d214571b-40bc-4fdf-9284-749926c360c5",
-    "name": "Isca Sedutora",
-    "image_file_id": null,
-    "rarity": "rara",
-    "abilities": [
-      {
-        "cost": "discard_mugic",
-        "effectType": "relocate_opponent",
-        "description": "Criatura equipada ganha: 'Descarte um Card de Mugic: Realoque a criatura oponente não engajada alvo para um espaço desocupado adjacente á  criatura equipada.'"
-      }
-    ]
   },
   {
     "id": "0d2303fd-389b-4586-ab23-fb026388461b",
@@ -1248,12 +869,12 @@
   {
     "id": "e5d5e6a8-673c-4e95-8238-e87094e342b7",
     "file_name": "dawn_perin_138.png",
-    "name": "Diamond de Vearic",
+    "name": "Diamante de Vearic",
     "image_file_id": null,
     "image_url": null,
     "abilities": [
       {
-        "description": "Sacrseice Diamond de Vearic: Equipped Creature ganhes Elemental Type Earth until o end de combat.",
+        "description": "Sacrseice Diamante de Vearic: Equipped Creature ganhes Elemental Type Earth until o end de combat.",
         "effectType": "gain",
         "battleRules": {
           "type": "sacrifice_to_gain_element",
@@ -1275,7 +896,7 @@
   {
     "id": "2bdfc0f7-a1b9-41a6-9af2-d668b7b8d1ae",
     "file_name": "dawn_perin_139.png",
-    "name": "Dragão Pulse",
+    "name": "Pulso Dragão",
     "image_file_id": null,
     "image_url": null,
     "abilities": [
@@ -1302,7 +923,7 @@
   {
     "id": "34b742f2-8a35-4d1c-b871-a0e5bbaea886",
     "file_name": "dawn_perin_140.png",
-    "name": "Cuxin de Tenacity",
+    "name": "Cuxin de Tenacidade",
     "image_file_id": null,
     "image_url": null,
     "abilities": [
@@ -1351,7 +972,7 @@
   {
     "id": "45df4616-93d9-4ae8-8d29-a0076a17bbc8",
     "file_name": "dawn_perin_141.png",
-    "name": "Flux Bauble",
+    "name": "Bugiganga de Fluxo",
     "image_file_id": null,
     "image_url": null,
     "abilities": [
@@ -1378,7 +999,7 @@
   {
     "id": "5b909a03-fed4-49ca-94bd-864b8f21de12",
     "file_name": "dawn_perin_142.png",
-    "name": "Dauntlets de Might",
+    "name": "Manoplas do Poder",
     "image_file_id": null,
     "image_url": null,
     "abilities": [
@@ -1405,12 +1026,12 @@
   {
     "id": "13d85ab5-4777-46fa-95f3-e4a31f1a6270",
     "file_name": "dawn_perin_143.png",
-    "name": "Liquilizer",
+    "name": "Liquidificador",
     "image_file_id": null,
     "image_url": null,
     "abilities": [
       {
-        "description": "Sacrseice Liquilizer: Equipped Creature ganhes Elemental Type Water until o end de combat.",
+        "description": "Sacrseice Liquidificador: Equipped Creature ganhes Elemental Type Water until o end de combat.",
         "effectType": "gain",
         "battleRules": {
           "type": "sacrifice_to_gain_element",
@@ -1474,7 +1095,7 @@
   {
     "id": "f899b18a-be53-424c-b870-191d265b1821",
     "file_name": "dawn_perin_145.png",
-    "name": "Mowercycle",
+    "name": "Motocicleta",
     "image_file_id": null,
     "image_url": null,
     "abilities": [
@@ -1743,7 +1364,7 @@
   {
     "id": "31d11667-4445-4b29-8270-f491f88d6099",
     "file_name": "dawn_perin_153.png",
-    "name": "Riverle Star",
+    "name": "Estrela Riverle",
     "image_file_id": null,
     "image_url": null,
     "abilities": [
@@ -1785,7 +1406,7 @@
   {
     "id": "811472ac-089f-4a9a-a429-06f5c27b0396",
     "file_name": "dawn_perin_154.png",
-    "name": "Skeletal Steed",
+    "name": "Cavalo Esquelético",
     "image_file_id": null,
     "image_url": null,
     "abilities": [
@@ -1826,7 +1447,7 @@
   {
     "id": "0fa4b533-8723-4c1a-9fac-de4bcb0a04d0",
     "file_name": "dawn_perin_155.png",
-    "name": "Spectral Viewer",
+    "name": "Visualizador Espectral",
     "image_file_id": null,
     "image_url": null,
     "abilities": [

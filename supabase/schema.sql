@@ -306,6 +306,22 @@ create table if not exists public.store_packs (
 alter table if exists public.store_packs
   add column if not exists image_file_id text;
 
+alter table if exists public.store_packs
+  add column if not exists tags text[] not null default '{}'::text[];
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'store_packs_tags_check'
+  ) then
+    alter table public.store_packs
+      add constraint store_packs_tags_check
+      check (tags <@ array['offer','featured','starter']::text[]);
+  end if;
+end $$;
+
 create table if not exists public.progression_events (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.users(id) on delete cascade,

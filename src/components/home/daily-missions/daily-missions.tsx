@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, List, Button, Tag, notification } from "antd";
+import { Card, Button, Tag, notification, Space } from "antd";
 import styles from "@/app/page.module.css";
 
 const MOCK_MISSIONS = [
@@ -16,17 +16,19 @@ export default function DailyMissions() {
 
   return (
     <Card className={styles.missionsCard} title="Missões Diárias">
-      <List
-        dataSource={MOCK_MISSIONS}
-        renderItem={(m) => (
-          <List.Item className={styles.missionItem} actions={[<Button key="claim" type="primary" size="small" onClick={() => claim(m)}>Reivindicar</Button>]}>
+      <div>
+        {MOCK_MISSIONS.map((m) => (
+          <div key={m.id} className={styles.missionItem} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
               <div className={styles.missionTitle}>{m.title}</div>
               <div className={styles.missionReward}><Tag color="gold">{m.reward}</Tag></div>
             </div>
-          </List.Item>
-        )}
-      />
+            <div>
+              <Button key="claim" type="primary" size="small" onClick={() => claim(m)}>Reivindicar</Button>
+            </div>
+          </div>
+        ))}
+      </div>
     </Card>
   );
 }

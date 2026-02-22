@@ -8,13 +8,13 @@ export default function CTAButtons() {
   return (
     <div className={styles.ctaRow}>
       <Space>
-        <Link href="/play" legacyBehavior>
+        <Link href="/play">
           <Button type="primary" size="large" className={styles.starterCtaButton}>Jogar</Button>
         </Link>
-        <Link href="/store" legacyBehavior>
+        <Link href="/store">
           <Button size="large" className={styles.starterCtaButton}>Loja</Button>
         </Link>
-        <Link href="/decks" legacyBehavior>
+        <Link href="/decks">
           <Button size="large" className={styles.starterCtaButton}>Construir Deck</Button>
         </Link>
       </Space>

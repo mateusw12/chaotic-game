@@ -2,7 +2,7 @@
   {
     "id": "80afc899-79f1-45c1-adaa-af61836c1012",
     "name": "Akkrean",
-    "fileName": "",
+    "fileName": "marrilian_invasion_2.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -30,7 +30,7 @@
   {
     "id": "072aca03-b790-404a-9c93-8fccde2c8669",
     "name": "Frafdo The Hero",
-    "fileName": "",
+    "fileName": "marrilian_invasion_3.png",
     "rarity": "super_rara",
     "imageFileId": null,
     "imageUrl": null,
@@ -55,7 +55,7 @@
   {
     "id": "6e4586a1-eb31-4366-9e23-25541b88baa2",
     "name": "Grindaald",
-    "fileName": "",
+    "fileName": "marrilian_invasion_4.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -82,7 +82,7 @@
   {
     "id": "d4187f4d-75bb-49b5-a504-2742ec203baf",
     "name": "Lystone",
-    "fileName": "",
+    "fileName": "marrilian_invasion_8.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -107,7 +107,7 @@
   {
     "id": "17ee6cf3-1825-4dc5-9772-543133b5b2d4",
     "name": "Gronmor",
-    "fileName": "",
+    "fileName": "marrilian_invasion_5.png",
     "rarity": "super_rara",
     "imageFileId": null,
     "imageUrl": null,
@@ -138,7 +138,7 @@
   {
     "id": "7e7c6820-6446-4ac2-ad99-2da11c4bf3f3",
     "name": "Ikkatosh",
-    "fileName": "",
+    "fileName": "marrilian_invasion_6.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -166,7 +166,7 @@
   {
     "id": "7c4bfcd5-fb01-421b-ada1-63dbe3e66d9d",
     "name": "Issaley",
-    "fileName": "",
+    "fileName": "marrilian_invasion_7.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -193,7 +193,7 @@
   {
     "id": "3e528400-1545-45c1-be1b-470093087dd4",
     "name": "Okaxor",
-    "fileName": "",
+    "fileName": "marrilian_invasion_9.png",
     "rarity": "super_rara",
     "imageFileId": null,
     "imageUrl": null,
@@ -218,7 +218,7 @@
   {
     "id": "947397cb-80e1-4c46-bd33-07b886c5dde0",
     "name": "Tangath Toborn In Training",
-    "fileName": "",
+    "fileName": "marrilian_invasion_10.png",
     "rarity": "super_rara",
     "imageFileId": null,
     "imageUrl": null,
@@ -247,7 +247,7 @@
   {
     "id": "6be25a6a-426a-4a0e-880b-d8795d1ecaca",
     "name": "Targubaj",
-    "fileName": "",
+    "fileName": "marrilian_invasion_11.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -276,7 +276,7 @@
   {
     "id": "f8ae6935-a46f-4fce-98d7-0e442635c339",
     "name": "Tartarek Psi Overloader",
-    "fileName": "",
+    "fileName": "marrilian_invasion_12.png",
     "rarity": "ultra_rara",
     "imageFileId": null,
     "imageUrl": null,
@@ -304,7 +304,7 @@
   {
     "id": "ed633473-4ea3-4d56-aa54-cc5f96402b6b",
     "name": "Trimdaal",
-    "fileName": "",
+    "fileName": "marrilian_invasion_13.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -333,7 +333,7 @@
   {
     "id": "c756efb7-5f9e-4f3e-ab2d-7c564f3e9ac0",
     "name": "Wrenges",
-    "fileName": "",
+    "fileName": "marrilian_invasion_14.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -360,7 +360,7 @@
   {
     "id": "e26b73c1-8e2e-450d-902d-ae8a1779d577",
     "name": "Aokua",
-    "fileName": "",
+    "fileName": "marrilian_invasion_15.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -385,7 +385,7 @@
   {
     "id": "4a3b63a4-7c5e-4330-b62e-fba01e839955",
     "name": "Asadab",
-    "fileName": "",
+    "fileName": "marrilian_invasion_16.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -414,7 +414,7 @@
   {
     "id": "0601ee0a-2930-4fad-85d3-55d1bc53211a",
     "name": "Brimflame",
-    "fileName": "",
+    "fileName": "marrilian_invasion_18.png",
     "rarity": "super_rara",
     "imageFileId": null,
     "imageUrl": null,
@@ -442,7 +442,7 @@
   {
     "id": "cfbf1fb2-13b0-4fdb-9ec8-d7227c7a084c",
     "name": "Drakness",
-    "fileName": "",
+    "fileName": "dawn_perin_33.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -465,63 +465,10 @@
     "updatedAt": "2026-02-21T14:07:20.732Z"
   },
   {
-    "id": "71339210-9461-4688-b1ac-820985a09f32",
-    "name": "Geltus",
-    "fileName": "",
-    "rarity": "comum",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "underworld",
-    "power": 30,
-    "courage": 35,
-    "speed": 20,
-    "wisdom": 60,
-    "mugic": 2,
-    "energy": 30,
-    "dominantElements": [],
-    "supportAbilityId": [
-      "u12w4710-9s99-2t00-s999-u12w47109s99"
-    ],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": null,
-    "createdAt": "2026-02-21T14:07:20.732Z",
-    "updatedAt": "2026-02-21T14:07:20.732Z"
-  },
-  {
-    "id": "6d58801b-2704-4fed-83f9-a84a3d291dd8",
-    "name": "Hammerdoom Chantcaller",
-    "fileName": "",
-    "rarity": "super_rara",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "underworld",
-    "power": 75,
-    "courage": 70,
-    "speed": 45,
-    "wisdom": 40,
-    "mugic": 1,
-    "energy": 55,
-    "dominantElements": [
-      "fire",
-      "earth"
-    ],
-    "supportAbilityId": [
-      "v23x5821-0t00-3u11-t000-v23x58210t00"
-    ],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": null,
-    "createdAt": "2026-02-21T14:07:20.732Z",
-    "updatedAt": "2026-02-21T14:07:20.732Z"
-  },
-  {
     "id": "f9274724-a0a1-4929-a889-c2ff9e4d3300",
-    "name": "Krekk",
+    "name": "Krekk Falange Recon",
     "fileName": "30.png",
-    "rarity": "rara",
+    "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
     "tribe": "underworld",
@@ -536,88 +483,6 @@
     ],
     "supportAbilityId": [
       "w34y6932-1u11-4v22-u111-w34y69321u11"
-    ],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": null,
-    "createdAt": "2026-02-21T14:07:20.732Z",
-    "updatedAt": "2026-02-21T14:07:20.732Z"
-  },
-  {
-    "id": "514e0948-a1e6-40bd-950e-3f309e9549aa",
-    "name": "Kreeti",
-    "fileName": "",
-    "rarity": "comum",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "underworld",
-    "power": 45,
-    "courage": 45,
-    "speed": 45,
-    "wisdom": 45,
-    "mugic": 2,
-    "energy": 40,
-    "dominantElements": [
-      "fire"
-    ],
-    "supportAbilityId": [
-      "x45z7043-2v22-5w33-v222-x45z70432v22"
-    ],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": null,
-    "createdAt": "2026-02-21T14:07:20.732Z",
-    "updatedAt": "2026-02-21T14:07:20.732Z"
-  },
-  {
-    "id": "d4fb36f2-5230-43e6-9f87-e2b5532b4d8d",
-    "name": "Nivenna",
-    "fileName": "",
-    "rarity": "super_rara",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "underworld",
-    "power": 50,
-    "courage": 45,
-    "speed": 55,
-    "wisdom": 60,
-    "mugic": 2,
-    "energy": 50,
-    "dominantElements": [
-      "fire"
-    ],
-    "supportAbilityId": [
-      "y56a8154-3w33-6x44-w333-y56a81543w33",
-      "l23n5821-0j00-3k11-j000-l23n58210j00"
-    ],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": "Habilidades: Intimidação Sabedoria 10 e Fogo 5.",
-    "createdAt": "2026-02-21T14:07:20.732Z",
-    "updatedAt": "2026-02-21T14:07:20.732Z"
-  },
-  {
-    "id": "7b239051-4f6c-40e9-974c-122a3149171f",
-    "name": "Rorth-Ma",
-    "fileName": "",
-    "rarity": "comum",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "underworld",
-    "power": 55,
-    "courage": 45,
-    "speed": 40,
-    "wisdom": 15,
-    "mugic": 1,
-    "energy": 35,
-    "dominantElements": [
-      "fire"
-    ],
-    "supportAbilityId": [
-      "z67b9265-4x44-7y55-x444-z67b92654x44"
     ],
     "supportAbilityName": [],
     "brainwashedAbilityId": [],
@@ -654,50 +519,20 @@
     "updatedAt": "2026-02-21T14:07:20.732Z"
   },
   {
-    "id": "694189a4-2ff0-4602-9cf2-38a3e2f0fcfc",
-    "name": "Spyder",
-    "fileName": "",
-    "rarity": "comum",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "underworld",
-    "power": 45,
-    "courage": 60,
-    "speed": 40,
-    "wisdom": 15,
-    "mugic": 0,
-    "energy": 40,
-    "dominantElements": [
-      "fire"
-    ],
-    "supportAbilityId": [
-      "c90e2598-7a77-0b88-a777-c90e25987a77"
-    ],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": null,
-    "createdAt": "2026-02-21T14:07:20.732Z",
-    "updatedAt": "2026-02-21T14:07:20.732Z"
-  },
-  {
     "id": "183b334e-597c-422e-87ea-a8ad4590ba02",
     "name": "Skreeth",
-    "fileName": "",
+    "fileName": "dawn_perin_50.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
     "tribe": "underworld",
-    "power": 30,
-    "courage": 40,
-    "speed": 65,
-    "wisdom": 15,
-    "mugic": 1,
-    "energy": 30,
-    "dominantElements": [
-      "fire",
-      "air"
-    ],
+    "power": 65,
+    "courage": 80,
+    "speed": 20,
+    "wisdom": 60,
+    "mugic": 0,
+    "energy": 55,
+    "dominantElements": [],
     "supportAbilityId": [
       "b89d1487-6z66-9a77-z666-b89d14876z66"
     ],
@@ -709,51 +544,20 @@
     "updatedAt": "2026-02-21T14:07:20.732Z"
   },
   {
-    "id": "56ad8741-2caf-4684-b3a6-9fbfba00bdc5",
-    "name": "Skelic",
-    "fileName": "",
-    "rarity": "comum",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "underworld",
-    "power": 35,
-    "courage": 40,
-    "speed": 70,
-    "wisdom": 20,
-    "mugic": 1,
-    "energy": 35,
-    "dominantElements": [
-      "fire",
-      "air"
-    ],
-    "supportAbilityId": [
-      "a78c0376-5y55-8z66-y555-a78c03765y55"
-    ],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": null,
-    "createdAt": "2026-02-21T14:07:20.732Z",
-    "updatedAt": "2026-02-21T14:07:20.732Z"
-  },
-  {
     "id": "70b1f88c-6000-4a67-ae9f-82d7e3b4ea9a",
     "name": "Borth-Majar",
-    "fileName": "",
-    "rarity": "super_rara",
+    "fileName": "dawn_perin_30.png",
+    "rarity": "rara",
     "imageFileId": null,
     "imageUrl": null,
     "tribe": "underworld",
-    "power": 65,
-    "courage": 70,
-    "speed": 55,
-    "wisdom": 30,
+    "power": 85,
+    "courage": 45,
+    "speed": 40,
+    "wisdom": 85,
     "mugic": 1,
-    "energy": 55,
-    "dominantElements": [
-      "air",
-      "earth"
-    ],
+    "energy": 45,
+    "dominantElements": [],
     "supportAbilityId": [
       "e12g4710-9c99-2d00-c999-e12g47109c99",
       "f23h5821-0d00-3e11-d000-f23h58210d00"
@@ -793,58 +597,6 @@
     "updatedAt": "2026-02-21T14:07:20.732Z"
   },
   {
-    "id": "46532a07-f436-48ee-a9fc-09160401cd17",
-    "name": "Daimani",
-    "fileName": "",
-    "rarity": "comum",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "underworld",
-    "power": 40,
-    "courage": 35,
-    "speed": 35,
-    "wisdom": 35,
-    "mugic": 1,
-    "energy": 35,
-    "dominantElements": [
-      "fire"
-    ],
-    "supportAbilityId": [
-      "h45j7043-2f22-5g33-f222-h45j70432f22"
-    ],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": null,
-    "createdAt": "2026-02-21T14:07:20.732Z",
-    "updatedAt": "2026-02-21T14:07:20.732Z"
-  },
-  {
-    "id": "6b803c2d-466c-4985-8005-314b9fc9e7c9",
-    "name": "Dardanos",
-    "fileName": "",
-    "rarity": "comum",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "underworld",
-    "power": 50,
-    "courage": 40,
-    "speed": 35,
-    "wisdom": 30,
-    "mugic": 0,
-    "energy": 40,
-    "dominantElements": [
-      "fire"
-    ],
-    "supportAbilityId": [],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": null,
-    "createdAt": "2026-02-21T14:07:20.732Z",
-    "updatedAt": "2026-02-21T14:07:20.732Z"
-  },
-  {
     "id": "97cd7c57-43a4-442b-b72e-1c40aac3ccdf",
     "name": "Nauthilax (aquatic Spy)",
     "fileName": "32.png",
@@ -875,53 +627,24 @@
     "updatedAt": "2026-02-21T14:07:20.732Z"
   },
   {
-    "id": "08a3f34c-4792-404a-b445-baf7d8fe183a",
-    "name": "Lyssita",
-    "fileName": "",
-    "rarity": "comum",
-    "imageFileId": null,
-    "imageUrl": null,
-    "tribe": "overworld",
-    "power": 45,
-    "courage": 35,
-    "speed": 25,
-    "wisdom": 35,
-    "mugic": 1,
-    "energy": 35,
-    "dominantElements": [
-      "fire",
-      "earth"
-    ],
-    "supportAbilityId": [
-      "q23r4567-8s99-0t00-u111-v222w333x444"
-    ],
-    "supportAbilityName": [],
-    "brainwashedAbilityId": [],
-    "brainwashedAbilityName": [],
-    "equipmentNote": null,
-    "createdAt": "2026-02-21T14:07:20.733Z",
-    "updatedAt": "2026-02-21T14:07:20.733Z"
-  },
-  {
     "id": "f7a2f6e3-db49-495f-8392-0d7a2634229e",
     "name": "Kraade",
-    "fileName": "",
+    "fileName": "marrilian_invasion_21.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
     "tribe": "underworld",
-    "power": 40,
-    "courage": 35,
-    "speed": 35,
-    "wisdom": 35,
+    "power": 65,
+    "courage": 50,
+    "speed": 50,
+    "wisdom": 40,
     "mugic": 1,
-    "energy": 35,
+    "energy": 45,
     "dominantElements": [
-      "fire"
+      "fire",
+      "earth"
     ],
-    "supportAbilityId": [
-      "s45t6789-0u11-2v22-w333-x444y555z666"
-    ],
+    "supportAbilityId": [],
     "supportAbilityName": [],
     "brainwashedAbilityId": [],
     "brainwashedAbilityName": [],
@@ -932,17 +655,17 @@
   {
     "id": "e29342a2-7088-49ce-859b-d0199c9226a7",
     "name": "Kreaal",
-    "fileName": "",
-    "rarity": "super_rara",
+    "fileName": "marrilian_invasion_22.png",
+    "rarity": "rara",
     "imageFileId": null,
     "imageUrl": null,
     "tribe": "overworld",
-    "power": 35,
-    "courage": 45,
-    "speed": 40,
-    "wisdom": 75,
-    "mugic": 2,
-    "energy": 30,
+    "power": 85,
+    "courage": 40,
+    "speed": 50,
+    "wisdom": 15,
+    "mugic": 1,
+    "energy": 65,
     "dominantElements": [
       "fire",
       "air"
@@ -960,7 +683,7 @@
   {
     "id": "89750548-5f02-4dbe-b434-a9eefe4551c9",
     "name": "Tomugar",
-    "fileName": "",
+    "fileName": "marrilian_invasion_28.png",
     "rarity": "super_rara",
     "imageFileId": null,
     "imageUrl": null,
@@ -971,7 +694,9 @@
     "wisdom": 60,
     "mugic": 2,
     "energy": 40,
-    "dominantElements": [],
+    "dominantElements": [
+      "air"
+    ],
     "supportAbilityId": [
       "7a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d"
     ],
@@ -987,7 +712,7 @@
   {
     "id": "5f76c09b-ca02-42cb-9a39-046b0f4b7217",
     "name": "Ooloo",
-    "fileName": "",
+    "fileName": "marrilian_invasion_25.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -999,7 +724,8 @@
     "mugic": 1,
     "energy": 55,
     "dominantElements": [
-      "fire"
+      "fire",
+      "air"
     ],
     "supportAbilityId": [
       "9c3d4e5f-6a7b-8c9d-0e1f-2a3b4c5d6e7f"
@@ -1016,7 +742,7 @@
   {
     "id": "313fcad5-4560-4b17-a108-aba920010a31",
     "name": "Ragetrod",
-    "fileName": "",
+    "fileName": "marrilian_invasion_26.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -1046,7 +772,7 @@
   {
     "id": "dc176423-4680-4808-b459-9ccfeb5b7162",
     "name": "Rarran Tainted",
-    "fileName": "",
+    "fileName": "marrilian_invasion_27.png",
     "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
@@ -1057,7 +783,9 @@
     "wisdom": 20,
     "mugic": 0,
     "energy": 50,
-    "dominantElements": [],
+    "dominantElements": [
+      "air"
+    ],
     "supportAbilityId": [
       "d7a8b9c0-d1e2-f3a4-b5c6-d7e8f9a0b1c2"
     ],
@@ -1739,7 +1467,7 @@
     "id": "5d8c1e3a-54b0-4005-84e6-5dd1b21f1dea",
     "name": "Skorblust",
     "fileName": "38.png",
-    "rarity": "rara",
+    "rarity": "comum",
     "imageFileId": null,
     "imageUrl": null,
     "tribe": "underworld",
@@ -3919,6 +3647,32 @@
     "updatedAt": "2026-02-21T14:07:20.742Z"
   },
   {
+    "id": "d4fb36f2-5230-43e6-9f87-e2b5532b4d8d",
+    "name": "Nivenna",
+    "fileName": "rise_of_oligarch_11.png",
+    "rarity": "super_rara",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribe": "underworld",
+    "power": 50,
+    "courage": 40,
+    "speed": 60,
+    "wisdom": 90,
+    "mugic": 3,
+    "energy": 30,
+    "dominantElements": [],
+    "supportAbilityId": [
+      "y56a8154-3w33-6x44-w333-y56a81543w33",
+      "l23n5821-0j00-3k11-j000-l23n58210j00"
+    ],
+    "supportAbilityName": [],
+    "brainwashedAbilityId": [],
+    "brainwashedAbilityName": [],
+    "equipmentNote": "Habilidades: Intimidação Sabedoria 10 e Fogo 5.",
+    "createdAt": "2026-02-21T14:07:20.732Z",
+    "updatedAt": "2026-02-21T14:07:20.732Z"
+  },
+  {
     "id": "d101e93c-42d6-4131-b5a8-bb0163f44883",
     "name": "Chaor",
     "fileName": "dawn_perin_31.png",
@@ -4116,6 +3870,33 @@
     "supportAbilityId": [
       "e47eecb3-d37c-4cdd-917d-0d5727839e8e",
       "61c776cd-1fb9-42d7-9f2b-0c5b592a0f14"
+    ],
+    "supportAbilityName": [],
+    "brainwashedAbilityId": [],
+    "brainwashedAbilityName": [],
+    "equipmentNote": null,
+    "createdAt": "2026-02-21T14:07:20.742Z",
+    "updatedAt": "2026-02-21T14:07:20.742Z"
+  },
+  {
+    "id": "bab1ce23-2c2a-4d77-8c12-e8ebcb369bae",
+    "name": "Krekk",
+    "fileName": "dawn_perin_40.png",
+    "rarity": "comum",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribe": "underworld",
+    "power": 85,
+    "courage": 10,
+    "speed": 60,
+    "wisdom": 20,
+    "mugic": 0,
+    "energy": 40,
+    "dominantElements": [
+      "fire"
+    ],
+    "supportAbilityId": [
+      "99ab7d5d-427b-460c-b9a4-6c11415cf78e"
     ],
     "supportAbilityName": [],
     "brainwashedAbilityId": [],
