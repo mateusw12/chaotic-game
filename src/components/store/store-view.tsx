@@ -1,58 +1,32 @@
 "use client";
 
-import { Button, Card, Col, Modal, Row, Space, Tag, Tooltip, Typography, notification } from "antd";
-import { InfoCircleOutlined, ShoppingOutlined } from "@ant-design/icons";
-import { AnimatePresence, motion } from "framer-motion";
+import { Button, Card, Col, Row, Space, Tag, Typography, notification } from "antd";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { SellStoreCardsResponseDto, StorePackDto, StoreRevealCardDto, StoreSellCardInputDto } from "@/dto/store";
+import type {
+  SellStoreCardsResponseDto,
+  StorePackDto,
+  StoreRevealCardDto,
+  StoreSellCardInputDto,
+} from "@/dto/store";
 import styles from "./store-view.module.css";
 import { PlayerShell } from "@/components/player/player-shell";
-import type { CardRarity, CreatureTribe } from "@/dto/creature";
-import type { UserCardType } from "@/dto/progression";
 import { ApiClient } from "@/lib/api/api-client";
 import { StoreService } from "@/lib/api/services/store.service";
 import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
+import { ensureDualCurrencyOptions, resolvePackImage, getEnumDescription, getCurrencySymbol } from "./store-view.helpers";
+import RevealModal from "./reveal-modal/reveal-modal";
+import PackLimits from "./pack-limits/pack-limits";
+import PackTitle from "./pack-title/pack-title";
 
-const { Title, Paragraph, Text } = Typography;
-const REVEAL_CARD_FALLBACK_IMAGE = "/assets/card/verso.png";
+const { Title, Text } = Typography;
 
 type StoreViewProps = {
   userName: string | null;
   userNickName: string | null;
   userImageUrl: string | null;
 };
-
-function getEnumDescription(value: UserCardType | CreatureTribe | CardRarity): string {
-  const map: Record<string, string> = {
-    creature: "Criaturas",
-    location: "Locais",
-    mugic: "Mugic",
-    battlegear: "Equipamentos",
-    attack: "Ataques",
-    overworld: "Outro Mundo",
-    underworld: "Submundo",
-    mipedian: "Mipedian",
-    marrillian: "M'arrillian",
-    danian: "Danian",
-    ancient: "Antigos",
-    comum: "Comum",
-    incomum: "Incomum",
-    rara: "Rara",
-    super_rara: "Super Rara",
-    ultra_rara: "Ultra Rara",
-  };
-
-  return map[value] ?? value;
-}
-
-function getCurrencyLabel(currency: StorePackDto["currency"]) {
-  return currency === "coins" ? "moedas" : "diamantes";
-}
-
-function getCurrencySymbol(currency: StorePackDto["currency"]) {
-  return currency === "coins" ? "🪙" : "💎";
-}
 
 export function StoreView({ userName, userNickName, userImageUrl }: StoreViewProps) {
   const [loading, setLoading] = useState(true);
@@ -120,7 +94,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
       setRevealedCards(payload.cards);
       setIsRevealOpen(true);
       setRecentlyPurchasedPackId(packId);
-      apiMessage.success({ message: "Pacote comprado com sucesso!" });
+      apiMessage.success({ title: "Pacote comprado com sucesso!" });
       await loadStore();
     } catch (error) {
       apiMessage.error({ message: error instanceof Error ? error.message : "Erro na compra do pacote." });
@@ -130,7 +104,11 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
   }, [apiMessage, loadStore]);
 
   const sortedPacks = useMemo(
-    () => [...packs].sort((left, right) => left.price - right.price),
+    () => [...packs].sort((left, right) => {
+      const leftMin = Math.min(...ensureDualCurrencyOptions(left).map((item) => item.price));
+      const rightMin = Math.min(...ensureDualCurrencyOptions(right).map((item) => item.price));
+      return leftMin - rightMin;
+    }),
     [packs],
   );
 
@@ -208,7 +186,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
 
       setCoins(payload.wallet.coins);
       setDiamonds(payload.wallet.diamonds);
-      apiMessage.success({ message: `Venda concluída: +${payload.coinsEarned} moedas.` });
+      apiMessage.success({ title: `Venda concluída: +${payload.coinsEarned} moedas.` });
     } catch (error) {
       if (rollbackCards) {
         setRevealedCards(rollbackCards);
@@ -224,7 +202,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
     setIsRevealOpen(false);
 
     if (revealedCards.length > 0) {
-      apiMessage.success({ message: "Cartas adicionadas ao seu deck com sucesso." });
+      apiMessage.success({ title: "Cartas adicionadas ao seu deck com sucesso." });
     }
   }, [apiMessage, revealedCards.length]);
 
@@ -239,24 +217,25 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
       userRole="user"
     >
       {contextHolder}
-      <Title level={3} style={{ marginTop: 0 }}>Loja de Cards</Title>
-      <Paragraph>
-        Compre pacotes por moedas ou diamantes. Alguns têm limite diário e outros semanal.
-      </Paragraph>
+      <section className={styles.storeHero}>
+        <Title level={3} className={styles.storeTitle}>Loja de Cards</Title>
+      </section>
 
       {loading ? (
         <Space style={{ width: "100%", justifyContent: "center", paddingTop: 40 }}>
           <LoadingLogo size="large" alt="Carregando loja" />
         </Space>
       ) : (
-        <Row gutter={[16, 16]}>
+        <Row gutter={[16, 16]} className={styles.packsGrid}>
           {sortedPacks.map((pack) => {
             const dailyLimit = pack.limits.find((limit) => limit.window === "daily");
             const weeklyLimit = pack.limits.find((limit) => limit.window === "weekly");
             const canPurchase = pack.limits.every((limit) => limit.remainingPurchases > 0);
+            const displayPriceOptions = ensureDualCurrencyOptions(pack);
+            const packImageUrl = resolvePackImage(pack);
 
             return (
-              <Col key={pack.id} xs={24} sm={12} lg={8} xl={6}>
+              <Col key={pack.id} xs={24} sm={12} md={8} lg={6} xl={4}>
                 <motion.div
                   className={styles.packMotionWrap}
                   initial={{ opacity: 0, y: 18 }}
@@ -272,45 +251,22 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                   whileHover={{ y: -4, scale: 1.01 }}
                   transition={{ duration: 0.42, ease: "easeOut", delay: 0.02 }}
                 >
+                  <PackLimits dailyLimit={dailyLimit} weeklyLimit={weeklyLimit} />
+
                   <Card
                     className={styles.packCard}
                     size="small"
-                    title={(
-                      <Space size={6}>
-                        <span>{pack.name}</span>
-                        <Tooltip
-                          title={(
-                            <Space orientation="vertical" size={2}>
-                              <Text style={{ color: "white" }}>
-                                Tipos: {pack.cardTypes.map((item) => getEnumDescription(item)).join(", ")}
-                              </Text>
-                              {pack.allowedTribes.length > 0 ? (
-                                <Text style={{ color: "white" }}>
-                                  Tribos: {pack.allowedTribes.map((tribe) => getEnumDescription(tribe)).join(", ")}
-                                </Text>
-                              ) : null}
-                              {pack.guaranteedMinRarity ? (
-                                <Text style={{ color: "white" }}>
-                                  Garantia: {pack.guaranteedCount} {getEnumDescription(pack.guaranteedMinRarity)}+
-                                </Text>
-                              ) : null}
-                            </Space>
-                          )}
-                        >
-                          <InfoCircleOutlined className={styles.infoIcon} />
-                        </Tooltip>
-                      </Space>
-                    )}
+                    title={<PackTitle pack={pack} />}
                   >
                     <div className={styles.packContent}>
-                      {pack.imageUrl ? (
+                      {packImageUrl ? (
                         <Image
-                          src={pack.imageUrl}
+                          src={packImageUrl}
                           alt={pack.name}
                           width={640}
                           height={360}
                           unoptimized
-                          style={{ width: "100%", height: 120, objectFit: "cover", borderRadius: 10 }}
+                          className={styles.packImage}
                         />
                       ) : null}
                       <Text className={styles.packDescription}>{pack.description}</Text>
@@ -318,44 +274,13 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                       <div className={styles.offerBox}>
                         <div className={styles.offerTopRow}>
                           <Tag className={styles.countTag}>{pack.cardsCount} cartas</Tag>
-                          <Space size={4}>
-                            {pack.priceOptions.map((option) => (
-                              <Tag key={`${pack.id}-${option.currency}`} color={option.currency === "coins" ? "gold" : "geekblue"}>
-                                {option.currency === "coins" ? "Moedas" : "Diamantes"}
-                              </Tag>
-                            ))}
-                          </Space>
                         </div>
 
-                        {pack.priceOptions.map((option) => (
-                          <div key={`${pack.id}-price-${option.currency}`}>
-                            <div className={styles.priceLine}>
-                              <Text className={styles.priceSymbol}>{getCurrencySymbol(option.currency)}</Text>
-                              <Text className={styles.priceValue}>{option.price}</Text>
-                              <Text className={styles.priceUnit}>{getCurrencyLabel(option.currency)}</Text>
-                            </div>
-                            <Text className={styles.priceHint}>
-                              ≈ {Math.max(1, Math.round(option.price / pack.cardsCount))} {getCurrencyLabel(option.currency)} por carta
-                            </Text>
-                          </div>
-                        ))}
+
                       </div>
 
-                      <Space wrap className={styles.limitsRow}>
-                        {dailyLimit ? (
-                          <Tag>
-                            Restam hoje: {dailyLimit.remainingPurchases}/{dailyLimit.maxPurchases}
-                          </Tag>
-                        ) : null}
-                        {weeklyLimit ? (
-                          <Tag>
-                            Restam semana: {weeklyLimit.remainingPurchases}/{weeklyLimit.maxPurchases}
-                          </Tag>
-                        ) : null}
-                      </Space>
-
                       <Space orientation="vertical" size={8} style={{ width: "100%", marginTop: "auto" }}>
-                        {pack.priceOptions.map((option) => {
+                        {displayPriceOptions.map((option) => {
                           const purchaseKey = `${pack.id}:${option.currency}`;
 
                           return (
@@ -363,12 +288,12 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
                               key={purchaseKey}
                               className={styles.buyButton}
                               type="primary"
-                              icon={purchasingPackKey === purchaseKey ? loadingLogoIcon : <ShoppingOutlined />}
+                              icon={purchasingPackKey === purchaseKey ? loadingLogoIcon : undefined}
                               onClick={() => void handlePurchase(pack.id, option.currency)}
                               disabled={!canPurchase || purchasingPackKey !== null}
                               block
                             >
-                              Comprar com {option.currency === "coins" ? "Moedas" : "Diamantes"}
+                              {getCurrencySymbol(option.currency)} {option.price}
                             </Button>
                           );
                         })}
@@ -381,124 +306,17 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
           })}
         </Row>
       )}
-      <Modal
+      <RevealModal
         open={isRevealOpen}
-        title="Abertura do Pacote"
-        className={styles.revealModal}
-        onCancel={handleCloseRevealModal}
-        footer={[
-          <Button key="close" type="primary" onClick={handleCloseRevealModal}>
-            Fechar
-          </Button>,
-        ]}
-        width={1180}
-      >
-        <div className={styles.revealHeader}>
-          <Text className={styles.revealTitle}>Cartas Reveladas</Text>
-          <Space>
-            <Tag className={styles.revealCountTag}>{sortedRevealedCards.length} cartas</Tag>
-            <Tag className={styles.revealCoinsTag}>Valor total: {totalRevealSellValue} moedas</Tag>
-            <Button
-              size="small"
-              type="primary"
-              disabled={sortedRevealedCards.length === 0}
-              icon={sellingAll ? loadingLogoIcon : undefined}
-              onClick={() => void handleSellCards(
-                sortedRevealedCards.map((card) => ({
-                  cardType: card.cardType,
-                  cardId: card.cardId,
-                  quantity: 1,
-                })),
-                "all",
-              )}
-            >
-              Vender todas
-            </Button>
-          </Space>
-        </div>
-        <AnimatePresence mode="wait">
-          {isRevealOpen ? (
-            <motion.div
-              key={`reveal-${sortedRevealedCards.length}`}
-              className={styles.revealGrid}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: {
-                  opacity: 1,
-                  transition: {
-                    staggerChildren: 0.08,
-                    delayChildren: 0.05,
-                  },
-                },
-              }}
-            >
-              {sortedRevealedCards.map((card, index) => (
-                <motion.div
-                  key={`${card.cardType}-${card.cardId}-${index}`}
-                  variants={{
-                    hidden: { opacity: 0, y: 28, scale: 0.88, rotateY: -70, rotateX: 12 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                      rotateY: 0,
-                      rotateX: 0,
-                      transition: { type: "spring", stiffness: 180, damping: 18, mass: 0.8 },
-                    },
-                  }}
-                  whileHover={{ y: -8, scale: 1.03, rotateZ: -0.6 }}
-                  className={styles.revealMotionItem}
-                >
-                  <Card
-                    size="small"
-                    className={styles.revealCard}
-                  >
-                    <div className={styles.revealImageWrap}>
-                      {card.isDuplicateInCollection ? (
-                        <Tag color="gold" className={styles.duplicateBadge}>Duplicada</Tag>
-                      ) : null}
-                      <Image
-                        src={card.cardImageUrl ?? REVEAL_CARD_FALLBACK_IMAGE}
-                        alt={card.cardName ?? card.cardType}
-                        width={320}
-                        height={420}
-                        unoptimized
-                        className={styles.cardImage}
-                      />
-                    </div>
-                    <Space orientation="vertical" size={4} style={{ marginTop: 10, width: "100%" }}>
-                      <Text strong className={styles.revealCardName}>{card.cardName ?? card.cardType}</Text>
-                      <Space size={6} wrap className={styles.revealMetaRow}>
-                        <Tag className={styles.revealMetaTag}>{getEnumDescription(card.cardType)}</Tag>
-                        <Tag className={styles.revealMetaTag}>{getEnumDescription(card.rarity)}</Tag>
-                        <Tag className={styles.revealValueTag}>🪙 Valor {card.sellValue}</Tag>
-                      </Space>
-                      <Button
-                        size="small"
-                        block
-                        disabled={sellingAll}
-                        icon={sellingCardKey === `${card.cardType}:${card.cardId}` ? loadingLogoIcon : undefined}
-                        onClick={() => void handleSellCards([
-                          {
-                            cardType: card.cardType,
-                            cardId: card.cardId,
-                            quantity: 1,
-                          },
-                        ], "single")}
-                      >
-                        Vender carta
-                      </Button>
-                    </Space>
-                  </Card>
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </Modal>
+        onClose={handleCloseRevealModal}
+        revealedCards={sortedRevealedCards}
+        totalSellValue={totalRevealSellValue}
+        sellingAll={sellingAll}
+        sellingCardKey={sellingCardKey}
+        loadingIcon={loadingLogoIcon}
+        onSellCards={handleSellCards}
+        getEnumDescription={getEnumDescription}
+      />
     </PlayerShell>
   );
 }
