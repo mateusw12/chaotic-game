@@ -1,168 +1,193 @@
 .layout {
-    min-height: 100vh;
-    background:
-        radial-gradient(circle at 12% 8%, rgba(129, 140, 248, 0.3), transparent 38%),
-        radial-gradient(circle at 88% 0%, rgba(34, 211, 238, 0.18), transparent 32%),
-        #050812;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(129, 140, 248, 0.3), transparent 38%),
+    radial-gradient(circle at 88% 0%, rgba(34, 211, 238, 0.18), transparent 32%),
+    #050812;
 }
 
 .sider {
-    background:
-        linear-gradient(180deg, rgba(17, 24, 51, 0.96), rgba(7, 12, 27, 0.98)) !important;
-    border-right: 1px solid rgba(167, 182, 255, 0.2);
-    box-shadow:
-        0 0 0 1px rgba(93, 115, 255, 0.12) inset,
-        18px 0 40px rgba(0, 0, 0, 0.35);
+  background:
+    linear-gradient(180deg, rgba(17, 24, 51, 0.96), rgba(7, 12, 27, 0.98)) !important;
+  border-right: 1px solid rgba(167, 182, 255, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(93, 115, 255, 0.12) inset,
+    18px 0 40px rgba(0, 0, 0, 0.35);
 }
 
 .brand {
-    padding: 22px 16px 14px;
-    color: #e8eeff;
-    font-size: 21px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    text-shadow: 0 0 16px rgba(129, 140, 248, 0.4);
+  padding: 22px 16px 14px;
+  color: #e8eeff;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(129, 140, 248, 0.4);
 }
 
 .navMenu {
-    padding-inline: 8px;
+  padding-inline: 8px;
 }
 
 .navMenu :global(.ant-menu-item) {
-    border-radius: 10px !important;
-    margin-block: 6px !important;
-    color: rgba(221, 229, 255, 0.88) !important;
-    transition: all 0.15s ease;
+  border-radius: 10px !important;
+  margin-block: 6px !important;
+  color: rgba(221, 229, 255, 0.88) !important;
+  transition: all 0.15s ease;
 }
 
 .navMenu :global(.ant-menu-item:hover) {
-    background: rgba(62, 78, 144, 0.42) !important;
-    color: #f7f8ff !important;
+  background: rgba(62, 78, 144, 0.42) !important;
+  color: #f7f8ff !important;
 }
 
 .navMenu :global(.ant-menu-item-selected) {
-    background: linear-gradient(120deg, rgba(99, 102, 241, 0.5), rgba(34, 211, 238, 0.24)) !important;
-    color: #ffffff !important;
-    box-shadow: 0 0 0 1px rgba(168, 180, 255, 0.34) inset;
+  background: linear-gradient(120deg, rgba(99, 102, 241, 0.5), rgba(34, 211, 238, 0.24)) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 1px rgba(168, 180, 255, 0.34) inset;
 }
 
 .header {
-    min-height: 72px;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-inline: 24px;
-    padding-block: 10px;
-    background:
-        linear-gradient(180deg, rgba(16, 23, 50, 0.9), rgba(8, 12, 27, 0.84));
-    border-bottom: 1px solid rgba(161, 176, 255, 0.2);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  min-height: 72px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-inline: 24px;
+  padding-block: 10px;
+  background:
+    linear-gradient(180deg, rgba(16, 23, 50, 0.9), rgba(8, 12, 27, 0.84));
+  border-bottom: 1px solid rgba(161, 176, 255, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 }
 
 .headerRow {
-    align-items: center;
+  align-items: center;
 }
 
 .headerRow :global(.ant-space-item) {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .resourceTag {
-    margin-inline-end: 0 !important;
-    border-radius: 999px;
-    border: 1px solid rgba(179, 192, 255, 0.34);
-    padding: 0 12px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    box-shadow:
-        0 0 0 1px rgba(173, 187, 255, 0.12) inset,
-        0 6px 16px rgba(0, 0, 0, 0.24);
+  margin-inline-end: 0 !important;
+  border-radius: 999px;
+  border: 1px solid rgba(179, 192, 255, 0.34);
+  padding: 0 12px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  box-shadow:
+    0 0 0 1px rgba(173, 187, 255, 0.12) inset,
+    0 6px 16px rgba(0, 0, 0, 0.24);
 }
 
 .resourceCoins {
-    background: linear-gradient(140deg, rgba(144, 93, 0, 0.48), rgba(52, 34, 2, 0.58));
+  background: linear-gradient(140deg, rgba(144, 93, 0, 0.48), rgba(52, 34, 2, 0.58));
 }
 
 .resourceDiamonds {
-    background: linear-gradient(140deg, rgba(26, 80, 142, 0.5), rgba(11, 31, 58, 0.62));
+  background: linear-gradient(140deg, rgba(26, 80, 142, 0.5), rgba(11, 31, 58, 0.62));
+}
+
+.levelTag {
+  background: linear-gradient(90deg, rgba(10, 140, 200, 0.12), rgba(110, 60, 200, 0.12));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  height: 36px;
+  min-width: 72px;
+}
+
+.levelNumber {
+  font-weight: 800;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.levelPercent {
+  font-size: 12px;
+  color: rgba(220, 230, 255, 0.9);
+  font-weight: 800;
+  line-height: 1;
 }
 
 .resourceValue {
-    color: #f7f9ff;
-    line-height: 1;
+  color: #f7f9ff;
+  line-height: 1;
 }
 
 .resourceLabel {
-    color: rgba(218, 228, 255, 0.88);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
+  color: rgba(218, 228, 255, 0.88);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 .userName {
-    color: #dde6ff;
-    font-weight: 600;
+  color: #dde6ff;
+  font-weight: 600;
 }
 
 .profileTrigger {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    height: 36px;
-    border: 0;
-    border-radius: 10px;
-    padding: 0 10px 0 2px;
-    background: rgba(18, 25, 53, 0.65);
-    cursor: pointer;
-    line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  padding: 0 10px 0 2px;
+  background: rgba(18, 25, 53, 0.65);
+  cursor: pointer;
+  line-height: 1;
 }
 
 .profileTrigger:hover {
-    background: rgba(36, 49, 100, 0.72);
+  background: rgba(36, 49, 100, 0.72);
 }
 
 .headerButton {
-    height: 36px;
-    display: inline-flex;
-    align-items: center;
-    border-radius: 10px;
-    border-color: rgba(165, 180, 255, 0.3);
-    background: rgba(18, 25, 53, 0.68);
-    color: #eaf0ff;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 10px;
+  border-color: rgba(165, 180, 255, 0.3);
+  background: rgba(18, 25, 53, 0.68);
+  color: #eaf0ff;
 }
 
 .headerButton:hover {
-    border-color: rgba(165, 180, 255, 0.7) !important;
-    color: #ffffff !important;
-    background: rgba(37, 49, 102, 0.74) !important;
+  border-color: rgba(165, 180, 255, 0.7) !important;
+  color: #ffffff !important;
+  background: rgba(37, 49, 102, 0.74) !important;
 }
 
 .content {
-    padding: 24px;
+  padding: 24px;
 }
 
 @media (max-width: 768px) {
-    .header {
-        justify-content: center;
-        padding-inline: 12px;
-    }
+  .header {
+    justify-content: center;
+    padding-inline: 12px;
+  }
 
-    .userName {
-        display: none;
-    }
+  .userName {
+    display: none;
+  }
 
-    .profileTrigger {
-        padding-right: 2px;
-    }
+  .profileTrigger {
+    padding-right: 2px;
+  }
 }

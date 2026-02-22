@@ -3,28 +3,22 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   GoogleOutlined,
-  SettingOutlined,
-  InfoCircleOutlined,
 } from "@ant-design/icons";
 import {
   Button,
   Card,
-  Col,
-  Progress,
-  Row,
   Space,
-  Statistic,
   Tag,
   Typography,
   notification,
-  Modal,
-  Tooltip,
 } from "antd";
-import Link from "next/link";
-import Image from "next/image";
 import { signIn } from "next-auth/react";
 import styles from "@/app/page.module.css";
 import StarterModal from "@/components/home/starter-modal/starter-modal";
+import HomeBanner from "@/components/home/home-banner/home-banner";
+import CTAButtons from "@/components/home/cta-buttons/cta-buttons";
+import DailyMissions from "@/components/home/daily-missions/daily-missions";
+import FeaturedOffer from "@/components/home/featured-offer/featured-offer";
 import { PlayerShell } from "@/components/player/player-shell";
 import HeroHeader from "@/components/home/hero-header/hero-header";
 import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
@@ -51,12 +45,6 @@ type HomeViewProps = {
 
 const { Title, Paragraph, Text } = Typography;
 
-const STARTER_TRIBE_SYMBOLS: Record<StarterSelectableTribe, string> = {
-  overworld: "/assets/symbols/overWorld.png",
-  underworld: "/assets/symbols/underWorld.png",
-  mipedian: "/assets/symbols/mipedian.png",
-  danian: "/assets/symbols/danian.png",
-};
 
 export function HomeView({
   isAuthenticated,
@@ -241,6 +229,8 @@ export function HomeView({
       coins={coins}
       diamonds={diamonds}
       userRole={userRole}
+      level={level}
+      xpPercent={xpPercent}
     >
       {loadingStarterStatus ? (
         <Card className={styles.heroCard}>
@@ -269,36 +259,39 @@ export function HomeView({
 
           <div className={styles.dashboardIntro}>
             <Text className={styles.introTitle}>Sua conta está ativa e pronta para explorar o jogo.</Text>
-            <Text className={styles.introSubtitle}>Use moedas e diamantes para construir decks, comprar pacotes e melhorar cartas.</Text>
+            <Text className={styles.introSubtitle}>Use recursos para construir decks, comprar pacotes e melhorar cartas.</Text>
+          </div>
+
+          <div className={styles.bannerRow}>
+            <div className={styles.bannerColumn}>
+              <HomeBanner />
+              <div style={{ margin: "6px 0 0 0" }}>
+                <CTAButtons />
+              </div>
+            </div>
+
+            <div className={styles.promoColumn}>
+              <FeaturedOffer />
+              <div style={{ marginTop: 8 }}>
+                <DailyMissions />
+              </div>
+            </div>
           </div>
 
           <div className={styles.dashboardGrid}>
-            <div className={styles.resourceCard}>
-              <div className={styles.resourceIcon}>🪙</div>
-              <div>
-                <div className={styles.resourceLabel}>Moedas</div>
-                <div className={`${styles.resourceValue} ${coinsUpdating ? styles.resourceValueUpdating : ""}`}>{animCoins.toLocaleString()}</div>
-              </div>
-            </div>
-
-            <div className={styles.resourceCard}>
-              <div className={styles.resourceIcon}>💎</div>
-              <div>
-                <div className={styles.resourceLabel}>Diamantes</div>
-                <div className={`${styles.resourceValue} ${diamondsUpdating ? styles.resourceValueUpdating : ""}`}>{animDiamonds.toLocaleString()}</div>
-              </div>
-            </div>
-
             <div className={styles.levelCard}>
               <div className={styles.levelHeader}>
                 <div className={styles.levelNumber}>Nível {level}</div>
                 <div className={styles.levelXpTotal}>(XP total: {xpTotal})</div>
               </div>
               <div className={styles.xpInfo}>
-                <div className={styles.xpText}>XP no nível atual: {xpCurrentLevel}/{xpNextLevel}</div>
+                <div className={styles.xpText}>
+                  <strong>XP no nível: </strong>{xpCurrentLevel}/{xpNextLevel}
+                </div>
                 <div className={styles.xpBarWrap}>
                   <div className={styles.xpBar} style={{ width: `${animXpPercent}%` }} />
                 </div>
+                <div className={styles.xpLeft}>Para próximo nível: {Math.max(0, xpNextLevel - xpCurrentLevel)} XP</div>
               </div>
               <div className={styles.xpPercent}>{Math.round(animXpPercent)}%</div>
             </div>
