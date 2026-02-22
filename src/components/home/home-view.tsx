@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   GoogleOutlined,
   SettingOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -16,12 +17,16 @@ import {
   Tag,
   Typography,
   notification,
+  Modal,
+  Tooltip,
 } from "antd";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import styles from "@/app/page.module.css";
+import StarterModal from "@/components/home/starter-modal/starter-modal";
 import { PlayerShell } from "@/components/player/player-shell";
+import HeroHeader from "@/components/home/hero-header/hero-header";
 import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 import { CREATURE_TRIBE_OPTIONS } from "@/dto/creature";
 import type {
@@ -134,6 +139,71 @@ export function HomeView({
     ? Math.min(100, Math.round((xpCurrentLevel / xpNextLevel) * 100))
     : 0;
 
+
+
+  // animated values for coins, diamonds and xp percent
+  // start from 0 so we animate on first mount
+  const [animCoins, setAnimCoins] = useState<number>(0);
+  const [animDiamonds, setAnimDiamonds] = useState<number>(0);
+  const [animXpPercent, setAnimXpPercent] = useState<number>(0);
+  const [coinsUpdating, setCoinsUpdating] = useState(false);
+  const [diamondsUpdating, setDiamondsUpdating] = useState(false);
+  const [xpUpdating, setXpUpdating] = useState(false);
+
+  const coinRaf = useRef<number | null>(null);
+  const diamondsRaf = useRef<number | null>(null);
+  const xpRaf = useRef<number | null>(null);
+
+  const animateValue = (
+    from: number,
+    to: number,
+    setter: (v: number) => void,
+    rafRef: React.MutableRefObject<number | null>,
+    duration = 700,
+  ) => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+
+    const start = performance.now();
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      setter(Math.round(from + (to - from) * eased));
+      if (t < 1) {
+        rafRef.current = requestAnimationFrame(step);
+      } else {
+        rafRef.current = null;
+        setter(to);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(step);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); rafRef.current = null; };
+  };
+
+  useEffect(() => {
+    setCoinsUpdating(true);
+    const cancel = animateValue(animCoins, coins, setAnimCoins, coinRaf);
+    const t = setTimeout(() => setCoinsUpdating(false), 800);
+    return () => { clearTimeout(t); if (cancel) cancel(); };
+  }, [coins]);
+
+  useEffect(() => {
+    setDiamondsUpdating(true);
+    const cancel = animateValue(animDiamonds, diamonds, setAnimDiamonds, diamondsRaf);
+    const t = setTimeout(() => setDiamondsUpdating(false), 800);
+    return () => { clearTimeout(t); if (cancel) cancel(); };
+  }, [diamonds]);
+
+  useEffect(() => {
+    setXpUpdating(true);
+    const cancel = animateValue(animXpPercent, xpPercent, setAnimXpPercent, xpRaf);
+    const t = setTimeout(() => setXpUpdating(false), 700);
+    return () => { clearTimeout(t); if (cancel) cancel(); };
+  }, [xpPercent]);
+
   if (!isAuthenticated) {
     return (
       <main className={styles.guestPage}>
@@ -182,122 +252,57 @@ export function HomeView({
       ) : null}
 
       {requiresStarterChoice ? (
-        <Card className={`${styles.heroCard} ${styles.starterCard}`}>
-          <Space orientation="vertical" size={16} style={{ width: "100%" }}>
-            <div className={styles.starterHeroHeader}>
-              <Space align="center" size={10}>
-                <Tag color="purple" className={styles.starterBadge}>Primeiro acesso</Tag>
-                <Tag color="blue">Missão de início</Tag>
-              </Space>
-              <Title level={2} className={styles.starterTitle}>
-                Escolha sua Tribo
-              </Title>
-              <Paragraph className={styles.starterSubtitle}>
-                Defina sua tribo para ativar o deck inicial, desbloquear bônus de XP e iniciar sua progressão competitiva.
-              </Paragraph>
-              <Text className={styles.starterPhase}>Fase 1/1 · Seleção de Tribo</Text>
-            </div>
-
-            <Text className={styles.starterSectionTitle}>Tribos Disponíveis</Text>
-            <Row gutter={[14, 14]}>
-              {starterTribes.map((tribe) => {
-                const selected = starterSelection === tribe.value;
-                const disabled = submittingStarterChoice || Boolean(lockedStarterTribe && lockedStarterTribe !== tribe.value);
-
-                return (
-                  <Col xs={24} sm={12} lg={6} key={tribe.value}>
-                    <button
-                      type="button"
-                      className={`${styles.starterTribeCard} ${selected ? styles.starterTribeCardSelected : ""}`}
-                      onClick={() => setStarterSelection(tribe.value)}
-                      disabled={disabled}
-                    >
-                      <div className={styles.starterTribeImageWrap}>
-                        <Image
-                          src={STARTER_TRIBE_SYMBOLS[tribe.value]}
-                          alt={tribe.label}
-                          width={96}
-                          height={96}
-                          className={styles.starterTribeImage}
-                          unoptimized
-                          style={{ backgroundColor: "transparent" }}
-                        />
-                      </div>
-                      <Text strong>{tribe.label}</Text>
-                      <Text type="secondary" className={styles.starterTribeDescription}>
-                        {tribe.description}
-                      </Text>
-                      {selected ? <Tag color="green">Pronto para iniciar</Tag> : <Tag>Selecionar tribo</Tag>}
-                    </button>
-                  </Col>
-                );
-              })}
-            </Row>
-
-            <div className={styles.starterRewardStrip}>
-              <Text>🎁 Pacote 1: 10 criaturas da tribo escolhida</Text>
-              <Text>🎁 Pacote 2: 5 cartas entre Mugic e Equipamentos</Text>
-              <Text>🎁 Pacote 3: 10 cartas entre Locais e Ataques (máx. 3 locais)</Text>
-            </div>
-
-            {lockedStarterTribe ? (
-              <Text type="secondary">
-                Sua tribo inicial já está definida. Confirme para receber o deck inicial.
-              </Text>
-            ) : null}
-
-            <Button
-              type="primary"
-              size="large"
-              className={styles.starterCtaButton}
-              icon={submittingStarterChoice ? <LoadingLogo /> : undefined}
-              onClick={() => void handleConfirmStarterTribe()}
-              disabled={!starterSelection || submittingStarterChoice}
-            >
-              Iniciar jornada e receber deck
-            </Button>
-          </Space>
-        </Card>
+        <StarterModal
+          open={requiresStarterChoice}
+          starterTribes={starterTribes}
+          starterSelection={starterSelection}
+          setStarterSelection={(v) => setStarterSelection(v)}
+          lockedStarterTribe={lockedStarterTribe}
+          submittingStarterChoice={submittingStarterChoice}
+          handleConfirmStarterTribe={handleConfirmStarterTribe}
+        />
       ) : null}
 
       {!requiresStarterChoice ? (
         <Card className={styles.heroCard}>
-          <Space style={{ width: "100%", justifyContent: "space-between" }} align="center">
-            <Title level={2} style={{ margin: 0 }}>Mundo Chaotic</Title>
-            {userRole === "admin" ? (
-              <Link href="/admin/permissions">
-                <Button icon={<SettingOutlined />}>Administração</Button>
-              </Link>
-            ) : null}
-          </Space>
-          <Paragraph>
-            Sua conta está ativa e pronta para explorar o jogo. Em breve, você
-            poderá usar moedas e diamantes para evoluir sua experiência.
-          </Paragraph>
+          <HeroHeader userRole={userRole} />
 
-          <Row gutter={[16, 16]}>
-            <Col xs={24} md={12}>
-              <Card className={styles.statCard}>
-                <Statistic title="Moedas" value={coins} suffix="🪙" />
-              </Card>
-            </Col>
-            <Col xs={24} md={12}>
-              <Card className={styles.statCard}>
-                <Statistic title="Diamantes" value={diamonds} suffix="💎" />
-              </Card>
-            </Col>
-            <Col xs={24}>
-              <Card className={styles.statCard}>
-                <Space orientation="vertical" style={{ width: "100%" }} size={6}>
-                  <Statistic title="Nível" value={level} suffix={`(XP total: ${xpTotal})`} />
-                  <Text>
-                    XP no nível atual: {xpCurrentLevel}/{xpNextLevel}
-                  </Text>
-                  <Progress percent={xpPercent} />
-                </Space>
-              </Card>
-            </Col>
-          </Row>
+          <div className={styles.dashboardIntro}>
+            <Text className={styles.introTitle}>Sua conta está ativa e pronta para explorar o jogo.</Text>
+            <Text className={styles.introSubtitle}>Use moedas e diamantes para construir decks, comprar pacotes e melhorar cartas.</Text>
+          </div>
+
+          <div className={styles.dashboardGrid}>
+            <div className={styles.resourceCard}>
+              <div className={styles.resourceIcon}>🪙</div>
+              <div>
+                <div className={styles.resourceLabel}>Moedas</div>
+                <div className={`${styles.resourceValue} ${coinsUpdating ? styles.resourceValueUpdating : ""}`}>{animCoins.toLocaleString()}</div>
+              </div>
+            </div>
+
+            <div className={styles.resourceCard}>
+              <div className={styles.resourceIcon}>💎</div>
+              <div>
+                <div className={styles.resourceLabel}>Diamantes</div>
+                <div className={`${styles.resourceValue} ${diamondsUpdating ? styles.resourceValueUpdating : ""}`}>{animDiamonds.toLocaleString()}</div>
+              </div>
+            </div>
+
+            <div className={styles.levelCard}>
+              <div className={styles.levelHeader}>
+                <div className={styles.levelNumber}>Nível {level}</div>
+                <div className={styles.levelXpTotal}>(XP total: {xpTotal})</div>
+              </div>
+              <div className={styles.xpInfo}>
+                <div className={styles.xpText}>XP no nível atual: {xpCurrentLevel}/{xpNextLevel}</div>
+                <div className={styles.xpBarWrap}>
+                  <div className={styles.xpBar} style={{ width: `${animXpPercent}%` }} />
+                </div>
+              </div>
+              <div className={styles.xpPercent}>{Math.round(animXpPercent)}%</div>
+            </div>
+          </div>
         </Card>
       ) : null}
     </PlayerShell>

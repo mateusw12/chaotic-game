@@ -76,22 +76,169 @@
   background: rgba(8, 13, 30, 0.8);
 }
 
+/* Dashboard / Card game style */
+.dashboardIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.introTitle {
+  font-weight: 700;
+  color: #e6eeff;
+}
+
+.introSubtitle {
+  color: rgba(210, 220, 255, 0.8);
+  font-size: 13px;
+}
+
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.resourceCard {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(14, 18, 36, 0.7), rgba(8, 12, 28, 0.6));
+  border: 1px solid rgba(129, 140, 248, 0.06);
+  box-shadow: 0 8px 20px rgba(4, 6, 20, 0.6);
+}
+
+.resourceIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  background: linear-gradient(135deg, rgba(40, 42, 78, 0.86), rgba(24, 28, 56, 0.86));
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.resourceLabel {
+  color: rgba(190, 200, 255, 0.9);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.resourceValue {
+  font-weight: 800;
+  font-size: 20px;
+  color: #fff;
+}
+
+.levelCard {
+  grid-column: 1 / -1;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(18, 20, 42, 0.9), rgba(8, 10, 20, 0.9));
+  border: 1px solid rgba(129, 140, 248, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 10px 30px rgba(2, 6, 18, 0.6);
+}
+
+.levelHeader {
+  flex: 1;
+}
+
+.levelNumber {
+  font-weight: 900;
+  font-size: 22px;
+  color: #fff;
+}
+
+.levelXpTotal {
+  font-size: 12px;
+  color: rgba(200, 210, 255, 0.8);
+}
+
+.xpInfo {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.xpText {
+  font-size: 13px;
+  color: rgba(190, 200, 255, 0.9);
+}
+
+.xpBarWrap {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.xpBar {
+  height: 100%;
+  background: linear-gradient(90deg, #7a5cff, #00c0ff);
+  box-shadow: 0 6px 18px rgba(80, 100, 255, 0.14) inset;
+  transition: width 0.4s ease;
+}
+
+.xpPercent {
+  font-weight: 700;
+  min-width: 56px;
+  text-align: right;
+  color: rgba(220, 230, 255, 0.95);
+}
+
+@media (max-width: 760px) {
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .resourceIcon {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+}
+
 .statCard {
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(90deg, #7a5cff, #00c0ff);
 }
 
 .starterCard {
+
+  /* Warm palette overrides */
+  /* paletteWarm rules removed per request */
+
+  /* Warm palette rules removed */
+
+  /* Number glow when updating */
+  .resourceValue {
+    transition: transform 260ms ease, text-shadow 260ms ease;
+  }
+
+  .resourceValueUpdating {
+    transform: translateY(-4px);
+    text-shadow: 0 8px 20px rgba(122, 92, 255, 0.18);
+  }
+
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 10% 10%, rgba(124, 77, 255, 0.35), transparent 32%),
-    radial-gradient(circle at 90% 0%, rgba(0, 188, 212, 0.22), transparent 40%),
-    radial-gradient(circle at 50% 120%, rgba(255, 140, 0, 0.14), transparent 45%),
-    rgba(8, 13, 30, 0.92);
-  box-shadow:
-    0 0 0 1px rgba(160, 168, 255, 0.2) inset,
-    0 18px 34px rgba(0, 0, 0, 0.35);
+  background: radial-gradient(circle at 10% 10%, rgba(124, 77, 255, 0.35), transparent 32%),
+  radial-gradient(circle at 90% 0%, rgba(0, 188, 212, 0.22), transparent 40%),
+  radial-gradient(circle at 50% 120%, rgba(255, 140, 0, 0.14), transparent 45%),
+  rgba(8, 13, 30, 0.92);
+  box-shadow: 0 0 0 1px rgba(160, 168, 255, 0.2) inset,
+  0 18px 34px rgba(0, 0, 0, 0.35);
 }
 
 .starterBadge {
@@ -142,14 +289,40 @@
   background:
     linear-gradient(175deg, rgba(20, 28, 60, 0.96), rgba(11, 16, 36, 0.92));
   background-color: rgba(12, 18, 40, 0.95);
-  padding: 14px;
+  padding: 8px 10px;
   color: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 6px;
   cursor: pointer;
-  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+  height: 120px;
+  min-height: 120px;
+  max-height: 120px;
+  overflow: hidden;
+}
+
+.starterInfoIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: rgba(200, 210, 255, 0.9);
+  font-size: 16px;
+  background: rgba(10, 14, 34, 0.48);
+  border-radius: 999px;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s ease, background 0.12s ease, color 0.12s ease;
+}
+
+.starterInfoIcon:hover {
+  transform: translateY(-2px);
+  background: rgba(129, 140, 248, 0.14);
+  color: #dfe8ff;
 }
 
 .starterTribeCard:focus-visible {
@@ -177,14 +350,14 @@
 }
 
 .starterTribeImageWrap {
-  width: 112px;
-  height: 112px;
+  width: 72px;
+  height: 72px;
   border-radius: 999px;
   display: grid;
   place-items: center;
   background: radial-gradient(circle at 50% 40%, rgba(62, 78, 144, 0.26), rgba(8, 12, 28, 0.92));
   border: 1px solid rgba(173, 187, 255, 0.24);
-  box-shadow: 0 0 18px rgba(125, 145, 255, 0.22) inset;
+  box-shadow: 0 0 12px rgba(125, 145, 255, 0.16) inset;
 }
 
 .starterTribeImageWrap :global(span) {
@@ -200,6 +373,19 @@
   background: transparent !important;
   mix-blend-mode: normal;
   filter: drop-shadow(0 0 8px rgba(126, 156, 255, 0.24));
+}
+
+.starterTribeDescription {
+  text-align: center;
+  min-height: 24px;
+  max-height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-size: 12px;
+  color: rgba(200, 210, 255, 0.9);
 }
 
 .starterTribeDescription {
@@ -222,6 +408,26 @@
   letter-spacing: 0.4px;
   text-transform: uppercase;
   box-shadow: 0 10px 22px rgba(101, 121, 255, 0.28);
+}
+
+/* Modal styles for starter selection - gamer / futuristic vibe */
+.starterModal :global(.ant-modal-content) {
+  background: linear-gradient(180deg, rgba(6, 10, 22, 0.96), rgba(10, 12, 30, 0.96));
+  border-radius: 16px;
+  border: 1px solid rgba(129, 140, 248, 0.14);
+  box-shadow: 0 30px 80px rgba(18, 24, 48, 0.84), 0 0 40px rgba(80, 100, 255, 0.08) inset;
+}
+
+.starterModalContent {
+  padding: 12px 14px;
+}
+
+.starterModal :global(.ant-modal-close) {
+  display: none !important;
+}
+
+.starterModal :global(.ant-modal-footer) {
+  display: none !important;
 }
 
 @media (max-width: 900px) {
