@@ -124,6 +124,17 @@ function normalizeEnergyCost(value: unknown): number {
   return Math.floor(parsed);
 }
 
+function normalizeBaseDamage(value: unknown): number | undefined {
+  if (value === undefined) return undefined;
+  const parsed = typeof value === "number" ? value : Number(value ?? NaN);
+
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return undefined;
+  }
+
+  return Math.floor(parsed);
+}
+
 function normalizeElement(value: unknown): CreatureElement | null {
   if (typeof value !== "string") {
     return null;
@@ -298,6 +309,7 @@ function normalizeAttackPayload(item: SeedAttack): CreateAttackRequestDto | null
     rarity: normalizeRarity(item.rarity),
     imageFileId: imageFileId || null,
     energyCost: normalizeEnergyCost(item.energy_cost ?? item.energyCost),
+    baseDamage: normalizeBaseDamage((item as any).base_damage ?? (item as any).baseDamage),
     elementValues: normalizeElementValues(item.element_values ?? item.elementValues),
     abilities: normalizeAbilities(item.abilities),
   };

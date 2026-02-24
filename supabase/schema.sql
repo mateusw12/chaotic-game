@@ -634,6 +634,9 @@ alter table if exists public.attacks
 alter table if exists public.attacks
   add column if not exists abilities jsonb not null default '[]'::jsonb;
 
+alter table if exists public.attacks
+  add column if not exists base_damage integer;
+
 update public.attacks
 set energy_cost = 0
 where energy_cost is null;
@@ -778,6 +781,19 @@ begin
     alter table public.battlegear
       add constraint battlegear_allowed_tribes_check
       check (allowed_tribes <@ array['overworld', 'underworld', 'mipedian', 'marrillian', 'danian', 'ancient']::text[]);
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'attacks_base_damage_check'
+  ) then
+    alter table public.attacks
+      add constraint attacks_base_damage_check
+      check (base_damage is null or base_damage >= 0);
   end if;
 end $$;
 
