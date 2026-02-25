@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { App as AntdApp, Button, Card, Form, Image, Input, InputNumber, Popconfirm, Select, Space, Tag, Typography, Upload } from "antd";
+import { App as AntdApp, Button, Card, Form, Image, Input, InputNumber, Popconfirm, Select, Space, Tag, Typography, Upload, Switch } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ArrowLeftOutlined, BookOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -35,6 +35,7 @@ type CreatureFormValues = {
   rarity: CardRarity;
   imageFileId?: string;
   tribe: CreatureTribe;
+  mandiblor?: boolean;
   power: number;
   courage: number;
   speed: number;
@@ -151,6 +152,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
       rarity: values.rarity,
       imageFileId: values.imageFileId ?? null,
       tribe: values.tribe,
+      mandiblor: values.mandiblor ?? false,
       power: values.power,
       courage: values.courage,
       speed: values.speed,
@@ -192,6 +194,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
       rarity: creature.rarity,
       imageFileId: creature.imageFileId ?? undefined,
       tribe: creature.tribe,
+      mandiblor: creature.mandiblor ?? undefined,
       power: creature.power,
       courage: creature.courage,
       speed: creature.speed,
@@ -485,6 +488,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             onFinish={onCreateCreature}
             initialValues={{
               rarity: "comum",
+              mandiblor: false,
               power: 0,
               courage: 0,
               speed: 0,
@@ -548,6 +552,16 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                   }))}
                   placeholder="Selecione"
                 />
+              </Form.Item>
+
+              <Form.Item shouldUpdate>
+                {() =>
+                  creatureForm.getFieldValue("tribe") === "danian" ? (
+                    <Form.Item label="Mandiblor" name="mandiblor" valuePropName="checked">
+                      <Switch />
+                    </Form.Item>
+                  ) : null
+                }
               </Form.Item>
 
               <Space wrap size={12}>

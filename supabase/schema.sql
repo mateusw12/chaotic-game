@@ -374,6 +374,7 @@ create table if not exists public.creatures (
   wisdom integer not null default 0 check (wisdom >= 0),
   mugic integer not null default 0 check (mugic >= 0),
   energy integer not null default 0 check (energy >= 0),
+  mandiblor boolean not null default false,
   dominant_elements text[] not null default '{}'::text[],
   support_ability_ids uuid[] not null default '{}'::uuid[],
   brainwashed_ability_ids uuid[] not null default '{}'::uuid[],
@@ -549,6 +550,9 @@ alter table if exists public.creatures
 
 alter table if exists public.creatures
   add column if not exists image_file_id text;
+
+alter table if exists public.creatures
+  add column if not exists mandiblor boolean not null default false;
 
 alter table if exists public.creatures
   add column if not exists rarity text not null default 'comum';
