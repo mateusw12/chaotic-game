@@ -1,5 +1,1636 @@
 [
   {
+    "id": "9d0941be-ed3f-44e7-8726-5b7eb12e5ea0",
+    "name": "Torrente de Cinzas",
+    "energy_cost": 4,
+    "base_damage": 15,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Poder 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Poder para causar dano.",
+          "payload": {
+            "own_stat": "power",
+            "opponent_stat": "power",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_67.png"
+  },
+  {
+    "id": "e2a8600e-41b0-4547-b971-8ab4de987454",
+    "name": "Chuva Ardente",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "abilities": [
+      {
+        "description": "Se Chuva Ardente causaria mais de 10 de dano, ela causa 10 de dano em vez disso.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "damage_cap",
+          "notes": "Limita o dano causado por este ataque a 10.",
+          "payload": {
+            "cap_amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_68.png"
+  },
+  {
+    "id": "951b6b91-3f16-4644-a0a5-9181086946fa",
+    "name": "Confusão",
+    "energy_cost": 4,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Sabedoria 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Sabedoria para causar dano.",
+          "payload": {
+            "own_stat": "wisdom",
+            "opponent_stat": "wisdom",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_69.png"
+  },
+  {
+    "id": "a2dfd52a-f76c-4afd-9b29-5a92ac7031e0",
+    "name": "Bravura Intrépida",
+    "energy_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Coragem 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Coragem para causar dano.",
+          "payload": {
+            "own_stat": "courage",
+            "opponent_stat": "courage",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Teste de Coragem 50: A Criatura oponente engajada perde 15 de Coragem.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "stat_check_for_stat_reduction",
+          "notes": "Teste de Coragem para reduzir a Coragem do oponente.",
+          "payload": {
+            "stat": "courage",
+            "check_value": 50,
+            "amount": -15
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_70.png"
+  },
+  {
+    "id": "e24d4f8e-dccd-40ec-a487-3a0da62aea52",
+    "name": "Desaceleração",
+    "energy_cost": 2,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Falha no Teste de Velocidade 100: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Velocidade do oponente for menor que 100.",
+          "payload": {
+            "stat": "speed",
+            "check_value": 100,
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Velocidade 50: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Velocidade do oponente for menor que 50.",
+          "payload": {
+            "stat": "speed",
+            "check_value": 50,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Velocidade 5: Cause 15 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Velocidade do oponente for menor que 5.",
+          "payload": {
+            "stat": "speed",
+            "check_value": 5,
+            "amount": 15
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_71.png"
+  },
+  {
+    "id": "3ffe66bc-96b4-4f84-a7d1-967011edb84c",
+    "name": "Delírio",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Sabedoria 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Sabedoria para causar 5 de dano.",
+          "payload": {
+            "stat": "wisdom",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_72.png"
+  },
+  {
+    "id": "1e37bac3-25d4-4fd6-a2f8-347112c80231",
+    "name": "Dilúvio da Perdição",
+    "energy_cost": 2,
+    "base_damage": 10,
+    "elemental_damage": {
+      "water": 0
+    },
+    "abilities": [
+      {
+        "description": "Água: Cause 5 de dano adicional para cada contador de Mugic na sua Criatura engajada.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "bonus_damage_per_mugic_counter",
+          "notes": "Dano bônus por contador de Mugic.",
+          "payload": {
+            "element": "water",
+            "amount_per_mugic": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_73.png"
+  },
+  {
+    "id": "1c8e5c0f-1f22-48bd-ae5b-7f010d483e26",
+    "name": "Combo de Enfraquecimento",
+    "energy_cost": 5,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Falha no Teste de Coragem 30: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Coragem do oponente for menor que 30.",
+          "payload": {
+            "stat": "courage",
+            "check_value": 30,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Poder 30: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se o Poder do oponente for menor que 30.",
+          "payload": {
+            "stat": "power",
+            "check_value": 30,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Sabedoria 30: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Sabedoria do oponente for menor que 30.",
+          "payload": {
+            "stat": "wisdom",
+            "check_value": 30,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Velocidade 30: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Velocidade do oponente for menor que 30.",
+          "payload": {
+            "stat": "speed",
+            "check_value": 30,
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_74.png"
+  },
+  {
+    "id": "572573c1-4148-4c13-88ae-eadcd9ed112f",
+    "name": "Líquido Seco",
+    "energy_cost": 5,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Poder 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Poder para causar dano.",
+          "payload": {
+            "own_stat": "power",
+            "opponent_stat": "power",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Teste de Poder 50: A Criatura oponente engajada perde 15 de Poder.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "stat_check_for_stat_reduction",
+          "notes": "Teste de Poder para reduzir o Poder do oponente.",
+          "payload": {
+            "stat": "power",
+            "check_value": 50,
+            "amount": -15
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_75.png"
+  },
+  {
+    "id": "aa432692-d624-4f95-878d-b82d3b879c8d",
+    "name": "Teia Elétrica",
+    "energy_cost": 2,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Poder 30: Cause 10 de dano. Se você perder este Desafio, ganhe 15 de Poder.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_with_consequence",
+          "notes": "Desafio de Poder que dá um bônus em caso de falha.",
+          "payload": {
+            "own_stat": "power",
+            "opponent_stat": "power",
+            "check_value": 30,
+            "success_effect": {
+              "type": "deal_damage",
+              "amount": 10
+            },
+            "fail_effect": {
+              "type": "gain_stat",
+              "stat": "power",
+              "amount": 15
+            }
+          }
+        }
+      },
+      {
+        "description": "Desafio de Velocidade 30: Cause 10 de dano. Se você perder este Desafio, ganhe 15 de Velocidade.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_with_consequence",
+          "notes": "Desafio de Velocidade que dá um bônus em caso de falha.",
+          "payload": {
+            "own_stat": "speed",
+            "opponent_stat": "speed",
+            "check_value": 30,
+            "success_effect": {
+              "type": "deal_damage",
+              "amount": 10
+            },
+            "fail_effect": {
+              "type": "gain_stat",
+              "stat": "speed",
+              "amount": 15
+            }
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_76.png"
+  },
+  {
+    "id": "80a32b23-bd6b-4185-a179-9883f018e17d",
+    "name": "Enxame de Brasas",
+    "energy_cost": 4,
+    "base_damage": 10,
+    "elemental_damage": {
+      "fire": 0
+    },
+    "abilities": [
+      {
+        "description": "Fogo: A Criatura oponente engajada perde 25 de Sabedoria.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "elemental_stat_reduction",
+          "notes": "Reduz a Sabedoria do oponente com um ataque de Fogo.",
+          "payload": {
+            "element": "fire",
+            "stat": "wisdom",
+            "amount": -25
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_77.png"
+  },
+  {
+    "id": "3406dd0d-c1f8-4b05-b619-d6df07144bea",
+    "name": "Projeção de Medo",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "A Criatura oponente engajada perde 20 de Coragem.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "stat_reduction",
+          "notes": "Reduz a Coragem do oponente.",
+          "payload": {
+            "stat": "courage",
+            "amount": -20
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_78.png"
+  },
+  {
+    "id": "0414dceb-0416-4dfd-9201-80e49b0fb4a3",
+    "name": "Carvões Flamejantes",
+    "energy_cost": 3,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Carvões Flamejantes não pode ser alvo de Mugic ou habilidades.",
+        "effectType": "protection",
+        "battleRules": {
+          "type": "untargetable",
+          "notes": "Este ataque não pode ser alvo.",
+          "payload": {}
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_79.png"
+  },
+  {
+    "id": "4d62ad94-3e57-481b-822a-c2d1e1bdef78",
+    "name": "Distorção Rápida",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Poder 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Poder para causar dano.",
+          "payload": {
+            "own_stat": "power",
+            "opponent_stat": "power",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_80.png"
+  },
+  {
+    "id": "1188e8c6-ba19-4f0c-b93c-a2a698b38d63",
+    "name": "Talho Fantasma",
+    "energy_cost": 0,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Sabedoria 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Sabedoria para causar 5 de dano.",
+          "payload": {
+            "stat": "wisdom",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Teste de Velocidade 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Velocidade para causar 5 de dano.",
+          "payload": {
+            "stat": "speed",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_81.png"
+  },
+  {
+    "id": "eee3cc3d-bfa5-4f3a-a46c-0e6212af658a",
+    "name": "Pancada Gravitacional",
+    "energy_cost": 2,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Falha no Teste de Poder 100: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se o Poder do oponente for menor que 100.",
+          "payload": {
+            "stat": "power",
+            "check_value": 100,
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Poder 50: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se o Poder do oponente for menor que 50.",
+          "payload": {
+            "stat": "power",
+            "check_value": 50,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Poder 5: Cause 15 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se o Poder do oponente for menor que 5.",
+          "payload": {
+            "stat": "power",
+            "check_value": 5,
+            "amount": 15
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_82.png"
+  },
+  {
+    "id": "c95c8923-7ea0-4189-9abb-7a73415d0e27",
+    "name": "Arrancada Martelo",
+    "energy_cost": 0,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Coragem 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Coragem para causar 5 de dano.",
+          "payload": {
+            "stat": "courage",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Teste de Poder 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Poder para causar 5 de dano.",
+          "payload": {
+            "stat": "power",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_83.png"
+  },
+  {
+    "id": "4b7f5a1e-5aad-4265-97cc-0100bc0b9f2e",
+    "name": "Ventos Obstrutivos",
+    "energy_cost": 2,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se a Velocidade da Criatura oponente engajada for 50 ou menos, cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "conditional_damage_on_stat_threshold",
+          "notes": "Causa dano se a Velocidade do oponente for 50 ou menos.",
+          "payload": {
+            "stat": "speed",
+            "threshold": 50,
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_84.png"
+  },
+  {
+    "id": "ddfb87fc-143f-4cd3-ae4f-3eb37776fa78",
+    "name": "Fúria de Calor",
+    "energy_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {
+      "fire": 0
+    },
+    "abilities": [
+      {
+        "description": "Fogo: Ganhe 10 de Sabedoria.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "elemental_stat_gain",
+          "notes": "Ganha 10 de Sabedoria com um ataque de Fogo.",
+          "payload": {
+            "element": "fire",
+            "stat": "wisdom",
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_85.png"
+  },
+  {
+    "id": "4c4d9351-f983-45a8-b73c-df10131ec6c9",
+    "name": "Discos de Gelo",
+    "energy_cost": 3,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Seu oponente não pode jogar habilidades ativadas.",
+        "effectType": "restriction",
+        "battleRules": {
+          "type": "prevent_opponent_activated_abilities",
+          "notes": "Impede o oponente de usar habilidades ativadas.",
+          "payload": {}
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_86.png"
+  },
+  {
+    "id": "ca960837-7c42-4159-b6d0-9d46e72ca6c6",
+    "name": "Placa de Gelo",
+    "energy_cost": 3,
+    "base_damage": 5,
+    "elemental_damage": {
+      "water": 0
+    },
+    "abilities": [
+      {
+        "description": "Água: Cause 5 de dano adicional para cada ☐ na sua Criatura engajada.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "bonus_damage_per_mugic_counter",
+          "notes": "Dano bônus por contador de Mugic.",
+          "payload": {
+            "element": "water",
+            "amount_per_mugic": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_87.png"
+  },
+  {
+    "id": "f4d64563-c52a-46e7-b396-957e379f58f7",
+    "name": "Explosão Relâmpago",
+    "energy_cost": 5,
+    "base_damage": 5,
+    "elemental_damage": {
+      "air": 0
+    },
+    "abilities": [
+      {
+        "description": "Ar: A Criatura oponente engajada perde 25 de Poder.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "elemental_stat_reduction",
+          "notes": "Reduz o Poder do oponente com um ataque de Ar.",
+          "payload": {
+            "element": "air",
+            "stat": "power",
+            "amount": -25
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_88.png"
+  },
+  {
+    "id": "10295ec3-296a-4919-ace4-4ff4ce2129b0",
+    "name": "Triturar Mente",
+    "energy_cost": 2,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Falha no Teste de Sabedoria 100: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Sabedoria do oponente for menor que 100.",
+          "payload": {
+            "stat": "wisdom",
+            "check_value": 100,
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Sabedoria 50: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Sabedoria do oponente for menor que 50.",
+          "payload": {
+            "stat": "wisdom",
+            "check_value": 50,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Sabedoria 5: Cause 15 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Sabedoria do oponente for menor que 5.",
+          "payload": {
+            "stat": "wisdom",
+            "check_value": 5,
+            "amount": 15
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_89.png"
+  },
+  {
+    "id": "2638412c-63c8-49f4-8cf4-eff28df1e467",
+    "name": "Finalização Consciente",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Cause 5 de dano para cada contador de Mugic na Criatura oponente engajada.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "damage_per_opponent_mugic_counter",
+          "notes": "Causa dano por cada contador de Mugic do oponente.",
+          "payload": {
+            "amount_per_mugic": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_90.png"
+  },
+  {
+    "id": "6bcda4c3-78df-4011-ba40-6145e1bbf54b",
+    "name": "Afundar Mente",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "A Criatura oponente engajada perde 20 de Sabedoria.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "stat_reduction",
+          "notes": "Reduz a Sabedoria do oponente.",
+          "payload": {
+            "stat": "wisdom",
+            "amount": -20
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_91.png"
+  },
+  {
+    "id": "14d2d7be-a667-4e2c-923e-62b36fbb7d19",
+    "name": "Estrada Menor",
+    "energy_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Cause 5 de dano adicional para cada ☐ na sua Criatura engajada.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "bonus_damage_per_mugic_counter",
+          "notes": "Dano bônus por contador de Mugic.",
+          "payload": {
+            "amount_per_mugic": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_92.png"
+  },
+  {
+    "id": "06466ee7-9167-4ac7-b21b-543f423367ad",
+    "name": "Congelamento Neural",
+    "energy_cost": 2,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se a Criatura oponente engajada tiver o Tipo Elemental Água, reduza o dano de Congelamento Neural em 10.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "reduce_damage_if_opponent_has_element",
+          "notes": "Reduz o dano se o oponente tiver o elemento Água.",
+          "payload": {
+            "element": "water",
+            "amount": -10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_93.png"
+  },
+  {
+    "id": "7549eed3-2472-4217-b95a-418704fa47b9",
+    "name": "Superar em Inteligência",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se a Sabedoria da sua Criatura for maior que a Velocidade da Criatura oponente engajada, cause 5 de dano. Se não for, a Criatura oponente engajada perde 10 de Sabedoria.",
+        "effectType": "damage_or_stat_modifier",
+        "battleRules": {
+          "type": "stat_comparison_effect",
+          "notes": "Compara Sabedoria vs Velocidade para um efeito.",
+          "payload": {
+            "own_stat": "wisdom",
+            "opponent_stat": "speed",
+            "success_effect": {
+              "type": "deal_damage",
+              "amount": 5
+            },
+            "fail_effect": {
+              "type": "stat_reduction",
+              "stat": "wisdom",
+              "amount": -10
+            }
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_94.png"
+  },
+  {
+    "id": "f5b32834-d638-43a6-a150-6cb5c9069cdc",
+    "name": "Enganar",
+    "energy_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Poder 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Poder para causar 5 de dano.",
+          "payload": {
+            "stat": "power",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Teste de Sabedoria 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Sabedoria para causar 5 de dano.",
+          "payload": {
+            "stat": "wisdom",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_95.png"
+  },
+  {
+    "id": "b9e128af-dd33-4e95-9bae-10048e2e8f01",
+    "name": "Calor Perplexo",
+    "energy_cost": 2,
+    "base_damage": 10,
+    "elemental_damage": {
+      "fire": 0
+    },
+    "abilities": [
+      {
+        "description": "Fogo: A Criatura oponente engajada perde 25 de Sabedoria.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "elemental_stat_reduction",
+          "notes": "Reduz a Sabedoria do oponente com um ataque de Fogo.",
+          "payload": {
+            "element": "fire",
+            "stat": "wisdom",
+            "amount": -25
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_96.png"
+  },
+  {
+    "id": "3164e542-ef26-49f6-b6e9-6f605f63ba5f",
+    "name": "Brilho Perfurante",
+    "energy_cost": 5,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Sabedoria 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Sabedoria para causar dano.",
+          "payload": {
+            "own_stat": "wisdom",
+            "opponent_stat": "wisdom",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Teste de Sabedoria 50: A Criatura oponente engajada perde 15 de Sabedoria.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "stat_check_for_stat_reduction",
+          "notes": "Teste de Sabedoria para reduzir a Sabedoria do oponente.",
+          "payload": {
+            "stat": "wisdom",
+            "check_value": 50,
+            "amount": -15
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_97.png"
+  },
+  {
+    "id": "81773188-8c28-42c4-9d03-c70cc51c2d9b",
+    "name": "Flecha de Plasma",
+    "energy_cost": 3,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "A Criatura oponente engajada não pode ser curada.",
+        "effectType": "restriction",
+        "battleRules": {
+          "type": "prevent_heal",
+          "notes": "Impede a cura na criatura oponente engajada.",
+          "payload": {}
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_98.png"
+  },
+  {
+    "id": "eb656af3-5060-4314-a5b7-cdecddf12ca0",
+    "name": "Pânico na Prisão",
+    "energy_cost": 1,
+    "base_damage": 15,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se uma Carta de Ataque chamada Pânico Venenoso estiver na sua pilha de descarte de ataques, reduza o dano de Pânico na Prisão em 5.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "conditional_damage_reduction",
+          "notes": "Reduz o dano se uma carta específica estiver no descarte.",
+          "payload": {
+            "condition_card_name": "Poison Panic",
+            "amount": -5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_99.png"
+  },
+  {
+    "id": "518ea62b-544b-4534-bb77-ea4553682546",
+    "name": "Esfera de Veneno",
+    "energy_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Velocidade 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Velocidade para causar dano.",
+          "payload": {
+            "own_stat": "speed",
+            "opponent_stat": "speed",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Teste de Velocidade 50: A Criatura oponente engajada perde 15 de Velocidade.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "stat_check_for_stat_reduction",
+          "notes": "Teste de Velocidade para reduzir a Velocidade do oponente.",
+          "payload": {
+            "stat": "speed",
+            "check_value": 50,
+            "amount": -15
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_100.png"
+  },
+  {
+    "id": "d494d9ef-45d7-423d-95bf-be7281e89916",
+    "name": "Soco de Poder",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se o Poder da sua Criatura for maior que a Sabedoria da Criatura oponente engajada, cause 5 de dano. Se não for, a Criatura oponente engajada perde 10 de Poder.",
+        "effectType": "damage_or_stat_modifier",
+        "battleRules": {
+          "type": "stat_comparison_effect",
+          "notes": "Compara Poder vs Sabedoria para um efeito.",
+          "payload": {
+            "own_stat": "power",
+            "opponent_stat": "wisdom",
+            "success_effect": {
+              "type": "deal_damage",
+              "amount": 5
+            },
+            "fail_effect": {
+              "type": "stat_reduction",
+              "stat": "power",
+              "amount": -10
+            }
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_101.png"
+  },
+  {
+    "id": "ac901f9f-1cc2-44da-bed8-6ed93c17c3c8",
+    "name": "Esmagamento Primal",
+    "energy_cost": 4,
+    "base_damage": 20,
+    "elemental_damage": {},
+    "abilities": [],
+    "file_name": "marrilian_invasion_102.png"
+  },
+  {
+    "id": "ed491470-7335-4773-927c-b98904ebb1bc",
+    "name": "Psi-mageddon",
+    "energy_cost": 5,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Cause 20 de dano para cada Carta de Criatura minion na sua pilha de descarte geral. Único.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "damage_per_subtype_in_discard",
+          "notes": "Causa dano por cada minion no descarte. Único.",
+          "payload": {
+            "subtype": "minion",
+            "amount_per_card": 20,
+            "is_unique": true
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_103.png"
+  },
+  {
+    "id": "8ba74d0f-1c60-4cb3-8ea8-b603e67c36d0",
+    "name": "Dreno Psíquico",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "A Criatura oponente engajada perde 10 de Energia.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "lose_energy",
+          "notes": "O oponente perde 10 de energia.",
+          "payload": {
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_104.png"
+  },
+  {
+    "id": "44072198-3d8b-484c-9fe8-8398b1618705",
+    "name": "Saída Rápida",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Sabedoria 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Sabedoria para causar dano.",
+          "payload": {
+            "own_stat": "wisdom",
+            "opponent_stat": "wisdom",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_105.png"
+  },
+  {
+    "id": "555300e9-8497-4f8f-b502-52bf84c1c2f8",
+    "name": "Bolas de Gelo Radicais",
+    "energy_cost": 1,
+    "base_damage": 5,
+    "elemental_damage": {
+      "earth": 0
+    },
+    "abilities": [
+      {
+        "description": "Terra: Ganhe 10 de Velocidade.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "elemental_stat_gain",
+          "notes": "Ganha 10 de Velocidade com um ataque de Terra.",
+          "payload": {
+            "element": "earth",
+            "stat": "speed",
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_106.png"
+  },
+  {
+    "id": "6bf018bb-8312-41be-9f1b-bb4de84b1237",
+    "name": "Maré Rasgante",
+    "energy_cost": 1,
+    "base_damage": 10,
+    "elemental_damage": {
+      "water": 0
+    },
+    "abilities": [
+      {
+        "description": "Água: A Criatura oponente engajada perde 25 de Coragem.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "elemental_stat_reduction",
+          "notes": "Reduz a Coragem do oponente com um ataque de Água.",
+          "payload": {
+            "element": "water",
+            "stat": "courage",
+            "amount": -25
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_107.png"
+  },
+  {
+    "id": "8b673416-f660-4b8c-a618-6ef6fb1cc1fd",
+    "name": "Susto Estridente",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se a Coragem da sua Criatura for maior que o Poder da Criatura oponente engajada, cause 5 de dano. Se não for, a Criatura oponente engajada perde 10 de Coragem.",
+        "effectType": "damage_or_stat_modifier",
+        "battleRules": {
+          "type": "stat_comparison_effect",
+          "notes": "Compara Coragem vs Poder para um efeito.",
+          "payload": {
+            "own_stat": "courage",
+            "opponent_stat": "power",
+            "success_effect": {
+              "type": "deal_damage",
+              "amount": 5
+            },
+            "fail_effect": {
+              "type": "stat_reduction",
+              "stat": "courage",
+              "amount": -10
+            }
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_108.png"
+  },
+  {
+    "id": "54aa4d19-37bf-4d75-b8da-8b05f95cdaa4",
+    "name": "Golpe Sombrio",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Coragem 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Coragem para causar dano.",
+          "payload": {
+            "own_stat": "courage",
+            "opponent_stat": "courage",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_109.png"
+  },
+  {
+    "id": "3f8d8408-ac41-4262-b8e4-948bb1d6296a",
+    "name": "Choque de Grito",
+    "energy_cost": 0,
+    "base_damage": 1,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Velocidade 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Velocidade para causar 5 de dano.",
+          "payload": {
+            "stat": "speed",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_110.png"
+  },
+  {
+    "id": "3545fbc8-a228-4542-9f65-1962befb382a",
+    "name": "Grito do Afogamento",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Reduza o Poder, Velocidade, Coragem e Sabedoria das Criaturas oponentes engajadas para 0.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "set_all_disciplines_to_zero",
+          "notes": "Zera todas as disciplinas do oponente engajado.",
+          "payload": {}
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_111.png"
+  },
+  {
+    "id": "ab86c887-a7eb-4ab4-a7da-a021f3a4d7e0",
+    "name": "Retardador",
+    "energy_cost": 2,
+    "base_damage": 10,
+    "elemental_damage": {
+      "earth": 0
+    },
+    "abilities": [
+      {
+        "description": "Terra: A Criatura oponente engajada perde 25 de Velocidade.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "elemental_stat_reduction",
+          "notes": "Reduz a Velocidade do oponente com um ataque de Terra.",
+          "payload": {
+            "element": "earth",
+            "stat": "speed",
+            "amount": -25
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_112.png"
+  },
+  {
+    "id": "6f9e08fc-ba7e-40b4-b430-10acf74aec90",
+    "name": "Ataque de Armadilha",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se a Velocidade da sua Criatura for maior que a Coragem da Criatura oponente engajada, cause 5 de dano. Se não for, a Criatura oponente engajada perde 10 de Velocidade.",
+        "effectType": "damage_or_stat_modifier",
+        "battleRules": {
+          "type": "stat_comparison_effect",
+          "notes": "Compara Velocidade vs Coragem para um efeito.",
+          "payload": {
+            "own_stat": "speed",
+            "opponent_stat": "courage",
+            "success_effect": {
+              "type": "deal_damage",
+              "amount": 5
+            },
+            "fail_effect": {
+              "type": "stat_reduction",
+              "stat": "speed",
+              "amount": -10
+            }
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_113.png"
+  },
+  {
+    "id": "f4277664-5bfa-4c19-abc8-175bd8bcc28a",
+    "name": "Rajada Espiritual",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Coragem 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Coragem para causar 5 de dano.",
+          "payload": {
+            "stat": "courage",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_114.png"
+  },
+  {
+    "id": "af60a35f-c4bf-484b-bd0c-82af7845a930",
+    "name": "Golpe de Raio",
+    "energy_cost": 1,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Velocidade 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Velocidade para causar 5 de dano.",
+          "payload": {
+            "stat": "speed",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Teste de Coragem 50: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_check_for_damage",
+          "notes": "Realiza um teste de Coragem para causar 5 de dano.",
+          "payload": {
+            "stat": "courage",
+            "check_value": 50,
+            "amount": 5
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_115.png"
+  },
+  {
+    "id": "5cdc7632-ea33-48d4-a168-a0547df30b67",
+    "name": "Maré Estupefata",
+    "energy_cost": 2,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Se a Sabedoria da Criatura oponente engajada for 50 ou menos, cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "conditional_damage_on_stat_threshold",
+          "notes": "Causa dano se a Sabedoria do oponente for 50 ou menos.",
+          "payload": {
+            "stat": "wisdom",
+            "threshold": 50,
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_116.png"
+  },
+  {
+    "id": "840b24e4-dd19-45dd-a9f1-495b72e16201",
+    "name": "Investida Aterrorizante",
+    "energy_cost": 2,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Falha no Teste de Coragem 100: Cause 5 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Coragem do oponente for menor que 100.",
+          "payload": {
+            "stat": "courage",
+            "check_value": 100,
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Coragem 50: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Coragem do oponente for menor que 50.",
+          "payload": {
+            "stat": "courage",
+            "check_value": 50,
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Falha no Teste de Coragem 5: Cause 15 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_fail_for_damage",
+          "notes": "Causa dano se a Coragem do oponente for menor que 5.",
+          "payload": {
+            "stat": "courage",
+            "check_value": 5,
+            "amount": 15
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_117.png"
+  },
+  {
+    "id": "5cfb0174-9374-429e-b9e5-4fa9637015b0",
+    "name": "Golpe Temporal",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "A Criatura oponente engajada perde 20 de Velocidade.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "stat_reduction",
+          "notes": "Reduz a Velocidade do oponente.",
+          "payload": {
+            "stat": "speed",
+            "amount": -20
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_118.png"
+  },
+  {
+    "id": "75ba7e88-b455-4c3b-bb3f-980a2150a5e2",
+    "name": "Torrente de Chamas",
+    "energy_cost": 2,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": [],
+    "file_name": "marrilian_invasion_119.png"
+  },
+  {
+    "id": "59a28738-a140-47a1-bbf2-62542e7549bf",
+    "name": "Torrente de Água",
+    "energy_cost": 4,
+    "base_damage": 10,
+    "elemental_damage": {
+      "water": 0
+    },
+    "abilities": [
+      {
+        "description": "Água: Ganhe 10 de Coragem.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "elemental_stat_gain",
+          "notes": "Ganha 10 de Coragem com um ataque de Água.",
+          "payload": {
+            "element": "water",
+            "stat": "courage",
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_120.png"
+  },
+  {
+    "id": "fdb279e5-d271-4728-843d-32b7cf04152b",
+    "name": "Armadilha de Velocidade",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Desafio de Velocidade 15: Cause 10 de dano.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_for_damage",
+          "notes": "Desafio de Velocidade para causar dano.",
+          "payload": {
+            "own_stat": "speed",
+            "opponent_stat": "speed",
+            "check_value": 15,
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_121.png"
+  },
+  {
+    "id": "579b07e8-b47f-4eb1-97c2-477743ffcf73",
+    "name": "Armadilha de Vinhas",
+    "energy_cost": 0,
+    "base_damage": 0,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "A Criatura oponente engajada não pode se mover.",
+        "effectType": "restriction",
+        "battleRules": {
+          "type": "prevent_movement",
+          "notes": "Impede o movimento da criatura oponente engajada.",
+          "payload": {}
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_122.png"
+  },
+  {
+    "id": "16bfda49-08e9-4bba-9b23-f6b20f979f93",
+    "name": "Casulo de Teia",
+    "energy_cost": 4,
+    "base_damage": 5,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Teste de Poder 50: Sua Criatura engajada ganha o Tipo Elemental Fogo.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "stat_check_for_element_gain",
+          "notes": "Realiza um teste de Poder para ganhar o elemento Fogo.",
+          "payload": {
+            "stat": "power",
+            "check_value": 50,
+            "element": "fire"
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_123.png"
+  },
+  {
+    "id": "fcb214cb-575a-4402-b078-6b36425f1a14",
+    "name": "Lamento Rodopiante",
+    "energy_cost": 3,
+    "base_damage": 10,
+    "elemental_damage": {},
+    "abilities": [
+      {
+        "description": "Seu oponente não pode jogar Cartas de Mugic.",
+        "effectType": "restriction",
+        "battleRules": {
+          "type": "prevent_opponent_mugic_play",
+          "notes": "Impede o oponente de jogar cartas de Mugic.",
+          "payload": {}
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_124.png"
+  },
+  {
+    "id": "cd2c1c8e-0e4a-4301-9eb0-3185e1560adc",
+    "name": "Foices do Redemoinho",
+    "energy_cost": 2,
+    "base_damage": 10,
+    "elemental_damage": {
+      "air": 0
+    },
+    "abilities": [
+      {
+        "description": "Ar: A Criatura oponente engajada perde 25 de Poder.",
+        "effectType": "stat_modifier",
+        "battleRules": {
+          "type": "elemental_stat_reduction",
+          "notes": "Reduz o Poder do oponente com um ataque de Ar.",
+          "payload": {
+            "element": "air",
+            "stat": "power",
+            "amount": -25
+          }
+        }
+      }
+    ],
+    "file_name": "marrilian_invasion_125.png"
+  },
+  {
     "id": "7180c2ea-f2ac-4668-895d-3fc9980a0f77",
     "file_name": "87.png",
     "name": "Atmosfera",
@@ -2361,60 +3992,6 @@
       }
     ]
   },
-  [
-    {
-      "id": "attack-015",
-      "fileName": "dawn_perin_windslash.png",
-      "name": "Windslash",
-      "energy_cost": 1,
-      "abilities": [
-        {
-          "description": "O oponente alvo vira para cima todas as Cartas de Battlegear viradas para baixo que ele controla.",
-          "effectType": "special",
-          "stat": null,
-          "value": 0
-        }
-      ]
-    },
-    {
-      "id": "attack-016",
-      "fileName": "dawn_perin_velocitrap.png",
-      "name": "Velocitrap",
-      "energy_cost": 0,
-      "abilities": [
-        {
-          "description": "Desafio de Velocidade 15: Cause 10 de dano.",
-          "effectType": "damage",
-          "stat": "speed",
-          "value": 10
-        }
-      ]
-    },
-    {
-      "id": "attack-017",
-      "fileName": "dawn_perin_vine_snare.png",
-      "name": "Vine Snare",
-      "energy_cost": 1,
-      "elemental_damage": {
-        "earth": 5
-      },
-      "abilities": [
-        {
-          "description": "Terra: A Criatura oponente perde 25 de Velocidade até o final do turno.",
-          "effectType": "special",
-          "stat": null,
-          "value": -25
-        }
-      ]
-    },
-    {
-      "id": "attack-018",
-      "fileName": "dawn_perin_viperlash.png",
-      "name": "Viperlash",
-      "energy_cost": 3,
-      "abilities": []
-    }
-  ],
   {
     "id": "6cfb9be9-d6fb-45c6-a431-eb4b7e50327c",
     "fileName": "forget_unity_39.png",

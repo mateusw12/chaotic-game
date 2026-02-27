@@ -3948,5 +3948,797 @@
     "updated_at": "2026-02-18T10:00:00.000000Z",
     "tribes": [],
     "rarity": "rara"
+  },
+  {
+    "id": "8a1f2b3c-4d5e-6f70-8123-9a0b1c2d3e4f",
+    "file_name": "marrilian_invasion_217.png",
+    "name": "Racira Sahkk, Salão de Caça",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "speed"
+    ],
+    "abilities": [
+      {
+        "description": "Quando este se torna o Local ativo, cada jogador sacrifica um Battlegear.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "sacrifice_battlegear",
+          "notes": "Cada jogador sacrifica um Battlegear na ativação do local.",
+          "payload": {
+            "trigger": "on_location_activate"
+          }
+        },
+        "targetScope": "all_players"
+      },
+      {
+        "description": "Quando uma Criatura M'arrillian ou Minion vence um Desafio, essa Criatura ganha 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_energy_on_challenge_win",
+          "notes": "Ganha energia ao vencer um desafio.",
+          "payload": {
+            "trigger": "on_challenge_win",
+            "amount": 5
+          }
+        },
+        "targetScope": "specific_tribes",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ]
+      }
+    ],
+    "created_at": "2026-02-17T21:00:00.000000Z",
+    "updated_at": "2026-02-17T21:00:00.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "9b2e3c4d-5f6a-7b80-9234-0b1c2d3e4f5a",
+    "file_name": "marrilian_invasion_216.png",
+    "name": "Câmara da Loucura de Psikom",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "courage"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas engajadas ganham 'Exaustão Coragem 5' e 'Exaustão Sabedoria 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keywords",
+          "notes": "Criaturas engajadas ganham palavras-chave de exaustão.",
+          "payload": {
+            "trigger": "passive",
+            "keywords": [
+              "Exhaust Courage 5",
+              "Exhaust Wisdom 5"
+            ]
+          }
+        },
+        "targetScope": "engaged_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:01.000000Z",
+    "updated_at": "2026-02-17T21:00:01.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "0c3d4e5f-6a7b-8c90-0345-1c2d3e4f5a6b",
+    "file_name": "marrilian_invasion_213.png",
+    "name": "Portas Abertas das Minas Profundas",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "minion"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas jogam suas habilidades como se o controlador de cada Criatura também controlasse um Chefe.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "grant_chieftain_presence",
+          "notes": "Permite que as criaturas usem habilidades como se um Chefe estivesse presente.",
+          "payload": {
+            "trigger": "passive"
+          }
+        },
+        "targetScope": "all_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:02.000000Z",
+    "updated_at": "2026-02-17T21:00:02.000000Z",
+    "tribes": [],
+    "rarity": "super_rara"
+  },
+  {
+    "id": "1d4e5f6a-7b8c-9d01-1456-2d3e4f5a6b7c",
+    "file_name": "marrilian_invasion_212.png",
+    "name": "Reservatório do Pilar da Montanha",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "courage"
+    ],
+    "abilities": [
+      {
+        "description": "Quando este se torna o Local ativo, cada jogador pode retornar um Chefe de sua pilha de descarte para jogar em um espaço desocupado em seu lado do Tabuleiro sem contadores de Mugic.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "revive_chieftain",
+          "notes": "Revive um Chefe do descarte na ativação do local.",
+          "payload": {
+            "trigger": "on_location_activate",
+            "requiresEmptySpace": true,
+            "mugic_counters": 0
+          }
+        },
+        "targetScope": "all_players"
+      },
+      {
+        "description": "Criaturas M'arrillian e Minion ganham 'Água 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keyword",
+          "notes": "Concede Água 5 para M'arrillians e Minions.",
+          "payload": {
+            "trigger": "passive",
+            "keyword": "Water 5"
+          }
+        },
+        "targetScope": "specific_tribes",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ]
+      }
+    ],
+    "created_at": "2026-02-17T21:00:03.000000Z",
+    "updated_at": "2026-02-17T21:00:03.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "2e5f6a7b-8c9d-0e12-2567-3e4f5a6b7c8d",
+    "file_name": "marrilian_invasion_211.png",
+    "name": "Torre da Catapulta de Mommark",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "speed"
+    ],
+    "abilities": [
+      {
+        "description": "Quando este se torna o Local ativo, as Criaturas que você controla ganham 'Veloz 1'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "grant_keyword_to_allies",
+          "notes": "Concede Veloz 1 às criaturas do jogador na ativação do local.",
+          "payload": {
+            "trigger": "on_location_activate",
+            "keyword": "Swift 1"
+          }
+        },
+        "targetScope": "own_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:04.000000Z",
+    "updated_at": "2026-02-17T21:00:04.000000Z",
+    "tribes": [],
+    "rarity": "comum"
+  },
+  {
+    "id": "3f6a7b8c-9d0e-1f23-3678-4f5a6b7c8d9e",
+    "file_name": "marrilian_invasion_210.png",
+    "name": "Lago de Lava",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "power"
+    ],
+    "abilities": [
+      {
+        "description": "Quando este se torna o Local ativo, cada jogador revela uma carta de Mugic aleatória de sua mão. Cartas com o mesmo nome das reveladas não podem ser jogadas neste turno.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "reveal_and_restrict_mugic",
+          "notes": "Revela uma Mugic aleatória da mão de cada jogador e restringe seu uso.",
+          "payload": {
+            "trigger": "on_location_activate"
+          }
+        },
+        "targetScope": "all_players"
+      },
+      {
+        "description": "Criaturas M'arrillian e Minion recebem 9 a menos de dano de Mugic e habilidades.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "damage_reduction_from_sources",
+          "notes": "Reduz o dano de Mugic e habilidades para M'arrillians e Minions.",
+          "payload": {
+            "trigger": "passive",
+            "amount": -9,
+            "sources": [
+              "mugic",
+              "ability"
+            ]
+          }
+        },
+        "targetScope": "specific_tribes",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ]
+      }
+    ],
+    "created_at": "2026-02-17T21:00:05.000000Z",
+    "updated_at": "2026-02-17T21:00:05.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "4a7b8c9d-0e1f-2a34-4789-5a6b7c8d9e0f",
+    "file_name": "marrilian_invasion_209.png",
+    "name": "Pilar de Jade",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "power"
+    ],
+    "abilities": [
+      {
+        "description": "Quando o Pilar de Jade se torna o Local ativo, coloque 10 contadores de Jade nele. Remova um contador de Jade do Pilar de Jade para cada 5 de dano de ataque causado. Quando o último contador for removido, o Pilar de Jade causa 50 de dano à Criatura que jogou o último ataque.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "location_counter_mechanic",
+          "notes": "Mecânica de contadores que causa dano no final.",
+          "payload": {
+            "trigger": "on_location_activate",
+            "counter_name": "Jade",
+            "initial_counters": 10,
+            "remove_trigger": "on_attack_damage",
+            "damage_threshold_for_removal": 5,
+            "final_effect_trigger": "on_last_counter_removed",
+            "final_effect": {
+              "type": "deal_damage",
+              "amount": 50,
+              "target": "last_attacker"
+            }
+          }
+        },
+        "targetScope": "location_and_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:06.000000Z",
+    "updated_at": "2026-02-17T21:00:06.000000Z",
+    "tribes": [],
+    "rarity": "super_rara"
+  },
+  {
+    "id": "5b8c9d0e-1f2a-3b45-5890-6b7c8d9e0f1a",
+    "file_name": "marrilian_invasion_208.png",
+    "name": "O Infectório",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "courage"
+    ],
+    "abilities": [
+      {
+        "description": "No início do combate, cause 15 de dano a Criaturas não-Danian engajadas e infectadas.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "conditional_damage",
+          "notes": "Causa dano a criaturas específicas no início do combate.",
+          "payload": {
+            "trigger": "on_combat_start",
+            "amount": 15,
+            "condition": "is_infected_and_not_danian"
+          }
+        },
+        "targetScope": "engaged_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:07.000000Z",
+    "updated_at": "2026-02-17T21:00:07.000000Z",
+    "tribes": [
+      "danian"
+    ],
+    "rarity": "rara"
+  },
+  {
+    "id": "6c9d0e1f-2a3b-4c56-6901-7c8d9e0f1a2b",
+    "file_name": "marrilian_invasion_207.png",
+    "name": "Muros Imaginários",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "danian"
+    ],
+    "abilities": [
+      {
+        "description": "Quando este se torna o Local ativo, seu oponente pode retornar uma carta de Mugic da pilha de descarte para a mão.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "opponent_return_mugic_from_discard",
+          "notes": "Permite ao oponente recuperar uma Mugic do descarte.",
+          "payload": {
+            "trigger": "on_location_activate"
+          }
+        },
+        "targetScope": "opponent"
+      },
+      {
+        "description": "Ataques causam 10 a menos de dano a Criaturas M'arrillian e Minion.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "damage_reduction_from_attacks",
+          "notes": "Reduz o dano de ataques para M'arrillians e Minions.",
+          "payload": {
+            "trigger": "passive",
+            "amount": -10
+          }
+        },
+        "targetScope": "specific_tribes",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ]
+      }
+    ],
+    "created_at": "2026-02-17T21:00:08.000000Z",
+    "updated_at": "2026-02-17T21:00:08.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "7d0e1f2a-3b4c-5d67-7012-8d9e0f1a2b3c",
+    "file_name": "marrilian_invasion_206.png",
+    "name": "Lago Ilusório",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "water"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas engajadas perdem o Tipo Elemental Água e não podem ganhá-lo.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "lose_and_prevent_element",
+          "notes": "Criaturas engajadas perdem e não podem ganhar o elemento Água.",
+          "payload": {
+            "trigger": "passive",
+            "element": "water"
+          }
+        },
+        "targetScope": "engaged_creatures"
+      },
+      {
+        "description": "Miragem: Criaturas perdem o Tipo Elemental Água e não podem ganhá-lo.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "mirage_lose_and_prevent_element",
+          "notes": "Miragem: Criaturas perdem e não podem ganhar o elemento Água.",
+          "payload": {
+            "trigger": "passive",
+            "element": "water"
+          }
+        },
+        "targetScope": "all_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:09.000000Z",
+    "updated_at": "2026-02-17T21:00:09.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "8e1f2a3b-4c5d-6e78-8123-9e0f1a2b3c4d",
+    "file_name": "marrilian_invasion_205.png",
+    "name": "Posto Avançado de Ijahni",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "air"
+    ],
+    "abilities": [
+      {
+        "description": "Suas Criaturas perdem 10 de Energia.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_modifier",
+          "notes": "Reduz a energia das criaturas do jogador.",
+          "payload": {
+            "trigger": "passive",
+            "stat": "energy",
+            "amount": -10
+          }
+        },
+        "targetScope": "own_creatures"
+      },
+      {
+        "description": "Miragem: Criaturas não podem se mover para fora deste espaço a menos que seu controlador pague ☐ de qualquer Criatura que controle.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "mirage_movement_restriction_with_cost",
+          "notes": "Miragem: Restringe o movimento para fora do espaço com um custo de Mugic.",
+          "payload": {
+            "trigger": "passive",
+            "cost": 1
+          }
+        },
+        "targetScope": "creatures_in_location"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:10.000000Z",
+    "updated_at": "2026-02-17T21:00:10.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "9f2a3b4c-5d6e-7f89-9234-0f1a2b3c4d5e",
+    "file_name": "marrilian_invasion_204.png",
+    "name": "A Galeria da Colmeia",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "earth"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas engajadas ganham 'Superar Coragem 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keyword",
+          "notes": "Criaturas engajadas ganham Superar Coragem 5.",
+          "payload": {
+            "trigger": "passive",
+            "keyword": "Outperform Courage 5"
+          }
+        },
+        "targetScope": "engaged_creatures"
+      },
+      {
+        "description": "O dano causado por ataques de Poder é reduzido em 5.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "damage_reduction_by_stat_attack",
+          "notes": "Reduz o dano de ataques baseados em Poder.",
+          "payload": {
+            "trigger": "passive",
+            "amount": -5,
+            "stat": "power"
+          }
+        },
+        "targetScope": "all_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:11.000000Z",
+    "updated_at": "2026-02-17T21:00:11.000000Z",
+    "tribes": [
+      "danian"
+    ],
+    "rarity": "comum"
+  },
+  {
+    "id": "0a3b4c5d-6e7f-8a90-0345-1a2b3c4d5e6f",
+    "file_name": "marrilian_invasion_203.png",
+    "name": "O Coração da Selva",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "overworld"
+    ],
+    "abilities": [
+      {
+        "description": "Mugic e habilidades que alteram as Disciplinas de uma criatura engajada afetam ambas as criaturas engajadas.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "shared_discipline_alteration",
+          "notes": "Efeitos de alteração de disciplina afetam ambas as criaturas engajadas.",
+          "payload": {
+            "trigger": "passive"
+          }
+        },
+        "targetScope": "engaged_creatures"
+      },
+      {
+        "description": "Miragem: Criaturas neste espaço ganham 10 em todas as Disciplinas.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "mirage_stat_modifier",
+          "notes": "Miragem: Aumenta todas as disciplinas em 10.",
+          "payload": {
+            "trigger": "passive",
+            "stat": "all_disciplines",
+            "amount": 10
+          }
+        },
+        "targetScope": "creatures_in_location"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:12.000000Z",
+    "updated_at": "2026-02-17T21:00:12.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "1b4c5d6e-7f8a-9b01-1456-2b3c4d5e6f7a",
+    "file_name": "marrilian_invasion_202.png",
+    "name": "Salão da Fadiga",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "speed"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas engajadas ganham 'Exaustão Poder 5' e 'Exaustão Velocidade 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keywords",
+          "notes": "Criaturas engajadas ganham palavras-chave de exaustão.",
+          "payload": {
+            "trigger": "passive",
+            "keywords": [
+              "Exhaust Power 5",
+              "Exhaust Speed 5"
+            ]
+          }
+        },
+        "targetScope": "engaged_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:13.000000Z",
+    "updated_at": "2026-02-17T21:00:13.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "2c5d6e7f-8a9b-0c12-2567-3c4d5e6f7a8b",
+    "file_name": "marrilian_invasion_201.png",
+    "name": "Pântano Sombrio Noturno",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "mipedian"
+    ],
+    "abilities": [
+      {
+        "description": "Mugic e habilidades que realocam uma Criatura não têm efeito.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "prevent_relocation",
+          "notes": "Impede os efeitos de realocação de Mugic e habilidades.",
+          "payload": {
+            "trigger": "passive"
+          }
+        },
+        "targetScope": "all_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:14.000000Z",
+    "updated_at": "2026-02-17T21:00:14.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "3d6e7f8a-9b0c-1d23-3678-4d5e6f7a8b9c",
+    "file_name": "marrilian_invasion_200.png",
+    "name": "Cabana de Cambreor",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "power"
+    ],
+    "abilities": [
+      {
+        "description": "As Criaturas que você controla ganham 'À Prova de Fogo 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "grant_keyword_to_allies",
+          "notes": "Concede À Prova de Fogo 5 às criaturas do jogador.",
+          "payload": {
+            "trigger": "passive",
+            "keyword": "Fireproof 5"
+          }
+        },
+        "targetScope": "own_creatures"
+      },
+      {
+        "description": "Se uma Mugic ou habilidade reduziria a Disciplina de uma Criatura, essa Mugic ou habilidade reduz a Disciplina em 10 a menos.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "reduce_discipline_reduction",
+          "notes": "Reduz a eficácia das reduções de disciplina.",
+          "payload": {
+            "trigger": "passive",
+            "amount": -10
+          }
+        },
+        "targetScope": "all_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:15.000000Z",
+    "updated_at": "2026-02-17T21:00:15.000000Z",
+    "tribes": [],
+    "rarity": "super_rara"
+  },
+  {
+    "id": "4e7f8a9b-0c1d-2e34-4789-5e6f7a8b9c0d",
+    "file_name": "marrilian_invasion_199.png",
+    "name": "Gongo do Alcance Mortal",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "fire"
+    ],
+    "abilities": [
+      {
+        "description": "Chefes ganham 15 em todas as Disciplinas e 'Água 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "buff_subtype",
+          "notes": "Dá um bônus para a subtipo Chefe.",
+          "payload": {
+            "trigger": "passive",
+            "subtype": "chieftain",
+            "discipline_buff": 15,
+            "keyword": "Water 5"
+          }
+        },
+        "targetScope": "all_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:16.000000Z",
+    "updated_at": "2026-02-17T21:00:16.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "5f8a9b0c-1d2e-3f45-5890-6f7a8b9c0d1e",
+    "file_name": "marrilian_invasion_198.png",
+    "name": "Câmara das Ondas",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "wisdom"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas perdem 10 em todas as Disciplinas.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "stat_modifier",
+          "notes": "Reduz todas as disciplinas de todas as criaturas.",
+          "payload": {
+            "trigger": "passive",
+            "stat": "all_disciplines",
+            "amount": -10
+          }
+        },
+        "targetScope": "all_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:17.000000Z",
+    "updated_at": "2026-02-17T21:00:17.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "6a9b0c1d-2e3f-4a56-6901-7a8b9c0d1e2f",
+    "file_name": "marrilian_invasion_197.png",
+    "name": "Borda Quebrada",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "air"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas engajadas ganham 'Superar Velocidade 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keyword",
+          "notes": "Criaturas engajadas ganham Superar Velocidade 5.",
+          "payload": {
+            "trigger": "passive",
+            "keyword": "Outperform Speed 5"
+          }
+        },
+        "targetScope": "engaged_creatures"
+      },
+      {
+        "description": "O dano causado por ataques de Sabedoria é reduzido em 5.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "damage_reduction_by_stat_attack",
+          "notes": "Reduz o dano de ataques baseados em Sabedoria.",
+          "payload": {
+            "trigger": "passive",
+            "amount": -5,
+            "stat": "wisdom"
+          }
+        },
+        "targetScope": "all_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:18.000000Z",
+    "updated_at": "2026-02-17T21:00:18.000000Z",
+    "tribes": [],
+    "rarity": "comum"
+  },
+  {
+    "id": "7b0c1d2e-3f4a-5b67-7012-8b9c0d1e2f3a",
+    "file_name": "marrilian_invasion_196.png",
+    "name": "Toca dos Brigões",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "speed"
+    ],
+    "abilities": [
+      {
+        "description": "Quando este se torna o Local ativo, cada jogador embaralha sua pilha de descarte de ataques e seu Deck de Ataque juntos.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "shuffle_attack_discard_into_deck",
+          "notes": "Embaralha o descarte de ataques de volta no deck.",
+          "payload": {
+            "trigger": "on_location_activate"
+          }
+        },
+        "targetScope": "all_players"
+      },
+      {
+        "description": "Todas as Criaturas ganham 'Superar todas as Disciplinas 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keyword",
+          "notes": "Todas as criaturas ganham Superar todas as Disciplinas 5.",
+          "payload": {
+            "trigger": "passive",
+            "keyword": "Outperform all Disciplines 5"
+          }
+        },
+        "targetScope": "all_creatures"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:19.000000Z",
+    "updated_at": "2026-02-17T21:00:19.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "8c1d2e3f-4a5b-6c78-8123-9c0d1e2f3a4b",
+    "file_name": "marrilian_invasion_195.png",
+    "name": "Arsenal de Bodal",
+    "image_file_id": null,
+    "image_url": null,
+    "initiative_elements": [
+      "wisdom"
+    ],
+    "abilities": [
+      {
+        "description": "Quando este se torna o Local ativo, cada jogador pode retornar um Battlegear de sua pilha de descarte para jogar e equipá-lo em uma Criatura desequipada que o jogador controle.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "return_battlegear_from_discard",
+          "notes": "Permite a cada jogador retornar um Battlegear do descarte.",
+          "payload": {
+            "trigger": "on_location_activate"
+          }
+        },
+        "targetScope": "all_players"
+      }
+    ],
+    "created_at": "2026-02-17T21:00:20.000000Z",
+    "updated_at": "2026-02-17T21:00:20.000000Z",
+    "tribes": [],
+    "rarity": "rara"
   }
 ]

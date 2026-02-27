@@ -1,5 +1,235 @@
 [
   {
+    "id": "52f3c1e9-6b8f-4f0b-a2d1-0f3c2b4e5a67",
+    "file_name": "marrilian_invasion_189.png",
+    "name": "Sinfonia da Similaridade",
+    "image_file_id": null,
+    "image_url": null,
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo ganha 5 em todas as Disciplinas para cada Mandiblor que você controla.",
+        "effectType": "stat_modifier",
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "target_creature",
+        "value": 0,
+        "actionType": "gain_stats_per_subtype_controlled",
+        "actionPayload": {
+          "legacyEffectType": "stat_modifier",
+          "legacyBattleRules": {
+            "type": "gain_stats_per_subtype_controlled",
+            "notes": "Ganha 5 em todas as disciplinas por Mandiblor controlado.",
+            "payload": {
+              "subtype": "Mandiblor",
+              "amount": 5,
+              "stat": "all_disciplines"
+            }
+          }
+        },
+        "targetTribes": []
+      }
+    ],
+    "created_at": "2026-02-17T22:00:00.000000Z",
+    "updated_at": "2026-02-17T22:00:00.000000Z",
+    "tribe": "danian",
+    "rarity": "rara"
+  },
+  {
+    "id": "6a7b8c9d-7c9a-4b1c-b3e2-1a4d5c6f7b88",
+    "file_name": "marrilian_invasion_190.png",
+    "name": "Allegro",
+    "image_file_id": null,
+    "image_url": null,
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo ganha 50 de Velocidade. Se a sua Criatura engajada ganhou Iniciativa neste turno, o custo de Allegro é 0.",
+        "effectType": "stat_modifier",
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "target_creature",
+        "value": 0,
+        "actionType": "gain_stat_with_conditional_cost",
+        "actionPayload": {
+          "legacyEffectType": "stat_modifier",
+          "legacyBattleRules": {
+            "type": "gain_stat_with_conditional_cost",
+            "notes": "Ganha 50 de Velocidade, com custo reduzido se ganhou iniciativa.",
+            "payload": {
+              "stat": "speed",
+              "amount": 50,
+              "condition": "gained_initiative",
+              "new_cost": 0
+            }
+          }
+        },
+        "targetTribes": []
+      }
+    ],
+    "created_at": "2026-02-17T22:00:01.000000Z",
+    "updated_at": "2026-02-17T22:00:01.000000Z",
+    "tribe": "mipedian",
+    "rarity": "rara"
+  },
+  {
+    "id": "7b8c9d0e-8dab-4c2d-c4f3-2b5e6d7f8c99",
+    "file_name": "marrilian_invasion_191.png",
+    "name": "Ária do Enfurecimento",
+    "image_file_id": null,
+    "image_url": null,
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo ganha 'Imprudência 5'.",
+        "effectType": "gain",
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "target_creature",
+        "value": 0,
+        "actionType": "gain_keyword",
+        "actionPayload": {
+          "legacyEffectType": "gain",
+          "legacyBattleRules": {
+            "type": "gain_keyword",
+            "notes": "Concede a palavra-chave Imprudência 5.",
+            "payload": {
+              "keyword": "Recklessness 5"
+            }
+          }
+        },
+        "targetTribes": []
+      }
+    ],
+    "created_at": "2026-02-17T22:00:02.000000Z",
+    "updated_at": "2026-02-17T22:00:02.000000Z",
+    "tribe": "underworld",
+    "rarity": "rara"
+  },
+  {
+    "id": "8c9d0e1f-9eb0-4d3e-d5f4-3c6f7e8d9b01",
+    "file_name": "marrilian_invasion_192.png",
+    "name": "Canto da Ira do Deserto",
+    "image_file_id": null,
+    "image_url": null,
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "O Mipedian alvo ganha 'Ar 5'.",
+        "effectType": "gain",
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "target_creature",
+        "value": 0,
+        "actionType": "gain_keyword",
+        "actionPayload": {
+          "legacyEffectType": "gain",
+          "legacyBattleRules": {
+            "type": "gain_keyword",
+            "notes": "Concede a palavra-chave Ar 5 a um Mipedian.",
+            "payload": {
+              "keyword": "Air 5"
+            }
+          }
+        },
+        "targetTribes": [
+          "mipedian"
+        ]
+      }
+    ],
+    "created_at": "2026-02-17T22:00:03.000000Z",
+    "updated_at": "2026-02-17T22:00:03.000000Z",
+    "tribe": "mipedian",
+    "rarity": "rara"
+  },
+  {
+    "id": "9d0e1f2a-a0b1-4e4f-e6a5-4d7e8f9a0b12",
+    "file_name": "marrilian_invasion_193.png",
+    "name": "Tema Desarmante",
+    "image_file_id": null,
+    "image_url": null,
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo com Invisibilidade ganha 'Invisibilidade: Desarmar'.",
+        "effectType": "gain",
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "target_creature",
+        "value": 0,
+        "actionType": "grant_keyword_if_has_keyword",
+        "actionPayload": {
+          "legacyEffectType": "gain",
+          "legacyBattleRules": {
+            "type": "grant_keyword_if_has_keyword",
+            "notes": "Concede 'Invisibilidade: Desarmar' a uma criatura que já tenha Invisibilidade.",
+            "payload": {
+              "condition_keyword": "Invisibility",
+              "granted_keyword": "Invisibility: Disarm"
+            }
+          }
+        },
+        "targetTribes": []
+      }
+    ],
+    "created_at": "2026-02-17T22:00:04.000000Z",
+    "updated_at": "2026-02-17T22:00:04.000000Z",
+    "tribe": "generic",
+    "rarity": "rara"
+  },
+  {
+    "id": "ae1f2b3c-b1c2-4f5a-f7b6-5e8f9a1b2c23",
+    "file_name": "marrilian_invasion_194.png",
+    "name": "Tensão Seletiva",
+    "image_file_id": null,
+    "image_url": null,
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo ganha 25 em uma Disciplina à sua escolha. Essa Criatura perde 25 em outra Disciplina à sua escolha.",
+        "effectType": "stat_modifier",
+        "stats": [],
+        "cardTypes": [
+          "creature"
+        ],
+        "targetScope": "target_creature",
+        "value": 0,
+        "actionType": "choose_discipline_to_buff_and_nerf",
+        "actionPayload": {
+          "legacyEffectType": "stat_modifier",
+          "legacyBattleRules": {
+            "type": "choose_discipline_to_buff_and_nerf",
+            "notes": "Permite ao jogador escolher uma disciplina para aumentar e outra para diminuir.",
+            "payload": {
+              "amount": 25
+            }
+          }
+        },
+        "targetTribes": []
+      }
+    ],
+    "created_at": "2026-02-17T22:00:05.000000Z",
+    "updated_at": "2026-02-17T22:00:05.000000Z",
+    "tribe": "generic",
+    "rarity": "rara"
+  },
+  {
     "id": "52b360c5-ca7f-4c31-a6b4-4cbf0fd2f3db",
     "file_name": "164.png",
     "name": "Diminuendo",

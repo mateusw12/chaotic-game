@@ -1,6 +1,965 @@
 [
   {
     "id": "b121e471-a497-4d0a-9bea-b7785a2f5e98",
+    "name": "Aerodrone",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_126.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Quando a Criatura equipada causa dano de Ar, você pode olhar as quatro primeiras cartas do seu Deck de Ataque e colocá-las de volta no topo em qualquer ordem.",
+        "effectType": "utility",
+        "battleRules": {
+          "type": "scry_attack_deck_on_elemental_damage",
+          "notes": "Olha o topo do deck de ataque ao causar dano de Ar.",
+          "payload": {
+            "element": "air",
+            "card_count": 4
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:00.000000Z",
+    "updated_at": "2026-02-17T23:00:00.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "0d2303fd-389b-4586-ab23-fb026388461b",
+    "name": "Ventos da Atração Sedutora",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_127.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Se uma Criatura oponente adjacente puder se mover para o espaço da Criatura equipada, ela deve fazê-lo. (Você só pode iniciar um combate por turno.) Único.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "force_adjacent_movement",
+          "notes": "Força uma criatura oponente adjacente a se mover para o espaço. Único.",
+          "payload": {
+            "is_unique": true
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:01.000000Z",
+    "updated_at": "2026-02-17T23:00:01.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "ea72574f-2310-4fac-8a0c-5aeca649f108",
+    "name": "Isca Sedutora",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_128.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 'Descarte uma Carta de Mugic: Realoque uma Criatura oponente desengajada alvo para um espaço desocupado adjacente à Criatura equipada.'",
+        "effectType": "gain_ability",
+        "battleRules": {
+          "type": "gain_ability_to_relocate_opponent",
+          "notes": "Ganha uma habilidade para realocar um oponente desengajado.",
+          "payload": {
+            "cost_type": "discard_mugic",
+            "cost_amount": 1
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:02.000000Z",
+    "updated_at": "2026-02-17T23:00:02.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "2a503bb5-5334-4f09-a330-1b15c1a6d2b2",
+    "name": "Amplificador de Aspecto: Agilidade",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_129.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 'Superar Velocidade 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keyword",
+          "notes": "Ganha Superar Velocidade 5.",
+          "payload": {
+            "keyword": "Outperform Speed 5"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:03.000000Z",
+    "updated_at": "2026-02-17T23:00:03.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "86eea5fc-fa5b-4794-aaad-d643a2bb128c",
+    "name": "Amplificador de Aspecto: Bravura",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_130.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 'Superar Coragem 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keyword",
+          "notes": "Ganha Superar Coragem 5.",
+          "payload": {
+            "keyword": "Outperform Courage 5"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:04.000000Z",
+    "updated_at": "2026-02-17T23:00:04.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "80eb605d-1b4c-4d29-8c6d-2887212a5f8f",
+    "name": "Amplificador de Aspecto: Força",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_131.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 'Superar Poder 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keyword",
+          "notes": "Ganha Superar Poder 5.",
+          "payload": {
+            "keyword": "Outperform Power 5"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:05.000000Z",
+    "updated_at": "2026-02-17T23:00:05.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "4af5981d-1fa1-4166-b332-bfdbdaaf17dd",
+    "name": "Amplificador de Aspecto: Sagacidade",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_132.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 'Superar Sabedoria 5'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keyword",
+          "notes": "Ganha Superar Sabedoria 5.",
+          "payload": {
+            "keyword": "Outperform Wisdom 5"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:06.000000Z",
+    "updated_at": "2026-02-17T23:00:06.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "936a15a4-3788-4dfb-aad7-2011cdb01186",
+    "name": "Amplificador Cerebral",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_133.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 15 de Sabedoria e 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_multiple_stats",
+          "notes": "Ganha 15 de Sabedoria e 5 de Energia.",
+          "payload": [
+            {
+              "stat": "wisdom",
+              "amount": 15
+            },
+            {
+              "stat": "energy",
+              "amount": 5
+            }
+          ]
+        }
+      },
+      {
+        "description": "Quando a Criatura equipada vence o combate, ela ganha ☐.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_mugic_on_combat_win",
+          "notes": "Ganha um contador de Mugic ao vencer o combate.",
+          "payload": {
+            "amount": 1
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:07.000000Z",
+    "updated_at": "2026-02-17T23:00:07.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "200697d8-93e7-4d4b-a4fa-9adb67f02556",
+    "name": "Sopro do Deserto",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_134.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 10 de Velocidade.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 10 de Velocidade.",
+          "payload": {
+            "stat": "speed",
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Sacrifique o Sopro do Deserto: A Criatura equipada ganha 'Ar 5'. Jogue esta habilidade apenas enquanto a Criatura equipada estiver engajada.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "sacrifice_for_keyword",
+          "notes": "Sacrifica para ganhar Ar 5.",
+          "payload": {
+            "keyword": "Air 5",
+            "condition": "is_engaged"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:08.000000Z",
+    "updated_at": "2026-02-17T23:00:08.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "ef79030a-3694-423b-a6b8-0a87968f177b",
+    "name": "Destructozooka",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_135.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Quando a Destructozooka é revelada, escolha um Tipo Elemental. A Criatura equipada ganha o Tipo Elemental escolhido e 'Elemento 5' do Tipo Elemental escolhido.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "choose_element_on_reveal",
+          "notes": "Escolhe um elemento ao revelar para ganhar o tipo e a palavra-chave.",
+          "payload": {
+            "trigger": "on_reveal",
+            "keyword_prefix": "Element",
+            "keyword_value": 5
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:09.000000Z",
+    "updated_at": "2026-02-17T23:00:09.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "bd3e95e0-52e5-4dbb-828d-5d41cbdce3ac",
+    "name": "Âmbar da Colmeia",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_136.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Sacrifique o Âmbar da Colmeia: Ative a Colmeia.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "sacrifice_to_activate_hive",
+          "notes": "Sacrifica para ativar a Colmeia.",
+          "payload": {}
+        }
+      },
+      {
+        "description": "Quando um Mandiblor que você controla é colocado na pilha de descarte, você pode retornar o Âmbar da Colmeia para o jogo equipado a uma Criatura desequipada que você controla.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "return_from_discard_on_ally_discard",
+          "notes": "Retorna do descarte quando um Mandiblor é descartado.",
+          "payload": {
+            "trigger_subtype": "Mandiblor"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:10.000000Z",
+    "updated_at": "2026-02-17T23:00:10.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "c4e44d85-ef8e-4eda-9232-c2fd719fdd0b",
+    "name": "Armadura de Casca de Kha'rall",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_137.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 50 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 50 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 50
+          }
+        }
+      },
+      {
+        "description": "Quando a Criatura equipada recebe 15 ou mais de dano de ataque, o próximo ataque que a Criatura equipada joga causa 0 de dano. Único.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "negate_next_attack_on_damage_taken",
+          "notes": "Nega o próximo ataque se receber 15+ de dano.",
+          "payload": {
+            "damage_threshold": 15,
+            "is_unique": true
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:11.000000Z",
+    "updated_at": "2026-02-17T23:00:11.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "860123dd-8131-4033-81e3-1487b1ab5ec3",
+    "name": "Manual de Vidav",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_138.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 10 de Sabedoria.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 10 de Sabedoria.",
+          "payload": {
+            "stat": "wisdom",
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Sacrifique o Manual de Vidav: Cure 15 de dano na Criatura equipada. Jogue esta habilidade apenas enquanto a Criatura equipada estiver engajada.",
+        "effectType": "heal",
+        "battleRules": {
+          "type": "sacrifice_for_heal",
+          "notes": "Sacrifica para curar 15 de dano.",
+          "payload": {
+            "amount": 15,
+            "condition": "is_engaged"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:12.000000Z",
+    "updated_at": "2026-02-17T23:00:12.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "ef09c510-00ef-4db0-ae43-496c83b65263",
+    "name": "Tocha de Maxxor",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_139.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Sacrifique a Tocha de Maxxor: O oponente escolhe uma Criatura M'arrillian ou Minion que ele ou ela controla. A Tocha de Maxxor causa 25 de dano à Criatura escolhida. Único.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "sacrifice_for_damage_opponent_choice",
+          "notes": "Sacrifica para causar dano a uma criatura escolhida pelo oponente.",
+          "payload": {
+            "amount": 25,
+            "target_tribes": [
+              "marrillian",
+              "minion"
+            ],
+            "is_unique": true
+          }
+        },
+        "targetScope": "opponent_creature"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:13.000000Z",
+    "updated_at": "2026-02-17T23:00:13.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "f140b59b-82b0-49b9-abda-b08f7dca1811",
+    "name": "Prisma Mental",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_140.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 10 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 10 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 10
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:14.000000Z",
+    "updated_at": "2026-02-17T23:00:14.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "45df4616-93d9-4ae8-8d29-a0076a17bbc8",
+    "name": "Garra Mental",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_141.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Quando um efeito controlado por um oponente reduz qualquer uma das Disciplinas da Criatura equipada, a Garra Mental causa 5 de dano a uma Criatura engajada alvo.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "damage_on_discipline_reduction",
+          "notes": "Causa dano quando as disciplinas da criatura equipada são reduzidas.",
+          "payload": {
+            "amount": 5
+          }
+        },
+        "targetScope": "target_engaged_creature"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:15.000000Z",
+    "updated_at": "2026-02-17T23:00:15.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "f899b18a-be53-424c-b870-191d265b1821",
+    "name": "Espelhos do Deslocamento",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_142.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Quando uma Carta de Mugic vai para a pilha de descarte geral, descarte uma Carta de Ataque e depois compre uma Carta de Ataque.",
+        "effectType": "utility",
+        "battleRules": {
+          "type": "discard_and_draw_on_mugic_discard",
+          "notes": "Descarta e compra uma carta de ataque quando uma Mugic é descartada.",
+          "payload": {}
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:16.000000Z",
+    "updated_at": "2026-02-17T23:00:16.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "b2c501c9-1daa-4f5e-88d4-394fa1340e9e",
+    "name": "Tábua do Parasita",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_143.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 10 de Coragem.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 10 de Coragem.",
+          "payload": {
+            "stat": "courage",
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Sacrifique a Tábua do Parasita: A Criatura equipada conta como um Mandiblor. Jogue esta habilidade apenas enquanto a Criatura equipada estiver engajada.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "sacrifice_to_gain_subtype",
+          "notes": "Sacrifica para contar como Mandiblor.",
+          "payload": {
+            "subtype": "Mandiblor",
+            "condition": "is_engaged"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:17.000000Z",
+    "updated_at": "2026-02-17T23:00:17.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "811472ac-089f-4a9a-a429-06f5c27b0396",
+    "name": "Máscara da Fobia",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_144.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 'Intimidar: Coragem 10' e 'Intimidar: Poder 10'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keywords",
+          "notes": "Ganha Intimidar: Coragem 10 e Intimidar: Poder 10.",
+          "payload": {
+            "keywords": [
+              "Intimidate: Courage 10",
+              "Intimidate: Power 10"
+            ]
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:18.000000Z",
+    "updated_at": "2026-02-17T23:00:18.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "13d85ab5-4777-46fa-95f3-e4a31f1a6270",
+    "name": "Tabardo da Fobia",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_145.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 'Intimidar: Sabedoria 10' e 'Intimidar: Velocidade 10'.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_keywords",
+          "notes": "Ganha Intimidar: Sabedoria 10 e Intimidar: Velocidade 10.",
+          "payload": {
+            "keywords": [
+              "Intimidate: Wisdom 10",
+              "Intimidate: Speed 10"
+            ]
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:19.000000Z",
+    "updated_at": "2026-02-17T23:00:19.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "f522db7d-50ea-4fbd-9d5f-e823c2b12be9",
+    "name": "Ficha do Poço",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_146.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 10 de Poder.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 10 de Poder.",
+          "payload": {
+            "stat": "power",
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Sacrifique a Ficha do Poço: Cause 10 de dano a uma Criatura engajada alvo. Jogue esta habilidade apenas enquanto a Criatura equipada estiver engajada.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "sacrifice_for_damage",
+          "notes": "Sacrifica para causar 10 de dano a um alvo engajado.",
+          "payload": {
+            "amount": 10,
+            "condition": "is_engaged"
+          }
+        },
+        "targetScope": "target_engaged_creature"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:20.000000Z",
+    "updated_at": "2026-02-17T23:00:20.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "295677f4-d8b4-4a0d-a1e6-007df3663f89",
+    "name": "Socador de Plasma",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_147.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Quando a Criatura equipada causa dano de Terra, você pode olhar as duas primeiras cartas do seu Deck de Localização e colocar uma no topo e uma no fundo. Único.",
+        "effectType": "utility",
+        "battleRules": {
+          "type": "scry_location_deck_on_elemental_damage",
+          "notes": "Olha e reordena o topo do deck de local ao causar dano de Terra.",
+          "payload": {
+            "element": "earth",
+            "card_count": 2,
+            "is_unique": true
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:21.000000Z",
+    "updated_at": "2026-02-17T23:00:21.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "d996d0d5-d6b8-41ac-af7c-9594ad01c2fd",
+    "name": "Prisma do Medo",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_148.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 5 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Sacrifique o Prisma do Medo: A Criatura alvo perde 20 de Coragem.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "sacrifice_for_stat_reduction",
+          "notes": "Sacrifica para reduzir a Coragem de um alvo em 20.",
+          "payload": {
+            "stat": "courage",
+            "amount": -20
+          }
+        },
+        "targetScope": "target_creature"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:22.000000Z",
+    "updated_at": "2026-02-17T23:00:22.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "6b4448bc-bfa8-4621-8bef-808b464bcaeb",
+    "name": "Prisma da Insensatez",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_149.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 5 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Sacrifique o Prisma da Insensatez: A Criatura alvo perde 20 de Sabedoria.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "sacrifice_for_stat_reduction",
+          "notes": "Sacrifica para reduzir a Sabedoria de um alvo em 20.",
+          "payload": {
+            "stat": "wisdom",
+            "amount": -20
+          }
+        },
+        "targetScope": "target_creature"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:23.000000Z",
+    "updated_at": "2026-02-17T23:00:23.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "efc5a034-7235-403c-8630-717f0c7fd552",
+    "name": "Prisma da Preguiça",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_150.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 5 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Sacrifique o Prisma da Preguiça: A Criatura alvo perde 20 de Velocidade.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "sacrifice_for_stat_reduction",
+          "notes": "Sacrifica para reduzir a Velocidade de um alvo em 20.",
+          "payload": {
+            "stat": "speed",
+            "amount": -20
+          }
+        },
+        "targetScope": "target_creature"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:24.000000Z",
+    "updated_at": "2026-02-17T23:00:24.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "c7598085-1164-4e64-8f37-4d8453fe0342",
+    "name": "Prisma da Vacuidade",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_151.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 5 de Energia.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 5 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "Sacrifique o Prisma da Vacuidade: A Criatura alvo perde 20 de Poder.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "sacrifice_for_stat_reduction",
+          "notes": "Sacrifica para reduzir o Poder de um alvo em 20.",
+          "payload": {
+            "stat": "power",
+            "amount": -20
+          }
+        },
+        "targetScope": "target_creature"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:25.000000Z",
+    "updated_at": "2026-02-17T23:00:25.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "255f489c-05b8-430f-ac2a-a6b080482e62",
+    "name": "Fragmento Relef",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_152.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Se qualquer jogador controlar um Chefe, a Criatura equipada ganha 10 em todas as Disciplinas.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "gain_stats_if_subtype_in_play",
+          "notes": "Ganha 10 em todas as disciplinas se um Chefe estiver em jogo.",
+          "payload": {
+            "subtype": "Chieftain",
+            "amount": 10,
+            "stat": "all_disciplines"
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:26.000000Z",
+    "updated_at": "2026-02-17T23:00:26.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "b95e5dd9-1145-4729-9b67-a134d133af1a",
+    "name": "Estatueta Sinistra",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_153.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "Quando a Criatura equipada causa 15 ou mais de dano de ataque, a Criatura oponente engajada perde 10 em uma Disciplina de sua escolha.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "reduce_opponent_discipline_on_damage_dealt",
+          "notes": "Reduz uma disciplina do oponente ao causar 15+ de dano.",
+          "payload": {
+            "damage_threshold": 15,
+            "amount": -10
+          }
+        },
+        "targetScope": "engaged_opponent"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:27.000000Z",
+    "updated_at": "2026-02-17T23:00:27.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "27b6247f-903f-4afd-8479-dd23802350ab",
+    "name": "Braços a Vapor Biônicos de Ulmar",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_154.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada causa 5 de dano de ataque extra. Se a Criatura equipada causa mais de 20 de dano de ataque, sacrifique os Braços a Vapor Biônicos de Ulmar e cause 20 de dano à Criatura equipada.",
+        "effectType": "damage_modifier_and_self_damage",
+        "battleRules": {
+          "type": "bonus_damage_with_sacrifice_clause",
+          "notes": "Dá bônus de dano, mas se autodestrói e causa dano se o dano total for alto.",
+          "payload": {
+            "bonus_damage": 5,
+            "damage_threshold": 20,
+            "self_damage": 20
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:28.000000Z",
+    "updated_at": "2026-02-17T23:00:28.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "6c47fea5-ca80-41a2-9088-70259b3f68d2",
+    "name": "Prosector de Ulmar",
+    "image_file_id": null,
+    "image_url": null,
+    "file_name": "marrilian_invasion_155.png",
+    "allowed_tribes": [],
+    "allowed_creature_ids": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada perde 10 de Energia.",
+        "effectType": "decrease",
+        "battleRules": {
+          "type": "stat_modifier",
+          "notes": "Reduz a energia da criatura equipada.",
+          "payload": {
+            "stat": "energy",
+            "amount": -10
+          }
+        }
+      },
+      {
+        "description": "Se a Criatura equipada perde o combate, retorne-a para jogar em um espaço aberto do seu lado do Tabuleiro sem contadores de Mugic. Único.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "return_on_combat_loss",
+          "notes": "Retorna a criatura ao jogo se ela perder o combate.",
+          "payload": {
+            "is_unique": true,
+            "requiresEmptySpace": true,
+            "mugic_counters": 0
+          }
+        },
+        "targetScope": "self"
+      }
+    ],
+    "created_at": "2026-02-17T23:00:29.000000Z",
+    "updated_at": "2026-02-17T23:00:29.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "b121e471-a497-4d0a-9bea-b7785a2f5e98",
     "name": "Máscara de Fobia",
     "image_file_id": null,
     "image_url": null,
