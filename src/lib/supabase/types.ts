@@ -59,6 +59,8 @@ export type SupabaseCreatureRow = {
   image_file_id: string | null;
   image_url: string | null;
   tribe: CreatureTribe;
+  mandiblor: boolean;
+  minion: boolean;
   power: number;
   courage: number;
   speed: number;

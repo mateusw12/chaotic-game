@@ -119,6 +119,7 @@ export async function POST(request: Request) {
       supportAbilityId: parseAbilityIds(body.supportAbilityId),
       brainwashedAbilityId: parseAbilityIds(body.brainwashedAbilityId),
       mandiblor: (String(body.tribe ?? "")).toLowerCase() === "danian" ? Boolean(body.mandiblor) : false,
+      minion: body.minion === true || String(body.minion) === "true",
       equipmentNote: body.equipmentNote ?? null,
     });
 

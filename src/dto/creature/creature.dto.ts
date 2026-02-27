@@ -101,6 +101,7 @@ export type CreatureDto = {
   imageUrl: string | null;
   tribe: CreatureTribe;
   mandiblor?: boolean;
+  minion?: boolean;
   power: number;
   courage: number;
   speed: number;
@@ -124,6 +125,7 @@ export type CreateCreatureRequestDto = {
   imageFileId?: string | null;
   tribe: CreatureTribe;
   mandiblor?: boolean | null;
+  minion?: boolean | null;
   power: number;
   courage: number;
   speed: number;

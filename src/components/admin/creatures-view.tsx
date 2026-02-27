@@ -36,6 +36,7 @@ type CreatureFormValues = {
   imageFileId?: string;
   tribe: CreatureTribe;
   mandiblor?: boolean;
+  minion?: boolean;
   power: number;
   courage: number;
   speed: number;
@@ -153,6 +154,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
       imageFileId: values.imageFileId ?? null,
       tribe: values.tribe,
       mandiblor: values.mandiblor ?? false,
+      minion: values.minion ?? false,
       power: values.power,
       courage: values.courage,
       speed: values.speed,
@@ -195,6 +197,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
       imageFileId: creature.imageFileId ?? undefined,
       tribe: creature.tribe,
       mandiblor: creature.mandiblor ?? undefined,
+      minion: creature.minion ?? undefined,
       power: creature.power,
       courage: creature.courage,
       speed: creature.speed,
@@ -373,6 +376,15 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
         },
       },
       {
+        title: "Minion",
+        dataIndex: "minion",
+        key: "minion",
+        width: 90,
+        render: (minion: boolean) => (
+          <Tag color={minion ? "green" : "default"}>{minion ? "Sim" : "Não"}</Tag>
+        ),
+      },
+      {
         title: "Atributos",
         key: "stats",
         render: (_, row) => (
@@ -489,6 +501,7 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
             initialValues={{
               rarity: "comum",
               mandiblor: false,
+              minion: false,
               power: 0,
               courage: 0,
               speed: 0,
@@ -562,6 +575,10 @@ export function CreaturesView({ creatures }: CreaturesViewProps) {
                     </Form.Item>
                   ) : null
                 }
+              </Form.Item>
+
+              <Form.Item label="Minion" name="minion" valuePropName="checked">
+                <Switch />
               </Form.Item>
 
               <Space wrap size={12}>
