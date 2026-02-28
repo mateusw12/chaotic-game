@@ -1,5 +1,553 @@
 [
   {
+    "id": "7f3b9e2a-1c4d-4e2a-9c3b-1a2b3c4d5e6f",
+    "fileName": "rise_of_oligarch_67.png",
+    "name": "Bastão de Aa'une",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "A Criatura equipada ganha 5 de Energia.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 5,
+        "battleRules": {
+          "type": "gain_stat",
+          "notes": "Ganha 5 de Energia.",
+          "payload": {
+            "stat": "energy",
+            "amount": 5
+          }
+        }
+      },
+      {
+        "description": "O Chefe equipado ganha 'Água 5'.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "gain_keyword_if_subtype",
+          "notes": "Concede Água 5 se a criatura for um Chefe.",
+          "payload": {
+            "subtype": "Chieftain",
+            "keyword": "Water 5"
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:00.000000Z",
+    "updatedAt": "2026-02-18T06:00:00.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "8a4c0f3b-2d5e-4f3b-8d4c-2b3c4d5e6f70",
+    "fileName": "rise_of_oligarch_68.png",
+    "name": "Escamas de Dractyl",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "Sacrifique as Escamas de Dractyl: A Criatura equipada ganha 10 de Energia e uma criatura alvo perde 10 em todas as Disciplinas. Se as Escamas de Dractyl estavam equipadas em H'earring, a Criatura equipada ganha 10 de Energia adicionais.",
+        "effectType": "special",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 10,
+        "battleRules": {
+          "type": "sacrifice_for_buff_debuff",
+          "notes": "Sacrifica para um efeito duplo de buff e debuff, com bônus para H'earring.",
+          "payload": {
+            "self_energy_gain": 10,
+            "target_discipline_loss": -10,
+            "bonus_condition_creature": "H'earring",
+            "bonus_energy_gain": 10
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:01.000000Z",
+    "updatedAt": "2026-02-18T06:00:01.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "9b5d1f4c-3e6f-4a5b-9e5d-3c4d5e6f7081",
+    "fileName": "rise_of_oligarch_69.png",
+    "name": "Fragmento de Âmbar Kha'rall",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "O M'arrillian ou Minion equipado ganha o Tipo Elemental Terra.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "gain_element_for_tribes",
+          "notes": "Concede o elemento Terra para M'arrillians ou Minions.",
+          "payload": {
+            "element": "earth",
+            "tribes": [
+              "marrillian",
+              "minion"
+            ]
+          }
+        }
+      },
+      {
+        "description": "O Kha'ral equipado ganha 25 de Energia e 'Defensor: Minion'.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 25,
+        "battleRules": {
+          "type": "buff_for_specific_creature",
+          "notes": "Dá bônus para a criatura Kha'ral.",
+          "payload": {
+            "creature_name": "Kha'ral",
+            "energy_gain": 25,
+            "keyword_gain": "Defender: Minion"
+          }
+        }
+      },
+      {
+        "description": "Revele este Battlegear no início do jogo.",
+        "effectType": "special",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "reveal_at_game_start",
+          "notes": "Revela este Battlegear no início do jogo.",
+          "payload": {}
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:02.000000Z",
+    "updatedAt": "2026-02-18T06:00:02.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "a1c6e2f7-4f71-4b6c-a1d6-4d5e6f708192",
+    "fileName": "rise_of_oligarch_70.png",
+    "name": "Fragmento de Sino Kha'rall",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "O M'arrillian ou Minion equipado ganha o Tipo Elemental Ar.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "gain_element_for_tribes",
+          "notes": "Concede o elemento Ar para M'arrillians ou Minions.",
+          "payload": {
+            "element": "air",
+            "tribes": [
+              "marrillian",
+              "minion"
+            ]
+          }
+        }
+      },
+      {
+        "description": "O Kha'ral equipado ganha 25 de Energia e 'Defensor: Kha'ral'.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 25,
+        "battleRules": {
+          "type": "buff_for_specific_creature",
+          "notes": "Dá bônus para a criatura Kha'ral.",
+          "payload": {
+            "creature_name": "Kha'ral",
+            "energy_gain": 25,
+            "keyword_gain": "Defender: Kha'ral"
+          }
+        }
+      },
+      {
+        "description": "Revele este Battlegear no início do jogo.",
+        "effectType": "special",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "reveal_at_game_start",
+          "notes": "Revela este Battlegear no início do jogo.",
+          "payload": {}
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:03.000000Z",
+    "updatedAt": "2026-02-18T06:00:03.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "b2d7f3e8-5072-4c7d-b2e7-5e6f708192a3",
+    "fileName": "rise_of_oligarch_71.png",
+    "name": "Fragmento de Água Doce Kha'rall",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "O M'arrillian ou Minion equipado ganha o Tipo Elemental Água.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "gain_element_for_tribes",
+          "notes": "Concede o elemento Água para M'arrillians ou Minions.",
+          "payload": {
+            "element": "water",
+            "tribes": [
+              "marrillian",
+              "minion"
+            ]
+          }
+        }
+      },
+      {
+        "description": "O Kha'ral equipado ganha 25 de Energia e 'Defensor: Mórfico Fluido'.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 25,
+        "battleRules": {
+          "type": "buff_for_specific_creature",
+          "notes": "Dá bônus para a criatura Kha'ral.",
+          "payload": {
+            "creature_name": "Kha'ral",
+            "energy_gain": 25,
+            "keyword_gain": "Defender: Fluidmorpher"
+          }
+        }
+      },
+      {
+        "description": "Revele este Battlegear no início do jogo.",
+        "effectType": "special",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "reveal_at_game_start",
+          "notes": "Revela este Battlegear no início do jogo.",
+          "payload": {}
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:04.000000Z",
+    "updatedAt": "2026-02-18T06:00:04.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "c3e8f4f9-6173-4d8e-c3f8-6f708192a3b4",
+    "fileName": "rise_of_oligarch_72.png",
+    "name": "Fragmento de Magma Kha'rall",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "O M'arrillian ou Minion equipado ganha o Tipo Elemental Fogo.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "gain_element_for_tribes",
+          "notes": "Concede o elemento Fogo para M'arrillians ou Minions.",
+          "payload": {
+            "element": "fire",
+            "tribes": [
+              "marrillian",
+              "minion"
+            ]
+          }
+        }
+      },
+      {
+        "description": "O Kha'ral equipado ganha 25 de Energia e 'Defensor: Chefe'.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 25,
+        "battleRules": {
+          "type": "buff_for_specific_creature",
+          "notes": "Dá bônus para a criatura Kha'ral.",
+          "payload": {
+            "creature_name": "Kha'ral",
+            "energy_gain": 25,
+            "keyword_gain": "Defender: Chieftain"
+          }
+        }
+      },
+      {
+        "description": "Revele este Battlegear no início do jogo.",
+        "effectType": "special",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "reveal_at_game_start",
+          "notes": "Revela este Battlegear no início do jogo.",
+          "payload": {}
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:05.000000Z",
+    "updatedAt": "2026-02-18T06:00:05.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "d4f9010a-7284-4e9f-d4f9-708192a3b4c5",
+    "fileName": "rise_of_oligarch_73.png",
+    "name": "Fragmento da Crista da Maré Kha'rall",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "O M'arrillian ou Minion equipado ganha 'Água 5'.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "gain_keyword_for_tribes",
+          "notes": "Concede Água 5 para M'arrillians ou Minions.",
+          "payload": {
+            "keyword": "Water 5",
+            "tribes": [
+              "marrillian",
+              "minion"
+            ]
+          }
+        }
+      },
+      {
+        "description": "No início do combate, o Kha'rall equipado ganha 40 de Energia se houver 8 ou mais contadores de Mugic entre as Criaturas que você controla.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 40,
+        "battleRules": {
+          "type": "conditional_energy_gain_on_combat_start",
+          "notes": "Ganha energia se a condição de contadores de Mugic for atendida.",
+          "payload": {
+            "creature_name": "Kha'rall",
+            "energy_gain": 40,
+            "mugic_counter_threshold": 8
+          }
+        }
+      },
+      {
+        "description": "Revele este Battlegear no início do jogo. Único.",
+        "effectType": "special",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "reveal_at_game_start",
+          "notes": "Revela este Battlegear no início do jogo. Único.",
+          "payload": {
+            "is_unique": true
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:06.000000Z",
+    "updatedAt": "2026-02-18T06:00:06.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "e5fa021b-8395-4fab-e5fa-8192a3b4c5d6",
+    "fileName": "rise_of_oligarch_74.png",
+    "name": "Evaporador de Pensamento Líquido",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "Os ataques da Criatura equipada também contam como ataques de Água.",
+        "effectType": "special",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "attacks_gain_element",
+          "notes": "Adiciona o elemento Água a todos os ataques da criatura.",
+          "payload": {
+            "element": "water"
+          }
+        }
+      },
+      {
+        "description": "Quando o Evaporador de Pensamento Líquido é virado para baixo, o Mórfico Fluido equipado ganha ☐.",
+        "effectType": "gain",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 1,
+        "battleRules": {
+          "type": "gain_mugic_on_flip_down",
+          "notes": "Ganha um contador de Mugic quando é virado para baixo.",
+          "payload": {
+            "subtype": "Fluidmorpher",
+            "amount": 1
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:07.000000Z",
+    "updatedAt": "2026-02-18T06:00:07.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "f6ab132c-94a6-4b0c-f6ab-92a3b4c5d6e7",
+    "fileName": "rise_of_oligarch_75.png",
+    "name": "Placas da Fobia",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "Desafios feitos contra a Criatura equipada falham.",
+        "effectType": "protection",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "auto_fail_challenges",
+          "notes": "Faz com que todos os desafios contra a criatura equipada falhem.",
+          "payload": {}
+        }
+      },
+      {
+        "description": "A Criatura equipada recebe 10 a menos de dano de Mugic.",
+        "effectType": "protection",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": -10,
+        "battleRules": {
+          "type": "damage_reduction_from_source",
+          "notes": "Reduz o dano recebido de Mugic.",
+          "payload": {
+            "source": "mugic",
+            "amount": -10
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:08.000000Z",
+    "updatedAt": "2026-02-18T06:00:08.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "01bc243d-a5b7-4c1d-01bc-3d4e5f6a7b8c",
+    "fileName": "rise_of_oligarch_76.png",
+    "name": "Frasco de Pensamento Líquido",
+    "imageFileId": null,
+    "imageUrl": null,
+    "allowedTribes": [],
+    "allowedCreatureIds": [],
+    "abilities": [
+      {
+        "description": "Sacrifique o Frasco de Pensamento Líquido: Retorne uma Carta de Ataque da sua pilha de descarte de ataques para a sua mão. Se o fizer, coloque uma Carta de Ataque da sua mão no fundo do seu Deck de Ataque.",
+        "effectType": "utility",
+        "targetScope": "self",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "sacrifice_to_cycle_attack_card",
+          "notes": "Sacrifica para trocar uma carta de ataque da mão por uma do descarte.",
+          "payload": {}
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T06:00:09.000000Z",
+    "updatedAt": "2026-02-18T06:00:09.000000Z",
+    "rarity": "super_rara"
+  },
+  {
     "id": "b121e471-a497-4d0a-9bea-b7785a2f5e91",
     "name": "Talisman de Mandiblor",
     "image_file_id": null,

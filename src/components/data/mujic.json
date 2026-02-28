@@ -1,5 +1,533 @@
 [
   {
+    "id": "d1a2b3c4-5e6f-4789-9a0b-1c2d3e4f5a11",
+    "fileName": "rise_of_oligarch_77.png",
+    "name": "Som do Ruído",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "generic"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Disfaça uma Mugic M'arrillian ou Genérica alvo.",
+        "effectType": "dispel",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_mugic",
+        "targetTribes": [
+          "marrillian",
+          "generic"
+        ],
+        "value": 0,
+        "actionType": "dispel_mugic_by_tribe",
+        "actionPayload": {
+          "legacyEffectType": "dispel",
+          "legacyBattleRules": {
+            "type": "dispel_mugic_by_tribe",
+            "notes": "Disfaz uma Mugic alvo M'arrillian ou Genérica.",
+            "payload": {
+              "tribes": [
+                "marrillian",
+                "generic"
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:00.000000Z",
+    "updatedAt": "2026-02-18T05:00:00.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "e2b3c4d5-6f70-489a-9b1c-2d3e4f5a6b22",
+    "fileName": "rise_of_oligarch_78.png",
+    "name": "Forma de Onda Vexatória",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "marrillian"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "A Criatura alvo ganha 'Imprudência 5'. Ao jogar Forma de Onda Vexatória, você pode pagar um ☐ adicional. Se o fizer, a Criatura alvo ganha um 'Imprudência 5' adicional.",
+        "effectType": "gain",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "gain_keyword_with_optional_cost",
+        "actionPayload": {
+          "legacyEffectType": "gain",
+          "legacyBattleRules": {
+            "type": "gain_keyword_with_optional_cost",
+            "notes": "Concede Imprudência 5, com um bônus opcional.",
+            "payload": {
+              "keyword": "Recklessness 5",
+              "additional_cost": 1,
+              "bonus_keyword": "Recklessness 5"
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:01.000000Z",
+    "updatedAt": "2026-02-18T05:00:01.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "f3c4d5e6-7081-49b2-9c3d-e4f5a6b78933",
+    "fileName": "rise_of_oligarch_79.png",
+    "name": "Balada Curativa de Intress",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "overworld"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Cure 5 de dano na Criatura engajada alvo para cada contador de Mugic nas Criaturas oponentes.",
+        "effectType": "heal",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_engaged_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "heal_per_opponent_mugic_counter",
+        "actionPayload": {
+          "legacyEffectType": "heal",
+          "legacyBattleRules": {
+            "type": "heal_per_opponent_mugic_counter",
+            "notes": "Cura com base nos contadores de Mugic do oponente.",
+            "payload": {
+              "amount_per_mugic": 5
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:02.000000Z",
+    "updatedAt": "2026-02-18T05:00:02.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "04d5e6f7-8091-4a3b-1f5a-6b7c8d9e0f44",
+    "fileName": "rise_of_oligarch_80.png",
+    "name": "Composição de Kupund",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "underworld"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Cause 5 de dano à Criatura engajada alvo para cada contador de Mugic nas Criaturas oponentes.",
+        "effectType": "damage",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_engaged_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "damage_per_opponent_mugic_counter",
+        "actionPayload": {
+          "legacyEffectType": "damage",
+          "legacyBattleRules": {
+            "type": "damage_per_opponent_mugic_counter",
+            "notes": "Causa dano com base nos contadores de Mugic do oponente.",
+            "payload": {
+              "amount_per_mugic": 5
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:03.000000Z",
+    "updatedAt": "2026-02-18T05:00:03.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "15e6f708-91a2-4b4c-2a6b-7c8d9e0f1a55",
+    "fileName": "rise_of_oligarch_81.png",
+    "name": "Marcha à Prova de Mente",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "danian"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Cure 5 de dano em uma Criatura alvo e cause 5 de dano a outra Criatura alvo para cada Danian que você controla com o Tipo Elemental Água.",
+        "effectType": "heal_and_damage",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "two_target_creatures",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "heal_and_damage_per_ally_with_element",
+        "actionPayload": {
+          "legacyEffectType": "heal_and_damage",
+          "legacyBattleRules": {
+            "type": "heal_and_damage_per_ally_with_element",
+            "notes": "Cura e causa dano com base nos Danians com Água.",
+            "payload": {
+              "tribe": "danian",
+              "element": "water",
+              "heal_amount": 5,
+              "damage_amount": 5
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:04.000000Z",
+    "updatedAt": "2026-02-18T05:00:04.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "26f70819-2a3b-4c5d-3b7c-8d9e0f1a2b66",
+    "fileName": "rise_of_oligarch_82.png",
+    "name": "Harmonias do Vento",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "marrillian"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "O M'arrillian ou Minion alvo não pode se mover ou jogar habilidades ativadas.",
+        "effectType": "restriction",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_creature",
+        "targetTribes": [
+          "marrillian",
+          "minion"
+        ],
+        "value": 0,
+        "actionType": "prevent_actions_for_tribes",
+        "actionPayload": {
+          "legacyEffectType": "restriction",
+          "legacyBattleRules": {
+            "type": "prevent_actions_for_tribes",
+            "notes": "Impede ações de M'arrillians ou Minions.",
+            "payload": {}
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:05.000000Z",
+    "updatedAt": "2026-02-18T05:00:05.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "37f70819-2a3b-4c5d-3b7c-8d9e0f1a2b77",
+    "fileName": "rise_of_oligarch_83.png",
+    "name": "Chamado de Aa'une",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "marrillian"
+    ],
+    "cost": 3,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Destrua uma Criatura alvo. Você só pode jogar esta Mugic se controlar Aa'une.",
+        "effectType": "destroy",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "destroy_if_control_specific_creature",
+        "actionPayload": {
+          "legacyEffectType": "destroy",
+          "legacyBattleRules": {
+            "type": "destroy_if_control_specific_creature",
+            "notes": "Destrói uma criatura se controlar Aa'une.",
+            "payload": {
+              "creature_name": "Aa'une"
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:06.000000Z",
+    "updatedAt": "2026-02-18T05:00:06.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "48f70819-2a3b-4c5d-3b7c-8d9e0f1a2b88",
+    "fileName": "rise_of_oligarch_84.png",
+    "name": "Acordes de Carmora",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "overworld"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Cure 15 de dano em uma Criatura alvo. Se essa Criatura tiver Água, cure 10 de dano adicional.",
+        "effectType": "heal",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "heal_with_elemental_bonus",
+        "actionPayload": {
+          "legacyEffectType": "heal",
+          "legacyBattleRules": {
+            "type": "heal_with_elemental_bonus",
+            "notes": "Cura com bônus se o alvo tiver Água.",
+            "payload": {
+              "base_amount": 15,
+              "bonus_amount": 10,
+              "element": "water"
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:07.000000Z",
+    "updatedAt": "2026-02-18T05:00:07.000000Z",
+    "rarity": "rara"
+  },
+  {
+    "id": "59f70819-2a3b-4c5d-3b7c-8d9e0f1a2b99",
+    "fileName": "rise_of_oligarch_85.png",
+    "name": "Réquiem Desacelerador",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "generic"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Destrua uma Criatura alvo com 0 de Velocidade.",
+        "effectType": "destroy",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "destroy_if_stat_is_zero",
+        "actionPayload": {
+          "legacyEffectType": "destroy",
+          "legacyBattleRules": {
+            "type": "destroy_if_stat_is_zero",
+            "notes": "Destrói uma criatura com 0 de Velocidade.",
+            "payload": {
+              "stat": "speed"
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:08.000000Z",
+    "updatedAt": "2026-02-18T05:00:08.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "6af70819-2a3b-4c5d-3b7c-8d9e0f1a2baa",
+    "fileName": "rise_of_oligarch_86.png",
+    "name": "Canção da Anulação",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "generic"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Disfaça uma Magia alvo.",
+        "effectType": "dispel",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_mugic",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "dispel_mugic",
+        "actionPayload": {
+          "legacyEffectType": "dispel",
+          "legacyBattleRules": {
+            "type": "dispel_mugic",
+            "notes": "Disfaz uma Mugic alvo.",
+            "payload": {}
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:09.000000Z",
+    "updatedAt": "2026-02-18T05:00:09.000000Z",
+    "rarity": "comum"
+  },
+  {
+    "id": "7bf70819-2a3b-4c5d-3b7c-8d9e0f1a2cbb",
+    "fileName": "rise_of_oligarch_87.png",
+    "name": "Réquiem do Cantor da Força",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "generic"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Destrua uma Criatura alvo com 0 de Poder.",
+        "effectType": "destroy",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "destroy_if_stat_is_zero",
+        "actionPayload": {
+          "legacyEffectType": "destroy",
+          "legacyBattleRules": {
+            "type": "destroy_if_stat_is_zero",
+            "notes": "Destrói uma criatura com 0 de Poder.",
+            "payload": {
+              "stat": "power"
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:10.000000Z",
+    "updatedAt": "2026-02-18T05:00:10.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "8cf70819-2a3b-4c5d-3b7c-8d9e0f1a2dcc",
+    "fileName": "rise_of_oligarch_88.png",
+    "name": "Regime da Pérola",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "overworld"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Destrua uma Criatura alvo com 0 de Coragem.",
+        "effectType": "destroy",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "destroy_if_stat_is_zero",
+        "actionPayload": {
+          "legacyEffectType": "destroy",
+          "legacyBattleRules": {
+            "type": "destroy_if_stat_is_zero",
+            "notes": "Destrói uma criatura com 0 de Coragem.",
+            "payload": {
+              "stat": "courage"
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:11.000000Z",
+    "updatedAt": "2026-02-18T05:00:11.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "9df70819-2a3b-4c5d-3b7c-8d9e0f1a2edd",
+    "fileName": "rise_of_oligarch_89.png",
+    "name": "Réquiem das Crianças",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "generic"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Destrua uma Criatura alvo com 0 de Sabedoria.",
+        "effectType": "destroy",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "destroy_if_stat_is_zero",
+        "actionPayload": {
+          "legacyEffectType": "destroy",
+          "legacyBattleRules": {
+            "type": "destroy_if_stat_is_zero",
+            "notes": "Destrói uma criatura com 0 de Sabedoria.",
+            "payload": {
+              "stat": "wisdom"
+            }
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:12.000000Z",
+    "updatedAt": "2026-02-18T05:00:12.000000Z",
+    "rarity": "super_rara"
+  },
+  {
+    "id": "aef70819-2a3b-4c5d-3b7c-8d9e0f1a2fee",
+    "fileName": "rise_of_oligarch_90.png",
+    "name": "Melodia Inaudível",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "generic"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "action",
+        "description": "Destrua uma Criatura alvo sem contadores de Mugic.",
+        "effectType": "destroy",
+        "stats": [],
+        "cardTypes": [],
+        "targetScope": "target_creature",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "destroy_if_no_mugic_counters",
+        "actionPayload": {
+          "legacyEffectType": "destroy",
+          "legacyBattleRules": {
+            "type": "destroy_if_no_mugic_counters",
+            "notes": "Destrói uma criatura sem contadores de Mugic.",
+            "payload": {}
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T05:00:13.000000Z",
+    "updatedAt": "2026-02-18T05:00:13.000000Z",
+    "rarity": "super_rara"
+  },
+  {
     "id": "e7a9c6d4-1b2f-4c3d-9a0e-5f6b7c8d9e0f",
     "fileName": "organized_play_17.png",
     "name": "Harmonia da Desolação",

@@ -1,5 +1,551 @@
 [
   {
+    "id": "dfe8a1b2-3c4d-4e5f-9a0b-1c2d3e4f5a61",
+    "fileName": "rise_of_oligarch_47.png",
+    "name": "Finta Póstuma",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 0,
+    "baseDamage": 0,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Se a sua Criatura engajada for derrotada neste turno, compre duas Cartas de Ataque e descarte duas Cartas de Ataque.",
+        "effectType": "utility",
+        "battleRules": {
+          "type": "draw_discard_on_defeat",
+          "notes": "Compra e descarta cartas se a criatura engajada for derrotada.",
+          "payload": {
+            "draw_count": 2,
+            "discard_count": 2
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "e0f1a2b3-4c5d-4e6f-9b1c-2d3e4f5a6b72",
+    "fileName": "rise_of_oligarch_48.png",
+    "name": "Cascata Cáustica",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 2,
+    "baseDamage": 10,
+    "elementValues": [
+      {
+        "element": "water",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Água: Cause 10 de dano a cada Criatura desengajada adjacente à Criatura oponente engajada.",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "splash_damage_adjacent",
+          "notes": "Causa dano a criaturas adjacentes ao alvo principal.",
+          "payload": {
+            "element": "water",
+            "amount": 10
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "f1a2b3c4-5d6e-4f7a-8c2d-3e4f5a6b7c83",
+    "fileName": "rise_of_oligarch_49.png",
+    "name": "Chuva Elétrica",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 2,
+    "baseDamage": 10,
+    "elementValues": [
+      {
+        "element": "air",
+        "value": 10
+      },
+      {
+        "element": "water",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "A Criatura oponente engajada deve pagar um ☐ adicional para jogar habilidades que custam um ou mais contadores de Mugic.",
+        "effectType": "cost_increase",
+        "battleRules": {
+          "type": "increase_ability_cost_for_opponent",
+          "notes": "Aumenta o custo das habilidades do oponente.",
+          "payload": {
+            "additional_cost": 1
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "a2b3c4d5-6e7f-48a1-9d3e-4f5a6b7c8d94",
+    "fileName": "rise_of_oligarch_50.png",
+    "name": "Corrente de Fogo",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 3,
+    "baseDamage": 15,
+    "elementValues": [
+      {
+        "element": "fire",
+        "value": 15
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Corrente de Fogo causa 0 de dano se a Criatura oponente engajada estiver equipada.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "negate_damage_if_opponent_equipped",
+          "notes": "Nega o dano se o oponente estiver equipado.",
+          "payload": {}
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "b3c4d5e6-7f80-49a2-0e4f-5a6b7c8d9e05",
+    "fileName": "rise_of_oligarch_51.png",
+    "name": "Força Fluida",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 3,
+    "baseDamage": 5,
+    "elementValues": [
+      {
+        "element": "water",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Se uma Criatura ganharia um contador de Mugic ao causar dano com Força Fluida, ela ganha um contador de Mugic adicional.",
+        "effectType": "gain",
+        "battleRules": {
+          "type": "bonus_mugic_on_gain",
+          "notes": "Ganha um contador de Mugic extra ao ganhar um.",
+          "payload": {}
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "c4d5e6f7-8091-4a3b-1f5a-6b7c8d9e0f16",
+    "fileName": "rise_of_oligarch_53.png",
+    "name": "Táticas do Invasor",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 4,
+    "baseDamage": 10,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Se o seu oponente controla o Local ativo, cause 5 de dano adicional.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "bonus_damage_if_opponent_controls_location",
+          "notes": "Dano bônus se o oponente controlar o local.",
+          "payload": {
+            "amount": 5
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "d5e6f708-91a2-4b4c-2a6b-7c8d9e0f1a27",
+    "fileName": "rise_of_oligarch_54.png",
+    "name": "Esmagamento Kha'rall",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 5,
+    "baseDamage": 5,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Se a sua Criatura engajada estiver equipada com um Fragmento, cause 10 de dano adicional.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "bonus_damage_if_equipped_with_shard",
+          "notes": "Dano bônus se equipado com um Fragmento.",
+          "payload": {
+            "amount": 10
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "e6f70819-2a3b-4c5d-3b7c-8d9e0f1a2b38",
+    "fileName": "rise_of_oligarch_55.png",
+    "name": "Preparação do Atirador",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 1,
+    "baseDamage": 0,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "A Criatura oponente engajada não pode ganhar contadores de Mugic.",
+        "effectType": "restriction",
+        "battleRules": {
+          "type": "prevent_opponent_mugic_gain",
+          "notes": "Impede o oponente de ganhar contadores de Mugic.",
+          "payload": {}
+        },
+        "targetScope": "attacker"
+      },
+      {
+        "description": "Você pode descartar outra carta chamada Preparação do Atirador. Se o fizer, cause 30 de dano adicional e compre uma Carta de Ataque.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "discard_self_for_bonus",
+          "notes": "Descarta uma cópia de si mesmo para um efeito bônus.",
+          "payload": {
+            "card_name": "Preparação do Atirador",
+            "bonus_damage": 30,
+            "draw_card": true
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "f708192a-3b4c-4d6e-4c8d-9e0f1a2b3c49",
+    "fileName": "rise_of_oligarch_56.png",
+    "name": "Asa Poderosa",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 5,
+    "baseDamage": 5,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Se você controlar Criaturas que não sejam do UnderWorld, Asa Poderosa causa 0 de dano.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "negate_damage_if_control_non_tribe",
+          "notes": "Nega o dano se controlar criaturas de fora da tribo.",
+          "payload": {
+            "tribe": "underworld"
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "08192a3b-4c5d-4e7f-5d9e-0f1a2b3c4d50",
+    "fileName": "rise_of_oligarch_57.png",
+    "name": "Poder Petrificante",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 0,
+    "baseDamage": 10,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Poder Petrificante causa 0 de dano se o seu oponente controla o Local ativo.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "negate_damage_if_opponent_controls_location",
+          "notes": "Nega o dano se o oponente controlar o local.",
+          "payload": {}
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "192a3b4c-5d6e-4f80-6e0f-1a2b3c4d5e61",
+    "fileName": "rise_of_oligarch_58.png",
+    "name": "Vapor Venenoso",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 0,
+    "baseDamage": 15,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Vapor Venenoso causa 0 de dano se você tiver menos Cartas de Mugic na mão do que seu oponente.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "negate_damage_if_less_mugic_in_hand",
+          "notes": "Nega o dano se tiver menos Mugic na mão que o oponente.",
+          "payload": {}
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "2a3b4c5d-6e7f-481a-7f1a-2b3c4d5e6f72",
+    "fileName": "rise_of_oligarch_59.png",
+    "name": "Fúria de Aa'une",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 4,
+    "baseDamage": 5,
+    "elementValues": [
+      {
+        "element": "fire",
+        "value": 5
+      },
+      {
+        "element": "water",
+        "value": 5
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Se a sua Criatura engajada for um Chefe, cause 10 de dano adicional.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "bonus_damage_if_subtype",
+          "notes": "Dano bônus se a criatura for um Chefe.",
+          "payload": {
+            "subtype": "Chieftain",
+            "amount": 10
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "3b4c5d6e-7f80-492b-8a2b-3c4d5e6f7a83",
+    "fileName": "rise_of_oligarch_60.png",
+    "name": "Projeção Rancorosa",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 2,
+    "baseDamage": 30,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Para cada Disciplina acima de 50 que a Criatura oponente engajada tiver, reduza o dano que Projeção Rancorosa causaria em 10.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "reduce_damage_per_opponent_stat_over_threshold",
+          "notes": "Reduz o dano com base nas disciplinas do oponente acima de um limiar.",
+          "payload": {
+            "threshold": 50,
+            "reduction_per_stat": 10
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "4c5d6e7f-8091-4a3c-9b3c-4d5e6f7a8b94",
+    "fileName": "rise_of_oligarch_61.png",
+    "name": "Golpe de Areia",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 5,
+    "baseDamage": 5,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Se você controlar Criaturas que não sejam Mipedianas, Golpe de Areia causa 0 de dano.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "negate_damage_if_control_non_tribe",
+          "notes": "Nega o dano se controlar criaturas de fora da tribo.",
+          "payload": {
+            "tribe": "mipedian"
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "5d6e7f80-91a2-4b4d-0c4d-5e6f7a8b9c05",
+    "fileName": "rise_of_oligarch_62.png",
+    "name": "Erupção Solar",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 3,
+    "baseDamage": 0,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Remova X contadores de Mugic da Criatura oponente engajada, onde X é o número de contadores de Mugic na sua Criatura engajada.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "remove_mugic_based_on_own_count",
+          "notes": "Remove contadores de Mugic do oponente com base nos seus próprios.",
+          "payload": {}
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "6e7f8091-a2b3-4c5e-1d5e-6f7a8b9c0d16",
+    "fileName": "rise_of_oligarch_63.png",
+    "name": "Chuva Super-resfriada",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 1,
+    "baseDamage": 15,
+    "elementValues": [
+      {
+        "element": "water",
+        "value": 25
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Seu oponente remove um total de 4 contadores de Mugic de quaisquer Criaturas que ele controla.",
+        "effectType": "special",
+        "battleRules": {
+          "type": "opponent_removes_mugic_counters",
+          "notes": "O oponente remove 4 contadores de Mugic de suas criaturas.",
+          "payload": {
+            "amount": 4
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "7f8091a2-b3c4-4d6f-2e6f-7a8b9c0d1e27",
+    "fileName": "rise_of_oligarch_64.png",
+    "name": "Destruição em Enxame",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 5,
+    "baseDamage": 5,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Se você controlar Criaturas que não sejam Danians, Destruição em Enxame causa 0 de dano.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "negate_damage_if_control_non_tribe",
+          "notes": "Nega o dano se controlar criaturas de fora da tribo.",
+          "payload": {
+            "tribe": "danian"
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "8091a2b3-c4d5-4e70-3f70-8a9b0c1d2e38",
+    "fileName": "rise_of_oligarch_65.png",
+    "name": "Tempestade Contaminada",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 4,
+    "baseDamage": 10,
+    "elementValues": [
+      {
+        "element": "air",
+        "value": 10
+      },
+      {
+        "element": "water",
+        "value": 20
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Desafio de contadores de Mugic 1: Cause 20 de dano (Se a sua Criatura tiver pelo menos um contador de Mugic a mais que a Criatura oponente engajada, cause 20 de dano.)",
+        "effectType": "damage",
+        "battleRules": {
+          "type": "challenge_mugic_counters_for_damage",
+          "notes": "Desafio de contadores de Mugic para causar dano.",
+          "payload": {
+            "check_value": 1,
+            "amount": 20
+          }
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "901a2b3c-d4e5-4f81-4071-9b0c1d2e3f49",
+    "fileName": "rise_of_oligarch_66.png",
+    "name": "Onda de Maré",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 0,
+    "baseDamage": 15,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Onda de Maré causa 0 de dano se a Criatura oponente engajada tiver quaisquer contadores de Mugic.",
+        "effectType": "damage_modifier",
+        "battleRules": {
+          "type": "negate_damage_if_opponent_has_mugic",
+          "notes": "Nega o dano se o oponente tiver contadores de Mugic.",
+          "payload": {}
+        },
+        "targetScope": "attacker"
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
     "id": "a12f3b4c-5d6e-47f8-9a0b-c1d2e3f45678",
     "fileName": "organized_play_11.png",
     "name": "Armagedom",

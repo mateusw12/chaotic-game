@@ -1,5 +1,1680 @@
 [
   {
+    "id": "35537ef5-1862-41fb-93ea-b83e52bdd982",
+    "name": "Superar Coragem 5",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "courage",
+    "value": 5,
+    "description": "Superar Coragem 5",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "stat": "courage",
+        "amount": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:01.000000Z",
+    "updatedAt": "2026-02-18T10:00:01.000000Z"
+  },
+  {
+    "id": "32b1c74a-6ac4-458b-9af4-29b24fe980ae",
+    "name": "Enquanto você controla um Muge, Aivenna ganha 'Suporte Todas as Disciplinas 5'.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Enquanto você controla um Muge, Aivenna ganha 'Suporte Todas as Disciplinas 5'.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "subtype": "Muge",
+        "keyword": "Support All Disciplines 5"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:01.000000Z",
+    "updatedAt": "2026-02-18T10:00:01.000000Z"
+  },
+  {
+    "id": "2085b5f1-cf61-4393-a61a-d46b848648e2",
+    "name": "Enquanto uma Criatura oponente tiver o Tipo Elemental Água, Arrthoa ganha 'Alcance' e 'Veloz 1'.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Enquanto uma Criatura oponente tiver o Tipo Elemental Água, Arrthoa ganha 'Alcance' e 'Veloz 1'.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "element": "water",
+        "keywords": [
+          "Range",
+          "Swift 1"
+        ]
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:02.000000Z",
+    "updatedAt": "2026-02-18T10:00:02.000000Z"
+  },
+  {
+    "id": "20cc0fc6-bd05-4d7c-9cdb-2991f77001b2",
+    "name": "Lavagem Cerebral: Enquanto uma Criatura oponente tiver Veloz, Arrthoa ganha 'Defensor'.",
+    "category": "brainwashed",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Lavagem Cerebral: Enquanto uma Criatura oponente tiver Veloz, Arrthoa ganha 'Defensor'.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "opponent_keyword": "Swift",
+        "keyword": "Defender"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:02.000000Z",
+    "updatedAt": "2026-02-18T10:00:02.000000Z"
+  },
+  {
+    "id": "93005789-346d-41cc-b47b-dc2ab88dbce8",
+    "name": "Cure 10 de dano em uma Criatura overworld adjacente alvo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 10,
+    "description": "Cure 10 de dano em uma Criatura overworld adjacente alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "amount": 10,
+        "tribe": "overworld"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:03.000000Z",
+    "updatedAt": "2026-02-18T10:00:03.000000Z"
+  },
+  {
+    "id": "dc266177-7858-434c-8e0f-1dc39ac86117",
+    "name": "Lavagem Cerebral: Cure 10 de dano em uma Criatura marrilian adjacente alvo.",
+    "category": "brainwashed",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 10,
+    "description": "Lavagem Cerebral: Cure 10 de dano em uma Criatura marrilian adjacente alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "cost": 1,
+        "amount": 10,
+        "tribe": "marrilian"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:03.000000Z",
+    "updatedAt": "2026-02-18T10:00:03.000000Z"
+  },
+  {
+    "id": "497ad1aa-6f3f-4b68-be27-1e3f6592481a",
+    "name": "Se um oponente revelaria um novo Local ativo no seu turno, em vez disso, você revela um novo Local ativo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Se um oponente revelaria um novo Local ativo no seu turno, em vez disso, você revela um novo Local ativo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {},
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:04.000000Z",
+    "updatedAt": "2026-02-18T10:00:04.000000Z"
+  },
+  {
+    "id": "4024636a-08be-4e47-82fd-4dfab7daf460",
+    "name": "Lavagem Cerebral: Quando uma Criatura oponente ganha Iniciativa, revele a carta do topo do seu Deck de Local e ela se to",
+    "category": "brainwashed",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Lavagem Cerebral: Quando uma Criatura oponente ganha Iniciativa, revele a carta do topo do seu Deck de Local e ela se torna o novo Local ativo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:04.000000Z",
+    "updatedAt": "2026-02-18T10:00:04.000000Z"
+  },
+  {
+    "id": "b2cd25c3-cbc5-4588-8329-cd99d79cde95",
+    "name": "Quando Gimwei recebe 20 ou mais de dano de uma única fonte, cause 5 de dano a uma Criatura alvo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 5,
+    "description": "Quando Gimwei recebe 20 ou mais de dano de uma única fonte, cause 5 de dano a uma Criatura alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "damage_threshold": 20,
+        "amount": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:05.000000Z",
+    "updatedAt": "2026-02-18T10:00:05.000000Z"
+  },
+  {
+    "id": "07ffaff1-df55-42bc-aa3b-dfed9de6cf9c",
+    "name": "Lavagem Cerebral: Superar Sabedoria 5",
+    "category": "brainwashed",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Lavagem Cerebral: Superar Sabedoria 5",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "keyword": "Outperform Wisdom 5"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:05.000000Z",
+    "updatedAt": "2026-02-18T10:00:05.000000Z"
+  },
+  {
+    "id": "1a70aae8-d4cb-4b5b-898b-4eff255ff534",
+    "name": "Quando Gimwei causa 20 ou more de dano com um único ataque, ele ganha 20 em todas as Disciplinas.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "all",
+    "value": 20,
+    "description": "Quando Gimwei causa 20 ou more de dano com um único ataque, ele ganha 20 em todas as Disciplinas.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "damage_threshold": 20,
+        "amount": 20
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:05.000000Z",
+    "updatedAt": "2026-02-18T10:00:05.000000Z"
+  },
+  {
+    "id": "ebda43a3-b9c7-4d19-9d84-b2ecee894887",
+    "name": "Quando uma Criatura oponente que não seja do overworld perde um contador de Mugic, cure 10 de dano em uma Criatura alvo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 10,
+    "description": "Quando uma Criatura oponente que não seja do overworld perde um contador de Mugic, cure 10 de dano em uma Criatura alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "tribe": "overworld",
+        "amount": 10
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:06.000000Z",
+    "updatedAt": "2026-02-18T10:00:06.000000Z"
+  },
+  {
+    "id": "45874239-10db-4aaf-9140-c2c5ba088b1f",
+    "name": "Quando uma Criatura oponente ganha um contador de Mugic, coloque ☐ em Najarin, Inimigo dos Mórficos Fluidos.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 1,
+    "description": "Quando uma Criatura oponente ganha um contador de Mugic, coloque ☐ em Najarin, Inimigo dos Mórficos Fluidos.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount": 1
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:07.000000Z",
+    "updatedAt": "2026-02-18T10:00:07.000000Z"
+  },
+  {
+    "id": "01cbf966-b048-44d6-b279-d0f6188f6979",
+    "name": "☐: A Criatura alvo ganha 5 de Energia.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "opposing_creatures",
+    "stat": "energy",
+    "value": 5,
+    "description": "☐: A Criatura alvo ganha 5 de Energia.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "stat": "energy",
+        "amount": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:07.000000Z",
+    "updatedAt": "2026-02-18T10:00:07.000000Z"
+  },
+  {
+    "id": "084ba767-aaae-40f3-ab15-5700580049f0",
+    "name": "☐☐: Disface uma Mugic marrilian alvo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "☐☐: Disface uma Mugic marrilian alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 2,
+        "tribes": [
+          "marrillian"
+        ]
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:07.000000Z",
+    "updatedAt": "2026-02-18T10:00:07.000000Z"
+  },
+  {
+    "id": "954f389b-cfd8-438b-be2e-ed0f7ac4d2e6",
+    "name": "Revele uma Carta de Ataque da mão: O ataque alvo com o mesmo nome causa 0 de dano.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Revele uma Carta de Ataque da mão: O ataque alvo com o mesmo nome causa 0 de dano.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {},
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:08.000000Z",
+    "updatedAt": "2026-02-18T10:00:08.000000Z"
+  },
+  {
+    "id": "b3cfdf0e-24cf-480c-ae35-cfe8d4c9629b",
+    "name": "Lavagem Cerebral: Revele uma Carta de Mugic da mão: Disface uma Mugic alvo com o mesmo nome.",
+    "category": "brainwashed",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Lavagem Cerebral: Revele uma Carta de Mugic da mão: Disface uma Mugic alvo com o mesmo nome.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:08.000000Z",
+    "updatedAt": "2026-02-18T10:00:08.000000Z"
+  },
+  {
+    "id": "c091cdf6-9411-460e-b4af-6fd67559f1a3",
+    "name": "No início do Combate, olhe a mão do seu oponente e escolha uma Carta de Ataque. Ele a descarta e então compra uma Carta ",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "enemy_only",
+    "stat": "none",
+    "value": 0,
+    "description": "No início do Combate, olhe a mão do seu oponente e escolha uma Carta de Ataque. Ele a descarta e então compra uma Carta de Ataque.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "trigger": "on_combat_start"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:09.000000Z",
+    "updatedAt": "2026-02-18T10:00:09.000000Z"
+  },
+  {
+    "id": "4735839c-4d23-4d5b-8cf4-e156c37c88a0",
+    "name": "Lavagem Cerebral: ☐, remova ☐ de cada outra Criatura que você controla: Olhe as 3 primeiras cartas do Deck de Local alvo",
+    "category": "brainwashed",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Lavagem Cerebral: ☐, remova ☐ de cada outra Criatura que você controla: Olhe as 3 primeiras cartas do Deck de Local alvo e escolha uma. Ela se torna o novo Local ativo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "cost": 1,
+        "ally_cost": 1,
+        "card_count": 3
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:09.000000Z",
+    "updatedAt": "2026-02-18T10:00:09.000000Z"
+  },
+  {
+    "id": "7ba83edc-5a0d-4d9c-8aae-5e99547c382d",
+    "name": "No início do combate, se Khybon estiver equipado, ele ganha 10 de Energia.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "energy",
+    "value": 10,
+    "description": "No início do combate, se Khybon estiver equipado, ele ganha 10 de Energia.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "trigger": "on_combat_start",
+        "amount": 10
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:10.000000Z",
+    "updatedAt": "2026-02-18T10:00:10.000000Z"
+  },
+  {
+    "id": "104ff1be-cb6c-4689-94d3-718d34b50f69",
+    "name": "Lavagem Cerebral: No início do combate, Khybon ganha 5 de Energia para cada Battlegear em cada pilha de descarte.",
+    "category": "brainwashed",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "energy",
+    "value": 5,
+    "description": "Lavagem Cerebral: No início do combate, Khybon ganha 5 de Energia para cada Battlegear em cada pilha de descarte.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "trigger": "on_combat_start",
+        "amount_per_battlegear": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:10.000000Z",
+    "updatedAt": "2026-02-18T10:00:10.000000Z"
+  },
+  {
+    "id": "f7f8493f-bd6a-47f9-8d17-c415853768d2",
+    "name": "A Criatura alvo que causou dano de ataque neste turno ganha 'Elemento 10' de sua escolha. Use esta habilidade apenas uma",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 10,
+    "description": "A Criatura alvo que causou dano de ataque neste turno ganha 'Elemento 10' de sua escolha. Use esta habilidade apenas uma vez por turno.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "usageLimitPerTurn": 1
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:11.000000Z",
+    "updatedAt": "2026-02-18T10:00:11.000000Z"
+  },
+  {
+    "id": "4ff80bcf-6eb5-4d63-a27b-e5cb4fcd2770",
+    "name": "Guerreiros que você controla ganham 10 em cada Disciplina.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "opposing_creatures",
+    "stat": "all",
+    "value": 10,
+    "description": "Guerreiros que você controla ganham 10 em cada Disciplina.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "subtype": "Warrior",
+        "amount": 10
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:11.000000Z",
+    "updatedAt": "2026-02-18T10:00:11.000000Z"
+  },
+  {
+    "id": "61ff12dc-729c-404b-a8e2-2d61fd603de2",
+    "name": "Quando Stelgar causa dano de ataque, ele ganha 10 em todas as disciplinas.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "all",
+    "value": 10,
+    "description": "Quando Stelgar causa dano de ataque, ele ganha 10 em todas as disciplinas.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "trigger": "on_attack_damage",
+        "amount": 10
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:12.000000Z",
+    "updatedAt": "2026-02-18T10:00:12.000000Z"
+  },
+  {
+    "id": "4c1c7056-8242-42eb-8b0d-9467ed37d951",
+    "name": "Lavagem Cerebral: Quando Stelgar vence o combate, coloque ☐ nele. Se Stelgar tiver 2 ou mais contadores de Mugic, destru",
+    "category": "brainwashed",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Lavagem Cerebral: Quando Stelgar vence o combate, coloque ☐ nele. Se Stelgar tiver 2 ou mais contadores de Mugic, destrua-o.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "trigger": "on_combat_win",
+        "threshold": 2
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:12.000000Z",
+    "updatedAt": "2026-02-18T10:00:12.000000Z"
+  },
+  {
+    "id": "f37c56f0-41c2-44e1-bb17-29076c201bd1",
+    "name": "O próximo ataque feito por Takinom conta como o primeiro ataque deste combate.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "O próximo ataque feito por Takinom conta como o primeiro ataque deste combate.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:13.000000Z",
+    "updatedAt": "2026-02-18T10:00:13.000000Z"
+  },
+  {
+    "id": "dce9b2f3-fb1b-434f-be8b-713ebe3f8ef0",
+    "name": "Cause 15 de dano a uma Criatura adjacente equipada alvo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 15,
+    "description": "Cause 15 de dano a uma Criatura adjacente equipada alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 0,
+        "amount": 15
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:14.000000Z",
+    "updatedAt": "2026-02-18T10:00:14.000000Z"
+  },
+  {
+    "id": "ae945fab-e35c-4fd0-9a01-97d97960237c",
+    "name": "Colmeia: Agrino Jaldar ganha 5 de Energia para cada danian que você controla.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "energy",
+    "value": 5,
+    "description": "Colmeia: Agrino Jaldar ganha 5 de Energia para cada danian que você controla.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "tribe": "danian",
+        "amount_per_creature": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:15.000000Z",
+    "updatedAt": "2026-02-18T10:00:15.000000Z"
+  },
+  {
+    "id": "b2185abf-3828-4bea-a69a-ce6894534d04",
+    "name": "Agrino Jaldar causa 5 de dano de ataque adicional a Minions.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Agrino Jaldar causa 5 de dano de ataque adicional a Minions.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount": 5,
+        "target_subtype": "minion"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:15.000000Z",
+    "updatedAt": "2026-02-18T10:00:15.000000Z"
+  },
+  {
+    "id": "cb340549-9866-45a1-8dbd-cdedfe2596d3",
+    "name": "Lavagem Cerebral: Agrino Jaldar ganha 5 de Energia para cada minion que você controla.",
+    "category": "brainwashed",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "energy",
+    "value": 5,
+    "description": "Lavagem Cerebral: Agrino Jaldar ganha 5 de Energia para cada minion que você controla.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "subtype": "minion",
+        "amount_per_creature": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:15.000000Z",
+    "updatedAt": "2026-02-18T10:00:15.000000Z"
+  },
+  {
+    "id": "78e41a2f-3026-4b39-aefc-79def1525266",
+    "name": "Lavagem Cerebral: Agrino Jaldar causa 5 de dano de ataque adicional a Criaturas Infectadas.",
+    "category": "brainwashed",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Lavagem Cerebral: Agrino Jaldar causa 5 de dano de ataque adicional a Criaturas Infectadas.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "amount": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:15.000000Z",
+    "updatedAt": "2026-02-18T10:00:15.000000Z"
+  },
+  {
+    "id": "a1781add-185f-46a6-a8fb-0391bdeea3a7",
+    "name": "Colmeia: Aureban ganha 10 de Energia para cada Criatura Infectada que seu oponente controla.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "energy",
+    "value": 10,
+    "description": "Colmeia: Aureban ganha 10 de Energia para cada Criatura Infectada que seu oponente controla.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount_per_creature": 10
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:16.000000Z",
+    "updatedAt": "2026-02-18T10:00:16.000000Z"
+  },
+  {
+    "id": "ed39cda3-9c37-4819-8383-e93f50c7b1a1",
+    "name": "Lavagem Cerebral: Desinfecte uma Criatura Infectada que você controla: Desative a Colmeia.",
+    "category": "brainwashed",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Lavagem Cerebral: Desinfecte uma Criatura Infectada que você controla: Desative a Colmeia.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:16.000000Z",
+    "updatedAt": "2026-02-18T10:00:16.000000Z"
+  },
+  {
+    "id": "06c58e91-5277-453a-87a3-d149d422af49",
+    "name": "Cure 10 de dano em um Mandiblor alvo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 10,
+    "description": "Cure 10 de dano em um Mandiblor alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "amount": 10,
+        "subtype": "Mandiblor"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:17.000000Z",
+    "updatedAt": "2026-02-18T10:00:17.000000Z"
+  },
+  {
+    "id": "2e561b76-8a0e-4122-b528-cab58ee02e26",
+    "name": "Colmeia: Mugic danian que você joga que causa dano causa 5 de dano adicional a cada um de seus alvos.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Colmeia: Mugic danian que você joga que causa dano causa 5 de dano adicional a cada um de seus alvos.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:17.000000Z",
+    "updatedAt": "2026-02-18T10:00:17.000000Z"
+  },
+  {
+    "id": "b4dc489b-f9ce-43d2-a3ff-c5590be69bff",
+    "name": "Efeito de Unidade 3 Criaturas Infectadas: Ative a Colmeia e cure todo o dano em Fliandar.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Efeito de Unidade 3 Criaturas Infectadas: Ative a Colmeia e cure todo o dano em Fliandar.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "unit_count": 3,
+        "unit_type": "Infected",
+        "heal_target": "self"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:18.000000Z",
+    "updatedAt": "2026-02-18T10:00:18.000000Z"
+  },
+  {
+    "id": "1d09a261-c7bc-4dfb-84d0-5996fff58a76",
+    "name": "Colmeia: Superar Coragem 5",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Colmeia: Superar Coragem 5",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "keyword": "Outperform Courage 5"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:19.000000Z",
+    "updatedAt": "2026-02-18T10:00:19.000000Z"
+  },
+  {
+    "id": "62d2b521-e691-4a7f-a64a-148939d096f3",
+    "name": "Lavagem Cerebral: Superar Coragem 5",
+    "category": "brainwashed",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Lavagem Cerebral: Superar Coragem 5",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "keyword": "Outperform Courage 5"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:19.000000Z",
+    "updatedAt": "2026-02-18T10:00:19.000000Z"
+  },
+  {
+    "id": "73bb4630-d5d0-4af5-8337-8f8b2acba767",
+    "name": "Colmeia: Tarbok ganha 15 de Energia.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "energy",
+    "value": 15,
+    "description": "Colmeia: Tarbok ganha 15 de Energia.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount": 15
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:20.000000Z",
+    "updatedAt": "2026-02-18T10:00:20.000000Z"
+  },
+  {
+    "id": "0c8fbe86-b789-46a6-9e47-d77e5d763e61",
+    "name": "Quando um Mandiblor entra em jogo de uma pilha de descarte, Wamma ganha ☐.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 1,
+    "description": "Quando um Mandiblor entra em jogo de uma pilha de descarte, Wamma ganha ☐.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "subtype": "Mandiblor",
+        "amount": 1
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:21.000000Z",
+    "updatedAt": "2026-02-18T10:00:21.000000Z"
+  },
+  {
+    "id": "fe93da41-5d00-438b-9540-b19eab0c4ad5",
+    "name": "Criaturas Infectadas não revelam Battlegear no início do combate.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "all_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Criaturas Infectadas não revelam Battlegear no início do combate.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {},
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:21.000000Z",
+    "updatedAt": "2026-02-18T10:00:21.000000Z"
+  },
+  {
+    "id": "9e4bacfa-13dc-4464-a011-65a6c72912b4",
+    "name": "Reduza o dano de Imprudência causado a Warbeasts que você controla em 10 para cada ☐ em Appelai.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 10,
+    "description": "Reduza o dano de Imprudência causado a Warbeasts que você controla em 10 para cada ☐ em Appelai.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "subtype": "Warbeast",
+        "amount_per_mugic": -10
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:22.000000Z",
+    "updatedAt": "2026-02-18T10:00:22.000000Z"
+  },
+  {
+    "id": "ea38d484-db3e-4495-afa7-ef9486800f0a",
+    "name": "Quando um Warbeast que você controla se torna alvo de uma Mugic ou habilidade que seu oponente controla, Appelai ganha ☐",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 1,
+    "description": "Quando um Warbeast que você controla se torna alvo de uma Mugic ou habilidade que seu oponente controla, Appelai ganha ☐.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "subtype": "Warbeast",
+        "amount": 1
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:22.000000Z",
+    "updatedAt": "2026-02-18T10:00:22.000000Z"
+  },
+  {
+    "id": "fc8ecf17-bb9e-4312-9ee6-c161a0ba1eec",
+    "name": "Dano que seria causado a Epitrinne por Mugic é reduzido a 0.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Dano que seria causado a Epitrinne por Mugic é reduzido a 0.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "source": "mugic"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:23.000000Z",
+    "updatedAt": "2026-02-18T10:00:23.000000Z"
+  },
+  {
+    "id": "34353132-3618-4b6a-8dd5-2049135971c1",
+    "name": "Lavagem Cerebral: Dano que seria causado a Chefes que você controla por Mugic é reduzido a 0.",
+    "category": "brainwashed",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Lavagem Cerebral: Dano que seria causado a Chefes que você controla por Mugic é reduzido a 0.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "subtype": "Chieftain",
+        "source": "mugic"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:23.000000Z",
+    "updatedAt": "2026-02-18T10:00:23.000000Z"
+  },
+  {
+    "id": "c24adbc6-7623-4083-816a-89ba619b6068",
+    "name": "Glost ganha 5 de Energia, 'Terra 5', e 'Ar 5' para cada Conjurador na sua pilha de descarte.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "energy",
+    "value": 5,
+    "description": "Glost ganha 5 de Energia, 'Terra 5', e 'Ar 5' para cada Conjurador na sua pilha de descarte.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "subtype": "Conjuror",
+        "energy_per_card": 5,
+        "keywords": [
+          "Earth 5",
+          "Air 5"
+        ]
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:24.000000Z",
+    "updatedAt": "2026-02-18T10:00:24.000000Z"
+  },
+  {
+    "id": "73f9add6-f4ed-4971-a5fd-f758f410b868",
+    "name": "Habilidades de Invisibilidade não podem ser negadas.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Habilidades de Invisibilidade não podem ser negadas.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "keyword": "Invisibility"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:25.000000Z",
+    "updatedAt": "2026-02-18T10:00:25.000000Z"
+  },
+  {
+    "id": "52fe316b-222e-4f82-aefd-2b5d0bbe237d",
+    "name": "Se você perdeu a Iniciativa, sua Criatura engajada ganha 'Ataque 10'.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 10,
+    "description": "Se você perdeu a Iniciativa, sua Criatura engajada ganha 'Ataque 10'.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "keyword": "Strike 10"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:25.000000Z",
+    "updatedAt": "2026-02-18T10:00:25.000000Z"
+  },
+  {
+    "id": "8f92843b-8bd4-4cf5-b4fd-0cacf5dd661f",
+    "name": "Lavagem Cerebral: Água 5",
+    "category": "brainwashed",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Lavagem Cerebral: Água 5",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true,
+        "keyword": "Water 5"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:26.000000Z",
+    "updatedAt": "2026-02-18T10:00:26.000000Z"
+  },
+  {
+    "id": "61caac91-96ba-4484-8ef4-156061e86b24",
+    "name": "Invisibilidade: Surpresa. Invisibilidade: Ataque 10. Terra 5.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Invisibilidade: Surpresa. Invisibilidade: Ataque 10. Terra 5.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "keywords": [
+          "Invisibility: Surprise",
+          "Invisibility: Strike 10",
+          "Earth 5"
+        ]
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:27.000000Z",
+    "updatedAt": "2026-02-18T10:00:27.000000Z"
+  },
+  {
+    "id": "9284a26a-252c-4ff5-bb1e-3a95cab9af75",
+    "name": "Lavagem Cerebral: Negue todas as habilidades de Invisibilidade.",
+    "category": "brainwashed",
+    "effectType": "special",
+    "targetScope": "all_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Lavagem Cerebral: Negue todas as habilidades de Invisibilidade.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "is_brainwashed": true
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:27.000000Z",
+    "updatedAt": "2026-02-18T10:00:27.000000Z"
+  },
+  {
+    "id": "28843834-ba23-49f1-9adc-4ecd0479b71c",
+    "name": "Ataques jogados por Criaturas que você controla causam 5 de dano adicional se houver uma Carta de Ataque com o mesmo nom",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 5,
+    "description": "Ataques jogados por Criaturas que você controla causam 5 de dano adicional se houver uma Carta de Ataque com o mesmo nome que a Carta de Ataque jogada na sua pilha de descarte de ataques.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:28.000000Z",
+    "updatedAt": "2026-02-18T10:00:28.000000Z"
+  },
+  {
+    "id": "f4b0c2d5-e5d6-4443-8707-ab6dcd9754fe",
+    "name": "Aa'une a Projeção do Oligarca começa o jogo e entra em jogo com este lado virado para cima.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Aa'une a Projeção do Oligarca começa o jogo e entra em jogo com este lado virado para cima.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {},
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:29.000000Z",
+    "updatedAt": "2026-02-18T10:00:29.000000Z"
+  },
+  {
+    "id": "e19368e1-4645-4e0b-979e-1c9942a62c33",
+    "name": "A Criatura alvo perde Alcance.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "A Criatura alvo perde Alcance.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "keyword": "Range"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:30.000000Z",
+    "updatedAt": "2026-02-18T10:00:30.000000Z"
+  },
+  {
+    "id": "bf808a11-d2c5-4cef-9a7e-b10ed9c27c24",
+    "name": "Cause 20 de dano a uma Criatura alvo com Veloz.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 20,
+    "description": "Cause 20 de dano a uma Criatura alvo com Veloz.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 3,
+        "amount": 20,
+        "keyword": "Swift"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:30.000000Z",
+    "updatedAt": "2026-02-18T10:00:30.000000Z"
+  },
+  {
+    "id": "5e51522c-6add-403f-abf6-a2026ffdb3eb",
+    "name": "Destrua todas as Criaturas oponentes com Alcance.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Destrua todas as Criaturas oponentes com Alcance.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "keyword": "Range"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:30.000000Z",
+    "updatedAt": "2026-02-18T10:00:30.000000Z"
+  },
+  {
+    "id": "a7c31392-27a3-47c9-8748-6fd1486e72a1",
+    "name": "O ataque alvo causa 25 de dano.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 25,
+    "description": "O ataque alvo causa 25 de dano.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 4,
+        "amount": 25
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:31.000000Z",
+    "updatedAt": "2026-02-18T10:00:31.000000Z"
+  },
+  {
+    "id": "efb90606-4bf1-497d-91e8-a8a478116232",
+    "name": "Battlegear não pode ser destruído. (Battlegear ainda pode ser sacrificado ou virado para baixo.)",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Battlegear não pode ser destruído. (Battlegear ainda pode ser sacrificado ou virado para baixo.)",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {},
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:32.000000Z",
+    "updatedAt": "2026-02-18T10:00:32.000000Z"
+  },
+  {
+    "id": "21e1b964-0229-4771-9eb0-2f226bbf9115",
+    "name": "A próxima vez que Dror'niq receber dano de ataque, cause 10 de dano à Criatura que jogou aquele ataque.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 10,
+    "description": "A próxima vez que Dror'niq receber dano de ataque, cause 10 de dano à Criatura que jogou aquele ataque.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "amount": 10
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:33.000000Z",
+    "updatedAt": "2026-02-18T10:00:33.000000Z"
+  },
+  {
+    "id": "96ad3d27-0694-4e93-8328-14f04e7cec7f",
+    "name": "Quando a Criatura alvo receber dano de ataque, cause 10 de dano à Criatura que jogou aquele ataque.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 10,
+    "description": "Quando a Criatura alvo receber dano de ataque, cause 10 de dano à Criatura que jogou aquele ataque.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 4,
+        "amount": 10
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:33.000000Z",
+    "updatedAt": "2026-02-18T10:00:33.000000Z"
+  },
+  {
+    "id": "3f43cff8-8ea7-451c-a558-1914ee3226a4",
+    "name": "Descarte 2 Cartas de Mugic: Destrua uma Criatura engajada alvo com 0 de Sabedoria.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Descarte 2 Cartas de Mugic: Destrua uma Criatura engajada alvo com 0 de Sabedoria.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost_type": "discard_mugic",
+        "cost_amount": 2,
+        "stat": "wisdom"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:34.000000Z",
+    "updatedAt": "2026-02-18T10:00:34.000000Z"
+  },
+  {
+    "id": "5d92df1e-19ad-4f9a-ab33-bf7e024c373a",
+    "name": "Olhe a carta do topo do Deck de Local alvo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Olhe a carta do topo do Deck de Local alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "deck": "location"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:35.000000Z",
+    "updatedAt": "2026-02-18T10:00:35.000000Z"
+  },
+  {
+    "id": "05f1db45-2fe1-4582-be69-66b9466fed66",
+    "name": "Coloque a carta do topo do Deck de Local alvo no fundo daquele deck.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Coloque a carta do topo do Deck de Local alvo no fundo daquele deck.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "deck": "location"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:35.000000Z",
+    "updatedAt": "2026-02-18T10:00:35.000000Z"
+  },
+  {
+    "id": "c36bfae2-166d-4e23-af27-993a08bc8519",
+    "name": "Seu oponente revela um novo Local ativo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "enemy_only",
+    "stat": "none",
+    "value": 0,
+    "description": "Seu oponente revela um novo Local ativo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:35.000000Z",
+    "updatedAt": "2026-02-18T10:00:35.000000Z"
+  },
+  {
+    "id": "96c81bb1-ee8a-4829-9d6a-99fe8b260421",
+    "name": "Ikub'ra causa 5 de dano de ataque adicional a Criaturas do overworld.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Ikub'ra causa 5 de dano de ataque adicional a Criaturas do overworld.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount": 5,
+        "target_tribe": "overworld"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:36.000000Z",
+    "updatedAt": "2026-02-18T10:00:36.000000Z"
+  },
+  {
+    "id": "cde2dfc2-b883-4f29-a890-ff5d5cd01b91",
+    "name": "Ataques jogados por Criaturas que você controla ganham 'Desafio de Velocidade 50: Cause 10 de dano'.",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 10,
+    "description": "Ataques jogados por Criaturas que você controla ganham 'Desafio de Velocidade 50: Cause 10 de dano'.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "challenge_stat": "speed",
+        "check_value": 50,
+        "damage_amount": 10
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:37.000000Z",
+    "updatedAt": "2026-02-18T10:00:37.000000Z"
+  },
+  {
+    "id": "4f6b3bf4-d957-4cc0-9865-2bb16bd82246",
+    "name": "Mórfico Fluido (Quando uma Criatura que você controla causa dano de Água, esta Criatura ganha ☐.)",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 1,
+    "description": "Mórfico Fluido (Quando uma Criatura que você controla causa dano de Água, esta Criatura ganha ☐.)",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {},
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:38.000000Z",
+    "updatedAt": "2026-02-18T10:00:38.000000Z"
+  },
+  {
+    "id": "b8ac4d2a-8f7f-4758-a45d-c652de93c54e",
+    "name": "Mik'banin causa 5 de dano de ataque adicional a Criaturas do underWorld.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Mik'banin causa 5 de dano de ataque adicional a Criaturas do underWorld.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount": 5,
+        "target_tribe": "underWorld"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:39.000000Z",
+    "updatedAt": "2026-02-18T10:00:39.000000Z"
+  },
+  {
+    "id": "20e8677e-dc1f-4841-a310-bad2eeb51e8f",
+    "name": "Cure 5 de dano em uma Criatura alvo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 5,
+    "description": "Cure 5 de dano em uma Criatura alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 2,
+        "amount": 5
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:40.000000Z",
+    "updatedAt": "2026-02-18T10:00:40.000000Z"
+  },
+  {
+    "id": "ae4f6c35-01ef-4dac-810b-3fdc0e8d0c05",
+    "name": "Cure 25 de dano em todas as Criaturas que você controla.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 25,
+    "description": "Cure 25 de dano em todas as Criaturas que você controla.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 4,
+        "amount": 25
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:40.000000Z",
+    "updatedAt": "2026-02-18T10:00:40.000000Z"
+  },
+  {
+    "id": "ff3a0d73-648b-4743-9ee5-eae9bac23e83",
+    "name": "Ataques jogados por Nunk'worn também contam como ataques de Fogo e Água.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Ataques jogados por Nunk'worn também contam como ataques de Fogo e Água.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "elements": [
+          "fire",
+          "water"
+        ]
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:41.000000Z",
+    "updatedAt": "2026-02-18T10:00:41.000000Z"
+  },
+  {
+    "id": "fbd8fbc4-c892-4dc8-847d-d50de4985598",
+    "name": "Se Nunk'worn tiver exatamente 3 contadores de Mugic quando for derrotado, você pode retorná-lo para jogar em um espaço a",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Se Nunk'worn tiver exatamente 3 contadores de Mugic quando for derrotado, você pode retorná-lo para jogar em um espaço aberto do seu lado do Tabuleiro sem contadores de Mugic.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "mugic_count": 3,
+        "requiresEmptySpace": true,
+        "new_mugic_counters": 0
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:41.000000Z",
+    "updatedAt": "2026-02-18T10:00:41.000000Z"
+  },
+  {
+    "id": "fc8584e2-7739-4a65-b979-be7dd4d52aad",
+    "name": "Realoque uma Criatura oponente desengajada alvo para um espaço desocupado adjacente a ele.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Realoque uma Criatura oponente desengajada alvo para um espaço desocupado adjacente a ele.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "requiresEmptySpace": true
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:42.000000Z",
+    "updatedAt": "2026-02-18T10:00:42.000000Z"
+  },
+  {
+    "id": "4eb2bffa-2d2a-40fb-84d9-42ef920069a3",
+    "name": "Criaturas perdem Veloz e não podem se mover ou realocar para espaços desocupados.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "all_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Criaturas perdem Veloz e não podem se mover ou realocar para espaços desocupados.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 4
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:42.000000Z",
+    "updatedAt": "2026-02-18T10:00:42.000000Z"
+  },
+  {
+    "id": "8317d523-fe1d-45ac-8aa7-a49de48379d1",
+    "name": "Troque o Battlegear equipado em duas Criaturas Kha'rall alvo controladas pelo mesmo jogador.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Troque o Battlegear equipado em duas Criaturas Kha'rall alvo controladas pelo mesmo jogador.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "subtype": "Kha'rall"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:43.000000Z",
+    "updatedAt": "2026-02-18T10:00:43.000000Z"
+  },
+  {
+    "id": "415247a0-376c-4b89-91d3-83ff1a2ac113",
+    "name": "Retorne um Fragmento alvo na sua pilha de descarte para jogar equipado a um Kha'ral desequipado que você controla.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Retorne um Fragmento alvo na sua pilha de descarte para jogar equipado a um Kha'ral desequipado que você controla.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1,
+        "subtype": "Kha'rall"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:43.000000Z",
+    "updatedAt": "2026-02-18T10:00:43.000000Z"
+  },
+  {
+    "id": "a4fcfb15-c4e2-4c94-b4e1-cc900ee8b74d",
+    "name": "Rol'doi causa 5 de dano de ataque adicional a Criaturas Danians.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Rol'doi causa 5 de dano de ataque adicional a Criaturas Danians.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount": 5,
+        "target_tribe": "danian"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:44.000000Z",
+    "updatedAt": "2026-02-18T10:00:44.000000Z"
+  },
+  {
+    "id": "7819a2b7-7a8d-44b1-ba23-636a01036c5d",
+    "name": "Disface uma Mugic não-marrilian alvo.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 0,
+    "description": "Disface uma Mugic não-marrilian alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 4,
+        "tribe": "marrilian"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:45.000000Z",
+    "updatedAt": "2026-02-18T10:00:45.000000Z"
+  },
+  {
+    "id": "2dcec276-66f6-4411-be3c-49dca1d4e5e9",
+    "name": "Jogue uma carta de Mugic da pilha de descarte do seu oponente de qualquer tribo sem pagar seu custo de Mugic, depois rem",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 0,
+    "description": "Jogue uma carta de Mugic da pilha de descarte do seu oponente de qualquer tribo sem pagar seu custo de Mugic, depois remova aquela carta do jogo.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "cost": 1
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:45.000000Z",
+    "updatedAt": "2026-02-18T10:00:45.000000Z"
+  },
+  {
+    "id": "6202a5f5-af01-4c7e-89bf-bf297b1b0dba",
+    "name": "Vitar'zu causa 5 de dano de ataque adicional a Criaturas Mipedianas.",
+    "category": "support",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Vitar'zu causa 5 de dano de ataque adicional a Criaturas Mipedianas.",
+    "battleRules": {
+      "type": "generic_special",
+      "payload": {
+        "amount": 5,
+        "target_tribe": "mipedian"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T10:00:46.000000Z",
+    "updatedAt": "2026-02-18T10:00:46.000000Z"
+  },
+  {
     "id": "9c0f1a2b-3d4e-5f60-7a8b-9c1d2e3f4a5b",
     "name": "Suporte: Poder 5",
     "category": "support",
@@ -7033,7 +8708,7 @@
     "effectType": "gain",
     "targetScope": "self",
     "battleRules": {
-      "type": "composite",
+      "type": "generic_special",
       "notes": "Ganha +15 Velocidade; se for Daniana, ganha habilidade sacrificar para devolver Mandiblor.",
       "payload": {
         "primary": {

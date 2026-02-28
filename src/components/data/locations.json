@@ -1,5 +1,443 @@
 [
   {
+    "id": "b6a8f2d1-3f4e-47a9-8d6a-1c2b3e4f5a67",
+    "fileName": "rise_of_oligarch_91.png",
+    "name": "Fogo Congelado",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "wisdom"
+    ],
+    "abilities": [
+      {
+        "description": "Quando uma Criatura ganha ou perde um contador de Magia, Fogo Congelado causa 5 de dano a ela.",
+        "effectType": "damage",
+        "targetScope": "all_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 5,
+        "battleRules": {
+          "type": "damage_on_mugic_counter_change",
+          "notes": "Causa dano quando um contador de Magia é ganho ou perdido.",
+          "payload": {
+            "trigger": "on_mugic_counter_change",
+            "amount": 5
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:00.000000Z",
+    "updatedAt": "2026-02-18T04:00:00.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "a7c9e3f2-4b5d-48b0-9e7c-2d3f4a5b6c78",
+    "fileName": "rise_of_oligarch_92.png",
+    "name": "Túneis da Cidade de Kiru",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "mugic"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas com 25 ou mais de Energia Escaneada causam 10 a menos de dano de ataque.",
+        "effectType": "damage_modifier",
+        "targetScope": "all_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": -10,
+        "battleRules": {
+          "type": "damage_reduction_if_stat_threshold",
+          "notes": "Reduz o dano de ataque se a energia escaneada for alta.",
+          "payload": {
+            "stat": "scanned_energy",
+            "threshold": 25,
+            "amount": -10
+          }
+        }
+      },
+      {
+        "description": "Quando qualquer jogador embaralha seu Deck de Ataque, aquele jogador revela um novo Local ativo.",
+        "effectType": "special",
+        "targetScope": "all_players",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "reveal_new_location_on_shuffle",
+          "notes": "Revela um novo local ao embaralhar o deck de ataque.",
+          "payload": {
+            "trigger": "on_attack_deck_shuffle"
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:01.000000Z",
+    "updatedAt": "2026-02-18T04:00:01.000000Z",
+    "tribes": [
+      "overworld"
+    ],
+    "rarity": "rara"
+  },
+  {
+    "id": "c8d0f4a3-5c6e-49c1-af8d-3e4b5c6d7e89",
+    "fileName": "rise_of_oligarch_93.png",
+    "name": "Prateleira do Psi-Fanger",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [],
+    "abilities": [
+      {
+        "description": "Quando uma Carta de Ataque seria colocada em uma pilha de descarte, em vez disso, coloque-a no fundo do Deck de Ataque de seu dono.",
+        "effectType": "special",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "redirect_attack_card_to_bottom_of_deck",
+          "notes": "Redireciona cartas de ataque para o fundo do deck.",
+          "payload": {}
+        }
+      },
+      {
+        "description": "Quando um jogador compraria uma Carta de Ataque, em vez disso, ele retorna uma Carta de Ataque de sua pilha de descarte de ataques para sua mão.",
+        "effectType": "special",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "replace_draw_with_return_from_discard",
+          "notes": "Substitui a compra pelo retorno do descarte.",
+          "payload": {}
+        }
+      },
+      {
+        "description": "Se qualquer pilha de descarte de ataques estiver vazia, revele um novo Local ativo.",
+        "effectType": "special",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "reveal_new_location_if_discard_empty",
+          "notes": "Revela um novo local se o descarte de ataques estiver vazio.",
+          "payload": {}
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:02.000000Z",
+    "updatedAt": "2026-02-18T04:00:02.000000Z",
+    "tribes": [],
+    "rarity": "super_rara"
+  },
+  {
+    "id": "d9e1f5b4-6d7f-5ad2-b09e-4f5c6d7e8f90",
+    "fileName": "rise_of_oligarch_94.png",
+    "name": "Academia Real Mipediana de Artes Corpo-a-Corpo",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "speed"
+    ],
+    "abilities": [
+      {
+        "description": "Reduza o dano que não seja de ataque para 0.",
+        "effectType": "protection",
+        "targetScope": "all_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "reduce_non_attack_damage",
+          "notes": "Reduz o dano que não é de ataque a zero.",
+          "payload": {
+            "amount": 0
+          }
+        }
+      },
+      {
+        "description": "Miragem: Criaturas não podem ser alvo de Magia.",
+        "effectType": "protection",
+        "targetScope": "all_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "mirage_untargetable_by_mugic",
+          "notes": "Miragem: torna as criaturas inalvejáveis por Magia.",
+          "payload": {}
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:03.000000Z",
+    "updatedAt": "2026-02-18T04:00:03.000000Z",
+    "tribes": [
+      "mipedian"
+    ],
+    "rarity": "rara"
+  },
+  {
+    "id": "e0f2a6c5-7e80-6be3-c1af-5a6d7e8f9012",
+    "fileName": "rise_of_oligarch_95.png",
+    "name": "Covil de Siril'ean",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "courage"
+    ],
+    "abilities": [
+      {
+        "description": "No início do combate, se um jogador tiver menos Cartas de Mugic na mão do que o número de Criaturas que controla, aquele jogador descarta uma Carta de Mugic.",
+        "effectType": "special",
+        "targetScope": "all_players",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "discard_mugic_if_condition_met",
+          "notes": "Força o descarte de Mugic se a condição for atendida.",
+          "payload": {
+            "trigger": "on_combat_start"
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:04.000000Z",
+    "updatedAt": "2026-02-18T04:00:04.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "f1a3b7d6-8f91-7cf4-d2b0-6b7e8f901234",
+    "fileName": "rise_of_oligarch_96.png",
+    "name": "Fontes Esqueléticas",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "overworld"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas com o Tipo Elemental Água ganham 'Água 5'.",
+        "effectType": "gain",
+        "targetScope": "all_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "gain_keyword_if_has_element",
+          "notes": "Concede Água 5 a criaturas com o elemento Água.",
+          "payload": {
+            "element": "water",
+            "keyword": "Water 5"
+          }
+        }
+      },
+      {
+        "description": "Mórficos Fluidos não podem ganhar contadores de Mugic ou usar contadores de Mugic para pagar por Mugic ou habilidades.",
+        "effectType": "restriction",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "prevent_mugic_usage_for_subtype",
+          "notes": "Impede o uso de Mugic para a subtipo Mórfico Fluido.",
+          "payload": {
+            "subtype": "Fluidmorph"
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:05.000000Z",
+    "updatedAt": "2026-02-18T04:00:05.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "0123abcd-9a82-8de5-e3c1-7c8f90123456",
+    "fileName": "rise_of_oligarch_97.png",
+    "name": "A Forja de Coral",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "fire"
+    ],
+    "abilities": [
+      {
+        "description": "Quando uma Criatura joga um ataque que é dos Tipos Elementais Fogo e Água, seu controlador pode trocar o Battlegear daquela Criatura por qualquer Battlegear na pilha de descarte de seu controlador.",
+        "effectType": "special",
+        "targetScope": "own_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "swap_battlegear_on_dual_element_attack",
+          "notes": "Permite a troca de Battlegear ao usar um ataque de Fogo e Água.",
+          "payload": {
+            "elements": [
+              "fire",
+              "water"
+            ]
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:06.000000Z",
+    "updatedAt": "2026-02-18T04:00:06.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "1234bcde-ab93-9ef6-f4d2-8d9012345678",
+    "fileName": "rise_of_oligarch_98.png",
+    "name": "O Caminho do Oligarca",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "chieftain"
+    ],
+    "abilities": [
+      {
+        "description": "Chefes ganham 10 de Energia.",
+        "effectType": "gain",
+        "targetScope": "own_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 10,
+        "battleRules": {
+          "type": "stat_modifier_for_subtype",
+          "notes": "Concede 10 de energia para a subtipo Chefe.",
+          "payload": {
+            "subtype": "Chieftain",
+            "stat": "energy",
+            "amount": 10
+          }
+        }
+      },
+      {
+        "description": "Chamado de As'une custa 4 contadores de Magia a menos para jogar.",
+        "effectType": "cost_reduction",
+        "targetScope": "none",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": -4,
+        "battleRules": {
+          "type": "reduce_cost_of_specific_mugic",
+          "notes": "Reduz o custo de uma Mugic específica.",
+          "payload": {
+            "mugic_name": "Calling of As'une",
+            "amount": -4
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:07.000000Z",
+    "updatedAt": "2026-02-18T04:00:07.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "2345cdef-bc04-af07-05e3-9e0123456789",
+    "fileName": "rise_of_oligarch_99.png",
+    "name": "A Grade de Sinos Rad'Pa Sahkk",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "mugic_counters"
+    ],
+    "abilities": [
+      {
+        "description": "Quando A Grade de Sinos Rad'Pa Sahkk se torna o Local ativo, cada jogador coloca ☐ em uma Criatura que controla.",
+        "effectType": "gain",
+        "targetScope": "all_players",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 1,
+        "battleRules": {
+          "type": "gain_mugic_counter_on_location_activate",
+          "notes": "Dá um contador de Mugic a uma criatura de cada jogador.",
+          "payload": {
+            "trigger": "on_location_activate",
+            "amount": 1
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:08.000000Z",
+    "updatedAt": "2026-02-18T04:00:08.000000Z",
+    "tribes": [],
+    "rarity": "rara"
+  },
+  {
+    "id": "3456def0-cd15-b108-16f4-af1234567890",
+    "fileName": "rise_of_oligarch_100.png",
+    "name": "Os Campos de Treinamento",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "mugic_ability"
+    ],
+    "abilities": [
+      {
+        "description": "No início do combate, Os Campos de Treinamento causam 5 de dano a cada Criatura engajada para cada contador de Mugic naquela Criatura.",
+        "effectType": "damage",
+        "targetScope": "engaged_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 5,
+        "battleRules": {
+          "type": "damage_per_mugic_counter",
+          "notes": "Causa dano por contador de Mugic no início do combate.",
+          "payload": {
+            "trigger": "on_combat_start",
+            "amount_per_mugic": 5
+          }
+        }
+      },
+      {
+        "description": "Quando uma Criatura vence o combate, aquela Criatura ganha contadores de Mugic iguais à sua Habilidade de Mugic.",
+        "effectType": "gain",
+        "targetScope": "winning_creature",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "gain_mugic_on_combat_win",
+          "notes": "Ganha contadores de Mugic ao vencer o combate.",
+          "payload": {
+            "trigger": "on_combat_win"
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T04:00:09.000000Z",
+    "updatedAt": "2026-02-18T04:00:09.000000Z",
+    "tribes": [],
+    "rarity": "super_rara"
+  },
+  {
     "id": "b3d9a1c2-4f5e-4a6b-9c7d-0e1f2a3b4c5d",
     "fileName": "organized_play_19.png",
     "name": "Vale do Medo",
