@@ -1,5 +1,115 @@
 [
   {
+    "id": "b3d9a1c2-4f5e-4a6b-9c7d-0e1f2a3b4c5d",
+    "fileName": "organized_play_19.png",
+    "name": "Vale do Medo",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "wisdom"
+    ],
+    "abilities": [
+      {
+        "description": "No início do combate, a Criatura engajada com a menor Coragem perde 10 de Energia.",
+        "effectType": "damage",
+        "targetScope": "engaged_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "stat_modifier_lowest_stat",
+          "notes": "A criatura com a menor Coragem perde energia.",
+          "payload": {
+            "trigger": "on_combat_start",
+            "stat": "courage",
+            "condition": "lowest",
+            "modifier_stat": "energy",
+            "amount": -10
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T02:00:00.000000Z",
+    "updatedAt": "2026-02-18T02:00:00.000000Z",
+    "tribes": [],
+    "rarity": "super_rara"
+  },
+  {
+    "id": "c4e2b3a1-5f6d-4b7c-8a9e-1f2d3c4b5a6e",
+    "fileName": "organized_play_20.png",
+    "name": "Cidade de Kiru",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "wisdom"
+    ],
+    "abilities": [
+      {
+        "description": "Criaturas do OverWorld ganham 10 de Energia.",
+        "effectType": "gain",
+        "targetScope": "specific_tribes",
+        "targetTribes": [
+          "overworld"
+        ],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "stat_modifier_for_tribe",
+          "notes": "Criaturas do OverWorld ganham 10 de energia.",
+          "payload": {
+            "trigger": "passive",
+            "stat": "energy",
+            "amount": 10
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T02:00:01.000000Z",
+    "updatedAt": "2026-02-18T02:00:01.000000Z",
+    "tribes": [
+      "overworld"
+    ],
+    "rarity": "rara"
+  },
+  {
+    "id": "d5f3c2b1-6e7a-4c8b-9da1-2b3c4d5e6f7a",
+    "fileName": "organized_play_18.png",
+    "name": "Castelo de Pilar",
+    "imageFileId": null,
+    "imageUrl": null,
+    "initiativeElements": [
+      "courage"
+    ],
+    "abilities": [
+      {
+        "description": "No início do combate, a Criatura engajada com a maior Sabedoria ganha ☐.",
+        "effectType": "gain",
+        "targetScope": "engaged_creatures",
+        "targetTribes": [],
+        "stats": [],
+        "cardTypes": [],
+        "value": 0,
+        "battleRules": {
+          "type": "stat_modifier_highest_stat",
+          "notes": "A criatura com a maior Sabedoria ganha um contador de Mugic.",
+          "payload": {
+            "trigger": "on_combat_start",
+            "stat": "wisdom",
+            "condition": "highest",
+            "modifier_stat": "mugic_counters",
+            "amount": 1
+          }
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T02:00:02.000000Z",
+    "updatedAt": "2026-02-18T02:00:02.000000Z",
+    "tribes": [],
+    "rarity": "super_rara"
+  },
+  {
     "id": "73c1c7e8-55c6-4089-981a-23b76df8512d",
     "name": "Borda Quebrada",
     "image_file_id": "locations/2026/891dee80-b60a-49fd-9df9-39e728217de8-197.png",

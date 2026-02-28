@@ -1,5 +1,47 @@
 [
   {
+    "id": "e7a9c6d4-1b2f-4c3d-9a0e-5f6b7c8d9e0f",
+    "fileName": "organized_play_17.png",
+    "name": "Harmonia da Desolação",
+    "imageFileId": null,
+    "imageUrl": null,
+    "tribes": [
+      "underworld"
+    ],
+    "cost": 1,
+    "abilities": [
+      {
+        "abilityType": "stat_modifier",
+        "description": "A Criatura alvo perde 10 de Poder e 10 de Velocidade.",
+        "effectType": "decrease",
+        "stats": [
+          "power",
+          "speed"
+        ],
+        "cardTypes": [],
+        "targetScope": "enemy",
+        "targetTribes": [],
+        "value": 0,
+        "actionType": "modify_stats_map",
+        "actionPayload": {
+          "modifiers": [
+            {
+              "stat": "power",
+              "amount": -10
+            },
+            {
+              "stat": "speed",
+              "amount": -10
+            }
+          ]
+        }
+      }
+    ],
+    "createdAt": "2026-02-18T03:00:00.000000Z",
+    "updatedAt": "2026-02-18T03:00:00.000000Z",
+    "rarity": "rara"
+  },
+  {
     "id": "52f3c1e9-6b8f-4f0b-a2d1-0f3c2b4e5a67",
     "file_name": "marrilian_invasion_189.png",
     "name": "Sinfonia da Similaridade",

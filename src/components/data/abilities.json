@@ -1,5 +1,188 @@
 [
   {
+    "id": "9c0f1a2b-3d4e-5f60-7a8b-9c1d2e3f4a5b",
+    "name": "Suporte: Poder 5",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "all_creatures",
+    "stat": "power",
+    "value": 5,
+    "description": "Suporte: Poder 5",
+    "battleRules": {
+      "type": "stat_modifier",
+      "notes": "Fornece suporte para Poder.",
+      "payload": {
+        "stat": "power",
+        "amount": 5
+      },
+      "requiresTarget": true,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T00:00:01.000000Z",
+    "updatedAt": "2026-02-18T00:00:01.000000Z",
+    "creatureId": "creature-pt-100",
+    "targetTribes": [],
+    "cardTypes": [
+      "creature"
+    ]
+  },
+  {
+    "id": "a1b2c3d4-5e6f-7081-92a3-b4c5d6e7f890",
+    "name": "Suporte: Sabedoria 5",
+    "category": "support",
+    "effectType": "increase",
+    "targetScope": "all_creatures",
+    "stat": "wisdom",
+    "value": 5,
+    "description": "Suporte: Sabedoria 5",
+    "battleRules": {
+      "type": "stat_modifier",
+      "notes": "Fornece suporte para Sabedoria.",
+      "payload": {
+        "stat": "wisdom",
+        "amount": 5
+      },
+      "requiresTarget": true,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T00:00:02.000000Z",
+    "updatedAt": "2026-02-18T00:00:02.000000Z",
+    "creatureId": "creature-pt-101",
+    "targetTribes": [],
+    "cardTypes": [
+      "creature"
+    ]
+  },
+  {
+    "id": "b2c3d4e5-6f70-8192-a3b4-c5d6e7f89012",
+    "name": "Veloz 1",
+    "category": "innate",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 1,
+    "description": "Veloz 1",
+    "battleRules": {
+      "type": "generic_special",
+      "notes": "Possui a palavra-chave Veloz 1.",
+      "payload": {
+        "keyword": "Swift 1"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T00:00:03.000000Z",
+    "updatedAt": "2026-02-18T00:00:03.000000Z",
+    "creatureId": "creature-pt-102",
+    "targetTribes": [],
+    "cardTypes": [
+      "creature"
+    ]
+  },
+  {
+    "id": "c3d4e5f6-7081-92a3-b4c5-d6e7f8901234",
+    "name": "Imprudência 5",
+    "category": "innate",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 5,
+    "description": "Imprudência 5",
+    "battleRules": {
+      "type": "generic_special",
+      "notes": "Possui a palavra-chave Imprudência 5.",
+      "payload": {
+        "keyword": "Recklessness 5"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T00:00:04.000000Z",
+    "updatedAt": "2026-02-18T00:00:04.000000Z",
+    "creatureId": "creature-pt-103",
+    "targetTribes": [],
+    "cardTypes": [
+      "creature"
+    ]
+  },
+  {
+    "id": "d4e5f6a7-0819-2a3b-4c5d-6e7f89012345",
+    "name": "Veloz 1",
+    "category": "innate",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "none",
+    "value": 1,
+    "description": "Veloz 1",
+    "battleRules": {
+      "type": "generic_special",
+      "notes": "Possui a palavra-chave Veloz 1.",
+      "payload": {
+        "keyword": "Swift 1"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T00:00:05.000000Z",
+    "updatedAt": "2026-02-18T00:00:05.000000Z",
+    "creatureId": "creature-pt-104",
+    "targetTribes": [],
+    "cardTypes": [
+      "creature"
+    ]
+  },
+  {
+    "id": "e5f6a7b8-1920-3b4c-5d6e-7f8901234567",
+    "name": "Intimidar: Poder 10",
+    "category": "innate",
+    "effectType": "special",
+    "targetScope": "self",
+    "stat": "power",
+    "value": 10,
+    "description": "Intimidar: Poder 10",
+    "battleRules": {
+      "type": "generic_special",
+      "notes": "Possui a palavra-chave Intimidar: Poder 10.",
+      "payload": {
+        "keyword": "Intimidate: Power 10"
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T00:00:06.000000Z",
+    "updatedAt": "2026-02-18T00:00:06.000000Z",
+    "targetTribes": [],
+    "cardTypes": [
+      "creature"
+    ]
+  },
+  {
+    "id": "f6a7b8c9-2031-4c5d-6e7f-890123456789",
+    "name": "Cause 5 de dano a uma Criatura alvo",
+    "category": "activated",
+    "effectType": "special",
+    "targetScope": "opposing_creatures",
+    "stat": "none",
+    "value": 5,
+    "description": "☑: Cause 5 de dano a uma Criatura alvo.",
+    "battleRules": {
+      "type": "generic_special",
+      "notes": "Causa 5 de dano a um alvo.",
+      "payload": {
+        "cost": 1,
+        "amount": 5
+      },
+      "requiresTarget": true,
+      "usageLimitPerTurn": null
+    },
+    "createdAt": "2026-02-18T00:00:07.000000Z",
+    "updatedAt": "2026-02-18T00:00:07.000000Z",
+    "targetTribes": [],
+    "cardTypes": [
+      "creature"
+    ]
+  },
+  {
     "id": "00000000-0000-0000-0000-000000000001",
     "name": "Cure 5 de dano em uma Criatura alvo para cada Tribo que você controla.",
     "description": "Cure 5 de dano em uma Criatura alvo para cada Tribo que você controla.",
@@ -6840,5 +7023,47 @@
     "updatedAt": null,
     "requiresTarget": false,
     "usageLimitPerTurn": null
+  },
+  {
+    "id": "9f1a2b3c-4567-890a-bcde-1234567890ab",
+    "name": "Equipado: Velocidade +15 (Danian: Sacrifique para devolver Mandiblor)",
+    "description": "A Criatura equipada ganha 15 de Velocidade. Se a criatura equipada for Daniana, ela ganha 'Sacrifique a criatura equipada: Devolva um Mandiblor para colocar em qualquer espaço vazio.'",
+    "stat": "speed",
+    "value": 15,
+    "effectType": "gain",
+    "targetScope": "self",
+    "battleRules": {
+      "type": "composite",
+      "notes": "Ganha +15 Velocidade; se for Daniana, ganha habilidade sacrificar para devolver Mandiblor.",
+      "payload": {
+        "primary": {
+          "type": "gain_stat",
+          "stat": "speed",
+          "amount": 15
+        },
+        "conditional": {
+          "condition": "equipped_creature_is_tribe",
+          "tribe": "danian",
+          "grant": {
+            "type": "activated_ability",
+            "name": "Sacrifique a criatura equipada: Devolva um Mandiblor para colocar em qualquer espaço vazio.",
+            "payload": {
+              "cost": "sacrifice_equipped_creature",
+              "effect": "return_mandiblor_to_place_any_empty_slot"
+            }
+          }
+        }
+      },
+      "requiresTarget": false,
+      "usageLimitPerTurn": null,
+      "original_type": "equip_speed_and_conditional_sacrifice_return"
+    },
+    "createdAt": "2026-02-28T00:00:00.000000Z",
+    "updatedAt": "2026-02-28T00:00:00.000000Z",
+    "targetTribes": [],
+    "cardTypes": [
+      "battlegear"
+    ],
+    "category": "support"
   }
 ]

@@ -1,5 +1,182 @@
 [
   {
+    "id": "3a1f2e4b-5c6d-7e80-9a1b-2c3d4e5f6a71",
+    "fileName": "organized_play_1.png",
+    "name": "Nebres",
+    "tribe": "overworld",
+    "rarity": "comum",
+    "courage": 70,
+    "power": 80,
+    "wisdom": 45,
+    "speed": 50,
+    "energy": 50,
+    "mugic": 0,
+    "supportAbilityId": [
+      "9c0f1a2b-3d4e-5f60-7a8b-9c1d2e3f4a5b"
+    ],
+    "dominantElements": []
+  },
+  {
+    "id": "4b2e3f5c-6d7e-8f90-1b2c-3d4e5f6a7b82",
+    "fileName": "organized_play_2.png",
+    "name": "Neffa",
+    "tribe": "overworld",
+    "rarity": "comum",
+    "courage": 50,
+    "power": 25,
+    "wisdom": 80,
+    "speed": 35,
+    "energy": 40,
+    "mugic": 2,
+    "supportAbilityId": [
+      "a1b2c3d4-5e6f-7081-92a3-b4c5d6e7f890"
+    ],
+    "dominantElements": []
+  },
+  {
+    "id": "5c3f4a6d-7e8f-9012-2c3d-4e5f6a7b8c93",
+    "fileName": "organized_play_3.png",
+    "name": "Sukoval",
+    "tribe": "overworld",
+    "rarity": "comum",
+    "courage": 30,
+    "power": 55,
+    "wisdom": 80,
+    "speed": 55,
+    "energy": 45,
+    "mugic": 0,
+    "supportAbilityId": [
+      "b2c3d4e5-6f70-8192-a3b4-c5d6e7f89012"
+    ],
+    "dominantElements": [
+      "water"
+    ]
+  },
+  {
+    "id": "6d4a5b7e-8f90-0123-3d4e-5f6a7b8c9d04",
+    "fileName": "organized_play_4.png",
+    "name": "Chargola",
+    "tribe": "underworld",
+    "rarity": "comum",
+    "courage": 75,
+    "power": 85,
+    "wisdom": 95,
+    "speed": 60,
+    "energy": 60,
+    "mugic": 1,
+    "supportAbilityId": [
+      "c3d4e5f6-7081-92a3-b4c5-d6e7f8901234"
+    ],
+    "dominantElements": []
+  },
+  {
+    "id": "7e5b6c8f-9012-1234-4e5f-6a7b8c9d0e15",
+    "fileName": "organized_play_5.png",
+    "name": "Dyrtax",
+    "tribe": "underworld",
+    "rarity": "comum",
+    "courage": 35,
+    "power": 60,
+    "wisdom": 45,
+    "speed": 65,
+    "energy": 45,
+    "mugic": 1,
+    "supportAbilityId": [
+      "d4e5f6a7-0819-2a3b-4c5d-6e7f89012345"
+    ],
+    "dominantElements": []
+  },
+  {
+    "id": "8f6c7d90-0123-2345-5f6a-7b8c9d0e1f26",
+    "fileName": "organized_play_6.png",
+    "name": "Getterek",
+    "tribe": "underworld",
+    "rarity": "super_rara",
+    "courage": 50,
+    "power": 95,
+    "wisdom": 25,
+    "speed": 45,
+    "energy": 60,
+    "mugic": 1,
+    "supportAbilityId": [
+      "e5f6a7b8-1920-3b4c-5d6e-7f8901234567"
+    ],
+    "dominantElements": [
+      "fire"
+    ]
+  },
+  {
+    "id": "90a7b8c1-1234-3456-6a7b-8c9d0e1f2a37",
+    "fileName": "organized_play_7.png",
+    "name": "Aimukk",
+    "tribe": "danian",
+    "rarity": "comum",
+    "courage": 75,
+    "power": 50,
+    "wisdom": 20,
+    "speed": 30,
+    "energy": 35,
+    "mugic": 0,
+    "mandiblor": true,
+    "supportAbilityId": [],
+    "dominantElements": [
+      "earth"
+    ]
+  },
+  {
+    "id": "a1b8c9d2-2345-4567-7b8c-9d0e1f2a3b48",
+    "fileName": "organized_play_8.png",
+    "name": "Nakal",
+    "tribe": "danian",
+    "rarity": "comum",
+    "courage": 50,
+    "power": 50,
+    "wisdom": 30,
+    "speed": 55,
+    "energy": 30,
+    "mugic": 1,
+    "mandiblor": true,
+    "supportAbilityId": [],
+    "dominantElements": [
+      "earth",
+      "fire"
+    ]
+  },
+  {
+    "id": "b2c9d0e3-3456-5678-8c9d-0e1f2a3b4c59",
+    "fileName": "organized_play_9.png",
+    "name": "Ghatup",
+    "tribe": "mipedian",
+    "rarity": "comum",
+    "courage": 60,
+    "power": 20,
+    "wisdom": 65,
+    "speed": 60,
+    "energy": 40,
+    "mugic": 2,
+    "supportAbilityId": [],
+    "dominantElements": [
+      "air"
+    ]
+  },
+  {
+    "id": "c3d0e1f4-4567-6789-9d0e-1f2a3b4c5d60",
+    "fileName": "organized_play_10.png",
+    "name": "Vasquin",
+    "tribe": "mipedian",
+    "rarity": "rara",
+    "courage": 65,
+    "power": 40,
+    "wisdom": 85,
+    "speed": 35,
+    "energy": 55,
+    "mugic": 1,
+    "supportAbilityId": [
+      "f6a7b8c9-2031-4c5d-6e7f-890123456789"
+    ],
+    "dominantElements": []
+  },
+  {
     "id": "00000000-0000-0000-0000-000000000201",
     "fileName": "marrilian_invasion_1.png",
     "name": "Accato",

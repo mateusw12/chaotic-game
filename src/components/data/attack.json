@@ -1,5 +1,94 @@
 [
   {
+    "id": "a12f3b4c-5d6e-47f8-9a0b-c1d2e3f45678",
+    "fileName": "organized_play_11.png",
+    "name": "Armagedom",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 5,
+    "baseDamage": 0,
+    "elementValues": [
+      {
+        "element": "fire",
+        "value": 10
+      },
+      {
+        "element": "air",
+        "value": 10
+      },
+      {
+        "element": "earth",
+        "value": 10
+      },
+      {
+        "element": "water",
+        "value": 10
+      }
+    ],
+    "abilities": [
+      {
+        "description": "Único.",
+        "targetScope": "attacker",
+        "effectType": "increase",
+        "stat": "none",
+        "value": 0
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "b23e4c5d-6f70-48a9-8b1c-d2e3f4a56789",
+    "fileName": "organized_play_12.png",
+    "name": "Catacolisão",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 3,
+    "baseDamage": 5,
+    "elementValues": [
+      {
+        "element": "fire",
+        "value": 5
+      },
+      {
+        "element": "air",
+        "value": 5
+      },
+      {
+        "element": "earth",
+        "value": 5
+      },
+      {
+        "element": "water",
+        "value": 5
+      }
+    ],
+    "abilities": [],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
+    "id": "c34d5e6f-7081-49b2-9c3d-e4f5a6b7890c",
+    "fileName": "organized_play_13.png",
+    "name": "Lodo Assustador",
+    "imageFileId": null,
+    "imageUrl": null,
+    "energyCost": 2,
+    "baseDamage": 0,
+    "elementValues": [],
+    "abilities": [
+      {
+        "description": "Desafio 15: Cause 10 de dano.",
+        "targetScope": "defender",
+        "effectType": "decrease",
+        "stat": "none",
+        "value": 10
+      }
+    ],
+    "createdAt": null,
+    "updatedAt": null
+  },
+  {
     "id": "9d0941be-ed3f-44e7-8726-5b7eb12e5ea0",
     "name": "Torrente de Cinzas",
     "energy_cost": 4,
