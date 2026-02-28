@@ -13,7 +13,7 @@ export default function FeaturedOffer() {
       </div>
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         <div className={styles.promoPrice}>R$ 12,90</div>
-        <Link href="/store" legacyBehavior>
+        <Link href="/store">
           <Button disabled type="primary" className={styles.starterCtaButton}>Comprar</Button>
         </Link>
       </div>

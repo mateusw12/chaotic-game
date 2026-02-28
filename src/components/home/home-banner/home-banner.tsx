@@ -69,7 +69,7 @@ export default function HomeBanner() {
           </div>
 
           <div>
-            <Link href="/store" legacyBehavior>
+            <Link href="/store">
               <Button type="primary" size="small" className={styles.starterCtaButton}>Ver</Button>
             </Link>
           </div>
@@ -94,7 +94,7 @@ export default function HomeBanner() {
           </div>
 
           <div>
-            <Link href="/store" legacyBehavior>
+            <Link href="/store">
               <Button type="primary" size="small" className={styles.starterCtaButton}>Ir para loja</Button>
             </Link>
           </div>
