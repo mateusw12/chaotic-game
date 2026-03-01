@@ -15,6 +15,7 @@ type TournamentsViewProps = {
   userRole: "user" | "admin";
   coins: number;
   diamonds: number;
+  level: number;
   tournaments: TournamentDto[];
 };
 
@@ -35,6 +36,7 @@ export function TournamentsView({
   userRole,
   coins,
   diamonds,
+  level,
   tournaments,
 }: TournamentsViewProps) {
   return (
@@ -46,6 +48,7 @@ export function TournamentsView({
       userRole={userRole}
       coins={coins}
       diamonds={diamonds}
+      level={level}
     >
       <Space orientation="vertical" size={12} style={{ width: "100%" }}>
         <Title level={3} style={{ marginTop: 0 }}>Torneios</Title>

@@ -41,6 +41,7 @@ export function DecksView({
   userRole,
   coins,
   diamonds,
+  level,
 }: DecksViewProps) {
   const { notification } = AntdApp.useApp();
   const [currentCoins, setCurrentCoins] = useState(coins);
@@ -448,6 +449,7 @@ export function DecksView({
       userRole={userRole}
       coins={currentCoins}
       diamonds={currentDiamonds}
+      level={level}
     >
       <Space orientation="vertical" size={14} style={{ width: "100%" }}>
         <Title level={3} style={{ margin: 0 }} className={styles.pageTitle}>Meu Deck</Title>

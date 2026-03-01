@@ -26,6 +26,7 @@ export function ProfileView({
   userRole,
   coins,
   diamonds,
+  level,
   progressionOverview,
 }: ProfileViewProps) {
   const { notification } = AntdApp.useApp();
@@ -104,6 +105,7 @@ export function ProfileView({
       coins={coins}
       diamonds={diamonds}
       userRole={userRole}
+      level={level}
     >
       <Card className={styles.profileCard}>
         <Space orientation="vertical" size={16} style={{ width: "100%" }}>

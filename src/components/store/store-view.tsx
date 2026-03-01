@@ -26,9 +26,10 @@ type StoreViewProps = {
   userName: string | null;
   userNickName: string | null;
   userImageUrl: string | null;
+  level: number;
 };
 
-export function StoreView({ userName, userNickName, userImageUrl }: StoreViewProps) {
+export function StoreView({ userName, userNickName, userImageUrl, level }: StoreViewProps) {
   const [loading, setLoading] = useState(true);
   const [purchasingPackKey, setPurchasingPackKey] = useState<string | null>(null);
   const [packs, setPacks] = useState<StorePackDto[]>([]);
@@ -215,6 +216,7 @@ export function StoreView({ userName, userNickName, userImageUrl }: StoreViewPro
       coins={coins}
       diamonds={diamonds}
       userRole="user"
+      level={level}
     >
       {contextHolder}
       <section className={styles.storeHero}>

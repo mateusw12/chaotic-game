@@ -38,6 +38,7 @@ export default async function ProfilePage() {
       userRole={dashboard?.userRole ?? "user"}
       coins={dashboard?.coins ?? 0}
       diamonds={dashboard?.diamonds ?? 0}
+      level={dashboard?.level ?? progressionOverview?.progression.level ?? 1}
       progressionOverview={progressionOverview}
     />
   );

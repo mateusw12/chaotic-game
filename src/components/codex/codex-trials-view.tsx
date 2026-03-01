@@ -65,6 +65,7 @@ export function CodexTrialsView({
   userRole,
   coins,
   diamonds,
+  level,
 }: CodexTrialsViewProps) {
   const currentLeagueId = 2;
   const currentLeagueProgressPercent = 24;
@@ -159,6 +160,7 @@ export function CodexTrialsView({
       userRole={userRole}
       coins={coins}
       diamonds={diamonds}
+      level={level}
     >
       <Space orientation="vertical" size={16} style={{ width: "100%" }}>
         <CodexHeader />

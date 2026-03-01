@@ -230,7 +230,6 @@ export function HomeView({
       diamonds={diamonds}
       userRole={userRole}
       level={level}
-      xpPercent={xpPercent}
     >
       {loadingStarterStatus ? (
         <Card className={styles.heroCard}>

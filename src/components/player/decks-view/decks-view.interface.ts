@@ -8,6 +8,7 @@ export type DecksViewProps = {
   userRole: "user" | "admin";
   coins: number;
   diamonds: number;
+  level: number;
 };
 
 export type DeckFilters = {

@@ -17,7 +17,6 @@ type PlayerShellProps = {
   diamonds: number;
   userRole: "user" | "admin";
   level?: number;
-  xpPercent?: number;
   children: React.ReactNode;
 };
 
@@ -33,7 +32,6 @@ export function PlayerShell({
   diamonds,
   userRole,
   level,
-  xpPercent,
   children,
 }: PlayerShellProps) {
   const displayUserName = useDisplayUserName({ name: userName, nickName: userNickName });
@@ -115,7 +113,6 @@ export function PlayerShell({
             {typeof level === "number" ? (
               <div className={`${styles.resourceTag} ${styles.levelTag}`}>
                 <div className={styles.levelNumber}>Nível {level}</div>
-                <div className={styles.levelPercent}>{Math.round(xpPercent ?? 0)}%</div>
               </div>
             ) : null}
             <Dropdown menu={{ items: profileMenuItems }} trigger={["click"]}>

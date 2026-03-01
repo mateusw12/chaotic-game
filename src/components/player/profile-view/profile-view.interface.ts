@@ -7,5 +7,6 @@ export type ProfileViewProps = {
   userRole: "user" | "admin";
   coins: number;
   diamonds: number;
+  level: number;
   progressionOverview: UserProgressionOverviewDto | null;
 };

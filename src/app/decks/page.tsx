@@ -26,6 +26,7 @@ export default async function DecksPage() {
       userRole={dashboard?.userRole ?? "user"}
       coins={dashboard?.coins ?? 0}
       diamonds={dashboard?.diamonds ?? 0}
+      level={dashboard?.level ?? 1}
     />
   );
 }

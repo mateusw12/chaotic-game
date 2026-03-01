@@ -5,6 +5,7 @@ export type CodexTrialsViewProps = {
   userRole: "user" | "admin";
   coins: number;
   diamonds: number;
+  level: number;
 };
 
 export type LeagueSpec = {
