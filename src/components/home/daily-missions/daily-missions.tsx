@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Button, Tag, notification, Space } from "antd";
+import { Card, Button, Tag, notification } from "antd";
 import styles from "@/app/page.module.css";
 
 const MOCK_MISSIONS = [

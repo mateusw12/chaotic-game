@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Button, Space, Typography } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
-import styles from "@/app/page.module.css";
 
 const { Title } = Typography;
 

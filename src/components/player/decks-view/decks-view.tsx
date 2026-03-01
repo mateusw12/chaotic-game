@@ -2,21 +2,14 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { DeleteOutlined } from "@ant-design/icons";
 import {
   App as AntdApp,
-  Button,
-  Input,
-  InputNumber,
-  Modal,
-  Select,
   Space,
-  Tabs,
   Tag,
   Typography,
 } from "antd";
 import type { DeckCollectionCardDto, DeckDto } from "@/dto/deck";
-import { CARD_RARITY_OPTIONS, type CardRarity, type CreatureTribe } from "@/dto/creature";
+import { type CardRarity, type CreatureTribe } from "@/dto/creature";
 import type { UserCardType } from "@/dto/progression";
 import { StoreService } from "@/lib/api/services/store.service";
 import { PlayerShell } from "@/components/player/player-shell";
@@ -30,9 +23,9 @@ import CollectionFilters from "./collection-filters/collection-filters";
 import DeckManager from "./deck-manager/deck-manager";
 import ActionCardModal from "./action-card-modal/action-card-modal";
 import ViewDeckModal from "./view-deck-modal/view-deck-modal";
-import { CARD_TYPE_OPTIONS, EMPTY_VIEWED_GROUPS } from "./decks-view.constants";
+import { EMPTY_VIEWED_GROUPS } from "./decks-view.constants";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 export function DecksView({
   userName,

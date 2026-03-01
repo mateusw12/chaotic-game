@@ -1,9 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { App as AntdApp, Avatar, Button, Card, Col, Form, Input, Progress, Row, Space, Statistic, Typography, Upload } from "antd";
+import { App as AntdApp, Avatar, Button, Card, Form, Input, Space, Typography, Upload } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
-import { CREATURE_TRIBE_OPTIONS } from "@/dto/creature";
 import { PlayerShell } from "@/components/player/player-shell";
 import { LoadingLogo } from "@/components/shared/loading-logo/loading-logo";
 import { useDisplayUserName } from "@/hooks/use-display-user-name";
