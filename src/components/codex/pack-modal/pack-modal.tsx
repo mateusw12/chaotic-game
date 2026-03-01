@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Modal, message } from "antd";
 import { DecksService } from "@/lib/api/services/decks.service";
 import CodexTrialsService from "@/lib/api/services/codex-trials.service";
@@ -31,18 +31,19 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
   const [claimed, setClaimed] = useState(false);
   const hasChosenCardRef = useRef(false);
 
-  // reset internal state when modal opens or pack changes
-  useEffect(() => {
+  function resetModalState() {
     setIsPicking(false);
     setRevealedAll(false);
     setSelectedIndex(null);
     setCloseCountdown(null);
-    setDisplayCards(packCards || []);
+    setDisplayCards(packCards);
+    setBonusLocation(null);
+    setBonusMugic(null);
     setChosenPackIndex(null);
     setPhase("choose-pack");
     hasChosenCardRef.current = false;
     setClaimed(false);
-  }, [open, packCards]);
+  }
 
   // user selects a pack; reveal cards but do not allow further selection
   const handlePackFrontClick = async (i: number) => {
@@ -70,7 +71,6 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
 
       await handleSelectCard(chosenCard as PackCard, i);
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error(err);
       message.error('Erro ao abrir o pacote.');
       // reset choice so user can try again
@@ -118,6 +118,7 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
       setCloseCountdown(1);
       await new Promise((r) => setTimeout(r, 1000));
       // notify parent with the awarded card so it can update local collection/deck
+      resetModalState();
       onPick(card);
     } catch (err) {
       console.error(err);
@@ -130,7 +131,14 @@ export default function PackModal({ open, packCards, packImage, packRarity, leag
     <Modal
       title={packRarity ? `Pacote · ${packRarity.replace("_", " ")}` : "Pacote: escolha 1 de 3"}
       open={open}
-      onCancel={() => { if (!isPicking) onCancel(); }}
+      onCancel={() => {
+        if (isPicking) {
+          return;
+        }
+
+        resetModalState();
+        onCancel();
+      }}
       footer={null}
     >
       <div className={styles.packModal}>

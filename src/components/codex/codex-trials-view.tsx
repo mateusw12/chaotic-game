@@ -104,7 +104,6 @@ export function CodexTrialsView({
         setClaimedPacks(map);
       } catch (e) {
         // ignore errors
-        // eslint-disable-next-line no-console
         console.error('Erro ao pré-checar packs:', e);
       }
     })();
