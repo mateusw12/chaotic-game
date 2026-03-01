@@ -68,7 +68,6 @@ export function RewardModal({ open, reward, onClose, fallbackImage }: RewardModa
                   />
                 </div>
                 <Text className={styles.awardedCardType}>{reward.card.cardType}</Text>
-                <Title level={4} style={{ margin: "2px 0" }}>{reward.card.cardName ?? "Carta Misteriosa"}</Title>
                 <Tag color="purple">{reward.card.rarity}</Tag>
               </div>
             ) : (
