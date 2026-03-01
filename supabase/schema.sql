@@ -325,7 +325,7 @@ end $$;
 create table if not exists public.progression_events (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.users(id) on delete cascade,
-  source text not null check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'shop_pack_purchase', 'shop_purchase_refund', 'starter_pack_opened')),
+  source text not null check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'mission_claimed', 'shop_pack_purchase', 'shop_purchase_refund', 'starter_pack_opened')),
   xp_delta integer not null default 0 check (xp_delta >= 0),
   coins_delta integer not null default 0,
   diamonds_delta integer not null default 0,
@@ -357,7 +357,7 @@ begin
 
   alter table public.progression_events
     add constraint progression_events_source_check
-    check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'shop_pack_purchase', 'shop_purchase_refund', 'starter_pack_opened'));
+    check (source in ('battle_victory', 'card_awarded', 'card_discarded', 'daily_login', 'mission_claimed', 'shop_pack_purchase', 'shop_purchase_refund', 'starter_pack_opened'));
 end $$;
 
 create table if not exists public.creatures (
@@ -1256,3 +1256,15 @@ create index if not exists idx_user_challenges_user_id_status
 create unique index if not exists idx_user_challenges_bonus_cycle
   on public.user_challenges(user_id, bonus_cycle)
   where is_bonus = true and bonus_cycle is not null;
+
+create table if not exists public.user_mission_claims (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  mission_id text not null,
+  period_key text not null,
+  claimed_at timestamptz not null default now(),
+  unique (user_id, mission_id, period_key)
+);
+
+create index if not exists idx_user_mission_claims_user_id_claimed_at
+  on public.user_mission_claims(user_id, claimed_at desc);

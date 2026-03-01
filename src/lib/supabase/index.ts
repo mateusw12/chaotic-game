@@ -18,6 +18,7 @@ export * from "./store";
 export * from "./tournaments";
 export * from "./decks";
 export * from "./challenges";
+export * from "./missions";
 
 // Legacy exports
 export * from "./starter";

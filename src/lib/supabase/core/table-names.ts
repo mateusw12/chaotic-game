@@ -61,3 +61,7 @@ export function getTournamentsTableName() {
 export function getUserChallengesTableName() {
   return process.env.SUPABASE_USER_CHALLENGES_TABLE ?? "user_challenges";
 }
+
+export function getUserMissionClaimsTableName() {
+  return process.env.SUPABASE_USER_MISSION_CLAIMS_TABLE ?? "user_mission_claims";
+}

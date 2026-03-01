@@ -1,0 +1,288 @@
+.rootCard {
+  border-radius: 16px;
+  border: 1px solid var(--ant-color-border-secondary);
+  background: linear-gradient(145deg, var(--ant-color-bg-container) 0%, var(--ant-color-fill-tertiary) 100%);
+  box-shadow: var(--ant-box-shadow-secondary);
+}
+
+.headerPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--ant-color-border-secondary);
+  background: linear-gradient(135deg, var(--ant-color-primary-bg) 0%, var(--ant-color-bg-container) 70%);
+}
+
+.pageTitle {
+  letter-spacing: 0.5px;
+}
+
+.pageSubtitle {
+  display: block;
+}
+
+.levelBadge {
+  border-radius: 999px;
+  border: 1px solid var(--ant-color-primary-border);
+  background: var(--ant-color-bg-container);
+  color: var(--ant-color-primary);
+  padding: 6px 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.summaryGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.summaryItem {
+  border-radius: 12px;
+  border: 1px solid var(--ant-color-border-secondary);
+  background: var(--ant-color-bg-container);
+  padding: 10px 12px;
+}
+
+.summaryLabel {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.summaryValue {
+  color: var(--ant-color-primary);
+}
+
+.listWrap {
+  display: grid;
+  gap: 12px;
+}
+
+.missionCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--ant-color-border-secondary);
+  background: linear-gradient(160deg, var(--ant-color-bg-container) 0%, var(--ant-color-fill-tertiary) 100%);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.missionCard::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--ant-color-primary);
+  opacity: 0.55;
+}
+
+.missionCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--ant-color-primary-border);
+  box-shadow: var(--ant-box-shadow-secondary);
+}
+
+.mainInfo {
+  min-width: 0;
+}
+
+.titleRow {
+  row-gap: 4px;
+}
+
+.missionTitle {
+  font-size: 15px;
+}
+
+.rewardChip {
+  border-radius: 10px;
+  background: var(--ant-color-fill-quaternary);
+  border: 1px solid var(--ant-color-border-secondary);
+  padding: 8px 10px;
+}
+
+.progressBlock {
+  border-radius: 10px;
+  background: var(--ant-color-fill-quaternary);
+  border: 1px solid var(--ant-color-border-secondary);
+  padding: 8px 10px;
+}
+
+.progressBar {
+  margin-bottom: 4px;
+}
+
+.progressMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cardBody {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.actionWrap {
+  min-width: 140px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.claimButton {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.readyMissionCard {
+  border-color: var(--ant-color-success-border);
+}
+
+.claimedMissionCard {
+  opacity: 0.82;
+}
+
+.specialMissionCard {
+  border-color: var(--ant-color-warning-border);
+  background: var(--ant-color-warning-bg);
+}
+
+.specialMissionCard::before {
+  background: var(--ant-color-warning);
+  opacity: 0.8;
+}
+
+.missionsTabs :global(.ant-tabs-nav) {
+  margin-bottom: 14px;
+}
+
+.missionsTabs :global(.ant-tabs-tab) {
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.missionsTabs :global(.ant-tabs-tab-active) {
+  background: var(--ant-color-primary-bg);
+}
+
+.rewardModalContent {
+  display: grid;
+  gap: 8px;
+}
+
+.rewardMainRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px;
+  gap: 8px;
+  align-items: start;
+}
+
+.rewardStatsColumn {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.rewardStatBox {
+  border: 1px solid var(--ant-color-border-secondary);
+  background: var(--ant-color-fill-quaternary);
+  border-radius: 10px;
+  padding: 8px;
+  text-align: left;
+  display: grid;
+  gap: 2px;
+}
+
+.rewardStatLabel {
+  color: var(--ant-color-text-secondary);
+  font-size: 12px;
+}
+
+.rewardStatValue {
+  color: var(--ant-color-text);
+}
+
+.awardedCardPreview {
+  border: 1px solid var(--ant-color-primary-border);
+  background: linear-gradient(160deg, var(--ant-color-primary-bg) 0%, var(--ant-color-bg-container) 100%);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: var(--ant-box-shadow-secondary);
+  display: grid;
+  gap: 4px;
+  width: 120px;
+  justify-items: center;
+}
+
+.awardedCardImageWrap {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--ant-color-border-secondary);
+  background: var(--ant-color-fill-tertiary);
+  width: 100px;
+  height: 142px;
+}
+
+.awardedCardImage {
+  display: block;
+  width: 100px;
+  height: 142px;
+  object-fit: cover;
+}
+
+.noCardBox {
+  border: 1px solid var(--ant-color-border-secondary);
+  border-radius: 10px;
+  background: var(--ant-color-fill-quaternary);
+  padding: 12px;
+  min-width: 120px;
+}
+
+.awardedCardType {
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  color: var(--ant-color-primary);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .headerPanel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .rewardMainRow {
+    grid-template-columns: 1fr;
+  }
+
+  .rewardStatsColumn {
+    grid-template-columns: 1fr;
+  }
+
+  .cardBody {
+    grid-template-columns: 1fr;
+  }
+
+  .actionWrap {
+    width: 100%;
+    justify-content: stretch;
+  }
+}

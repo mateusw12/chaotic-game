@@ -251,3 +251,11 @@ export type SupabaseUserChallengeRow = {
   created_at: string;
   updated_at: string;
 };
+
+export type SupabaseUserMissionClaimRow = {
+  id: string;
+  user_id: string;
+  mission_id: string;
+  period_key: string;
+  claimed_at: string;
+};

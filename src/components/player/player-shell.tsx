@@ -1,6 +1,6 @@
 "use client";
 
-import { BellOutlined, DollarCircleOutlined, LogoutOutlined, ProfileOutlined, SettingOutlined, ShopOutlined, HomeOutlined, StarOutlined, TrophyOutlined, AppstoreOutlined } from "@ant-design/icons";
+import { BellOutlined, DollarCircleOutlined, LogoutOutlined, ProfileOutlined, SettingOutlined, ShopOutlined, HomeOutlined, StarOutlined, TrophyOutlined, AppstoreOutlined, FlagOutlined } from "@ant-design/icons";
 import { Avatar, Badge, Button, Dropdown, Layout, Menu, Space, Typography } from "antd";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -11,7 +11,7 @@ import { ChallengesModal } from "@/components/player/challenges-modal/challenges
 import styles from "./player-shell.module.css";
 
 type PlayerShellProps = {
-  selectedKey: "home" | "decks" | "store" | "codex-trials" | "tournaments";
+  selectedKey: "home" | "decks" | "store" | "codex-trials" | "tournaments" | "missions";
   userName: string | null;
   userNickName: string | null;
   userImageUrl: string | null;
@@ -80,6 +80,11 @@ export function PlayerShell({
         key: "tournaments",
         icon: <TrophyOutlined />,
         label: <Link href="/tournaments">Torneios</Link>,
+      },
+      {
+        key: "missions",
+        icon: <FlagOutlined />,
+        label: <Link href="/missions">Missões</Link>,
       },
     ];
 
