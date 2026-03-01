@@ -1,7 +1,7 @@
 [
   {
     "id": "b6a8f2d1-3f4e-47a9-8d6a-1c2b3e4f5a67",
-    "fileName": "rise_of_oligarch_91.png",
+    "file_name": "rise_of_oligarch_91.png",
     "name": "Fogo Congelado",
     "imageFileId": null,
     "imageUrl": null,
@@ -34,7 +34,7 @@
   },
   {
     "id": "a7c9e3f2-4b5d-48b0-9e7c-2d3f4a5b6c78",
-    "fileName": "rise_of_oligarch_92.png",
+    "file_name": "rise_of_oligarch_92.png",
     "name": "Túneis da Cidade de Kiru",
     "imageFileId": null,
     "imageUrl": null,
@@ -86,7 +86,7 @@
   },
   {
     "id": "c8d0f4a3-5c6e-49c1-af8d-3e4b5c6d7e89",
-    "fileName": "rise_of_oligarch_93.png",
+    "file_name": "rise_of_oligarch_93.png",
     "name": "Prateleira do Psi-Fanger",
     "imageFileId": null,
     "imageUrl": null,
@@ -142,7 +142,7 @@
   },
   {
     "id": "d9e1f5b4-6d7f-5ad2-b09e-4f5c6d7e8f90",
-    "fileName": "rise_of_oligarch_94.png",
+    "file_name": "rise_of_oligarch_94.png",
     "name": "Academia Real Mipediana de Artes Corpo-a-Corpo",
     "imageFileId": null,
     "imageUrl": null,
@@ -190,7 +190,7 @@
   },
   {
     "id": "e0f2a6c5-7e80-6be3-c1af-5a6d7e8f9012",
-    "fileName": "rise_of_oligarch_95.png",
+    "file_name": "rise_of_oligarch_95.png",
     "name": "Covil de Siril'ean",
     "imageFileId": null,
     "imageUrl": null,
@@ -222,7 +222,7 @@
   },
   {
     "id": "f1a3b7d6-8f91-7cf4-d2b0-6b7e8f901234",
-    "fileName": "rise_of_oligarch_96.png",
+    "file_name": "rise_of_oligarch_96.png",
     "name": "Fontes Esqueléticas",
     "imageFileId": null,
     "imageUrl": null,
@@ -271,7 +271,7 @@
   },
   {
     "id": "0123abcd-9a82-8de5-e3c1-7c8f90123456",
-    "fileName": "rise_of_oligarch_97.png",
+    "file_name": "rise_of_oligarch_97.png",
     "name": "A Forja de Coral",
     "imageFileId": null,
     "imageUrl": null,
@@ -306,7 +306,7 @@
   },
   {
     "id": "1234bcde-ab93-9ef6-f4d2-8d9012345678",
-    "fileName": "rise_of_oligarch_98.png",
+    "file_name": "rise_of_oligarch_98.png",
     "name": "O Caminho do Oligarca",
     "imageFileId": null,
     "imageUrl": null,
@@ -357,7 +357,7 @@
   },
   {
     "id": "2345cdef-bc04-af07-05e3-9e0123456789",
-    "fileName": "rise_of_oligarch_99.png",
+    "file_name": "rise_of_oligarch_99.png",
     "name": "A Grade de Sinos Rad'Pa Sahkk",
     "imageFileId": null,
     "imageUrl": null,
@@ -390,7 +390,7 @@
   },
   {
     "id": "3456def0-cd15-b108-16f4-af1234567890",
-    "fileName": "rise_of_oligarch_100.png",
+    "file_name": "rise_of_oligarch_100.png",
     "name": "Os Campos de Treinamento",
     "imageFileId": null,
     "imageUrl": null,
@@ -439,7 +439,7 @@
   },
   {
     "id": "b3d9a1c2-4f5e-4a6b-9c7d-0e1f2a3b4c5d",
-    "fileName": "organized_play_19.png",
+    "file_name": "organized_play_19.png",
     "name": "Vale do Medo",
     "imageFileId": null,
     "imageUrl": null,
@@ -475,7 +475,7 @@
   },
   {
     "id": "c4e2b3a1-5f6d-4b7c-8a9e-1f2d3c4b5a6e",
-    "fileName": "organized_play_20.png",
+    "file_name": "organized_play_20.png",
     "name": "Cidade de Kiru",
     "imageFileId": null,
     "imageUrl": null,
@@ -513,7 +513,7 @@
   },
   {
     "id": "d5f3c2b1-6e7a-4c8b-9da1-2b3c4d5e6f7a",
-    "fileName": "organized_play_18.png",
+    "file_name": "organized_play_18.png",
     "name": "Castelo de Pilar",
     "imageFileId": null,
     "imageUrl": null,
@@ -603,7 +603,8 @@
     "created_at": "2026-02-14 16:30:57.472189+00",
     "updated_at": "2026-02-14 16:30:57.472189+00",
     "tribes": [],
-    "rarity": "comum"
+    "rarity": "comum",
+    "file_name": "marrilian_invasion_197.png"
   },
   {
     "id": "f4a7b2e1-9c3d-4e5f-a6b7-8c9d0e1f2a3b",
@@ -660,7 +661,8 @@
     "created_at": "2026-02-15 11:16:57+00",
     "updated_at": "2026-02-15 11:16:57+00",
     "tribes": [],
-    "rarity": "incomum"
+    "rarity": "incomum",
+    "file_name": "marrilian_invasion_196.png"
   },
   {
     "id": "12bb6f31-3832-49ee-adc6-45eb728216c1",
@@ -696,7 +698,8 @@
     "created_at": "2026-02-15 11:16:57+00",
     "updated_at": "2026-02-15 11:16:57+00",
     "tribes": [],
-    "rarity": "ultra raro"
+    "rarity": "ultra_rara",
+    "file_name": "marrilian_invasion_195.png"
   },
   {
     "id": "ac0e3e10-c6d1-4620-9ee0-b22d0eef6944",
@@ -779,7 +782,8 @@
     "created_at": "2026-02-15 11:25:00+00",
     "updated_at": "2026-02-15 11:25:00+00",
     "tribes": [],
-    "rarity": "super raro"
+    "rarity": "super_rara",
+    "file_name": "marrilian_invasion_196.png"
   },
   {
     "id": "cad73792-02f2-409a-8e50-005c44b11b32",
@@ -814,7 +818,8 @@
     "created_at": "2026-02-15 11:25:00+00",
     "updated_at": "2026-02-15 11:25:00+00",
     "tribes": [],
-    "rarity": "comum"
+    "rarity": "comum",
+    "file_name": "marrilian_invasion_204.png"
   },
   {
     "id": "89de4325-4c48-4de7-b079-cea1cdc3d97b",
@@ -875,7 +880,8 @@
     "created_at": "2026-02-15 11:25:00+00",
     "updated_at": "2026-02-15 11:25:00+00",
     "tribes": [],
-    "rarity": "super raro"
+    "rarity": "super_rara",
+    "file_name": "marrilian_invasion_199.png"
   },
   {
     "id": "76e3a1b4-2c9d-4e5f-b6a7-8c9d0e1f2a3c",
@@ -935,7 +941,8 @@
     "created_at": "2026-02-15 11:30:00+00",
     "updated_at": "2026-02-15 11:30:00+00",
     "tribes": [],
-    "rarity": "comum"
+    "rarity": "comum",
+    "file_name": "marrilian_invasion_201.png"
   },
   {
     "id": "19ac0122-1600-42c2-8205-5405cd0596c5",
@@ -971,7 +978,8 @@
     "created_at": "2026-02-15 11:30:00+00",
     "updated_at": "2026-02-15 11:30:00+00",
     "tribes": [],
-    "rarity": "incomum"
+    "rarity": "incomum",
+    "file_name": "marrilian_invasion_201.png"
   },
   {
     "id": "3cec2561-97c9-49c1-81e7-744f48302d8b",
@@ -1009,7 +1017,8 @@
     "created_at": "2026-02-15 11:30:00+00",
     "updated_at": "2026-02-15 11:30:00+00",
     "tribes": [],
-    "rarity": "incomum"
+    "rarity": "incomum",
+    "file_name": "marrilian_invasion_202.png"
   },
   {
     "id": "d7d3d8fa-2733-4ade-a56a-b874b3058864",
@@ -1089,7 +1098,8 @@
     "created_at": "2026-02-15 11:30:00+00",
     "updated_at": "2026-02-15 11:30:00+00",
     "tribes": [],
-    "rarity": "super raro"
+    "rarity": "super_rara",
+    "file_name": "marrilian_invasion_203.png"
   },
   {
     "id": "3316e4fd-7b4c-4e08-8482-158ee2072970",
@@ -1130,7 +1140,8 @@
     "tribes": [
       "danian"
     ],
-    "rarity": "comum"
+    "rarity": "comum",
+    "file_name": "marrilian_invasion_208.png"
   },
   {
     "id": "f851a52e-37cc-4ef8-885a-9ab7cc9b754c",
@@ -1187,7 +1198,8 @@
     "created_at": "2026-02-15 11:35:00+00",
     "updated_at": "2026-02-15 11:35:00+00",
     "tribes": [],
-    "rarity": "super raro"
+    "rarity": "super_rara",
+    "file_name": "marrilian_invasion_205.png"
   },
   {
     "id": "b7913183-ed41-427b-b27a-a76313adb13b",
@@ -1249,7 +1261,8 @@
     "created_at": "2026-02-15 11:35:00+00",
     "updated_at": "2026-02-15 11:35:00+00",
     "tribes": [],
-    "rarity": "super raro"
+    "rarity": "super_rara",
+    "file_name": "marrilian_invasion_206.png"
   },
   {
     "id": "91767bec-0f8d-4cdb-86b6-9717f2dffd57",
@@ -1338,7 +1351,8 @@
     "tribes": [
       "danian"
     ],
-    "rarity": "comum"
+    "rarity": "comum",
+    "file_name": "marrilian_invasion_207.png"
   },
   {
     "id": "de018445-9ccb-493d-958f-3eaa2047d994",
@@ -1377,7 +1391,8 @@
     "created_at": "2026-02-15 11:40:00+00",
     "updated_at": "2026-02-15 11:40:00+00",
     "tribes": [],
-    "rarity": "ultra raro"
+    "rarity": "ultra_rara",
+    "file_name": "marrilian_invasion_209.png"
   },
   {
     "id": "23b098ed-5dd2-4cd5-a0e2-21c5d3c3da3f",
@@ -1439,7 +1454,8 @@
     "created_at": "2026-02-15 11:40:00+00",
     "updated_at": "2026-02-15 11:40:00+00",
     "tribes": [],
-    "rarity": "comum"
+    "rarity": "comum",
+    "file_name": "marrilian_invasion_210.png"
   },
   {
     "id": "36c381b8-2d89-4261-a895-ff7a43dfde1e",
@@ -1478,7 +1494,8 @@
     "created_at": "2026-02-15 11:40:00+00",
     "updated_at": "2026-02-15 11:40:00+00",
     "tribes": [],
-    "rarity": "comum"
+    "rarity": "comum",
+    "file_name": "marrilian_invasion_211.png"
   },
   {
     "id": "f8e3b72f-5376-49fe-86bf-bc6931daf1b4",
@@ -1542,7 +1559,8 @@
     "created_at": "2026-02-15 11:40:00+00",
     "updated_at": "2026-02-15 11:40:00+00",
     "tribes": [],
-    "rarity": "comum"
+    "rarity": "comum",
+    "file_name": "marrilian_invasion_212.png"
   },
   {
     "id": "4b6e3345-33c2-48e1-b0ca-56834121b9f6",
@@ -1580,7 +1598,8 @@
     "created_at": "2026-02-15 12:10:00+00",
     "updated_at": "2026-02-15 12:10:00+00",
     "tribes": [],
-    "rarity": "super raro"
+    "rarity": "super_rara",
+    "file_name": "marrilian_invasion_213.png"
   },
   {
     "id": "78a6b889-fec8-4c53-8331-1e8f54c5c1bd",
@@ -1640,7 +1659,8 @@
     "created_at": "2026-02-15 12:10:00+00",
     "updated_at": "2026-02-15 12:10:00+00",
     "tribes": [],
-    "rarity": "incomum"
+    "rarity": "incomum",
+    "file_name": "marrilian_invasion_214.png"
   },
   {
     "id": "3ad66cb0-1377-48c7-b8dc-53a2b7c03535",
@@ -1678,7 +1698,8 @@
     "created_at": "2026-02-15 12:10:00+00",
     "updated_at": "2026-02-15 12:10:00+00",
     "tribes": [],
-    "rarity": "incomum"
+    "rarity": "incomum",
+    "file_name": "marrilian_invasion_215.png"
   },
   {
     "id": "3190f2a3-c111-4db5-8b8f-daca91c59bb0",
@@ -1715,7 +1736,8 @@
     "created_at": "2026-02-15 12:10:00+00",
     "updated_at": "2026-02-15 12:10:00+00",
     "tribes": [],
-    "rarity": "comum"
+    "rarity": "comum",
+    "file_name": "marrilian_invasion_216.png"
   },
   {
     "id": "86b6a1ca-2555-419f-b8a2-8ed8e4b752f7",
@@ -1774,7 +1796,8 @@
         "description": "Quando uma Criatura M'arrillian ou Minion vence um Desafio, essa Criatura ganha 5 de Energia."
       }
     ],
-    "tribes": []
+    "tribes": [],
+    "file_name": "marrilian_invasion_217.png"
   },
   {
     "id": "0bd93732-e3a3-42b6-ba11-9e77e096d2d1",
@@ -1834,7 +1857,8 @@
         "description": "Criaturas M'arrillian e Minion recebem 5 a menos de dano de Cartas de Ataque."
       }
     ],
-    "tribes": []
+    "tribes": [],
+    "file_name": "marrilian_invasion_218.png"
   },
   {
     "id": "608dc828-1272-4fe4-a99d-ddab4cec630d",
@@ -1870,7 +1894,8 @@
         "description": "Habilidades ativadas de Criaturas Minion custam um contador de Mugic adicional para serem jogadas."
       }
     ],
-    "tribes": []
+    "tribes": [],
+    "file_name": "marrilian_invasion_219.png"
   },
   {
     "id": "3044b322-a4c1-4d64-9311-e559697220e0",
@@ -1878,7 +1903,7 @@
     "initiative_elements": [
       "water"
     ],
-    "rarity": "super rara",
+    "rarity": "super_rara",
     "abilities": [
       {
         "effectType": "special",
@@ -1927,7 +1952,8 @@
         "description": "Miragem: No início da Etapa de Ação de cada jogador, se este espaço estiver desocupado, aquele jogador pode realocar uma de suas Criaturas para este espaço."
       }
     ],
-    "tribes": []
+    "tribes": [],
+    "file_name": "marrilian_invasion_220.png"
   },
   {
     "id": "8f867946-e5d8-4cb5-a9a3-9c921a2e65d8",
@@ -1935,7 +1961,7 @@
     "initiative_elements": [
       "underworld"
     ],
-    "rarity": "super rara",
+    "rarity": "super_rara",
     "abilities": [
       {
         "effectType": "increase",
@@ -1985,7 +2011,8 @@
         "description": "Quando sua Criatura engajada perde a Iniciativa, ela ganha 20 em todas as Disciplinas."
       }
     ],
-    "tribes": []
+    "tribes": [],
+    "file_name": "marrilian_invasion_221.png"
   },
   {
     "id": "4591e4f1-7e32-4b1b-92b9-d76f59ec80b8",
@@ -2019,7 +2046,8 @@
         "description": "Quando este se torna o Local ativo, cada jogador compra duas Cartas de Ataque, depois descarta duas Cartas de Ataque."
       }
     ],
-    "tribes": []
+    "tribes": [],
+    "file_name": "marrilian_invasion_222.png"
   },
   {
     "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
