@@ -1,39 +1,39 @@
 import { CREATURE_TRIBES, type CardRarity, type CreatureTribe } from "@/dto/creature";
 import {
-    type ProgressionEventDto,
-    type ProgressionEventSource,
-    type UserCardInventoryItemDto,
-    type UserCardType,
-    type UserProgressionDto,
-    type UserProgressionOverviewDto,
-    type UserProgressionStatsDto,
-    isValidUserCardType,
+  type ProgressionEventDto,
+  type ProgressionEventSource,
+  type UserCardInventoryItemDto,
+  type UserCardType,
+  type UserProgressionDto,
+  type UserProgressionOverviewDto,
+  type UserProgressionStatsDto,
+  isValidUserCardType,
 } from "@/dto/progression";
 import {
-    getAttacksTableName,
-    getBattlegearTableName,
-    getCreaturesTableName,
-    getLocationsTableName,
-    getMugicTableName,
-    getProgressionEventsTableName,
-    getUserCardsTableName,
-    getUserProgressionTableName,
-    getWalletsTableName,
-    isMissingTableError,
+  getAttacksTableName,
+  getBattlegearTableName,
+  getCreaturesTableName,
+  getLocationsTableName,
+  getMugicTableName,
+  getProgressionEventsTableName,
+  getUserCardsTableName,
+  getUserProgressionTableName,
+  getWalletsTableName,
+  isMissingTableError,
 } from "../core";
 import {
-    getAttackImagePublicUrl,
-    getBattlegearImagePublicUrl,
-    getCreatureImagePublicUrl,
-    getLocationImagePublicUrl,
-    getMugicImagePublicUrl,
-    getSupabaseAdminClient,
+  getAttackImagePublicUrl,
+  getBattlegearImagePublicUrl,
+  getCreatureImagePublicUrl,
+  getLocationImagePublicUrl,
+  getMugicImagePublicUrl,
+  getSupabaseAdminClient,
 } from "../storage";
 import type {
-    SupabaseApiError,
-    SupabaseProgressionEventRow,
-    SupabaseUserCardRow,
-    SupabaseUserProgressionRow,
+  SupabaseApiError,
+  SupabaseProgressionEventRow,
+  SupabaseUserCardRow,
+  SupabaseUserProgressionRow,
 } from "../types";
 
 const BATTLE_VICTORY_XP = 20;
@@ -41,931 +41,950 @@ const DAILY_LOGIN_XP = 5;
 const DAILY_LOGIN_COINS = 5;
 
 const XP_BY_RARITY: Record<CardRarity, number> = {
-    comum: 8,
-    incomum: 12,
-    rara: 20,
-    super_rara: 35,
-    ultra_rara: 55,
+  comum: 8,
+  incomum: 12,
+  rara: 20,
+  super_rara: 35,
+  ultra_rara: 55,
 };
 
 const DISCARD_COINS_BY_RARITY: Record<CardRarity, number> = {
-    comum: 20,
-    incomum: 35,
-    rara: 55,
-    super_rara: 70,
-    ultra_rara: 150,
+  comum: 20,
+  incomum: 35,
+  rara: 55,
+  super_rara: 70,
+  ultra_rara: 150,
 };
 
 const DISCARD_TYPE_MULTIPLIER: Record<UserCardType, number> = {
-    creature: 1.2,
-    mugic: 1.35,
-    battlegear: 1,
-    location: 0.95,
-    attack: 0.9,
+  creature: 1.2,
+  mugic: 1.35,
+  battlegear: 1,
+  location: 0.95,
+  attack: 0.9,
 };
 
 const DISCARD_TRIBE_MULTIPLIER: Partial<Record<CreatureTribe, number>> = {
-    marrillian: 1.12,
-    ancient: 1.2,
+  marrillian: 1.12,
+  ancient: 1.2,
 };
 
 type CardSellContext = {
-    tribes: CreatureTribe[];
-    energy: number;
-    elementCount: number;
+  tribes: CreatureTribe[];
+  energy: number;
+  elementCount: number;
 };
 
 function getEnergySellMultiplier(energy: number): number {
-    if (energy <= 0) {
-        return 1;
-    }
+  if (energy <= 0) {
+    return 1;
+  }
 
-    const bonus = Math.min(0.4, energy * 0.025);
-    return 1 + bonus;
+  const bonus = Math.min(0.4, energy * 0.025);
+  return 1 + bonus;
 }
 
 function getTribeSellMultiplier(tribes: CreatureTribe[]): number {
-    let multiplier = 1;
+  let multiplier = 1;
 
-    for (const tribe of tribes) {
-        const tribeMultiplier = DISCARD_TRIBE_MULTIPLIER[tribe] ?? 1;
-        if (tribeMultiplier > multiplier) {
-            multiplier = tribeMultiplier;
-        }
+  for (const tribe of tribes) {
+    const tribeMultiplier = DISCARD_TRIBE_MULTIPLIER[tribe] ?? 1;
+    if (tribeMultiplier > multiplier) {
+      multiplier = tribeMultiplier;
     }
+  }
 
-    return multiplier;
+  return multiplier;
 }
 
 function getElementCountSellMultiplier(elementCount: number): number {
-    if (elementCount <= 0) {
-        return 1;
-    }
+  if (elementCount <= 0) {
+    return 1;
+  }
 
-    const bonus = Math.min(0.3, elementCount * 0.06);
-    return 1 + bonus;
+  const bonus = Math.min(0.3, elementCount * 0.06);
+  return 1 + bonus;
 }
 
 async function resolveCardSellContext(cardType: UserCardType, cardId: string): Promise<CardSellContext> {
-    const supabase = getSupabaseAdminClient();
+  const supabase = getSupabaseAdminClient();
 
-    if (cardType === "creature") {
-        const { data } = await supabase
-            .from(getCreaturesTableName())
-            .select("tribe,energy,dominant_elements")
-            .eq("id", cardId)
-            .maybeSingle<{ tribe: CreatureTribe; energy: number; dominant_elements: string[] }>();
-
-        return {
-            tribes: data?.tribe ? [data.tribe] : [],
-            energy: Math.max(0, Math.trunc(data?.energy ?? 0)),
-            elementCount: Math.max(0, data?.dominant_elements?.length ?? 0),
-        };
-    }
-
-    if (cardType === "mugic") {
-        const { data } = await supabase
-            .from(getMugicTableName())
-            .select("tribes,cost")
-            .eq("id", cardId)
-            .maybeSingle<{ tribes: CreatureTribe[]; cost: number }>();
-
-        return {
-            tribes: data?.tribes ?? [],
-            energy: Math.max(0, Math.trunc(data?.cost ?? 0)),
-            elementCount: 0,
-        };
-    }
-
-    if (cardType === "attack") {
-        const { data } = await supabase
-            .from(getAttacksTableName())
-            .select("energy_cost,element_values")
-            .eq("id", cardId)
-            .maybeSingle<{ energy_cost: number; element_values: Array<{ value?: number }> }>();
-
-        const elementCount = (data?.element_values ?? []).reduce((count, item) => {
-            if (typeof item?.value === "number") {
-                return item.value > 0 ? count + 1 : count;
-            }
-
-            return count + 1;
-        }, 0);
-
-        return {
-            tribes: [],
-            energy: Math.max(0, Math.trunc(data?.energy_cost ?? 0)),
-            elementCount: Math.max(0, elementCount),
-        };
-    }
-
-    if (cardType === "location") {
-        const { data } = await supabase
-            .from(getLocationsTableName())
-            .select("tribes,initiative_elements")
-            .eq("id", cardId)
-            .maybeSingle<{ tribes: CreatureTribe[]; initiative_elements: string[] }>();
-
-        return {
-            tribes: data?.tribes ?? [],
-            energy: 0,
-            elementCount: Math.max(0, data?.initiative_elements?.length ?? 0),
-        };
-    }
-
+  if (cardType === "creature") {
     const { data } = await supabase
-        .from(getBattlegearTableName())
-        .select("allowed_tribes")
-        .eq("id", cardId)
-        .maybeSingle<{ allowed_tribes: CreatureTribe[] }>();
+      .from(getCreaturesTableName())
+      .select("tribe,energy,dominant_elements")
+      .eq("id", cardId)
+      .maybeSingle<{ tribe: CreatureTribe; energy: number; dominant_elements: string[] }>();
 
     return {
-        tribes: data?.allowed_tribes ?? [],
-        energy: 0,
-        elementCount: 0,
+      tribes: data?.tribe ? [data.tribe] : [],
+      energy: Math.max(0, Math.trunc(data?.energy ?? 0)),
+      elementCount: Math.max(0, data?.dominant_elements?.length ?? 0),
     };
+  }
+
+  if (cardType === "mugic") {
+    const { data } = await supabase
+      .from(getMugicTableName())
+      .select("tribes,cost")
+      .eq("id", cardId)
+      .maybeSingle<{ tribes: CreatureTribe[]; cost: number }>();
+
+    return {
+      tribes: data?.tribes ?? [],
+      energy: Math.max(0, Math.trunc(data?.cost ?? 0)),
+      elementCount: 0,
+    };
+  }
+
+  if (cardType === "attack") {
+    const { data } = await supabase
+      .from(getAttacksTableName())
+      .select("energy_cost,element_values")
+      .eq("id", cardId)
+      .maybeSingle<{ energy_cost: number; element_values: Array<{ value?: number }> }>();
+
+    const elementCount = (data?.element_values ?? []).reduce((count, item) => {
+      if (typeof item?.value === "number") {
+        return item.value > 0 ? count + 1 : count;
+      }
+
+      return count + 1;
+    }, 0);
+
+    return {
+      tribes: [],
+      energy: Math.max(0, Math.trunc(data?.energy_cost ?? 0)),
+      elementCount: Math.max(0, elementCount),
+    };
+  }
+
+  if (cardType === "location") {
+    const { data } = await supabase
+      .from(getLocationsTableName())
+      .select("tribes,initiative_elements")
+      .eq("id", cardId)
+      .maybeSingle<{ tribes: CreatureTribe[]; initiative_elements: string[] }>();
+
+    return {
+      tribes: data?.tribes ?? [],
+      energy: 0,
+      elementCount: Math.max(0, data?.initiative_elements?.length ?? 0),
+    };
+  }
+
+  const { data } = await supabase
+    .from(getBattlegearTableName())
+    .select("allowed_tribes")
+    .eq("id", cardId)
+    .maybeSingle<{ allowed_tribes: CreatureTribe[] }>();
+
+  return {
+    tribes: data?.allowed_tribes ?? [],
+    energy: 0,
+    elementCount: 0,
+  };
 }
 
 export async function getCardSellValue(cardType: UserCardType, rarity: CardRarity, cardId: string): Promise<number> {
-    const base = DISCARD_COINS_BY_RARITY[rarity] ?? DISCARD_COINS_BY_RARITY.comum;
-    const typeMultiplier = DISCARD_TYPE_MULTIPLIER[cardType] ?? 1;
-    const context = await resolveCardSellContext(cardType, cardId);
-    const tribeMultiplier = getTribeSellMultiplier(context.tribes);
-    const energyMultiplier = getEnergySellMultiplier(context.energy);
-    const elementMultiplier = getElementCountSellMultiplier(context.elementCount);
+  const base = DISCARD_COINS_BY_RARITY[rarity] ?? DISCARD_COINS_BY_RARITY.comum;
+  const typeMultiplier = DISCARD_TYPE_MULTIPLIER[cardType] ?? 1;
+  const context = await resolveCardSellContext(cardType, cardId);
+  const tribeMultiplier = getTribeSellMultiplier(context.tribes);
+  const energyMultiplier = getEnergySellMultiplier(context.energy);
+  const elementMultiplier = getElementCountSellMultiplier(context.elementCount);
 
-    return Math.max(1, Math.round(base * typeMultiplier * tribeMultiplier * energyMultiplier * elementMultiplier));
+  return Math.max(1, Math.round(base * typeMultiplier * tribeMultiplier * energyMultiplier * elementMultiplier));
 }
 
 function getXpRequiredForLevel(level: number): number {
-    return 100 + 25 * (level - 1);
+  return 100 + 25 * (level - 1);
 }
 
 function getLevelStateFromXpTotal(xpTotal: number): Pick<UserProgressionDto, "level" | "xpCurrentLevel" | "xpNextLevel"> {
-    let level = 1;
-    let remainingXp = Math.max(0, xpTotal);
-    let xpNextLevel = getXpRequiredForLevel(level);
+  let level = 1;
+  let remainingXp = Math.max(0, xpTotal);
+  let xpNextLevel = getXpRequiredForLevel(level);
 
-    while (remainingXp >= xpNextLevel) {
-        remainingXp -= xpNextLevel;
-        level += 1;
-        xpNextLevel = getXpRequiredForLevel(level);
-    }
+  while (remainingXp >= xpNextLevel) {
+    remainingXp -= xpNextLevel;
+    level += 1;
+    xpNextLevel = getXpRequiredForLevel(level);
+  }
 
-    return {
-        level,
-        xpCurrentLevel: remainingXp,
-        xpNextLevel,
-    };
+  return {
+    level,
+    xpCurrentLevel: remainingXp,
+    xpNextLevel,
+  };
 }
 
 function mapProgressionRow(row: SupabaseUserProgressionRow): UserProgressionDto {
-    return {
-        id: row.id,
-        userId: row.user_id,
-        xpTotal: row.xp_total,
-        level: row.level,
-        xpCurrentLevel: row.xp_current_level,
-        xpNextLevel: row.xp_next_level,
-        seasonRank: row.season_rank,
-        createdAt: row.created_at,
-        updatedAt: row.updated_at,
-    };
+  return {
+    id: row.id,
+    userId: row.user_id,
+    xpTotal: row.xp_total,
+    level: row.level,
+    xpCurrentLevel: row.xp_current_level,
+    xpNextLevel: row.xp_next_level,
+    seasonRank: row.season_rank,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
 }
 
 function mapEventRow(row: SupabaseProgressionEventRow): ProgressionEventDto {
-    return {
-        id: row.id,
-        userId: row.user_id,
-        source: row.source,
-        xpDelta: row.xp_delta,
-        coinsDelta: row.coins_delta,
-        diamondsDelta: row.diamonds_delta,
-        cardType: row.card_type,
-        cardId: row.card_id,
-        cardRarity: row.card_rarity,
-        quantity: row.quantity,
-        referenceId: row.reference_id,
-        metadata: row.metadata,
-        createdAt: row.created_at,
-    };
+  return {
+    id: row.id,
+    userId: row.user_id,
+    source: row.source,
+    xpDelta: row.xp_delta,
+    coinsDelta: row.coins_delta,
+    diamondsDelta: row.diamonds_delta,
+    cardType: row.card_type,
+    cardId: row.card_id,
+    cardRarity: row.card_rarity,
+    quantity: row.quantity,
+    referenceId: row.reference_id,
+    metadata: row.metadata,
+    createdAt: row.created_at,
+  };
 }
 
 function mapCardRow(row: SupabaseUserCardRow, cardName: string | null, cardImageUrl: string | null): UserCardInventoryItemDto {
-    return {
-        id: row.id,
-        userId: row.user_id,
-        cardType: row.card_type,
-        cardId: row.card_id,
-        cardName,
-        cardImageUrl,
-        rarity: row.rarity,
-        quantity: row.quantity,
-        createdAt: row.created_at,
-        updatedAt: row.updated_at,
-    };
+  return {
+    id: row.id,
+    userId: row.user_id,
+    cardType: row.card_type,
+    cardId: row.card_id,
+    cardName,
+    cardImageUrl,
+    rarity: row.rarity,
+    quantity: row.quantity,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
 }
 
 async function ensureWalletForProgression(userId: string): Promise<{ id: string; coins: number; diamonds: number }> {
-    const supabase = getSupabaseAdminClient();
-    const tableName = getWalletsTableName();
+  const supabase = getSupabaseAdminClient();
+  const tableName = getWalletsTableName();
 
-    const { data, error } = await supabase
-        .from(tableName)
-        .upsert({ user_id: userId }, { onConflict: "user_id" })
-        .select("id,coins,diamonds")
-        .single<{ id: string; coins: number; diamonds: number }>();
+  const { data, error } = await supabase
+    .from(tableName)
+    .upsert({ user_id: userId }, { onConflict: "user_id" })
+    .select("id,coins,diamonds")
+    .single<{ id: string; coins: number; diamonds: number }>();
 
-    if (error) {
-        const supabaseError = error as SupabaseApiError;
+  if (error) {
+    const supabaseError = error as SupabaseApiError;
 
-        if (isMissingTableError(supabaseError)) {
-            throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de usar progressão (veja supabase/schema.sql).`);
-        }
-
-        throw new Error(`Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`);
+    if (isMissingTableError(supabaseError)) {
+      throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de usar progressão (veja supabase/schema.sql).`);
     }
 
-    return data;
+    throw new Error(`Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`);
+  }
+
+  return data;
 }
 
 async function resolveCardSummary(cardType: UserCardType, cardId: string): Promise<{ cardName: string | null; cardImageUrl: string | null }> {
-    const supabase = getSupabaseAdminClient();
+  const supabase = getSupabaseAdminClient();
 
-    if (cardType === "creature") {
-        const { data } = await supabase
-            .from(getCreaturesTableName())
-            .select("name,image_file_id,image_url")
-            .eq("id", cardId)
-            .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
-
-        return {
-            cardName: data?.name ?? null,
-            cardImageUrl: data?.image_file_id ? getCreatureImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
-        };
-    }
-
-    if (cardType === "location") {
-        const { data } = await supabase
-            .from(getLocationsTableName())
-            .select("name,image_file_id,image_url")
-            .eq("id", cardId)
-            .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
-
-        return {
-            cardName: data?.name ?? null,
-            cardImageUrl: data?.image_file_id ? getLocationImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
-        };
-    }
-
-    if (cardType === "mugic") {
-        const { data } = await supabase
-            .from(getMugicTableName())
-            .select("name,image_file_id,image_url")
-            .eq("id", cardId)
-            .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
-
-        return {
-            cardName: data?.name ?? null,
-            cardImageUrl: data?.image_file_id ? getMugicImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
-        };
-    }
-
-    if (cardType === "battlegear") {
-        const { data } = await supabase
-            .from(getBattlegearTableName())
-            .select("name,image_file_id,image_url")
-            .eq("id", cardId)
-            .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
-
-        return {
-            cardName: data?.name ?? null,
-            cardImageUrl: data?.image_file_id ? getBattlegearImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
-        };
-    }
-
+  if (cardType === "creature") {
     const { data } = await supabase
-        .from(getAttacksTableName())
-        .select("name,image_file_id,image_url")
-        .eq("id", cardId)
-        .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
+      .from(getCreaturesTableName())
+      .select("name,image_file_id,image_url")
+      .eq("id", cardId)
+      .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
 
     return {
-        cardName: data?.name ?? null,
-        cardImageUrl: data?.image_file_id ? getAttackImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
+      cardName: data?.name ?? null,
+      cardImageUrl: data?.image_file_id ? getCreatureImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
     };
+  }
+
+  if (cardType === "location") {
+    const { data } = await supabase
+      .from(getLocationsTableName())
+      .select("name,image_file_id,image_url")
+      .eq("id", cardId)
+      .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
+
+    return {
+      cardName: data?.name ?? null,
+      cardImageUrl: data?.image_file_id ? getLocationImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
+    };
+  }
+
+  if (cardType === "mugic") {
+    const { data } = await supabase
+      .from(getMugicTableName())
+      .select("name,image_file_id,image_url")
+      .eq("id", cardId)
+      .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
+
+    return {
+      cardName: data?.name ?? null,
+      cardImageUrl: data?.image_file_id ? getMugicImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
+    };
+  }
+
+  if (cardType === "battlegear") {
+    const { data } = await supabase
+      .from(getBattlegearTableName())
+      .select("name,image_file_id,image_url")
+      .eq("id", cardId)
+      .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
+
+    return {
+      cardName: data?.name ?? null,
+      cardImageUrl: data?.image_file_id ? getBattlegearImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
+    };
+  }
+
+  const { data } = await supabase
+    .from(getAttacksTableName())
+    .select("name,image_file_id,image_url")
+    .eq("id", cardId)
+    .maybeSingle<{ name: string; image_file_id: string | null; image_url: string | null }>();
+
+  return {
+    cardName: data?.name ?? null,
+    cardImageUrl: data?.image_file_id ? getAttackImagePublicUrl(data.image_file_id) : (data?.image_url ?? null),
+  };
 }
 
 export async function ensureUserProgressionInSupabase(userId: string): Promise<UserProgressionDto> {
-    const supabase = getSupabaseAdminClient();
-    const tableName = getUserProgressionTableName();
+  const supabase = getSupabaseAdminClient();
+  const tableName = getUserProgressionTableName();
+  // First try to load an existing progression row. If it exists, return it
+  // instead of doing an upsert that would overwrite existing XP values.
+  const { data: existing, error: selectError } = await supabase
+    .from(tableName)
+    .select("id,user_id,xp_total,level,xp_current_level,xp_next_level,season_rank,created_at,updated_at")
+    .eq("user_id", userId)
+    .maybeSingle<SupabaseUserProgressionRow>();
 
-    const { data, error } = await supabase
-        .from(tableName)
-        .upsert({
-            user_id: userId,
-            xp_total: 0,
-            level: 1,
-            xp_current_level: 0,
-            xp_next_level: getXpRequiredForLevel(1),
-            season_rank: "bronze",
-        }, {
-            onConflict: "user_id",
-        })
-        .select("id,user_id,xp_total,level,xp_current_level,xp_next_level,season_rank,created_at,updated_at")
-        .single<SupabaseUserProgressionRow>();
-
-    if (error) {
-        const supabaseError = error as SupabaseApiError;
-        if (isMissingTableError(supabaseError)) {
-            throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de usar progressão (veja supabase/schema.sql).`);
-        }
-
-        throw new Error(`Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`);
+  if (selectError) {
+    const supabaseError = selectError as SupabaseApiError;
+    if (isMissingTableError(supabaseError)) {
+      throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de usar progressão (veja supabase/schema.sql).`);
     }
 
-    return mapProgressionRow(data);
+    throw new Error(`Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`);
+  }
+
+  if (existing) {
+    return mapProgressionRow(existing);
+  }
+
+  // No existing row — insert the initial progression state.
+  const { data, error } = await supabase
+    .from(tableName)
+    .insert({
+      user_id: userId,
+      xp_total: 0,
+      level: 1,
+      xp_current_level: 0,
+      xp_next_level: getXpRequiredForLevel(1),
+      season_rank: "bronze",
+    })
+    .select("id,user_id,xp_total,level,xp_current_level,xp_next_level,season_rank,created_at,updated_at")
+    .single<SupabaseUserProgressionRow>();
+
+  if (error) {
+    const supabaseError = error as SupabaseApiError;
+    if (isMissingTableError(supabaseError)) {
+      throw new Error(`Tabela não encontrada no Supabase: public.${tableName}. Crie a tabela antes de usar progressão (veja supabase/schema.sql).`);
+    }
+
+    throw new Error(`Erro Supabase [${supabaseError.code ?? "UNKNOWN"}]: ${supabaseError.message}`);
+  }
+
+  return mapProgressionRow(data);
 }
 
 type ApplyProgressionEventInput = {
-    userId: string;
-    source: ProgressionEventSource;
-    xpDelta: number;
-    coinsDelta?: number;
-    diamondsDelta?: number;
-    cardType?: UserCardType | null;
-    cardId?: string | null;
-    cardRarity?: CardRarity | null;
-    quantity?: number;
-    referenceId?: string | null;
-    metadata?: Record<string, unknown>;
+  userId: string;
+  source: ProgressionEventSource;
+  xpDelta: number;
+  coinsDelta?: number;
+  diamondsDelta?: number;
+  cardType?: UserCardType | null;
+  cardId?: string | null;
+  cardRarity?: CardRarity | null;
+  quantity?: number;
+  referenceId?: string | null;
+  metadata?: Record<string, unknown>;
 };
 
 export async function applyProgressionEvent(
-    input: ApplyProgressionEventInput,
+  input: ApplyProgressionEventInput,
 ): Promise<{ progression: UserProgressionDto; wallet: { coins: number; diamonds: number } }> {
-    const xpDelta = Math.max(0, Math.trunc(input.xpDelta));
-    const coinsDelta = Math.trunc(input.coinsDelta ?? 0);
-    const diamondsDelta = Math.trunc(input.diamondsDelta ?? 0);
-    const quantity = Math.max(1, Math.trunc(input.quantity ?? 1));
+  const xpDelta = Math.max(0, Math.trunc(input.xpDelta));
+  const coinsDelta = Math.trunc(input.coinsDelta ?? 0);
+  const diamondsDelta = Math.trunc(input.diamondsDelta ?? 0);
+  const quantity = Math.max(1, Math.trunc(input.quantity ?? 1));
 
-    const progression = await ensureUserProgressionInSupabase(input.userId);
-    const wallet = await ensureWalletForProgression(input.userId);
+  const progression = await ensureUserProgressionInSupabase(input.userId);
+  const wallet = await ensureWalletForProgression(input.userId);
 
-    const nextXpTotal = Math.max(0, progression.xpTotal + xpDelta);
-    const levelState = getLevelStateFromXpTotal(nextXpTotal);
+  const nextXpTotal = Math.max(0, progression.xpTotal + xpDelta);
+  const levelState = getLevelStateFromXpTotal(nextXpTotal);
 
-    const nextCoins = wallet.coins + coinsDelta;
-    const nextDiamonds = wallet.diamonds + diamondsDelta;
+  const nextCoins = wallet.coins + coinsDelta;
+  const nextDiamonds = wallet.diamonds + diamondsDelta;
 
-    if (nextCoins < 0 || nextDiamonds < 0) {
-        throw new Error("Saldo insuficiente para aplicar o evento de progressão.");
-    }
+  if (nextCoins < 0 || nextDiamonds < 0) {
+    throw new Error("Saldo insuficiente para aplicar o evento de progressão.");
+  }
 
-    const supabase = getSupabaseAdminClient();
+  const supabase = getSupabaseAdminClient();
 
-    const progressionTable = getUserProgressionTableName();
-    const walletsTable = getWalletsTableName();
-    const eventsTable = getProgressionEventsTableName();
+  const progressionTable = getUserProgressionTableName();
+  const walletsTable = getWalletsTableName();
+  const eventsTable = getProgressionEventsTableName();
 
-    const { data: updatedProgression, error: progressionError } = await supabase
-        .from(progressionTable)
-        .update({
-            xp_total: nextXpTotal,
-            level: levelState.level,
-            xp_current_level: levelState.xpCurrentLevel,
-            xp_next_level: levelState.xpNextLevel,
-        })
-        .eq("id", progression.id)
-        .select("id,user_id,xp_total,level,xp_current_level,xp_next_level,season_rank,created_at,updated_at")
-        .single<SupabaseUserProgressionRow>();
+  const { data: updatedProgression, error: progressionError } = await supabase
+    .from(progressionTable)
+    .update({
+      xp_total: nextXpTotal,
+      level: levelState.level,
+      xp_current_level: levelState.xpCurrentLevel,
+      xp_next_level: levelState.xpNextLevel,
+    })
+    .eq("id", progression.id)
+    .select("id,user_id,xp_total,level,xp_current_level,xp_next_level,season_rank,created_at,updated_at")
+    .single<SupabaseUserProgressionRow>();
 
-    if (progressionError) {
-        throw new Error(`Erro ao atualizar progressão: ${progressionError.message}`);
-    }
+  if (progressionError) {
+    throw new Error(`Erro ao atualizar progressão: ${progressionError.message}`);
+  }
 
-    const { error: walletError } = await supabase
-        .from(walletsTable)
-        .update({
-            coins: nextCoins,
-            diamonds: nextDiamonds,
-        })
-        .eq("id", wallet.id);
+  const { error: walletError } = await supabase
+    .from(walletsTable)
+    .update({
+      coins: nextCoins,
+      diamonds: nextDiamonds,
+    })
+    .eq("id", wallet.id);
 
-    if (walletError) {
-        throw new Error(`Erro ao atualizar carteira: ${walletError.message}`);
-    }
+  if (walletError) {
+    throw new Error(`Erro ao atualizar carteira: ${walletError.message}`);
+  }
 
-    const { error: eventError } = await supabase
-        .from(eventsTable)
-        .insert({
-            user_id: input.userId,
-            source: input.source,
-            xp_delta: xpDelta,
-            coins_delta: coinsDelta,
-            diamonds_delta: diamondsDelta,
-            card_type: input.cardType ?? null,
-            card_id: input.cardId ?? null,
-            card_rarity: input.cardRarity ?? null,
-            quantity,
-            reference_id: input.referenceId ?? null,
-            metadata: input.metadata ?? {},
-        });
+  const { error: eventError } = await supabase
+    .from(eventsTable)
+    .insert({
+      user_id: input.userId,
+      source: input.source,
+      xp_delta: xpDelta,
+      coins_delta: coinsDelta,
+      diamonds_delta: diamondsDelta,
+      card_type: input.cardType ?? null,
+      card_id: input.cardId ?? null,
+      card_rarity: input.cardRarity ?? null,
+      quantity,
+      reference_id: input.referenceId ?? null,
+      metadata: input.metadata ?? {},
+    });
 
-    if (eventError) {
-        throw new Error(`Erro ao registrar evento de progressão: ${eventError.message}`);
-    }
+  if (eventError) {
+    throw new Error(`Erro ao registrar evento de progressão: ${eventError.message}`);
+  }
 
-    return {
-        progression: mapProgressionRow(updatedProgression),
-        wallet: {
-            coins: nextCoins,
-            diamonds: nextDiamonds,
-        },
-    };
+  return {
+    progression: mapProgressionRow(updatedProgression),
+    wallet: {
+      coins: nextCoins,
+      diamonds: nextDiamonds,
+    },
+  };
 }
 
 export async function listUserCardInventory(userId: string): Promise<UserCardInventoryItemDto[]> {
-    const supabase = getSupabaseAdminClient();
-    const tableName = getUserCardsTableName();
+  const supabase = getSupabaseAdminClient();
+  const tableName = getUserCardsTableName();
 
-    const { data, error } = await supabase
-        .from(tableName)
-        .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
-        .eq("user_id", userId)
-        .order("updated_at", { ascending: false })
-        .returns<SupabaseUserCardRow[]>();
+  const { data, error } = await supabase
+    .from(tableName)
+    .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
+    .eq("user_id", userId)
+    .order("updated_at", { ascending: false })
+    .returns<SupabaseUserCardRow[]>();
 
-    if (error) {
-        throw new Error(`Erro ao listar coleção do usuário: ${error.message}`);
-    }
+  if (error) {
+    throw new Error(`Erro ao listar coleção do usuário: ${error.message}`);
+  }
 
-    const items = await Promise.all((data ?? []).map(async (row) => {
-        const summary = await resolveCardSummary(row.card_type, row.card_id);
-        return mapCardRow(row, summary.cardName, summary.cardImageUrl);
-    }));
+  const items = await Promise.all((data ?? []).map(async (row) => {
+    const summary = await resolveCardSummary(row.card_type, row.card_id);
+    return mapCardRow(row, summary.cardName, summary.cardImageUrl);
+  }));
 
-    return items;
+  return items;
 }
 
 export async function listRecentProgressionEvents(userId: string, limit = 20): Promise<ProgressionEventDto[]> {
-    const supabase = getSupabaseAdminClient();
-    const tableName = getProgressionEventsTableName();
+  const supabase = getSupabaseAdminClient();
+  const tableName = getProgressionEventsTableName();
 
-    const { data, error } = await supabase
-        .from(tableName)
-        .select("id,user_id,source,xp_delta,coins_delta,diamonds_delta,card_type,card_id,card_rarity,quantity,reference_id,metadata,created_at")
-        .eq("user_id", userId)
-        .order("created_at", { ascending: false })
-        .limit(limit)
-        .returns<SupabaseProgressionEventRow[]>();
+  const { data, error } = await supabase
+    .from(tableName)
+    .select("id,user_id,source,xp_delta,coins_delta,diamonds_delta,card_type,card_id,card_rarity,quantity,reference_id,metadata,created_at")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(limit)
+    .returns<SupabaseProgressionEventRow[]>();
 
-    if (error) {
-        throw new Error(`Erro ao listar eventos de progressão: ${error.message}`);
-    }
+  if (error) {
+    throw new Error(`Erro ao listar eventos de progressão: ${error.message}`);
+  }
 
-    return (data ?? []).map(mapEventRow);
+  return (data ?? []).map(mapEventRow);
 }
 
 export async function getUserProgressionOverview(userId: string): Promise<UserProgressionOverviewDto> {
-    const progression = await ensureUserProgressionInSupabase(userId);
-    const wallet = await ensureWalletForProgression(userId);
-    const [inventory, recentEvents] = await Promise.all([
-        listUserCardInventory(userId),
-        listRecentProgressionEvents(userId, 15),
-    ]);
-    const stats = await buildOverviewStats(userId, progression, inventory);
+  const progression = await ensureUserProgressionInSupabase(userId);
+  const wallet = await ensureWalletForProgression(userId);
+  const [inventory, recentEvents] = await Promise.all([
+    listUserCardInventory(userId),
+    listRecentProgressionEvents(userId, 15),
+  ]);
+  const stats = await buildOverviewStats(userId, progression, inventory);
 
-    return {
-        progression,
-        inventory,
-        recentEvents,
-        coins: wallet.coins,
-        diamonds: wallet.diamonds,
-        stats,
-    };
+  return {
+    progression,
+    inventory,
+    recentEvents,
+    coins: wallet.coins,
+    diamonds: wallet.diamonds,
+    stats,
+  };
 }
 
 export async function registerBattleVictory(userId: string, referenceId?: string | null) {
-    return applyProgressionEvent({
-        userId,
-        source: "battle_victory",
-        xpDelta: BATTLE_VICTORY_XP,
-        referenceId,
-        metadata: {
-            rule: "battle_victory",
-            xp: BATTLE_VICTORY_XP,
-        },
-    });
+  return applyProgressionEvent({
+    userId,
+    source: "battle_victory",
+    xpDelta: BATTLE_VICTORY_XP,
+    referenceId,
+    metadata: {
+      rule: "battle_victory",
+      xp: BATTLE_VICTORY_XP,
+    },
+  });
 }
 
 function getUtcDayWindow(date: Date): { dayKey: string; dayStartIso: string; nextDayStartIso: string } {
-    const year = date.getUTCFullYear();
-    const month = date.getUTCMonth();
-    const day = date.getUTCDate();
+  const year = date.getUTCFullYear();
+  const month = date.getUTCMonth();
+  const day = date.getUTCDate();
 
-    const dayStart = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
-    const nextDayStart = new Date(Date.UTC(year, month, day + 1, 0, 0, 0, 0));
+  const dayStart = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
+  const nextDayStart = new Date(Date.UTC(year, month, day + 1, 0, 0, 0, 0));
 
-    return {
-        dayKey: dayStart.toISOString().slice(0, 10),
-        dayStartIso: dayStart.toISOString(),
-        nextDayStartIso: nextDayStart.toISOString(),
-    };
+  return {
+    dayKey: dayStart.toISOString().slice(0, 10),
+    dayStartIso: dayStart.toISOString(),
+    nextDayStartIso: nextDayStart.toISOString(),
+  };
 }
 
 async function hasDailyLoginRewardForUtcDay(userId: string, now: Date): Promise<boolean> {
-    const supabase = getSupabaseAdminClient();
-    const eventsTable = getProgressionEventsTableName();
-    const { dayStartIso, nextDayStartIso } = getUtcDayWindow(now);
+  const supabase = getSupabaseAdminClient();
+  const eventsTable = getProgressionEventsTableName();
+  const { dayStartIso, nextDayStartIso } = getUtcDayWindow(now);
 
-    const { data, error } = await supabase
-        .from(eventsTable)
-        .select("id")
-        .eq("user_id", userId)
-        .eq("source", "daily_login")
-        .gte("created_at", dayStartIso)
-        .lt("created_at", nextDayStartIso)
-        .limit(1)
-        .maybeSingle<{ id: string }>();
+  const { data, error } = await supabase
+    .from(eventsTable)
+    .select("id")
+    .eq("user_id", userId)
+    .eq("source", "daily_login")
+    .gte("created_at", dayStartIso)
+    .lt("created_at", nextDayStartIso)
+    .limit(1)
+    .maybeSingle<{ id: string }>();
 
-    if (error) {
-        throw new Error(`Erro ao consultar recompensa diária de login: ${error.message}`);
-    }
+  if (error) {
+    throw new Error(`Erro ao consultar recompensa diária de login: ${error.message}`);
+  }
 
-    return Boolean(data?.id);
+  return Boolean(data?.id);
 }
 
 export async function registerDailyLoginReward(userId: string, now = new Date()) {
-    const alreadyGranted = await hasDailyLoginRewardForUtcDay(userId, now);
+  const alreadyGranted = await hasDailyLoginRewardForUtcDay(userId, now);
 
-    if (alreadyGranted) {
-        const progression = await ensureUserProgressionInSupabase(userId);
-        const wallet = await ensureWalletForProgression(userId);
-
-        return {
-            granted: false,
-            progression,
-            wallet,
-        };
-    }
-
-    const { dayKey } = getUtcDayWindow(now);
-    const result = await applyProgressionEvent({
-        userId,
-        source: "daily_login",
-        xpDelta: DAILY_LOGIN_XP,
-        coinsDelta: DAILY_LOGIN_COINS,
-        referenceId: `daily-login-${dayKey}`,
-        metadata: {
-            rule: "daily_login",
-            xp: DAILY_LOGIN_XP,
-            coins: DAILY_LOGIN_COINS,
-            dayKey,
-        },
-    });
+  if (alreadyGranted) {
+    const progression = await ensureUserProgressionInSupabase(userId);
+    const wallet = await ensureWalletForProgression(userId);
 
     return {
-        granted: true,
-        progression: result.progression,
-        wallet: result.wallet,
+      granted: false,
+      progression,
+      wallet,
     };
+  }
+
+  const { dayKey } = getUtcDayWindow(now);
+  const result = await applyProgressionEvent({
+    userId,
+    source: "daily_login",
+    xpDelta: DAILY_LOGIN_XP,
+    coinsDelta: DAILY_LOGIN_COINS,
+    referenceId: `daily-login-${dayKey}`,
+    metadata: {
+      rule: "daily_login",
+      xp: DAILY_LOGIN_XP,
+      coins: DAILY_LOGIN_COINS,
+      dayKey,
+    },
+  });
+
+  return {
+    granted: true,
+    progression: result.progression,
+    wallet: result.wallet,
+  };
 }
 
 type RegisterCardAwardInput = {
-    userId: string;
-    cardType: UserCardType;
-    cardId: string;
-    rarity: CardRarity;
-    quantity?: number;
-    referenceId?: string | null;
+  userId: string;
+  cardType: UserCardType;
+  cardId: string;
+  rarity: CardRarity;
+  quantity?: number;
+  referenceId?: string | null;
 };
 
 export async function registerCardAward(input: RegisterCardAwardInput) {
-    if (!isValidUserCardType(input.cardType)) {
-        throw new Error("Tipo de carta inválido.");
+  if (!isValidUserCardType(input.cardType)) {
+    throw new Error("Tipo de carta inválido.");
+  }
+
+  const quantity = Math.max(1, Math.trunc(input.quantity ?? 1));
+  const supabase = getSupabaseAdminClient();
+  const cardsTable = getUserCardsTableName();
+
+  const { data: currentCard, error: cardLoadError } = await supabase
+    .from(cardsTable)
+    .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
+    .eq("user_id", input.userId)
+    .eq("card_type", input.cardType)
+    .eq("card_id", input.cardId)
+    .maybeSingle<SupabaseUserCardRow>();
+
+  if (cardLoadError) {
+    throw new Error(`Erro ao consultar coleção do usuário: ${cardLoadError.message}`);
+  }
+
+  if (currentCard) {
+    const { error: updateError } = await supabase
+      .from(cardsTable)
+      .update({
+        quantity: currentCard.quantity + quantity,
+        rarity: input.rarity,
+      })
+      .eq("id", currentCard.id);
+
+    if (updateError) {
+      throw new Error(`Erro ao atualizar carta do usuário: ${updateError.message}`);
     }
-
-    const quantity = Math.max(1, Math.trunc(input.quantity ?? 1));
-    const supabase = getSupabaseAdminClient();
-    const cardsTable = getUserCardsTableName();
-
-    const { data: currentCard, error: cardLoadError } = await supabase
-        .from(cardsTable)
-        .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
-        .eq("user_id", input.userId)
-        .eq("card_type", input.cardType)
-        .eq("card_id", input.cardId)
-        .maybeSingle<SupabaseUserCardRow>();
-
-    if (cardLoadError) {
-        throw new Error(`Erro ao consultar coleção do usuário: ${cardLoadError.message}`);
-    }
-
-    if (currentCard) {
-        const { error: updateError } = await supabase
-            .from(cardsTable)
-            .update({
-                quantity: currentCard.quantity + quantity,
-                rarity: input.rarity,
-            })
-            .eq("id", currentCard.id);
-
-        if (updateError) {
-            throw new Error(`Erro ao atualizar carta do usuário: ${updateError.message}`);
-        }
-    } else {
-        const { error: insertError } = await supabase
-            .from(cardsTable)
-            .insert({
-                user_id: input.userId,
-                card_type: input.cardType,
-                card_id: input.cardId,
-                rarity: input.rarity,
-                quantity,
-            });
-
-        if (insertError) {
-            throw new Error(`Erro ao adicionar carta ao usuário: ${insertError.message}`);
-        }
-    }
-
-    const xpDelta = XP_BY_RARITY[input.rarity] * quantity;
-
-    return applyProgressionEvent({
-        userId: input.userId,
-        source: "card_awarded",
-        xpDelta,
-        cardType: input.cardType,
-        cardId: input.cardId,
-        cardRarity: input.rarity,
+  } else {
+    const { error: insertError } = await supabase
+      .from(cardsTable)
+      .insert({
+        user_id: input.userId,
+        card_type: input.cardType,
+        card_id: input.cardId,
+        rarity: input.rarity,
         quantity,
-        referenceId: input.referenceId,
-        metadata: {
-            rule: "card_awarded",
-            rarityXp: XP_BY_RARITY[input.rarity],
-            totalXp: xpDelta,
-        },
-    });
+      });
+
+    if (insertError) {
+      throw new Error(`Erro ao adicionar carta ao usuário: ${insertError.message}`);
+    }
+  }
+
+  const xpDelta = XP_BY_RARITY[input.rarity] * quantity;
+
+  return applyProgressionEvent({
+    userId: input.userId,
+    source: "card_awarded",
+    xpDelta,
+    cardType: input.cardType,
+    cardId: input.cardId,
+    cardRarity: input.rarity,
+    quantity,
+    referenceId: input.referenceId,
+    metadata: {
+      rule: "card_awarded",
+      rarityXp: XP_BY_RARITY[input.rarity],
+      totalXp: xpDelta,
+    },
+  });
 }
 
 async function discardUserCardRow(userId: string, userCard: SupabaseUserCardRow, quantityInput?: number) {
-    const quantity = Math.max(1, Math.trunc(quantityInput ?? 1));
+  const quantity = Math.max(1, Math.trunc(quantityInput ?? 1));
 
-    if (userCard.user_id !== userId) {
-        throw new Error("Carta não encontrada na coleção do usuário.");
+  if (userCard.user_id !== userId) {
+    throw new Error("Carta não encontrada na coleção do usuário.");
+  }
+
+  if (userCard.quantity < quantity) {
+    throw new Error("Quantidade para descarte maior que o total disponível.");
+  }
+
+  const supabase = getSupabaseAdminClient();
+  const cardsTable = getUserCardsTableName();
+
+  const remaining = userCard.quantity - quantity;
+
+  if (remaining === 0) {
+    const { error: deleteError } = await supabase
+      .from(cardsTable)
+      .delete()
+      .eq("id", userCard.id);
+
+    if (deleteError) {
+      throw new Error(`Erro ao descartar carta: ${deleteError.message}`);
     }
+  } else {
+    const { error: updateError } = await supabase
+      .from(cardsTable)
+      .update({ quantity: remaining })
+      .eq("id", userCard.id);
 
-    if (userCard.quantity < quantity) {
-        throw new Error("Quantidade para descarte maior que o total disponível.");
+    if (updateError) {
+      throw new Error(`Erro ao atualizar quantidade após descarte: ${updateError.message}`);
     }
+  }
 
-    const supabase = getSupabaseAdminClient();
-    const cardsTable = getUserCardsTableName();
+  const sellValue = await getCardSellValue(userCard.card_type, userCard.rarity, userCard.card_id);
+  const coinsDelta = sellValue * quantity;
 
-    const remaining = userCard.quantity - quantity;
+  const result = await applyProgressionEvent({
+    userId,
+    source: "card_discarded",
+    xpDelta: 0,
+    coinsDelta,
+    cardType: userCard.card_type,
+    cardId: userCard.card_id,
+    cardRarity: userCard.rarity,
+    quantity,
+    metadata: {
+      rule: "card_discarded",
+      sellValue,
+      totalCoins: coinsDelta,
+    },
+  });
 
-    if (remaining === 0) {
-        const { error: deleteError } = await supabase
-            .from(cardsTable)
-            .delete()
-            .eq("id", userCard.id);
-
-        if (deleteError) {
-            throw new Error(`Erro ao descartar carta: ${deleteError.message}`);
-        }
-    } else {
-        const { error: updateError } = await supabase
-            .from(cardsTable)
-            .update({ quantity: remaining })
-            .eq("id", userCard.id);
-
-        if (updateError) {
-            throw new Error(`Erro ao atualizar quantidade após descarte: ${updateError.message}`);
-        }
-    }
-
-    const sellValue = await getCardSellValue(userCard.card_type, userCard.rarity, userCard.card_id);
-    const coinsDelta = sellValue * quantity;
-
-    const result = await applyProgressionEvent({
-        userId,
-        source: "card_discarded",
-        xpDelta: 0,
-        coinsDelta,
-        cardType: userCard.card_type,
-        cardId: userCard.card_id,
-        cardRarity: userCard.rarity,
-        quantity,
-        metadata: {
-            rule: "card_discarded",
-            sellValue,
-            totalCoins: coinsDelta,
-        },
-    });
-
-    return {
-        ...result,
-        coinsEarned: coinsDelta,
-    };
+  return {
+    ...result,
+    coinsEarned: coinsDelta,
+  };
 }
 
 export async function discardUserCardById(userId: string, userCardId: string, quantityInput?: number) {
-    const supabase = getSupabaseAdminClient();
-    const cardsTable = getUserCardsTableName();
+  const supabase = getSupabaseAdminClient();
+  const cardsTable = getUserCardsTableName();
 
-    const { data: userCard, error: cardError } = await supabase
-        .from(cardsTable)
-        .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
-        .eq("id", userCardId)
-        .eq("user_id", userId)
-        .single<SupabaseUserCardRow>();
+  const { data: userCard, error: cardError } = await supabase
+    .from(cardsTable)
+    .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
+    .eq("id", userCardId)
+    .eq("user_id", userId)
+    .single<SupabaseUserCardRow>();
 
-    if (cardError || !userCard) {
-        throw new Error("Carta não encontrada na coleção do usuário.");
-    }
+  if (cardError || !userCard) {
+    throw new Error("Carta não encontrada na coleção do usuário.");
+  }
 
-    return discardUserCardRow(userId, userCard, quantityInput);
+  return discardUserCardRow(userId, userCard, quantityInput);
 }
 
 export async function discardUserCardByReference(
-    userId: string,
-    cardType: UserCardType,
-    cardId: string,
-    quantityInput?: number,
+  userId: string,
+  cardType: UserCardType,
+  cardId: string,
+  quantityInput?: number,
 ) {
-    const supabase = getSupabaseAdminClient();
-    const cardsTable = getUserCardsTableName();
+  const supabase = getSupabaseAdminClient();
+  const cardsTable = getUserCardsTableName();
 
-    const { data: userCard, error: cardError } = await supabase
-        .from(cardsTable)
-        .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
-        .eq("user_id", userId)
-        .eq("card_type", cardType)
-        .eq("card_id", cardId)
-        .single<SupabaseUserCardRow>();
+  const { data: userCard, error: cardError } = await supabase
+    .from(cardsTable)
+    .select("id,user_id,card_type,card_id,rarity,quantity,created_at,updated_at")
+    .eq("user_id", userId)
+    .eq("card_type", cardType)
+    .eq("card_id", cardId)
+    .single<SupabaseUserCardRow>();
 
-    if (cardError || !userCard) {
-        throw new Error("Carta não encontrada na coleção do usuário.");
-    }
+  if (cardError || !userCard) {
+    throw new Error("Carta não encontrada na coleção do usuário.");
+  }
 
-    return discardUserCardRow(userId, userCard, quantityInput);
+  return discardUserCardRow(userId, userCard, quantityInput);
 }
 
 function createEmptyTribeCounter(): Record<CreatureTribe, number> {
-    return CREATURE_TRIBES.reduce((accumulator, tribe) => {
-        accumulator[tribe] = 0;
-        return accumulator;
-    }, {} as Record<CreatureTribe, number>);
+  return CREATURE_TRIBES.reduce((accumulator, tribe) => {
+    accumulator[tribe] = 0;
+    return accumulator;
+  }, {} as Record<CreatureTribe, number>);
 }
 
 async function buildTribeCardCounter(
-    inventory: UserCardInventoryItemDto[],
+  inventory: UserCardInventoryItemDto[],
 ): Promise<Record<CreatureTribe, number>> {
-    const supabase = getSupabaseAdminClient();
-    const byTribe = createEmptyTribeCounter();
-    const quantityByTypeAndId = new Map<string, number>();
+  const supabase = getSupabaseAdminClient();
+  const byTribe = createEmptyTribeCounter();
+  const quantityByTypeAndId = new Map<string, number>();
 
-    for (const item of inventory) {
-        quantityByTypeAndId.set(`${item.cardType}:${item.cardId}`, item.quantity);
+  for (const item of inventory) {
+    quantityByTypeAndId.set(`${item.cardType}:${item.cardId}`, item.quantity);
+  }
+
+  const creatureIds = inventory
+    .filter((item) => item.cardType === "creature")
+    .map((item) => item.cardId);
+
+  if (creatureIds.length > 0) {
+    const { data } = await supabase
+      .from(getCreaturesTableName())
+      .select("id,tribe")
+      .in("id", creatureIds)
+      .returns<Array<{ id: string; tribe: CreatureTribe }>>();
+
+    for (const row of data ?? []) {
+      const quantity = quantityByTypeAndId.get(`creature:${row.id}`) ?? 0;
+      byTribe[row.tribe] += quantity;
     }
+  }
 
-    const creatureIds = inventory
-        .filter((item) => item.cardType === "creature")
-        .map((item) => item.cardId);
+  const locationIds = inventory
+    .filter((item) => item.cardType === "location")
+    .map((item) => item.cardId);
 
-    if (creatureIds.length > 0) {
-        const { data } = await supabase
-            .from(getCreaturesTableName())
-            .select("id,tribe")
-            .in("id", creatureIds)
-            .returns<Array<{ id: string; tribe: CreatureTribe }>>();
+  if (locationIds.length > 0) {
+    const { data } = await supabase
+      .from(getLocationsTableName())
+      .select("id,tribes")
+      .in("id", locationIds)
+      .returns<Array<{ id: string; tribes: CreatureTribe[] }>>();
 
-        for (const row of data ?? []) {
-            const quantity = quantityByTypeAndId.get(`creature:${row.id}`) ?? 0;
-            byTribe[row.tribe] += quantity;
-        }
+    for (const row of data ?? []) {
+      const quantity = quantityByTypeAndId.get(`location:${row.id}`) ?? 0;
+
+      for (const tribe of row.tribes ?? []) {
+        byTribe[tribe] += quantity;
+      }
     }
+  }
 
-    const locationIds = inventory
-        .filter((item) => item.cardType === "location")
-        .map((item) => item.cardId);
+  const battlegearIds = inventory
+    .filter((item) => item.cardType === "battlegear")
+    .map((item) => item.cardId);
 
-    if (locationIds.length > 0) {
-        const { data } = await supabase
-            .from(getLocationsTableName())
-            .select("id,tribes")
-            .in("id", locationIds)
-            .returns<Array<{ id: string; tribes: CreatureTribe[] }>>();
+  if (battlegearIds.length > 0) {
+    const { data } = await supabase
+      .from(getBattlegearTableName())
+      .select("id,allowed_tribes")
+      .in("id", battlegearIds)
+      .returns<Array<{ id: string; allowed_tribes: CreatureTribe[] }>>();
 
-        for (const row of data ?? []) {
-            const quantity = quantityByTypeAndId.get(`location:${row.id}`) ?? 0;
+    for (const row of data ?? []) {
+      const quantity = quantityByTypeAndId.get(`battlegear:${row.id}`) ?? 0;
 
-            for (const tribe of row.tribes ?? []) {
-                byTribe[tribe] += quantity;
-            }
-        }
+      for (const tribe of row.allowed_tribes ?? []) {
+        byTribe[tribe] += quantity;
+      }
     }
+  }
 
-    const battlegearIds = inventory
-        .filter((item) => item.cardType === "battlegear")
-        .map((item) => item.cardId);
+  const mugicIds = inventory
+    .filter((item) => item.cardType === "mugic")
+    .map((item) => item.cardId);
 
-    if (battlegearIds.length > 0) {
-        const { data } = await supabase
-            .from(getBattlegearTableName())
-            .select("id,allowed_tribes")
-            .in("id", battlegearIds)
-            .returns<Array<{ id: string; allowed_tribes: CreatureTribe[] }>>();
+  if (mugicIds.length > 0) {
+    const { data } = await supabase
+      .from(getMugicTableName())
+      .select("id,tribes")
+      .in("id", mugicIds)
+      .returns<Array<{ id: string; tribes: CreatureTribe[] }>>();
 
-        for (const row of data ?? []) {
-            const quantity = quantityByTypeAndId.get(`battlegear:${row.id}`) ?? 0;
+    for (const row of data ?? []) {
+      const quantity = quantityByTypeAndId.get(`mugic:${row.id}`) ?? 0;
 
-            for (const tribe of row.allowed_tribes ?? []) {
-                byTribe[tribe] += quantity;
-            }
-        }
+      for (const tribe of row.tribes ?? []) {
+        byTribe[tribe] += quantity;
+      }
     }
+  }
 
-    const mugicIds = inventory
-        .filter((item) => item.cardType === "mugic")
-        .map((item) => item.cardId);
-
-    if (mugicIds.length > 0) {
-        const { data } = await supabase
-            .from(getMugicTableName())
-            .select("id,tribes")
-            .in("id", mugicIds)
-            .returns<Array<{ id: string; tribes: CreatureTribe[] }>>();
-
-        for (const row of data ?? []) {
-            const quantity = quantityByTypeAndId.get(`mugic:${row.id}`) ?? 0;
-
-            for (const tribe of row.tribes ?? []) {
-                byTribe[tribe] += quantity;
-            }
-        }
-    }
-
-    return byTribe;
+  return byTribe;
 }
 
 async function countBattleVictories(userId: string): Promise<number> {
-    const supabase = getSupabaseAdminClient();
-    const tableName = getProgressionEventsTableName();
+  const supabase = getSupabaseAdminClient();
+  const tableName = getProgressionEventsTableName();
 
-    const { count, error } = await supabase
-        .from(tableName)
-        .select("id", { count: "exact", head: true })
-        .eq("user_id", userId)
-        .eq("source", "battle_victory");
+  const { count, error } = await supabase
+    .from(tableName)
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .eq("source", "battle_victory");
 
-    if (error) {
-        throw new Error(`Erro ao contar vitórias: ${error.message}`);
-    }
+  if (error) {
+    throw new Error(`Erro ao contar vitórias: ${error.message}`);
+  }
 
-    return count ?? 0;
+  return count ?? 0;
 }
 
 async function buildOverviewStats(
-    userId: string,
-    progression: UserProgressionDto,
-    inventory: UserCardInventoryItemDto[],
+  userId: string,
+  progression: UserProgressionDto,
+  inventory: UserCardInventoryItemDto[],
 ): Promise<UserProgressionStatsDto> {
-    const victories = await countBattleVictories(userId);
-    const defeats = 0;
+  const victories = await countBattleVictories(userId);
+  const defeats = 0;
 
-    let totalCards = 0;
-    let locationCards = 0;
-    let battlegearCards = 0;
-    let attackCards = 0;
+  let totalCards = 0;
+  let locationCards = 0;
+  let battlegearCards = 0;
+  let attackCards = 0;
 
-    for (const item of inventory) {
-        totalCards += item.quantity;
+  for (const item of inventory) {
+    totalCards += item.quantity;
 
-        if (item.cardType === "location") {
-            locationCards += item.quantity;
-        }
-
-        if (item.cardType === "battlegear") {
-            battlegearCards += item.quantity;
-        }
-
-        if (item.cardType === "attack") {
-            attackCards += item.quantity;
-        }
+    if (item.cardType === "location") {
+      locationCards += item.quantity;
     }
 
-    const cardsByTribe = await buildTribeCardCounter(inventory);
+    if (item.cardType === "battlegear") {
+      battlegearCards += item.quantity;
+    }
 
-    return {
-        score: progression.xpTotal,
-        victories,
-        defeats,
-        totalCards,
-        locationCards,
-        battlegearCards,
-        attackCards,
-        cardsByTribe,
-    };
+    if (item.cardType === "attack") {
+      attackCards += item.quantity;
+    }
+  }
+
+  const cardsByTribe = await buildTribeCardCounter(inventory);
+
+  return {
+    score: progression.xpTotal,
+    victories,
+    defeats,
+    totalCards,
+    locationCards,
+    battlegearCards,
+    attackCards,
+    cardsByTribe,
+  };
 }
