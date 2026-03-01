@@ -20,7 +20,7 @@ type RevealModalProps = {
   sellingCardKey: string | null;
   loadingIcon?: React.ReactNode;
   onSellCards: (cards: StoreSellCardInputDto[], mode: "single" | "all") => Promise<void>;
-  getEnumDescription?: (value: any) => string;
+  getEnumDescription?: (value: unknown) => string;
 };
 
 export default function RevealModal({

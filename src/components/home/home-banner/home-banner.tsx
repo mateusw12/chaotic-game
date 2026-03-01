@@ -6,12 +6,13 @@ import Image from "next/image";
 import styles from "@/app/page.module.css";
 import { useEffect, useState } from "react";
 import { StoreService } from "@/lib/api/services/store.service";
+import type { StorePackDto } from "@/dto/store";
 
 const { Text } = Typography;
 
 export default function HomeBanner() {
   const [loading, setLoading] = useState(true);
-  const [offerPack, setOfferPack] = useState<any | null>(null);
+  const [offerPack, setOfferPack] = useState<StorePackDto | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -20,11 +21,11 @@ export default function HomeBanner() {
         const res = await StoreService.getPacks();
         const packs = res.packs || [];
 
-        const isOffer = (p: any) => {
+        const isOffer = (p: StorePackDto) => {
           const text = `${p.name} ${p.description ?? ""}`.toLowerCase();
           if (/oferta|offer/.test(text)) return true;
           if (Array.isArray(p.priceOptions) && p.priceOptions.length > 0) {
-            const cheapest = Math.min(...p.priceOptions.map((o: any) => o.price));
+            const cheapest = Math.min(...p.priceOptions.map((option) => option.price));
             if (cheapest < (p.price ?? Number.POSITIVE_INFINITY)) return true;
           }
           return false;

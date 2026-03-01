@@ -3,7 +3,7 @@
 import { Card, Col, Progress, Row, Space, Statistic, Typography } from "antd";
 import { CREATURE_TRIBE_OPTIONS } from "@/dto/creature";
 import styles from "../profile-view.module.css";
-import { UserProgressionDto, UserProgressionOverviewDto, UserProgressionStatsDto } from "@/dto/progression";
+import { UserCardInventoryItemDto, UserProgressionDto, UserProgressionOverviewDto, UserProgressionStatsDto } from "@/dto/progression";
 
 const { Text } = Typography;
 
@@ -45,7 +45,7 @@ export default function ProfileStats({ progression, stats, progressionOverview, 
           </Col>
           <Col xs={24} sm={12} md={8}>
             <Card size="small">
-              <Statistic title="Total de cards" value={stats?.totalCards ?? progressionOverview?.inventory.reduce((sum: number, item: any) => sum + item.quantity, 0) ?? 0} />
+              <Statistic title="Total de cards" value={stats?.totalCards ?? progressionOverview?.inventory.reduce((sum: number, item: UserCardInventoryItemDto) => sum + item.quantity, 0) ?? 0} />
             </Card>
           </Col>
           <Col xs={24} sm={12} md={8}>

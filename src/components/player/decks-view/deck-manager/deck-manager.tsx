@@ -2,7 +2,8 @@
 
 import { Button, Card, Input, InputNumber, Space, Select, Typography } from "antd";
 import type { UseMutationResult } from "@tanstack/react-query";
-import type { DeckCollectionCardDto, DeckDto } from "@/dto/deck";
+import type { NotificationInstance } from "antd/es/notification/interface";
+import type { DeckCollectionCardDto, DeckDto, DeleteDeckResponseDto } from "@/dto/deck";
 import type { UserCardType } from "@/dto/progression";
 import { CARD_TYPE_OPTIONS } from "../decks-view.constants";
 import styles from "../decks-view.module.css";
@@ -12,19 +13,19 @@ const { Text } = Typography;
 interface DeckManagerProps {
   newDeckName: string;
   setNewDeckName: (value: string) => void;
-  createDeckMutation: UseMutationResult<any, unknown, string, unknown>;
+  createDeckMutation: UseMutationResult<DeckDto, unknown, string, unknown>;
   loadingLogoIcon: React.ReactNode;
-  notification: any;
+  notification: NotificationInstance;
   decks: DeckDto[];
   selectedDeck: DeckDto | null;
   setSelectedDeckId: (id: string | null) => void;
   setViewDeckId: (id: string | null) => void;
-  removeDeckMutation: UseMutationResult<any, unknown, string, unknown>;
+  removeDeckMutation: UseMutationResult<DeleteDeckResponseDto, unknown, string, unknown>;
   deckCardTypeFilter: UserCardType | undefined;
   setDeckCardTypeFilter: (value: UserCardType | undefined) => void;
   selectedDeckCards: Array<DeckDto["cards"][number]>;
   collectionByKey: Map<string, DeckCollectionCardDto>;
-  updateDeckMutation: UseMutationResult<any, unknown, any, unknown>;
+  updateDeckMutation: UseMutationResult<DeckDto, unknown, { deckId: string; payload: { name?: string; cards?: DeckDto["cards"] } }, unknown>;
   handleChangeDeckCardQuantity: (cardKey: string, quantity: number) => Promise<void>;
   isCardDeckActionPending: (cardType: UserCardType, cardId: string) => boolean;
 }

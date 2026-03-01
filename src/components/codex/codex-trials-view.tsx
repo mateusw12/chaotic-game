@@ -14,6 +14,7 @@ import DeckSelection from "./deck-selection/deck-selection";
 import FormatSelection from "./format-selection/format-selection";
 import { BattleFormat, LeagueRuntime, CodexTrialsViewProps, LeagueSpec } from "./codex-trials-view.interface";
 import { LEAGUES, FORMAT_OPTIONS } from "./codex-trials-view.constants";
+import { ApiClientError } from "@/lib/api/api-client";
 
 const { Title, Paragraph } = Typography;
 
@@ -128,9 +129,9 @@ export function CodexTrialsView({
         await CodexTrialsService.claimPack(slug);
         // mark locally immediately so button disables
         setClaimedPacks((value) => ({ ...value, [slug]: true }));
-      } catch (e: any) {
+      } catch (e: unknown) {
         // if already claimed, mark locally and notify
-        if (e && typeof e === 'object' && 'status' in e && (e as any).status === 409) {
+        if (e instanceof ApiClientError && e.status === 409) {
           setClaimedPacks((value) => ({ ...value, [slug]: true }));
           message.info('Pacote já resgatado para esta liga.');
           return;

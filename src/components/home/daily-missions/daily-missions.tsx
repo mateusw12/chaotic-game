@@ -3,14 +3,20 @@
 import { Card, Button, Tag, notification } from "antd";
 import styles from "@/app/page.module.css";
 
+type DailyMission = {
+  id: string;
+  title: string;
+  reward: string;
+};
+
 const MOCK_MISSIONS = [
   { id: "m1", title: "Vencer 1 partida", reward: "100 moedas" },
   { id: "m2", title: "Abrir 1 pack", reward: "5 diamantes" },
   { id: "m3", title: "Concluir 3 desafios", reward: "300 XP" },
-];
+] as const satisfies readonly DailyMission[];
 
 export default function DailyMissions() {
-  const claim = (m: any) => {
+  const claim = (m: DailyMission) => {
     notification.success({ message: `Missão '${m.title}' concluída! Recompensa: ${m.reward}` });
   };
 
