@@ -228,3 +228,26 @@ export type SupabaseTournamentRow = {
   created_at: string;
   updated_at: string;
 };
+
+export type SupabaseUserChallengeRow = {
+  id: string;
+  user_id: string;
+  challenger_name: string;
+  creatures_count: number;
+  status: "pending" | "won" | "lost" | "rejected";
+  is_bonus: boolean;
+  reward_coins: number;
+  reward_diamonds: number;
+  reward_cards_count: number;
+  awarded_cards: Array<{
+    cardType: UserCardType;
+    cardId: string;
+    cardName: string | null;
+    rarity: CardRarity;
+  }> | null;
+  generated_for_date: string;
+  bonus_cycle: number | null;
+  resolved_at: string | null;
+  created_at: string;
+  updated_at: string;
+};

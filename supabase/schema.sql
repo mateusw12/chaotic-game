@@ -1145,3 +1145,114 @@ begin
       check (dominant_elements <@ array['fire', 'water', 'earth', 'air']::text[]);
   end if;
 end $$;
+
+create table if not exists public.user_challenges (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  challenger_name text not null,
+  creatures_count integer not null check (creatures_count in (3, 7)),
+  status text not null default 'pending' check (status in ('pending', 'won', 'lost', 'rejected')),
+  is_bonus boolean not null default false,
+  reward_coins integer not null default 0 check (reward_coins >= 0),
+  reward_diamonds integer not null default 0 check (reward_diamonds >= 0),
+  reward_cards_count integer not null default 1 check (reward_cards_count >= 0),
+  awarded_cards jsonb not null default '[]'::jsonb,
+  generated_for_date date not null default current_date,
+  bonus_cycle integer,
+  resolved_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table if exists public.user_challenges
+  add column if not exists is_bonus boolean not null default false;
+
+alter table if exists public.user_challenges
+  add column if not exists reward_coins integer not null default 0;
+
+alter table if exists public.user_challenges
+  add column if not exists reward_diamonds integer not null default 0;
+
+alter table if exists public.user_challenges
+  add column if not exists reward_cards_count integer not null default 1;
+
+alter table if exists public.user_challenges
+  add column if not exists awarded_cards jsonb not null default '[]'::jsonb;
+
+alter table if exists public.user_challenges
+  add column if not exists generated_for_date date not null default current_date;
+
+alter table if exists public.user_challenges
+  add column if not exists bonus_cycle integer;
+
+alter table if exists public.user_challenges
+  add column if not exists resolved_at timestamptz;
+
+alter table if exists public.user_challenges
+  add column if not exists created_at timestamptz not null default now();
+
+alter table if exists public.user_challenges
+  add column if not exists updated_at timestamptz not null default now();
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'user_challenges_status_check'
+  ) then
+    alter table public.user_challenges
+      add constraint user_challenges_status_check
+      check (status in ('pending', 'won', 'lost', 'rejected'));
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'user_challenges_creatures_count_check'
+  ) then
+    alter table public.user_challenges
+      add constraint user_challenges_creatures_count_check
+      check (creatures_count in (3, 7));
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'user_challenges_reward_coins_check'
+  ) then
+    alter table public.user_challenges
+      add constraint user_challenges_reward_coins_check
+      check (reward_coins >= 0);
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'user_challenges_reward_diamonds_check'
+  ) then
+    alter table public.user_challenges
+      add constraint user_challenges_reward_diamonds_check
+      check (reward_diamonds >= 0);
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'user_challenges_reward_cards_count_check'
+  ) then
+    alter table public.user_challenges
+      add constraint user_challenges_reward_cards_count_check
+      check (reward_cards_count >= 0);
+  end if;
+end $$;
+
+create index if not exists idx_user_challenges_user_id_created_at
+  on public.user_challenges(user_id, created_at desc);
+
+create index if not exists idx_user_challenges_user_id_status
+  on public.user_challenges(user_id, status);
+
+create unique index if not exists idx_user_challenges_bonus_cycle
+  on public.user_challenges(user_id, bonus_cycle)
+  where is_bonus = true and bonus_cycle is not null;
