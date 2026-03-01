@@ -9,9 +9,28 @@ import type {
 } from "@/dto/deck";
 import { ApiClient } from "@/lib/api/api-client";
 
+type GetDeckOverviewParams = {
+  page?: number;
+  pageSize?: number;
+};
+
 export class DecksService {
-  static async getOverview() {
-    const data = await ApiClient.get<ListDeckOverviewResponseDto>("/users/decks");
+  static async getOverview(params?: GetDeckOverviewParams) {
+    const searchParams = new URLSearchParams();
+
+    if (params?.page !== undefined) {
+      searchParams.set("page", String(params.page));
+    }
+
+    if (params?.pageSize !== undefined) {
+      searchParams.set("pageSize", String(params.pageSize));
+    }
+
+    const path = searchParams.size > 0
+      ? `/users/decks?${searchParams.toString()}`
+      : "/users/decks";
+
+    const data = await ApiClient.get<ListDeckOverviewResponseDto>(path);
 
     if (!data.success || !data.overview) {
       throw new Error(data.message ?? "Não foi possível carregar os decks.");

@@ -30,7 +30,18 @@ export type DeckDto = {
 
 export type DeckOverviewDto = {
   collection: DeckCollectionCardDto[];
+  deckCollection: DeckCollectionCardDto[];
+  collectionPagination: DeckCollectionPaginationDto;
   decks: DeckDto[];
+};
+
+export type DeckCollectionPaginationDto = {
+  page: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
 };
 
 export type ListDeckOverviewResponseDto = {

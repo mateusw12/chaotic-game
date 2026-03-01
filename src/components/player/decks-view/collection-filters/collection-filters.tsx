@@ -1,19 +1,30 @@
 "use client";
 
-import { Card, Input, InputNumber, Select, Tabs } from "antd";
+import { Card, Input, InputNumber, Pagination, Select, Spin, Tabs } from "antd";
 import styles from "../decks-view.module.css";
 import type { DeckFilters } from "../decks-view.interface";
 import { CARD_RARITY_OPTIONS, CREATURE_TRIBE_OPTIONS } from "@/dto/creature";
 import { CARD_TYPE_OPTIONS } from "../decks-view.constants";
+import type { DeckCollectionPaginationDto } from "@/dto/deck";
 import type { TabsProps } from "antd";
 
 type CollectionFiltersProps = {
   filters: DeckFilters;
   setFilters: (updater: (prev: DeckFilters) => DeckFilters) => void;
   collectionTabs: TabsProps["items"];
+  collectionPagination: DeckCollectionPaginationDto;
+  onCollectionPageChange: (page: number) => void;
+  collectionLoading: boolean;
 };
 
-export default function CollectionFilters({ filters, setFilters, collectionTabs }: CollectionFiltersProps) {
+export default function CollectionFilters({
+  filters,
+  setFilters,
+  collectionTabs,
+  collectionPagination,
+  onCollectionPageChange,
+  collectionLoading,
+}: CollectionFiltersProps) {
   return (
     <Card className={styles.panel}>
       <div className={styles.filters}>
@@ -52,7 +63,20 @@ export default function CollectionFilters({ filters, setFilters, collectionTabs 
         />
       </div>
 
-      <Tabs items={collectionTabs} />
+      <Spin spinning={collectionLoading}>
+        <Tabs items={collectionTabs} />
+      </Spin>
+
+      <Pagination
+        style={{ marginTop: 12 }}
+        size="small"
+        current={collectionPagination.page}
+        pageSize={collectionPagination.pageSize}
+        total={collectionPagination.total}
+        showSizeChanger={false}
+        disabled={collectionLoading}
+        onChange={onCollectionPageChange}
+      />
     </Card>
   );
 }

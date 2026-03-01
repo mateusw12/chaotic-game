@@ -26,6 +26,7 @@ import ViewDeckModal from "./view-deck-modal/view-deck-modal";
 import { EMPTY_VIEWED_GROUPS } from "./decks-view.constants";
 
 const { Title } = Typography;
+const COLLECTION_PAGE_SIZE = 24;
 
 export function DecksView({
   userName,
@@ -47,14 +48,17 @@ export function DecksView({
   const [selectedCollectionCard, setSelectedCollectionCard] = useState<DeckCollectionCardDto | null>(null);
   const [sellQuantity, setSellQuantity] = useState(1);
   const [pendingDeckActionKey, setPendingDeckActionKey] = useState<string | null>(null);
+  const [collectionPage, setCollectionPage] = useState(1);
+  const [pendingCollectionPage, setPendingCollectionPage] = useState<number | null>(null);
 
   const [modalNameFilter, setModalNameFilter] = useState("");
   const [modalRarityFilter, setModalRarityFilter] = useState<CardRarity | undefined>(undefined);
   const [modalEnergyFilter, setModalEnergyFilter] = useState<number | undefined>(undefined);
 
   const query = useQuery({
-    queryKey: ["decks-overview"],
-    queryFn: () => DecksService.getOverview(),
+    queryKey: ["decks-overview", collectionPage],
+    queryFn: () => DecksService.getOverview({ page: collectionPage, pageSize: COLLECTION_PAGE_SIZE }),
+    placeholderData: (previousData) => previousData,
   });
 
   const createDeckMutation = useMutation({
@@ -121,9 +125,39 @@ export function DecksView({
   });
 
   const overview = query.data;
+  const collectionPagination = overview?.collectionPagination;
+  const effectiveCollectionPagination = collectionPagination ?? {
+    page: collectionPage,
+    pageSize: COLLECTION_PAGE_SIZE,
+    total: 0,
+    totalPages: 1,
+    hasNextPage: false,
+    hasPreviousPage: false,
+  };
   const decks = overview?.decks ?? [];
+  const isCollectionPageTransitionLoading = pendingCollectionPage !== null && query.isFetching;
   const selectedDeck = decks.find((deck) => deck.id === selectedDeckId) ?? decks[0] ?? null;
   const viewedDeck = decks.find((deck) => deck.id === viewDeckId) ?? null;
+
+  useEffect(() => {
+    if (pendingCollectionPage === null || !collectionPagination) {
+      return;
+    }
+
+    if (collectionPagination.page === pendingCollectionPage) {
+      setPendingCollectionPage(null);
+    }
+  }, [collectionPagination, pendingCollectionPage]);
+
+  useEffect(() => {
+    if (!collectionPagination) {
+      return;
+    }
+
+    if (collectionPage > collectionPagination.totalPages) {
+      setCollectionPage(collectionPagination.totalPages);
+    }
+  }, [collectionPage, collectionPagination]);
 
   useEffect(() => {
     if (decks.length === 0) {
@@ -139,9 +173,25 @@ export function DecksView({
   }, [decks, selectedDeckId]);
 
   const collection = overview?.collection ?? [];
+  const deckCollection = overview?.deckCollection ?? [];
   const collectionByKey = useMemo(
-    () => new Map(collection.map((card) => [`${card.cardType}:${card.cardId}`, card] as const)),
-    [collection],
+    () => {
+      const map = new Map<string, DeckCollectionCardDto>();
+
+      for (const card of collection) {
+        map.set(`${card.cardType}:${card.cardId}`, card);
+      }
+
+      for (const card of deckCollection) {
+        const key = `${card.cardType}:${card.cardId}`;
+        if (!map.has(key)) {
+          map.set(key, card);
+        }
+      }
+
+      return map;
+    },
+    [collection, deckCollection],
   );
 
   function tribeClass(tribe: CreatureTribe | null) {
@@ -433,6 +483,15 @@ export function DecksView({
     ],
   );
 
+  const handleCollectionPageChange = (nextPage: number) => {
+    if (nextPage === collectionPage) {
+      return;
+    }
+
+    setPendingCollectionPage(nextPage);
+    setCollectionPage(nextPage);
+  };
+
   return (
     <PlayerShell
       selectedKey="decks"
@@ -447,7 +506,14 @@ export function DecksView({
       <Space orientation="vertical" size={14} style={{ width: "100%" }}>
         <Title level={3} style={{ margin: 0 }} className={styles.pageTitle}>Meu Deck</Title>
         <div className={styles.root}>
-          <CollectionFilters filters={filters} setFilters={setFilters} collectionTabs={collectionTabs} />
+          <CollectionFilters
+            filters={filters}
+            setFilters={setFilters}
+            collectionTabs={collectionTabs}
+            collectionPagination={effectiveCollectionPagination}
+            onCollectionPageChange={handleCollectionPageChange}
+            collectionLoading={isCollectionPageTransitionLoading}
+          />
 
           <DeckManager
             newDeckName={newDeckName}

@@ -1,105 +1,151 @@
 import { NextResponse } from "next/server";
 import type {
-    CreateDeckRequestDto,
-    DeckMutationResponseDto,
-    ListDeckOverviewResponseDto,
+  CreateDeckRequestDto,
+  DeckMutationResponseDto,
+  ListDeckOverviewResponseDto,
 } from "@/dto/deck";
 import { auth } from "@/lib/auth";
 import { createUserDeck, getUserByEmail, getUserDeckOverview } from "@/lib/supabase";
 
-export async function GET() {
-    const session = await auth();
-    const email = session?.user?.email;
+function parsePositiveInteger(raw: string | null): number | undefined {
+  if (raw === null || raw.trim() === "") {
+    return undefined;
+  }
 
-    if (!email) {
-        const response: ListDeckOverviewResponseDto = {
-            success: false,
-            overview: null,
-            message: "Usuário não autenticado.",
-        };
+  const value = Number(raw);
 
-        return NextResponse.json(response, { status: 401 });
+  if (!Number.isInteger(value) || value <= 0) {
+    return undefined;
+  }
+
+  return value;
+}
+
+export async function GET(request: Request) {
+  const session = await auth();
+  const email = session?.user?.email;
+
+  if (!email) {
+    const response: ListDeckOverviewResponseDto = {
+      success: false,
+      overview: null,
+      message: "Usuário não autenticado.",
+    };
+
+    return NextResponse.json(response, { status: 401 });
+  }
+
+  const searchParams = new URL(request.url).searchParams;
+  const rawPage = searchParams.get("page");
+  const rawPageSize = searchParams.get("pageSize");
+
+  const page = parsePositiveInteger(rawPage);
+  const pageSize = parsePositiveInteger(rawPageSize);
+
+  if (rawPage !== null && page === undefined) {
+    const response: ListDeckOverviewResponseDto = {
+      success: false,
+      overview: null,
+      message: "Parâmetro 'page' inválido.",
+    };
+
+    return NextResponse.json(response, { status: 400 });
+  }
+
+  if (rawPageSize !== null && pageSize === undefined) {
+    const response: ListDeckOverviewResponseDto = {
+      success: false,
+      overview: null,
+      message: "Parâmetro 'pageSize' inválido.",
+    };
+
+    return NextResponse.json(response, { status: 400 });
+  }
+
+  try {
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      const response: ListDeckOverviewResponseDto = {
+        success: false,
+        overview: null,
+        message: "Usuário não encontrado.",
+      };
+
+      return NextResponse.json(response, { status: 404 });
     }
 
-    try {
-        const user = await getUserByEmail(email);
+    const overview = await getUserDeckOverview(
+      user.id,
+      page !== undefined || pageSize !== undefined
+        ? { page, pageSize }
+        : undefined,
+    );
 
-        if (!user) {
-            const response: ListDeckOverviewResponseDto = {
-                success: false,
-                overview: null,
-                message: "Usuário não encontrado.",
-            };
+    const response: ListDeckOverviewResponseDto = {
+      success: true,
+      overview,
+    };
 
-            return NextResponse.json(response, { status: 404 });
-        }
+    return NextResponse.json(response, { status: 200 });
+  } catch (error) {
+    const response: ListDeckOverviewResponseDto = {
+      success: false,
+      overview: null,
+      message: error instanceof Error ? error.message : "Erro ao carregar decks.",
+    };
 
-        const overview = await getUserDeckOverview(user.id);
-
-        const response: ListDeckOverviewResponseDto = {
-            success: true,
-            overview,
-        };
-
-        return NextResponse.json(response, { status: 200 });
-    } catch (error) {
-        const response: ListDeckOverviewResponseDto = {
-            success: false,
-            overview: null,
-            message: error instanceof Error ? error.message : "Erro ao carregar decks.",
-        };
-
-        return NextResponse.json(response, { status: 500 });
-    }
+    return NextResponse.json(response, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
-    const session = await auth();
-    const email = session?.user?.email;
+  const session = await auth();
+  const email = session?.user?.email;
 
-    if (!email) {
-        const response: DeckMutationResponseDto = {
-            success: false,
-            deck: null,
-            message: "Usuário não autenticado.",
-        };
+  if (!email) {
+    const response: DeckMutationResponseDto = {
+      success: false,
+      deck: null,
+      message: "Usuário não autenticado.",
+    };
 
-        return NextResponse.json(response, { status: 401 });
+    return NextResponse.json(response, { status: 401 });
+  }
+
+  const body = await request.json().catch(() => ({} as Partial<CreateDeckRequestDto>));
+
+  try {
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      const response: DeckMutationResponseDto = {
+        success: false,
+        deck: null,
+        message: "Usuário não encontrado.",
+      };
+
+      return NextResponse.json(response, { status: 404 });
     }
 
-    const body = await request.json().catch(() => ({} as Partial<CreateDeckRequestDto>));
+    const deck = await createUserDeck(user.id, {
+      name: String(body.name ?? ""),
+    });
 
-    try {
-        const user = await getUserByEmail(email);
+    const response: DeckMutationResponseDto = {
+      success: true,
+      deck,
+      message: "Deck criado com sucesso.",
+    };
 
-        if (!user) {
-            const response: DeckMutationResponseDto = {
-                success: false,
-                deck: null,
-                message: "Usuário não encontrado.",
-            };
+    return NextResponse.json(response, { status: 201 });
+  } catch (error) {
+    const response: DeckMutationResponseDto = {
+      success: false,
+      deck: null,
+      message: error instanceof Error ? error.message : "Erro ao criar deck.",
+    };
 
-            return NextResponse.json(response, { status: 404 });
-        }
-
-        const deck = await createUserDeck(user.id, {
-            name: String(body.name ?? ""),
-        });
-
-        const response: DeckMutationResponseDto = {
-            success: true,
-            deck,
-            message: "Deck criado com sucesso.",
-        };
-
-        return NextResponse.json(response, { status: 201 });
-    } catch (error) {
-        const response: DeckMutationResponseDto = {
-            success: false,
-            deck: null,
-            message: error instanceof Error ? error.message : "Erro ao criar deck.",
-        };
-
-        return NextResponse.json(response, { status: 500 });
-    }
+    return NextResponse.json(response, { status: 500 });
+  }
 }
