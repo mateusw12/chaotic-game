@@ -13,3 +13,4 @@ export { TournamentsAdminService } from "./tournaments-admin.service";
 export { WalletsAdminService } from "./wallets-admin.service";
 export { DecksService } from "./decks.service";
 export { MissionsService } from "./missions.service";
+export { BattleService } from "./battle.service";

@@ -49,7 +49,7 @@ export async function POST(_request: Request, context: RouteContext) {
       challenge: result.challenge,
       wallet: result.wallet,
       awardedCards: result.awardedCards,
-      message: result.challenge.status === "won" ? "Desafio vencido!" : "Você perdeu este desafio.",
+      message: "Desafio iniciado. Prepare-se para a batalha!",
     };
 
     return NextResponse.json(response, { status: 200 });

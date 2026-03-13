@@ -83,6 +83,6 @@ export const LEAGUES: LeagueSpec[] = [
 export const FORMAT_OPTIONS: Array<{ value: BattleFormat; label: string; description: string }> = [
   { value: "1x1", label: "Formato 1x1", description: "Partidas rápidas com foco em leitura tática." },
   { value: "3x3", label: "Formato 3x3", description: "Combinações intermediárias e sinergia de tribos." },
-  { value: "5x5", label: "Formato 5x5", description: "Estratégias amplas com mais variações de turno." },
-  { value: "7x7", label: "Formato 7x7", description: "Modo avançado com alto nível de complexidade." },
+  { value: "6x6", label: "Formato 6x6", description: "Estratégias amplas com mais variações de turno." },
+  { value: "10x10", label: "Formato 10x10", description: "Modo avançado com alto nível de complexidade." },
 ];

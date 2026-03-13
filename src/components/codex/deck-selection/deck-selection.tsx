@@ -14,12 +14,17 @@ type DeckSelectionProps = {
 };
 
 export default function DeckSelection({ open, onCancel, league, format }: DeckSelectionProps) {
+  const normalizedFormat = format ?? "3x3";
+
   return (
     <Modal
       title="Escolha seu deck"
       open={open}
       onCancel={onCancel}
       footer={[
+        <Button key="battle" type="default" href={`/battle?source=codex&format=${normalizedFormat}`}>
+          Iniciar batalha
+        </Button>,
         <Button key="close" type="primary" onClick={onCancel}>
           Fechar
         </Button>,

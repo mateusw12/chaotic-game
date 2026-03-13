@@ -498,9 +498,31 @@ export async function acceptChallengeForUser(userId: string, challengeId: string
   };
 }> {
   const challenge = await getPendingChallengeOrThrow(userId, challengeId);
-  const rng = createSeededRandom(`${challengeId}:${Date.now()}:result`);
-  const winChance = challenge.creatures_count === 7 ? 0.52 : 0.62;
-  const didWin = rng() <= winChance;
+  const wallet = await ensureUserWalletInSupabase(userId);
+
+  return {
+    challenge: mapChallengeRow(challenge),
+    awardedCards: [],
+    wallet: {
+      coins: wallet.coins,
+      diamonds: wallet.diamonds,
+    },
+  };
+}
+
+export async function resolveChallengeBattleForUser(
+  userId: string,
+  challengeId: string,
+  didWin: boolean,
+): Promise<{
+  challenge: ChallengeDto;
+  awardedCards: ChallengeRewardCardDto[];
+  wallet: {
+    coins: number;
+    diamonds: number;
+  };
+}> {
+  const challenge = await getPendingChallengeOrThrow(userId, challengeId);
 
   let awardedCards: ChallengeRewardCardDto[] = [];
 

@@ -2,6 +2,7 @@
 
 import { message } from "antd";
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { ChallengeActionResponseDto, ChallengeDto, GetChallengesResponseDto } from "@/dto/challenge";
 
 type UseChallengesParams = {
@@ -10,6 +11,7 @@ type UseChallengesParams = {
 };
 
 export function useChallenges({ coins, diamonds }: UseChallengesParams) {
+  const router = useRouter();
   const [apiMessage, messageContextHolder] = message.useMessage();
   const [displayCoins, setDisplayCoins] = useState(coins);
   const [displayDiamonds, setDisplayDiamonds] = useState(diamonds);
@@ -116,23 +118,19 @@ export function useChallenges({ coins, diamonds }: UseChallengesParams) {
         setDisplayDiamonds(payload.wallet.diamonds);
       }
 
-      if (payload.challenge.status === "won" && payload.awardedCards.length > 0) {
-        apiMessage.success({
-          content: "Você venceu! Recompensas recebidas no seu inventário.",
-          duration: 5,
-        });
-      } else {
-        apiMessage.info(payload.message ?? "Desafio concluído.");
-      }
+      apiMessage.success(payload.message ?? "Desafio iniciado.");
+
+      const challengeFormat = `${challengeToConfirm.creaturesCount}x${challengeToConfirm.creaturesCount}`;
 
       setChallengeToConfirm(null);
       await loadChallenges();
+      router.push(`/battle?source=challenges&challengeId=${challengeToConfirm.id}&format=${challengeFormat}`);
     } catch (error) {
       apiMessage.error(error instanceof Error ? error.message : "Erro ao aceitar desafio.");
     } finally {
       setActionChallengeId(null);
     }
-  }, [apiMessage, challengeToConfirm, loadChallenges]);
+  }, [apiMessage, challengeToConfirm, loadChallenges, router]);
 
   return {
     messageContextHolder,

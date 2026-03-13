@@ -305,7 +305,10 @@ export function MissionsView({
               <Title level={3} style={{ margin: 0 }} className={styles.pageTitle}>Missões</Title>
               <Text type="secondary" className={styles.pageSubtitle}>Evolua completando missões por nível e resgate recompensas com XP.</Text>
             </div>
-            <div className={styles.levelBadge}>Nível {level}</div>
+            <Space>
+              <Button type="default" href="/battle?source=challenges&format=3x3">Iniciar batalha de desafio</Button>
+              <div className={styles.levelBadge}>Nível {level}</div>
+            </Space>
           </div>
 
           <div className={styles.summaryGrid}>

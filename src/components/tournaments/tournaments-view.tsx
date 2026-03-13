@@ -29,6 +29,28 @@ function scheduleLabel(tournament: TournamentDto): string {
   return `Recorrente a cada ${tournament.periodDays ?? "-"} dias`;
 }
 
+function resolveBattleFormat(allowedFormats: TournamentDto["allowedFormats"]): "1x1" | "3x3" | "6x6" | "10x10" {
+  const preferred = allowedFormats[0];
+
+  if (preferred === "1x1") {
+    return "1x1";
+  }
+
+  if (preferred === "3x3") {
+    return "3x3";
+  }
+
+  if (preferred === "5x5") {
+    return "6x6";
+  }
+
+  if (preferred === "7x7") {
+    return "10x10";
+  }
+
+  return "3x3";
+}
+
 export function TournamentsView({
   userName,
   userNickName,
@@ -98,8 +120,8 @@ export function TournamentsView({
                       <Text className={styles.ruleLine}>Regras extras: {tournament.additionalRules}</Text>
                     ) : null}
 
-                    <Button block type="primary" disabled>
-                      Em breve: Entrar no torneio
+                    <Button block type="primary" href={`/battle?source=tournament&format=${resolveBattleFormat(tournament.allowedFormats)}`}>
+                      Entrar no torneio
                     </Button>
                   </Space>
                 </Card>

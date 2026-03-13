@@ -27,5 +27,5 @@ export type LeagueRuntime = {
   percent: number;
 };
 
-export type BattleFormat = "1x1" | "3x3" | "5x5" | "7x7";
+export type BattleFormat = "1x1" | "3x3" | "6x6" | "10x10";
 
